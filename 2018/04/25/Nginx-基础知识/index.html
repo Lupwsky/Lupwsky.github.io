@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Nginx 和其他 Web 服务器1、 Ngnix 本来是用于做 Web 服务器，但是更多的是用于做负载均衡2、 Apache 稳定，模块多，但是并发量相比 Nginx 低一些3、 Tomcat(Java) 并发能力弱4、 Web服务器排名：http://news.netcraft.com Nginx 的功能1、 web 服务器2、 反向代理3、 邮件代理服务器4、 负载均衡">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx-基础知识">
+<meta property="og:url" content="http://yoursite.com/2018/04/25/Nginx-基础知识/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="Nginx 和其他 Web 服务器1、 Ngnix 本来是用于做 Web 服务器，但是更多的是用于做负载均衡2、 Apache 稳定，模块多，但是并发量相比 Nginx 低一些3、 Tomcat(Java) 并发能力弱4、 Web服务器排名：http://news.netcraft.com Nginx 的功能1、 web 服务器2、 反向代理3、 邮件代理服务器4、 负载均衡">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-25T14:56:46.267Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nginx-基础知识">
+<meta name="twitter:description" content="Nginx 和其他 Web 服务器1、 Ngnix 本来是用于做 Web 服务器，但是更多的是用于做负载均衡2、 Apache 稳定，模块多，但是并发量相比 Nginx 低一些3、 Tomcat(Java) 并发能力弱4、 Web服务器排名：http://news.netcraft.com Nginx 的功能1、 web 服务器2、 反向代理3、 邮件代理服务器4、 负载均衡">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/25/Nginx-基础知识/"/>
+
+
+
+
+
+  <title>Nginx-基础知识 | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/25/Nginx-基础知识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Nginx-基础知识</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-25T21:30:29+08:00">
+                2018-04-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Nginx/" itemprop="url" rel="index">
+                    <span itemprop="name">Nginx</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Nginx-和其他-Web-服务器"><a href="#Nginx-和其他-Web-服务器" class="headerlink" title="Nginx 和其他 Web 服务器"></a>Nginx 和其他 Web 服务器</h1><p>1、 Ngnix 本来是用于做 Web 服务器，但是更多的是用于做负载均衡<br>2、 Apache 稳定，模块多，但是并发量相比 Nginx 低一些<br>3、 Tomcat(Java) 并发能力弱<br>4、 Web服务器排名：<code>http://news.netcraft.com</code></p>
+<h1 id="Nginx-的功能"><a href="#Nginx-的功能" class="headerlink" title="Nginx 的功能"></a>Nginx 的功能</h1><p>1、 web 服务器<br>2、 反向代理<br>3、 邮件代理服务器<br>4、 负载均衡</p>
+<a id="more"></a>
+<h1 id="选择-Nginx-的理由"><a href="#选择-Nginx-的理由" class="headerlink" title="选择 Nginx 的理由"></a>选择 Nginx 的理由</h1><p>1、 高并发连接，官方测试支持 5W 并发量(1s)，实际上2至4万的并发量，Nginx 采用的是 epoll 和 kqueque 网络 I/O 模型，Apache 使用的是传统的 select 模型<br>2、 内存消耗小，Nginx + PHP 在 3 万高并发情况下开启 10 个 Ngnix 进程仅消耗 150M 内存，开启 64 个 php-cli 进程消耗 128M 内存<br>3、 支持负载均衡<br>4、 支持反向代理<br>5、 相对硬件负载均衡的交换机动辄十几万、几十万，成本低廉，且可用于商用</p>
+<p>注：压力测试工具 webbench</p>
+<h1 id="Docker-启动一个-Nginx"><a href="#Docker-启动一个-Nginx" class="headerlink" title="Docker 启动一个 Nginx"></a>Docker 启动一个 Nginx</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 80:80 --name mynginx -v $PWD/www:/www -v $PWD/conf/nginx.conf:/etc/nginx/nginx.conf -v $PWD/logs:/wwwlogs  -d nginx</span><br><span class="line">docker exec -it mynginx /bin/bash</span><br></pre></td></tr></table></figure>
+<p>参数说明：<br>(1) <code>-p 80:80</code> [将容器的80端口映射到主机的80端口]<br>(2) <code>--name mynginx</code> [将容器命名为mynginx]<br>(3) <code>-v $PWD/www:/www</code> [将主机中当前目录下的www挂载到容器的/www]<br>(4) <code>-v $PWD/conf/nginx.conf:/etc/nginx/nginx.conf</code> [将主机中当前目录下的nginx.conf挂载到容器的/etc/nginx/nginx.conf]<br>(5) <code>-v $PWD/logs:/wwwlogs</code> [将主机中当前目录下的logs挂载到容器的/wwwlogs]<br>(6) 访问 <code>http://localhost/index.html</code> 出现 Nginx 欢迎页面表示启动成功</p>
+<h1 id="Windows-上安装-Nginx-和启动"><a href="#Windows-上安装-Nginx-和启动" class="headerlink" title="Windows 上安装 Nginx 和启动"></a>Windows 上安装 Nginx 和启动</h1><p>1、直接下载压缩包解压启动即可<br>2、conf、log、html分别存放的是配置文件、日志和静态页面文件</p>
+<h1 id="使用信号量控制-Nginx"><a href="#使用信号量控制-Nginx" class="headerlink" title="使用信号量控制 Nginx"></a>使用信号量控制 Nginx</h1><p>常见的信号量如下，使用方法为 kill -信号名 pid，Nginx 的进程号查询 ps aux|grep nginx，每次查询进程号比较繁琐，可以从 pid 文件里面读取，<code>kill -信号量名 cat/xxx/path/log/ngnix.pid</code>。<br>(1) TERM，INI 直接关闭 Nginx 主进程<br>(2) QUIT 等所有 work 进程的请求结束后再关闭主进程<br>(3) HUP 开启新的子进程，并读取新的配置文件，再关闭旧的配置文件<br>(4) USR1 重读日志，在日志备份(手动)时使用，<code>mv error.log error.log.back</code>，<code>kill -USR1 pid</code> 才能将日志写入到 error.log 里面，否则会一直写到 error.log.back<br>(5) USR2 平滑的升级时使用<br>(6) WINCH 进程的请求结束后再关闭旧进程，配合 USR2 升级</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Nginx-基础知识
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2018/04/25/Nginx-基础知识/" title="Nginx-基础知识">2018/04/25/Nginx-基础知识/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/04/SpringBoot-SpringAOP方式输出Controller层的请求日志/" rel="next" title="SpringBoot-SpringAOP方式输出Controller层的请求日志">
+                <i class="fa fa-chevron-left"></i> SpringBoot-SpringAOP方式输出Controller层的请求日志
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/25/Nginx-默认的配置文件/" rel="prev" title="Nginx-默认的配置文件">
+                Nginx-默认的配置文件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">还在想这里写些什么好......</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx-和其他-Web-服务器"><span class="nav-number">1.</span> <span class="nav-text">Nginx 和其他 Web 服务器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx-的功能"><span class="nav-number">2.</span> <span class="nav-text">Nginx 的功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#选择-Nginx-的理由"><span class="nav-number">3.</span> <span class="nav-text">选择 Nginx 的理由</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker-启动一个-Nginx"><span class="nav-number">4.</span> <span class="nav-text">Docker 启动一个 Nginx</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows-上安装-Nginx-和启动"><span class="nav-number">5.</span> <span class="nav-text">Windows 上安装 Nginx 和启动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用信号量控制-Nginx"><span class="nav-number">6.</span> <span class="nav-text">使用信号量控制 Nginx</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
