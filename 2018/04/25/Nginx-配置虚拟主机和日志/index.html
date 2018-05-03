@@ -85,7 +85,7 @@
 <meta property="og:site_name" content="技术小站">
 <meta property="og:description" content="虚拟主机的配置主要是配置配置文件中的 http 块中的 server，每一个 server 就是一个虚拟主机，可以配置多个。 虚拟主机的配置12345678910111213141516171819202122232425262728293031# 一个 server 就是一个虚拟主机server &amp;#123;    # 监听的IP、端口    listen       80;    # 域名或者">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-02T16:48:42.006Z">
+<meta property="og:updated_time" content="2018-05-03T16:13:50.835Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx-配置虚拟主机和日志">
 <meta name="twitter:description" content="虚拟主机的配置主要是配置配置文件中的 http 块中的 server，每一个 server 就是一个虚拟主机，可以配置多个。 虚拟主机的配置12345678910111213141516171819202122232425262728293031# 一个 server 就是一个虚拟主机server &amp;#123;    # 监听的IP、端口    listen       80;    # 域名或者">
@@ -353,9 +353,9 @@
 <p>先熟悉一下 dete 指令，生成日期时需要：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># date 帮助指令</span></span><br><span class="line">date --<span class="built_in">help</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看昨天的日期</span></span><br><span class="line">date -d yesterday</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看昨天的日期并格式化</span></span><br><span class="line">date -d yesterday +%Y%m%d</span><br></pre></td></tr></table></figure>
 <p>创建 runlog.sh 的测试脚本，获取格式化后的日期字符串，之后用于拼接成分割后的日志文件名，内容如下：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#注意要带反引号，才会获取到日期的结果，否则会直接将 date -d yesterday +%Y%m%d 作为字符串输出，或着使用 $ 符号</span></span><br><span class="line"><span class="comment">#echo $(date -d yesterday +%Y%m%d)</span></span><br><span class="line"><span class="built_in">echo</span> `date -d yesterday +%Y%m%d`</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意要带反引号，才会获取到日期的结果，否则会直接将 date -d yesterday +%Y%m%d 作为字符串输出，或着使用 $ 符号</span></span><br><span class="line"><span class="comment"># echo $(date -d yesterday +%Y%m%d)</span></span><br><span class="line"><span class="built_in">echo</span> `date -d yesterday +%Y%m%d`</span><br></pre></td></tr></table></figure>
 <p>保存脚本文件后运行，执行指令 sh runlog.sh 进行测试，上面的测试没有问题后，使用下面的 sh 并配合 Linux 的定时任务就可以完成按天分割日志，并按每月目录整理日志，关于定时任务指令 crontab 的文章参考 <code>http://www.cnblogs.com/peida/archive/2013/01/08/2850483.html</code></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#日志文件的路径</span></span><br><span class="line">LOGPATH=/User/lupw/logs/access.log</span><br><span class="line"><span class="comment">#日志文件的备份路径</span></span><br><span class="line">BACKPATH=/user/lupw/logs/backlog/$(date -d yesterday +%Y%m)</span><br><span class="line"><span class="comment">#按月创建目录，不存在的时候创建</span></span><br><span class="line">mkdir -p <span class="variable">$BACKPATH</span></span><br><span class="line"><span class="comment">#备份日志文件的路径</span></span><br><span class="line">BACK_FILE_PATH=<span class="variable">$BACKPATH</span>/$(date -d yesterday +%Y%m%d).access.log</span><br><span class="line"><span class="comment">#移动原日志文件路径到备份文件的目录</span></span><br><span class="line">mv <span class="variable">$LOGPATH</span> <span class="variable">$BACK_FILE_PATH</span></span><br><span class="line"><span class="comment">#建立新的日志文件</span></span><br><span class="line">touch <span class="variable">$LOGPATH</span></span><br><span class="line"><span class="comment">#发信号重读日志</span></span><br><span class="line"><span class="built_in">kill</span> -USR1 `cat /User/lupw/logs/ngnix.pid`</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># 日志文件的路径</span></span><br><span class="line">LOGPATH=/User/lupw/logs/access.log</span><br><span class="line"><span class="comment"># 日志文件的备份路径</span></span><br><span class="line">BACKPATH=/user/lupw/logs/backlog/$(date -d yesterday +%Y%m)</span><br><span class="line"><span class="comment"># 按月创建目录，不存在的时候创建</span></span><br><span class="line">mkdir -p <span class="variable">$BACKPATH</span></span><br><span class="line"><span class="comment"># 备份日志文件的路径</span></span><br><span class="line">BACK_FILE_PATH=<span class="variable">$BACKPATH</span>/$(date -d yesterday +%Y%m%d).access.log</span><br><span class="line"><span class="comment"># 移动原日志文件路径到备份文件的目录</span></span><br><span class="line">mv <span class="variable">$LOGPATH</span> <span class="variable">$BACK_FILE_PATH</span></span><br><span class="line"><span class="comment"># 建立新的日志文件</span></span><br><span class="line">touch <span class="variable">$LOGPATH</span></span><br><span class="line"><span class="comment"># 发信号重读日志</span></span><br><span class="line"><span class="built_in">kill</span> -USR1 `cat /User/lupw/logs/ngnix.pid`</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -425,6 +425,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/03/Nginx-Location配置/" rel="prev" title="Nginx-Location配置和Rewrite语法">
+                Nginx-Location配置和Rewrite语法 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -503,7 +507,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

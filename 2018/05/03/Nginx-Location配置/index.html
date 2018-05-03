@@ -77,25 +77,18 @@
 
 
 
-<meta name="description" content="创建项目在 IDEA 里面使用 maven 构建 JavaWeb 项目，首先选择创建新项目，选择使用 maven 的方式构建项目，具体操作步骤见下图:">
+<meta name="description" content="location 是虚拟主机不可缺少的一个配置，可以根据不同的 URI 定位到不同的处理方式上，例如在碰到 .jsp、.html 为后缀的 URL 时做出相应的处理。 Location 语法常见的语法如下：location [ = | ~ | ~* | ^~ | ! ] uri {    …} 总共分成三个部分，location 关键字，匹配修饰符和 uri，其中匹配修饰符可以不写，而 uri 可">
 <meta name="keywords" content="技术小站">
 <meta property="og:type" content="article">
-<meta property="og:title" content="IDEA-Maven创建JavaWeb项目">
-<meta property="og:url" content="http://yoursite.com/2018/03/28/IDEA-Maven创建JavaWeb项目/index.html">
+<meta property="og:title" content="Nginx-Location配置和Rewrite语法">
+<meta property="og:url" content="http://yoursite.com/2018/05/03/Nginx-Location配置/index.html">
 <meta property="og:site_name" content="技术小站">
-<meta property="og:description" content="创建项目在 IDEA 里面使用 maven 构建 JavaWeb 项目，首先选择创建新项目，选择使用 maven 的方式构建项目，具体操作步骤见下图:">
+<meta property="og:description" content="location 是虚拟主机不可缺少的一个配置，可以根据不同的 URI 定位到不同的处理方式上，例如在碰到 .jsp、.html 为后缀的 URL 时做出相应的处理。 Location 语法常见的语法如下：location [ = | ~ | ~* | ^~ | ! ] uri {    …} 总共分成三个部分，location 关键字，匹配修饰符和 uri，其中匹配修饰符可以不写，而 uri 可">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/03/28/IDEA-Maven创建JavaWeb项目/WX20180328-151344@2x.png">
-<meta property="og:image" content="http://yoursite.com/2018/03/28/IDEA-Maven创建JavaWeb项目/WX20180328-151221@2x.png">
-<meta property="og:image" content="http://yoursite.com/2018/03/28/IDEA-Maven创建JavaWeb项目/WX20180328-151549@2x.png">
-<meta property="og:image" content="http://yoursite.com/2018/03/28/IDEA-Maven创建JavaWeb项目/WX20180328-151908@2x.png">
-<meta property="og:image" content="http://yoursite.com/2018/03/28/IDEA-Maven创建JavaWeb项目/WX20180328-152331@2x.png">
-<meta property="og:image" content="http://yoursite.com/2018/03/28/IDEA-Maven创建JavaWeb项目/WX20180328-154315@2x.png">
-<meta property="og:updated_time" content="2018-04-22T16:51:56.720Z">
+<meta property="og:updated_time" content="2018-05-03T16:15:15.004Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="IDEA-Maven创建JavaWeb项目">
-<meta name="twitter:description" content="创建项目在 IDEA 里面使用 maven 构建 JavaWeb 项目，首先选择创建新项目，选择使用 maven 的方式构建项目，具体操作步骤见下图:">
-<meta name="twitter:image" content="http://yoursite.com/2018/03/28/IDEA-Maven创建JavaWeb项目/WX20180328-151344@2x.png">
+<meta name="twitter:title" content="Nginx-Location配置和Rewrite语法">
+<meta name="twitter:description" content="location 是虚拟主机不可缺少的一个配置，可以根据不同的 URI 定位到不同的处理方式上，例如在碰到 .jsp、.html 为后缀的 URL 时做出相应的处理。 Location 语法常见的语法如下：location [ = | ~ | ~* | ^~ | ! ] uri {    …} 总共分成三个部分，location 关键字，匹配修饰符和 uri，其中匹配修饰符可以不写，而 uri 可">
 
 
 
@@ -125,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/03/28/IDEA-Maven创建JavaWeb项目/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/03/Nginx-Location配置/"/>
 
 
 
 
 
-  <title>IDEA-Maven创建JavaWeb项目 | 技术小站</title>
+  <title>Nginx-Location配置和Rewrite语法 | 技术小站</title>
   
 
 
@@ -258,7 +251,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/28/IDEA-Maven创建JavaWeb项目/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/03/Nginx-Location配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -275,7 +268,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">IDEA-Maven创建JavaWeb项目</h1>
+          <h1 class="post-title" itemprop="name headline">Nginx-Location配置和Rewrite语法</h1>
         
 
         <div class="post-meta">
@@ -287,8 +280,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-28T14:57:05+08:00">
-                2018-03-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-03T22:14:22+08:00">
+                2018-05-03
               </time>
             
 
@@ -310,8 +303,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/IDEA/" itemprop="url" rel="index">
-                    <span itemprop="name">IDEA</span>
+                  <a href="/categories/Nginx/" itemprop="url" rel="index">
+                    <span itemprop="name">Nginx</span>
                   </a>
                 </span>
 
@@ -347,18 +340,55 @@
       
 
       
-        <h1 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h1><p>在 IDEA 里面使用 maven 构建 JavaWeb 项目，首先选择创建新项目，选择使用 maven 的方式构建项目，具体操作步骤见下图:</p>
-<p><img src="/2018/03/28/IDEA-Maven创建JavaWeb项目/WX20180328-151344@2x.png" alt="IMAGE"><br><a id="more"></a></p>
-<h1 id="填写项目信息"><a href="#填写项目信息" class="headerlink" title="填写项目信息"></a>填写项目信息</h1><p><img src="/2018/03/28/IDEA-Maven创建JavaWeb项目/WX20180328-151221@2x.png" alt="IMAGE"></p>
-<p>这一步添加一个参数，这里在Properties中添加一个参数<code>archetypeCatalog=internal</code>，不加这个参数，在maven生成骨架的时候将会非常慢，有时候会直接卡住，archetypeCatalog表示插件使用的archetype元数据，不加这个参数时默认为remote，local，即中央仓库archetype元数据，由于中央仓库的archetype太多了，所以导致很慢，指定internal来表示仅使用内部元数据。</p>
-<p><img src="/2018/03/28/IDEA-Maven创建JavaWeb项目/WX20180328-151549@2x.png" alt="IMAGE"></p>
-<p> 建立好的目录结构如下图:</p>
-<p><img src="/2018/03/28/IDEA-Maven创建JavaWeb项目/WX20180328-151908@2x.png" alt="IMAGE"></p>
-<h1 id="建立存放源代码的-java-目录"><a href="#建立存放源代码的-java-目录" class="headerlink" title="建立存放源代码的 java 目录"></a>建立存放源代码的 java 目录</h1><p>如下图所示，在main下面建立一个java目录，然后右键选择设置为源代码文件夹，也可以创建测试目录，右键选择一个目录后，将目录设置成测试目录即可。<br><img src="/2018/03/28/IDEA-Maven创建JavaWeb项目/WX20180328-152331@2x.png" alt="IMAGE"></p>
-<p>通过上面的步骤就可以创建一个使用 Maven 构建的 Javaweb 项目了。</p>
-<h1 id="遇见的问题"><a href="#遇见的问题" class="headerlink" title="遇见的问题"></a>遇见的问题</h1><p>在第一步开始创建新项目的时候，选择 Maven 方式构建项目，右边一直显示 loading archetype list…，按照如下图所示的方式，将 VM options for importer 的值更改成 -Xmx1024m 即可。</p>
-<p><img src="/2018/03/28/IDEA-Maven创建JavaWeb项目/WX20180328-154315@2x.png" alt="IMAGE"></p>
-
+        <p>location 是虚拟主机不可缺少的一个配置，可以根据不同的 URI 定位到不同的处理方式上，例如在碰到 .jsp、.html 为后缀的 URL 时做出相应的处理。</p>
+<h1 id="Location-语法"><a href="#Location-语法" class="headerlink" title="Location 语法"></a>Location 语法</h1><p>常见的语法如下：<br>location [ = | ~ | ~* | ^~ | ! ] uri {<br>    …<br>}</p>
+<p>总共分成三个部分，location 关键字，匹配修饰符和 uri，其中匹配修饰符可以不写，而 uri 可以为正则表达式，但是原则上是能够尽量精确旧尽量精确表示，匹配修饰符的含义见下表：</p>
+<table>
+<thead>
+<tr>
+<th>匹配修饰符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>~</td>
+<td>区分大小写的正则匹配</td>
+</tr>
+<tr>
+<td>~!</td>
+<td>不区分大小写的正则匹配</td>
+</tr>
+<tr>
+<td>=</td>
+<td>精准匹配</td>
+</tr>
+<tr>
+<td>^~</td>
+<td>表示如果该符号后面的字符是最佳匹配，采用该规则，不再进行后续的查找</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<h1 id="Location-匹配的类型"><a href="#Location-匹配的类型" class="headerlink" title="Location 匹配的类型"></a>Location 匹配的类型</h1><ol>
+<li>精准匹配，匹配修饰符为 = 号，如 location = /get/user {}</li>
+<li>一般匹配，不填写匹配修饰符，如 location /get/user {}</li>
+<li>正则匹配，填写其他非 = 号的修饰符，如 location ~ /get/user {}</li>
+</ol>
+<h1 id="Location-匹配的规则"><a href="#Location-匹配的规则" class="headerlink" title="Location 匹配的规则"></a>Location 匹配的规则</h1><ol>
+<li>首先查看是否由精准匹配，如果匹配成功，则停止匹配过程，匹配不成功就去匹配一般匹配;</li>
+<li>一般匹配可以理解为对字符串的正则匹配，对多个一般匹配，匹配的字符串越长就启用哪个匹配，例如/foo，/get/user/foo/v1 时可以匹配上的，/ 也可以匹配 /get/user/foo/v1，但是 /foo 会发挥作用，他匹配的字符串更长;</li>
+<li>一般匹配和正则匹配都生效了，正则匹配发挥作用;</li>
+<li>多个正则匹配则第一个匹配的正则匹配发挥作用。</li>
+</ol>
+<p>看一个例子，在一个虚拟主机下面配置了两个 location，如下，当我们访问 <code>http://localhost/</code> 时，无论我们怎么改 /user/lupw/html/ 目录下的 index.html，看到的访问的内容总是 html 目录下的 index.html 问件里面的内容。为什么呢？是这样的，访问 <code>http://localhost/</code> 时，首先精准匹配到了第一个 location，这个时候我们访问的 <code>http://localhost/</code> 时，内部时转换成 <code>http://localhost/index.html</code> 后再进行访问，因为第一个 location 的 index 设置是这样的，且一个精准匹配无法访问一个目录， / 只是一个目录，最终会被解析去访问 index.html 文件，会在内部会再次进行访问的 <code>http://localhost/index.html</code>，会再进行匹配，这个时候就会匹配到一般匹配了，所以访问的是 html 目录下的 index.html 而不是  /user/lupw/html/ 目录下的 index.html。如果精准匹配匹配的是 location = /index.html，访问的则是 /user/lupw/html/ 目录下的 index.html。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 精准匹配</span></span><br><span class="line">location =/ &#123;</span><br><span class="line">    root /user/lupw/html/;</span><br><span class="line">    index index.html;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 一般匹配，这个例子也是一个通用匹配，如果没有其它匹配,任何请求都会匹配到</span></span><br><span class="line">location / &#123;</span><br><span class="line">    root html;</span><br><span class="line">    index index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Location-的-URL尾部的"><a href="#Location-的-URL尾部的" class="headerlink" title="Location 的 URL尾部的 /"></a>Location 的 URL尾部的 /</h1><ol>
+<li>location 中的字符有没有 / 都没有影响，也就是说 /user/ 和 /user 是一样的;</li>
+<li>如果 URL 结构是 <code>https://domain.com/</code> 的形式，尾部有没有 / 都不会造成重定向;</li>
+<li>如果 URL 结构是 <code>https://domain.com/dir/</code>，尾部如果缺少 / 将导致重定向，URL尾部的 / 表示目录，没有 / 表示文件。所以访问 /dir/ 时，服务器会自动去该目录下找对应的默认文件。如果访问 /dir 的话，服务器会先去找 dir 文件，找不到的话会将 dir 当成目录，重定向到/dir/，去该目录下找默认文件。</li>
+</ol>
+<h1 id="Location-实际使用建议"><a href="#Location-实际使用建议" class="headerlink" title="Location 实际使用建议"></a>Location 实际使用建议</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接匹配网站根，通过域名访问网站首页比较频繁，使用这个会加速处理，官网如是说。</span></span><br><span class="line">location = / &#123;</span><br><span class="line">    proxy_pass http://tomcat:8080/index</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 处理静态文件请求，有两种配置模式，目录匹配或后缀匹配，任选其一或搭配使用</span></span><br><span class="line">location ^~ /static/ &#123;</span><br><span class="line">    root /webroot/static/;</span><br><span class="line">&#125;</span><br><span class="line">location ~* \.(gif|jpg|jpeg|png|css|js|ico)$ &#123;</span><br><span class="line">    root /webroot/res/;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 转发动态请求到后端应用服务器</span></span><br><span class="line">location / &#123;</span><br><span class="line">    proxy_pass http://tomcat:8080/</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -393,12 +423,12 @@
         </li>
 
         <li class="post-copyright-link">
-            <strong>本文标题：</strong> IDEA-Maven创建JavaWeb项目
+            <strong>本文标题：</strong> Nginx-Location配置和Rewrite语法
         </li>
 
         <li class="post-copyright-link">
           <strong>本文链接：</strong>
-          <a href="/2018/03/28/IDEA-Maven创建JavaWeb项目/" title="IDEA-Maven创建JavaWeb项目">2018/03/28/IDEA-Maven创建JavaWeb项目/</a>
+          <a href="/2018/05/03/Nginx-Location配置/" title="Nginx-Location配置和Rewrite语法">2018/05/03/Nginx-Location配置/</a>
         </li>
 
         <li class="post-copyright-license">
@@ -419,8 +449,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/25/Spring笔记-SpringIoC容器相关知识/" rel="next" title="Spring笔记-SpringIoC容器基础知识">
-                <i class="fa fa-chevron-left"></i> Spring笔记-SpringIoC容器基础知识
+              <a href="/2018/04/25/Nginx-配置虚拟主机和日志/" rel="next" title="Nginx-配置虚拟主机和日志">
+                <i class="fa fa-chevron-left"></i> Nginx-配置虚拟主机和日志
               </a>
             
           </div>
@@ -428,10 +458,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/29/SpringBoot-集成Shiro（一）/" rel="prev" title="SpringBoot-集成Shiro（一）">
-                SpringBoot-集成Shiro（一） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -556,7 +582,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#创建项目"><span class="nav-number">1.</span> <span class="nav-text">创建项目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#填写项目信息"><span class="nav-number">2.</span> <span class="nav-text">填写项目信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#建立存放源代码的-java-目录"><span class="nav-number">3.</span> <span class="nav-text">建立存放源代码的 java 目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#遇见的问题"><span class="nav-number">4.</span> <span class="nav-text">遇见的问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Location-语法"><span class="nav-number">1.</span> <span class="nav-text">Location 语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Location-匹配的类型"><span class="nav-number">2.</span> <span class="nav-text">Location 匹配的类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Location-匹配的规则"><span class="nav-number">3.</span> <span class="nav-text">Location 匹配的规则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Location-的-URL尾部的"><span class="nav-number">4.</span> <span class="nav-text">Location 的 URL尾部的 /</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Location-实际使用建议"><span class="nav-number">5.</span> <span class="nav-text">Location 实际使用建议</span></a></li></ol></div>
             
 
           </div>
