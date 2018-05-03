@@ -80,14 +80,14 @@
 <meta name="description" content="location 是虚拟主机不可缺少的一个配置，可以根据不同的 URI 定位到不同的处理方式上，例如在碰到 .jsp、.html 为后缀的 URL 时做出相应的处理。 Location 语法常见的语法如下：location [ = | ~ | ~* | ^~ | ! ] uri {    …} 总共分成三个部分，location 关键字，匹配修饰符和 uri，其中匹配修饰符可以不写，而 uri 可">
 <meta name="keywords" content="技术小站">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Nginx-Location配置和Rewrite语法">
+<meta property="og:title" content="Nginx-Location配置">
 <meta property="og:url" content="http://yoursite.com/2018/05/03/Nginx-Location配置/index.html">
 <meta property="og:site_name" content="技术小站">
 <meta property="og:description" content="location 是虚拟主机不可缺少的一个配置，可以根据不同的 URI 定位到不同的处理方式上，例如在碰到 .jsp、.html 为后缀的 URL 时做出相应的处理。 Location 语法常见的语法如下：location [ = | ~ | ~* | ^~ | ! ] uri {    …} 总共分成三个部分，location 关键字，匹配修饰符和 uri，其中匹配修饰符可以不写，而 uri 可">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-03T16:15:15.004Z">
+<meta property="og:updated_time" content="2018-05-03T16:20:20.660Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nginx-Location配置和Rewrite语法">
+<meta name="twitter:title" content="Nginx-Location配置">
 <meta name="twitter:description" content="location 是虚拟主机不可缺少的一个配置，可以根据不同的 URI 定位到不同的处理方式上，例如在碰到 .jsp、.html 为后缀的 URL 时做出相应的处理。 Location 语法常见的语法如下：location [ = | ~ | ~* | ^~ | ! ] uri {    …} 总共分成三个部分，location 关键字，匹配修饰符和 uri，其中匹配修饰符可以不写，而 uri 可">
 
 
@@ -124,7 +124,7 @@
 
 
 
-  <title>Nginx-Location配置和Rewrite语法 | 技术小站</title>
+  <title>Nginx-Location配置 | 技术小站</title>
   
 
 
@@ -268,7 +268,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Nginx-Location配置和Rewrite语法</h1>
+          <h1 class="post-title" itemprop="name headline">Nginx-Location配置</h1>
         
 
         <div class="post-meta">
@@ -367,6 +367,10 @@
 <td>^~</td>
 <td>表示如果该符号后面的字符是最佳匹配，采用该规则，不再进行后续的查找</td>
 </tr>
+<tr>
+<td>@</td>
+<td>内部跳转</td>
+</tr>
 </tbody>
 </table>
 <a id="more"></a>
@@ -383,6 +387,7 @@
 </ol>
 <p>看一个例子，在一个虚拟主机下面配置了两个 location，如下，当我们访问 <code>http://localhost/</code> 时，无论我们怎么改 /user/lupw/html/ 目录下的 index.html，看到的访问的内容总是 html 目录下的 index.html 问件里面的内容。为什么呢？是这样的，访问 <code>http://localhost/</code> 时，首先精准匹配到了第一个 location，这个时候我们访问的 <code>http://localhost/</code> 时，内部时转换成 <code>http://localhost/index.html</code> 后再进行访问，因为第一个 location 的 index 设置是这样的，且一个精准匹配无法访问一个目录， / 只是一个目录，最终会被解析去访问 index.html 文件，会在内部会再次进行访问的 <code>http://localhost/index.html</code>，会再进行匹配，这个时候就会匹配到一般匹配了，所以访问的是 html 目录下的 index.html 而不是  /user/lupw/html/ 目录下的 index.html。如果精准匹配匹配的是 location = /index.html，访问的则是 /user/lupw/html/ 目录下的 index.html。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 精准匹配</span></span><br><span class="line">location =/ &#123;</span><br><span class="line">    root /user/lupw/html/;</span><br><span class="line">    index index.html;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 一般匹配，这个例子也是一个通用匹配，如果没有其它匹配,任何请求都会匹配到</span></span><br><span class="line">location / &#123;</span><br><span class="line">    root html;</span><br><span class="line">    index index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Location-内部跳转的例子"><a href="#Location-内部跳转的例子" class="headerlink" title="Location 内部跳转的例子"></a>Location 内部跳转的例子</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 以 /img/ 开头的请求，如果链接的状态为 404，则会匹配到 @img_err 这条规则上。</span></span><br><span class="line"> location /img/ &#123;</span><br><span class="line">    error_page 404 @img_err;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location @img_err &#123;</span><br><span class="line">    <span class="comment"># 规则</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="Location-的-URL尾部的"><a href="#Location-的-URL尾部的" class="headerlink" title="Location 的 URL尾部的 /"></a>Location 的 URL尾部的 /</h1><ol>
 <li>location 中的字符有没有 / 都没有影响，也就是说 /user/ 和 /user 是一样的;</li>
 <li>如果 URL 结构是 <code>https://domain.com/</code> 的形式，尾部有没有 / 都不会造成重定向;</li>
@@ -423,12 +428,12 @@
         </li>
 
         <li class="post-copyright-link">
-            <strong>本文标题：</strong> Nginx-Location配置和Rewrite语法
+            <strong>本文标题：</strong> Nginx-Location配置
         </li>
 
         <li class="post-copyright-link">
           <strong>本文链接：</strong>
-          <a href="/2018/05/03/Nginx-Location配置/" title="Nginx-Location配置和Rewrite语法">2018/05/03/Nginx-Location配置/</a>
+          <a href="/2018/05/03/Nginx-Location配置/" title="Nginx-Location配置">2018/05/03/Nginx-Location配置/</a>
         </li>
 
         <li class="post-copyright-license">
@@ -458,6 +463,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/04/Nginx-Rewrite重写/" rel="prev" title="Nginx-Rewrite重写">
+                Nginx-Rewrite重写 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -536,7 +545,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -582,7 +591,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Location-语法"><span class="nav-number">1.</span> <span class="nav-text">Location 语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Location-匹配的类型"><span class="nav-number">2.</span> <span class="nav-text">Location 匹配的类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Location-匹配的规则"><span class="nav-number">3.</span> <span class="nav-text">Location 匹配的规则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Location-的-URL尾部的"><span class="nav-number">4.</span> <span class="nav-text">Location 的 URL尾部的 /</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Location-实际使用建议"><span class="nav-number">5.</span> <span class="nav-text">Location 实际使用建议</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Location-语法"><span class="nav-number">1.</span> <span class="nav-text">Location 语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Location-匹配的类型"><span class="nav-number">2.</span> <span class="nav-text">Location 匹配的类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Location-匹配的规则"><span class="nav-number">3.</span> <span class="nav-text">Location 匹配的规则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Location-内部跳转的例子"><span class="nav-number">4.</span> <span class="nav-text">Location 内部跳转的例子</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Location-的-URL尾部的"><span class="nav-number">5.</span> <span class="nav-text">Location 的 URL尾部的 /</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Location-实际使用建议"><span class="nav-number">6.</span> <span class="nav-text">Location 实际使用建议</span></a></li></ol></div>
             
 
           </div>
