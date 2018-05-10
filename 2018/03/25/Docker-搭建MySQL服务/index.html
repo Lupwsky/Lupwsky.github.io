@@ -77,21 +77,21 @@
 
 
 
-<meta name="description" content="本文主要介绍如何使用 Docker 搭建 MySQL 服务。 搭建步骤了解 MySQL 在容器中支持的 TAG首先我们需要了解官方 MySQL 支持的 TAG 有哪些， 官方的文档地址为: https://hub.docker.com/_/mysql/，支持的 TAG 如下如所示。">
+<meta name="description" content="本文主要介绍如何使用 Docker 搭建 MySQL 服务。 搭建步骤了解 MySQL 在容器中支持的 TAG首先我们需要了解官方 MySQL 支持的 TAG 有哪些,  官方的文档地址为: https://hub.docker.com/_/mysql/, 支持的 TAG 如下如所示。">
 <meta name="keywords" content="技术小站">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker-搭建MySQL服务">
 <meta property="og:url" content="http://yoursite.com/2018/03/25/Docker-搭建MySQL服务/index.html">
 <meta property="og:site_name" content="技术小站">
-<meta property="og:description" content="本文主要介绍如何使用 Docker 搭建 MySQL 服务。 搭建步骤了解 MySQL 在容器中支持的 TAG首先我们需要了解官方 MySQL 支持的 TAG 有哪些， 官方的文档地址为: https://hub.docker.com/_/mysql/，支持的 TAG 如下如所示。">
+<meta property="og:description" content="本文主要介绍如何使用 Docker 搭建 MySQL 服务。 搭建步骤了解 MySQL 在容器中支持的 TAG首先我们需要了解官方 MySQL 支持的 TAG 有哪些,  官方的文档地址为: https://hub.docker.com/_/mysql/, 支持的 TAG 如下如所示。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/03/25/Docker-搭建MySQL服务/20180325090136.png">
 <meta property="og:image" content="http://yoursite.com/2018/03/25/Docker-搭建MySQL服务/20180325091444.png">
 <meta property="og:image" content="http://yoursite.com/2018/03/25/Docker-搭建MySQL服务/20180325095038.png">
-<meta property="og:updated_time" content="2018-04-22T16:51:56.712Z">
+<meta property="og:updated_time" content="2018-05-10T04:42:39.599Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker-搭建MySQL服务">
-<meta name="twitter:description" content="本文主要介绍如何使用 Docker 搭建 MySQL 服务。 搭建步骤了解 MySQL 在容器中支持的 TAG首先我们需要了解官方 MySQL 支持的 TAG 有哪些， 官方的文档地址为: https://hub.docker.com/_/mysql/，支持的 TAG 如下如所示。">
+<meta name="twitter:description" content="本文主要介绍如何使用 Docker 搭建 MySQL 服务。 搭建步骤了解 MySQL 在容器中支持的 TAG首先我们需要了解官方 MySQL 支持的 TAG 有哪些,  官方的文档地址为: https://hub.docker.com/_/mysql/, 支持的 TAG 如下如所示。">
 <meta name="twitter:image" content="http://yoursite.com/2018/03/25/Docker-搭建MySQL服务/20180325090136.png">
 
 
@@ -163,7 +163,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">学习笔记</p>
+        <p class="site-subtitle">我的学习笔记</p>
       
   </div>
 
@@ -345,8 +345,8 @@
 
       
         <p>本文主要介绍如何使用 Docker 搭建 MySQL 服务。</p>
-<h1 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h1><h2 id="了解-MySQL-在容器中支持的-TAG"><a href="#了解-MySQL-在容器中支持的-TAG" class="headerlink" title="了解 MySQL 在容器中支持的 TAG"></a>了解 MySQL 在容器中支持的 TAG</h2><p>首先我们需要了解官方 MySQL 支持的 TAG 有哪些， 官方的文档地址为: <code>https://hub.docker.com/_/mysql/</code>，支持的 TAG 如下如所示。<br><a id="more"></a><br><img src="/2018/03/25/Docker-搭建MySQL服务/20180325090136.png" alt="IMAGE"></p>
-<h2 id="拉取-MySQL-镜像"><a href="#拉取-MySQL-镜像" class="headerlink" title="拉取 MySQL 镜像"></a>拉取 MySQL 镜像</h2><p>这里我使用的 tag 为 5.7，根据需要选取即可。</p>
+<h1 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h1><h2 id="了解-MySQL-在容器中支持的-TAG"><a href="#了解-MySQL-在容器中支持的-TAG" class="headerlink" title="了解 MySQL 在容器中支持的 TAG"></a>了解 MySQL 在容器中支持的 TAG</h2><p>首先我们需要了解官方 MySQL 支持的 TAG 有哪些,  官方的文档地址为: <code>https://hub.docker.com/_/mysql/</code>, 支持的 TAG 如下如所示。<br><a id="more"></a><br><img src="/2018/03/25/Docker-搭建MySQL服务/20180325090136.png" alt="IMAGE"></p>
+<h2 id="拉取-MySQL-镜像"><a href="#拉取-MySQL-镜像" class="headerlink" title="拉取 MySQL 镜像"></a>拉取 MySQL 镜像</h2><p>这里我使用的 tag 为 5.7, 根据需要选取即可。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker mysql:5.7</span><br></pre></td></tr></table></figure>
 <p>拉取完成后使用 docker images 指令就可以看到刚才拉取的 MySQL 镜像了。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker images</span><br></pre></td></tr></table></figure>
@@ -354,18 +354,18 @@
 <h2 id="启动和关闭-MySQL-容器"><a href="#启动和关闭-MySQL-容器" class="headerlink" title="启动和关闭 MySQL 容器"></a>启动和关闭 MySQL 容器</h2><h3 id="创建并启动-MySQL-容器"><a href="#创建并启动-MySQL-容器" class="headerlink" title="创建并启动 MySQL 容器"></a>创建并启动 MySQL 容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run --name mysql_msg -e MYSQL_ROOT_PASSWORD=123456 -p 3308:3306 -d mysql:5.7</span><br></pre></td></tr></table></figure>
 <p>参数说明:</p>
 <ol>
-<li>–name: 为创建的容器命名，可以启动多个 MySQL 容器，只需要容器名称和端口号不同即可;</li>
-<li>-e: 配置信息，这里设置使用 root 用户的登录密码;</li>
-<li>-p: 端口号的映射关系，左边的为映射后的端口号，连接时使用，这里我使用的是 3308;</li>
+<li>–name: 为创建的容器命名, 可以启动多个 MySQL 容器, 只需要容器名称和端口号不同即可;</li>
+<li>-e: 配置信息, 这里设置使用 root 用户的登录密码;</li>
+<li>-p: 端口号的映射关系, 左边的为映射后的端口号, 连接时使用, 这里我使用的是 3308;</li>
 <li>-d: 在后台运行;</li>
-<li>mysql:5.7，运行的镜像的名称和 TAG;</li>
+<li>mysql:5.7, 运行的镜像的名称和 TAG;</li>
 </ol>
-<h3 id="启动已创建的-MySQL-容器"><a href="#启动已创建的-MySQL-容器" class="headerlink" title="启动已创建的 MySQL 容器"></a>启动已创建的 MySQL 容器</h3><p>首先使用 docker ps -a 指令查看已经创建的容器， -a 表示只查看当前正在运行和停止运行的容器，不加只查看正常运行的容器。</p>
+<h3 id="启动已创建的-MySQL-容器"><a href="#启动已创建的-MySQL-容器" class="headerlink" title="启动已创建的 MySQL 容器"></a>启动已创建的 MySQL 容器</h3><p>首先使用 docker ps -a 指令查看已经创建的容器,  -a 表示只查看当前正在运行和停止运行的容器, 不加只查看正常运行的容器。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 通过容器名启动</span><br><span class="line">sudo docker ps -a</span><br><span class="line"></span><br><span class="line">// 通过容器名启动</span><br><span class="line">sudo docker start mysql_msg</span><br><span class="line"></span><br><span class="line">// 通过容器 ID 关闭</span><br><span class="line">sudo docker start f04c702f6568</span><br></pre></td></tr></table></figure>
 <h3 id="关闭-MySQL-容器"><a href="#关闭-MySQL-容器" class="headerlink" title="关闭 MySQL 容器"></a>关闭 MySQL 容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 通过容器名关闭</span><br><span class="line">sudo docker stop mysql_msg</span><br><span class="line"></span><br><span class="line">// 通过容器 ID 关闭</span><br><span class="line">sudo docker stop f04c702f6568</span><br></pre></td></tr></table></figure>
 <h3 id="删除-MySQL-容器"><a href="#删除-MySQL-容器" class="headerlink" title="删除 MySQL 容器"></a>删除 MySQL 容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 通过容器 ID 删除</span><br><span class="line">sudo docker rm f04c702f6568</span><br></pre></td></tr></table></figure>
-<h3 id="测试连接"><a href="#测试连接" class="headerlink" title="测试连接"></a>测试连接</h3><p>测试就简单了，使用指令或者使用图形界面工具连接以下就好了，我就使用 DataGrip 进行连接测试，填写好配置后，点击 Test Connection，可以看点测试成功的提示，直接看截图吧。<br><img src="/2018/03/25/Docker-搭建MySQL服务/20180325095038.png" alt="IMAGE"></p>
-<h2 id="修改-MySQL-容器的配置文件"><a href="#修改-MySQL-容器的配置文件" class="headerlink" title="修改 MySQL 容器的配置文件"></a>修改 MySQL 容器的配置文件</h2><p>可以使用进入指定容器修改配置文件的方法，然后重新启动容器使配置文件生效。</p>
+<h3 id="测试连接"><a href="#测试连接" class="headerlink" title="测试连接"></a>测试连接</h3><p>测试就简单了, 使用指令或者使用图形界面工具连接以下就好了, 我就使用 DataGrip 进行连接测试, 填写好配置后, 点击 Test Connection, 可以看点测试成功的提示, 直接看截图吧。<br><img src="/2018/03/25/Docker-搭建MySQL服务/20180325095038.png" alt="IMAGE"></p>
+<h2 id="修改-MySQL-容器的配置文件"><a href="#修改-MySQL-容器的配置文件" class="headerlink" title="修改 MySQL 容器的配置文件"></a>修改 MySQL 容器的配置文件</h2><p>可以使用进入指定容器修改配置文件的方法, 然后重新启动容器使配置文件生效。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 进入容器的命令行模式</span><br><span class="line">sudo docker exec -it mysql_msg /usr/bin/bash</span><br><span class="line"></span><br><span class="line">// 修改配置文件</span><br><span class="line">vim /etc/mysql/my.cnf</span><br><span class="line"></span><br><span class="line">// 重启 MySQL 容器</span><br><span class="line">sudo docker restart mysql_msg</span><br></pre></td></tr></table></figure>
       
     </div>
@@ -508,7 +508,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">牧羊の人～</p>
-              <p class="site-description motion-element" itemprop="description">还在想这里写些什么好......</p>
+              <p class="site-description motion-element" itemprop="description">能够让你忘记过去的事，就是你的未来。</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -518,7 +518,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -529,7 +529,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

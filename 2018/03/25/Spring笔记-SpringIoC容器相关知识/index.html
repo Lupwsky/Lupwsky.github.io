@@ -77,20 +77,20 @@
 
 
 
-<meta name="description" content="Ioc 的概念控制反转，程序编程的一种设计思想，和依赖注入 ( DI ) 是同一个概念，主要用于程序解耦。IoC 的控制反转，控制的是什么，反转的又是什么呢? Ioc 的类型从注入方式上看，分为三种类型，构造类型注入、属性注入和接口注入 ( 不推荐，需要再额外添加一个接口 )。">
+<meta name="description" content="Ioc 的概念控制反转，程序编程的一种设计思想，和依赖注入 ( DI ) 是同一个概念，主要用于程序解耦。 Ioc 的类型从注入方式上看，分为三种类型，构造类型注入、属性注入和接口注入 ( 不推荐，需要再额外添加一个接口 )。 Spring IoC 容器Sprig IoC 容器主要是完成程序解耦合的功能，帮助完成类的初始化和依赖关系的装配，让开发者从这些工作中脱离出来，专注于业务逻辑开发。举一个简">
 <meta name="keywords" content="技术小站">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring笔记-SpringIoC容器基础知识">
 <meta property="og:url" content="http://yoursite.com/2018/03/25/Spring笔记-SpringIoC容器相关知识/index.html">
 <meta property="og:site_name" content="技术小站">
-<meta property="og:description" content="Ioc 的概念控制反转，程序编程的一种设计思想，和依赖注入 ( DI ) 是同一个概念，主要用于程序解耦。IoC 的控制反转，控制的是什么，反转的又是什么呢? Ioc 的类型从注入方式上看，分为三种类型，构造类型注入、属性注入和接口注入 ( 不推荐，需要再额外添加一个接口 )。">
+<meta property="og:description" content="Ioc 的概念控制反转，程序编程的一种设计思想，和依赖注入 ( DI ) 是同一个概念，主要用于程序解耦。 Ioc 的类型从注入方式上看，分为三种类型，构造类型注入、属性注入和接口注入 ( 不推荐，需要再额外添加一个接口 )。 Spring IoC 容器Sprig IoC 容器主要是完成程序解耦合的功能，帮助完成类的初始化和依赖关系的装配，让开发者从这些工作中脱离出来，专注于业务逻辑开发。举一个简">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/03/25/Spring笔记-SpringIoC容器相关知识/20180327233518.png">
 <meta property="og:image" content="http://yoursite.com/2018/03/25/Spring笔记-SpringIoC容器相关知识/20180328011514.png">
-<meta property="og:updated_time" content="2018-04-22T16:51:56.743Z">
+<meta property="og:updated_time" content="2018-05-10T04:42:39.688Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring笔记-SpringIoC容器基础知识">
-<meta name="twitter:description" content="Ioc 的概念控制反转，程序编程的一种设计思想，和依赖注入 ( DI ) 是同一个概念，主要用于程序解耦。IoC 的控制反转，控制的是什么，反转的又是什么呢? Ioc 的类型从注入方式上看，分为三种类型，构造类型注入、属性注入和接口注入 ( 不推荐，需要再额外添加一个接口 )。">
+<meta name="twitter:description" content="Ioc 的概念控制反转，程序编程的一种设计思想，和依赖注入 ( DI ) 是同一个概念，主要用于程序解耦。 Ioc 的类型从注入方式上看，分为三种类型，构造类型注入、属性注入和接口注入 ( 不推荐，需要再额外添加一个接口 )。 Spring IoC 容器Sprig IoC 容器主要是完成程序解耦合的功能，帮助完成类的初始化和依赖关系的装配，让开发者从这些工作中脱离出来，专注于业务逻辑开发。举一个简">
 <meta name="twitter:image" content="http://yoursite.com/2018/03/25/Spring笔记-SpringIoC容器相关知识/20180327233518.png">
 
 
@@ -162,7 +162,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">学习笔记</p>
+        <p class="site-subtitle">我的学习笔记</p>
       
   </div>
 
@@ -343,10 +343,11 @@
       
 
       
-        <h1 id="Ioc-的概念"><a href="#Ioc-的概念" class="headerlink" title="Ioc 的概念"></a>Ioc 的概念</h1><p>控制反转，程序编程的一种设计思想，和依赖注入 ( DI ) 是同一个概念，主要用于程序解耦。IoC 的控制反转，控制的是什么，反转的又是什么呢?</p>
-<h1 id="Ioc-的类型"><a href="#Ioc-的类型" class="headerlink" title="Ioc 的类型"></a>Ioc 的类型</h1><p>从注入方式上看，分为三种类型，构造类型注入、属性注入和接口注入 ( 不推荐，需要再额外添加一个接口 )。<br><a id="more"></a></p>
+        <h1 id="Ioc-的概念"><a href="#Ioc-的概念" class="headerlink" title="Ioc 的概念"></a>Ioc 的概念</h1><p>控制反转，程序编程的一种设计思想，和依赖注入 ( DI ) 是同一个概念，主要用于程序解耦。</p>
+<h1 id="Ioc-的类型"><a href="#Ioc-的类型" class="headerlink" title="Ioc 的类型"></a>Ioc 的类型</h1><p>从注入方式上看，分为三种类型，构造类型注入、属性注入和接口注入 ( 不推荐，需要再额外添加一个接口 )。</p>
 <h1 id="Spring-IoC-容器"><a href="#Spring-IoC-容器" class="headerlink" title="Spring IoC 容器"></a>Spring IoC 容器</h1><p>Sprig IoC 容器主要是完成程序解耦合的功能，帮助完成类的初始化和依赖关系的装配，让开发者从这些工作中脱离出来，专注于业务逻辑开发。举一个简单的例子，假设有一个剧组拍摄一部三国演义的电影，拍摄任务需要导演，演员和相关工作人员一起完成。让我们使用程序模拟这个拍摄任务，首先创建导演、演员和工作人员相关的类。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 导演类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Director</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 演员类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Actors</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 工作人员类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaffMember</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>此外还需要创建一个拍摄任务类，用于完成拍摄任务，完成这个任务需要导演、演员和工作人员相互配合。</p>
@@ -600,7 +601,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">牧羊の人～</p>
-              <p class="site-description motion-element" itemprop="description">还在想这里写些什么好......</p>
+              <p class="site-description motion-element" itemprop="description">能够让你忘记过去的事，就是你的未来。</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -610,7 +611,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -621,7 +622,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
