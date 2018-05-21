@@ -3,7 +3,7 @@
 
 
 
-<html class="theme-next gemini" lang="zh-Hans">
+<html class="theme-next mist" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -77,18 +77,18 @@
 
 
 
-<meta name="description" content="Rewrite 的可以重新定向 URL 地址，通过在配置文件中重写 URL，可以让网站中的 URL 符合某种条件后跳转到指定的 URL，如重定向到 301，404 等页面，例如因为需求更改了项目的结构，用户之前收藏的链接再去访问就会出现错误，Rewrite 就可以用于解决这种问题。Rewrite 还可以完成防盗链的功能。">
+<meta name="description" content="Rewrite 的可以重新定向 URL 地址，通过在配置文件中重写 URL，可以让网站中的 URL 符合某种条件后跳转到指定的 URL，如重定向到 301，404 等页面，例如因为需求更改了项目的结构，用户之前收藏的链接再去访问就会出现错误，Rewrite 就可以用于解决这种问题。Rewrite 还可以完成防盗链的功能。源码的实现可以查看 ngx_http_rewrite_module 模块，官方">
 <meta name="keywords" content="技术小站">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nginx-Rewrite重写">
 <meta property="og:url" content="http://yoursite.com/2018/05/04/Nginx-Rewrite重写/index.html">
 <meta property="og:site_name" content="技术小站">
-<meta property="og:description" content="Rewrite 的可以重新定向 URL 地址，通过在配置文件中重写 URL，可以让网站中的 URL 符合某种条件后跳转到指定的 URL，如重定向到 301，404 等页面，例如因为需求更改了项目的结构，用户之前收藏的链接再去访问就会出现错误，Rewrite 就可以用于解决这种问题。Rewrite 还可以完成防盗链的功能。">
+<meta property="og:description" content="Rewrite 的可以重新定向 URL 地址，通过在配置文件中重写 URL，可以让网站中的 URL 符合某种条件后跳转到指定的 URL，如重定向到 301，404 等页面，例如因为需求更改了项目的结构，用户之前收藏的链接再去访问就会出现错误，Rewrite 就可以用于解决这种问题。Rewrite 还可以完成防盗链的功能。源码的实现可以查看 ngx_http_rewrite_module 模块，官方">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-10T05:26:22.344Z">
+<meta property="og:updated_time" content="2018-05-17T13:06:51.377Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx-Rewrite重写">
-<meta name="twitter:description" content="Rewrite 的可以重新定向 URL 地址，通过在配置文件中重写 URL，可以让网站中的 URL 符合某种条件后跳转到指定的 URL，如重定向到 301，404 等页面，例如因为需求更改了项目的结构，用户之前收藏的链接再去访问就会出现错误，Rewrite 就可以用于解决这种问题。Rewrite 还可以完成防盗链的功能。">
+<meta name="twitter:description" content="Rewrite 的可以重新定向 URL 地址，通过在配置文件中重写 URL，可以让网站中的 URL 符合某种条件后跳转到指定的 URL，如重定向到 301，404 等页面，例如因为需求更改了项目的结构，用户之前收藏的链接再去访问就会出现错误，Rewrite 就可以用于解决这种问题。Rewrite 还可以完成防盗链的功能。源码的实现可以查看 ngx_http_rewrite_module 模块，官方">
 
 
 
@@ -96,7 +96,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Gemini',
+    scheme: 'Mist',
     version: '5.1.4',
     sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
     fancybox: true,
@@ -340,8 +340,9 @@
       
 
       
-        <p>Rewrite 的可以重新定向 URL 地址，通过在配置文件中重写 URL，可以让网站中的 URL 符合某种条件后跳转到指定的 URL，如重定向到 301，404 等页面，例如因为需求更改了项目的结构，用户之前收藏的链接再去访问就会出现错误，Rewrite 就可以用于解决这种问题。Rewrite 还可以完成防盗链的功能。</p>
-
+        <p>Rewrite 的可以重新定向 URL 地址，通过在配置文件中重写 URL，可以让网站中的 URL 符合某种条件后跳转到指定的 URL，如重定向到 301，404 等页面，例如因为需求更改了项目的结构，用户之前收藏的链接再去访问就会出现错误，Rewrite 就可以用于解决这种问题。Rewrite 还可以完成防盗链的功能。源码的实现可以查看 ngx_http_rewrite_module 模块，官方地址 <code>https://nginx.org/en/docs/</code>。</p>
+<h1 id="Rewrite-重写的语法"><a href="#Rewrite-重写的语法" class="headerlink" title="Rewrite 重写的语法"></a>Rewrite 重写的语法</h1><p>Rewrite 的重写规则既可以放在 service，也可以放在 location 里面。</p>
+<h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2>
       
     </div>
     
@@ -468,13 +469,22 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">牧羊の人～</p>
-              <p class="site-description motion-element" itemprop="description">能够让你忘记过去的事，就是你的未来。</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -484,7 +494,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -521,6 +531,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Rewrite-重写的语法"><span class="nav-number">1.</span> <span class="nav-text">Rewrite 重写的语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#if"><span class="nav-number">1.1.</span> <span class="nav-text">if</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -552,7 +578,7 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
 
 
 
@@ -651,13 +677,6 @@
 
   
   
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>

@@ -3,7 +3,7 @@
 
 
 
-<html class="theme-next gemini" lang="zh-Hans">
+<html class="theme-next mist" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -86,7 +86,7 @@
 <meta property="og:description" content="消息队列(Message Queue, 简称 MQ), 消息中间件作为实现分布式消息系统可拓展、可伸缩性的关键组件, 具有高吞吐量、高可用等等优点。RocketMQ 是阿里一款开源的分布式消息系统, 基于高可用分布式集群技术, 提供低延时的、高可靠的消息发布与订阅服务。这篇笔记简单记录了 RocketMQ 的在服务器上的安装和启动方法。 下载、编译和环境变量的配置下载地址https://githu">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/05/10/消息队列-RocketMQ的安装/1525946201065.jpg">
-<meta property="og:updated_time" content="2018-05-10T14:07:30.521Z">
+<meta property="og:updated_time" content="2018-05-11T15:36:37.607Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="消息队列-RocketMQ的安装">
 <meta name="twitter:description" content="消息队列(Message Queue, 简称 MQ), 消息中间件作为实现分布式消息系统可拓展、可伸缩性的关键组件, 具有高吞吐量、高可用等等优点。RocketMQ 是阿里一款开源的分布式消息系统, 基于高可用分布式集群技术, 提供低延时的、高可靠的消息发布与订阅服务。这篇笔记简单记录了 RocketMQ 的在服务器上的安装和启动方法。 下载、编译和环境变量的配置下载地址https://githu">
@@ -98,7 +98,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Gemini',
+    scheme: 'Mist',
     version: '5.1.4',
     sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
     fancybox: true,
@@ -350,7 +350,7 @@
 <h2 id="解压并编译源码"><a href="#解压并编译源码" class="headerlink" title="解压并编译源码"></a>解压并编译源码</h2><p>下载好源码后, 解压缩, 在解压缩的目录下有一个 install.sh 的文件, 执行它开始编译, 注意这一步需要已经安装好了 Maven 环境, 执行成功后会在target目录下生成一个alibaba-rocketmq目录, 仅仅这个目录对我们是有用的, 其他的文件如果不需要均可以删除</p>
 <h2 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h2><p>为了方便, 配置一下 RocketMQ 的环境变量。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># RocketMQ bin目录的环境变量的配置</span></span><br><span class="line"><span class="built_in">export</span> ROCKETMQ_HOME=/Users/lupengwei/RocketMQ/alibaba-rocketmq</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ROCKETMQ_HOME</span>/bin</span><br></pre></td></tr></table></figure>
-<h1 id="启动和关闭-RcoketMQ"><a href="#启动和关闭-RcoketMQ" class="headerlink" title="启动和关闭 RcoketMQ"></a>启动和关闭 RcoketMQ</h1><h2 id="启动-RcoketMQ"><a href="#启动-RcoketMQ" class="headerlink" title="启动 RcoketMQ"></a>启动 RcoketMQ</h2><p>启动 RcoketMQ 要先启动 mqnamesrv, 然后再启动 broket,  所以首先启动 mqnamesrv，注意的是如果不去调整 jvm 的参数，默认的会使用最大内存的四分之一，如果内存足够，可以忽略这一点，如果内存不足，就需要自己根据情况调整 jvm 参数了。</p>
+<h1 id="启动和关闭-RcoketMQ"><a href="#启动和关闭-RcoketMQ" class="headerlink" title="启动和关闭 RcoketMQ"></a>启动和关闭 RcoketMQ</h1><h2 id="启动-RcoketMQ"><a href="#启动-RcoketMQ" class="headerlink" title="启动 RcoketMQ"></a>启动 RcoketMQ</h2><p>启动 RcoketMQ 要先启动 mqnamesrv, 然后再启动 broket,  所以首先启动 mqnamesrv，注意的是如果不去调整 jvm 的参数，默认的会使用 4G 内存，如果内存足够，可以忽略这一点，如果内存不足，就需要自己根据情况调整 jvm 参数了，见 <code>http://heht.net/articles/2018/04/03/1522752731021.html</code>。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup sh mqnamesrv &gt;nameser.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
 <p>启动后, 查看 nameser.log 的日志, 如果看见如下启动日志, 说明成功启动了</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Java HotSpot(TM) 64-Bit Server VM warning: ignoring option PermSize=128m; support was removed in 8.0</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=320m; support was removed in 8.0</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM warning: UseCMSCompactAtFullCollection is deprecated and will likely be removed in a future release.</span><br><span class="line">The Name Server boot success. serializeType=JSON</span><br></pre></td></tr></table></figure>
@@ -358,11 +358,17 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup sh mqbroker -n 192.168.1.15:9876 &gt;broker.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
 <p>启动后, 查看 broker.log 的日志, 如果看见如下启动日志, 说明成功启动了</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The broker[lupengweideMacBook-Pro.local, 192.168.1.15:10911] boot success. serializeType=JSON and name server is 192.168.1.15:9876</span><br></pre></td></tr></table></figure>
+<p>一般云主机上有一个内网的地址，使用默认的方式启动 broker 很有可能自动选择的 IP 是内网的，导致客户端连接失败，可以使用配置文件来启动 broker</p>
 <p>启动后，发现自动在 Linux 目录下生成了以下文件，如图所示，除了 app，jdk，maven 和 rocketmq 目录是我创建的外，其他的均是 RocketMQ 启动后生成的。原因是没有在 broker 的配置文件中设置这些路径。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mqbroker 生成一个配置文件</span></span><br><span class="line">sh mqbroker -m broker.properties</span><br></pre></td></tr></table></figure>
+<p>配置如下</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">namesrvAddr</span>=外网IP(或者你的内网IP):<span class="number">9876</span></span><br><span class="line"><span class="attr">brokerIP1</span>=外网IP</span><br><span class="line"><span class="attr">brokerName</span>=hht</span><br><span class="line"><span class="attr">brokerClusterName</span>=DefaultCluster</span><br><span class="line"><span class="attr">brokerId</span>=<span class="number">0</span></span><br><span class="line"><span class="attr">autoCreateTopicEnable</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">autoCreateSubscriptionGroup</span>=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>接着启动 borker</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup sh mqbroker -n 119.23.238.132:9876 -c ./broker.properties &gt;broker.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
 <p><img src="/2018/05/10/消息队列-RocketMQ的安装/1525946201065.jpg" alt="IMAGE"></p>
 <h2 id="关闭-RcoketMQ"><a href="#关闭-RcoketMQ" class="headerlink" title="关闭 RcoketMQ"></a>关闭 RcoketMQ</h2><p>关闭 RcoketMQ 和启动顺序刚好相反, 要先关闭 broker,然后再关闭 nameser</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 关闭 broker</span></span><br><span class="line">sh mqshutdown broker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭 mqnameserver</span></span><br><span class="line">sh mqshutdown namesrv</span><br></pre></td></tr></table></figure>
-<h1 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h1><p><code>http://www.bilibili.com/video/av11074519/</code></p>
+<h1 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h1><p><code>http://www.bilibili.com/video/av11074519/</code><br><code>http://heht.net/articles/2018/04/03/1522752731021.html</code></p>
 
       
     </div>
@@ -505,7 +511,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">牧羊の人～</p>
-              <p class="site-description motion-element" itemprop="description">能够让你忘记过去的事，就是你的未来。</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -515,7 +521,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -599,7 +605,7 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
 
 
 
@@ -698,13 +704,6 @@
 
   
   
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
