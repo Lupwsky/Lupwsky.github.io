@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="这两个类用于更改文本的内容、样式或者标记。当需要显示一段文字的时候，通常的做法是在布局文件中使用 TextVeiw 来显示，如果需要改变这一段文字，在 Activity 中获取这个控件，然后调用 setText 方法将整端文字给替换掉，如果需要更改字体颜色，样式，也是调用的 TextView 中的相关方法去改变 TextView 的属性，例如 setColor 来改变颜色，setBackgroun">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-SpannableStringBuffer和SpannableString">
+<meta property="og:url" content="http://yoursite.com/2018/05/21/Android-SpannableStringBuffer和SpannableString/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="这两个类用于更改文本的内容、样式或者标记。当需要显示一段文字的时候，通常的做法是在布局文件中使用 TextVeiw 来显示，如果需要改变这一段文字，在 Activity 中获取这个控件，然后调用 setText 方法将整端文字给替换掉，如果需要更改字体颜色，样式，也是调用的 TextView 中的相关方法去改变 TextView 的属性，例如 setColor 来改变颜色，setBackgroun">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/05/21/Android-SpannableStringBuffer和SpannableString/5F244BD4F9948F0C84CB18FF34D61C9C.png">
+<meta property="og:image" content="http://yoursite.com/2018/05/21/Android-SpannableStringBuffer和SpannableString/7B2104FA9131D55C11539D13633C9C45.png">
+<meta property="og:image" content="http://yoursite.com/2018/05/21/Android-SpannableStringBuffer和SpannableString/178F1C976B58DC7F3B6294DC91517077.png">
+<meta property="og:image" content="http://yoursite.com/2018/05/21/Android-SpannableStringBuffer和SpannableString/E2398570EA5714F1FE63B4190E49EE4C.png">
+<meta property="og:image" content="http://yoursite.com/2018/05/21/Android-SpannableStringBuffer和SpannableString/A02D5959E24B418BEEBEEE279005F7BB.png">
+<meta property="og:image" content="http://yoursite.com/2018/05/21/Android-SpannableStringBuffer和SpannableString/9184F7817C5690DB8F3CDCA49D4D3E13.png">
+<meta property="og:image" content="http://yoursite.com/2018/05/21/Android-SpannableStringBuffer和SpannableString/CA3E51B7DD310555A5F25D82F33B2B4F.png">
+<meta property="og:updated_time" content="2018-05-21T10:11:52.469Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android-SpannableStringBuffer和SpannableString">
+<meta name="twitter:description" content="这两个类用于更改文本的内容、样式或者标记。当需要显示一段文字的时候，通常的做法是在布局文件中使用 TextVeiw 来显示，如果需要改变这一段文字，在 Activity 中获取这个控件，然后调用 setText 方法将整端文字给替换掉，如果需要更改字体颜色，样式，也是调用的 TextView 中的相关方法去改变 TextView 的属性，例如 setColor 来改变颜色，setBackgroun">
+<meta name="twitter:image" content="http://yoursite.com/2018/05/21/Android-SpannableStringBuffer和SpannableString/5F244BD4F9948F0C84CB18FF34D61C9C.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/21/Android-SpannableStringBuffer和SpannableString/"/>
+
+
+
+
+
+  <title>Android-SpannableStringBuffer和SpannableString | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/21/Android-SpannableStringBuffer和SpannableString/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android-SpannableStringBuffer和SpannableString</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-21T16:15:08+08:00">
+                2018-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这两个类用于更改文本的内容、样式或者标记。当需要显示一段文字的时候，通常的做法是在布局文件中使用 TextVeiw 来显示，如果需要改变这一段文字，在 Activity 中获取这个控件，然后调用 setText 方法将整端文字给替换掉，如果需要更改字体颜色，样式，也是调用的 TextView 中的相关方法去改变 TextView 的属性，例如 setColor 来改变颜色，setBackgroundColor 来设置背景色。而且这样的方式改变内容或者样式，都会影响到所有的文字。再来设想一个情景，一段话，总共 8 个字符长度，第 1 - 2 个字符颜色为黑色，第 3 - 4 个字符颜色为红色，第 5 - 6 个字符为蓝色，第 7 - 8 个字符为绿色，并且这四个小段的字符都有自己的监听方法，如果使用 TextView 来做，肯定得定义四个 TextView 来实现。使用 SpannableStringBuffer 和 SpannableString 可以轻松得使用一个 TextView 就可以实现，不仅仅是将指定得字符更改样式或者是内容，还可以将文字设置成图片，同样图片也可以设置监听方法。</p>
+<a id="more"></a>
+<h1 id="方法和参数介绍"><a href="#方法和参数介绍" class="headerlink" title="方法和参数介绍"></a>方法和参数介绍</h1><h2 id="主要使用的方法"><a href="#主要使用的方法" class="headerlink" title="主要使用的方法"></a>主要使用的方法</h2><p>SpanaableStringBuffer 和 SpannableString 相关方法有三个，setSpan()，setSequence()，removeSpan()，主要使用 setSpan()</p>
+<p><img src="/2018/05/21/Android-SpannableStringBuffer和SpannableString/5F244BD4F9948F0C84CB18FF34D61C9C.png" alt="IMAGE"></p>
+<h2 id="start-和-end-参数"><a href="#start-和-end-参数" class="headerlink" title="start 和 end 参数"></a>start 和 end 参数</h2><p>start : Span 开始的位置 (包括这个字符)<br>end : Span 结束的位置 (不包括这个字符)</p>
+<p>start 和 end 确定的是一个左闭右开的范围，例如 start=3，end=7，选中是第 3 个到第 6 个字符，虽然 end=7，但是不包含第 7 个字符，注意字符的计算是从0开始的。</p>
+<h2 id="flag-参数"><a href="#flag-参数" class="headerlink" title="flag 参数"></a>flag 参数</h2><p>Spannable.SPAN_EXCLUSIVE_INCLUSIVE : 在 Span 前面输入的字符不应用 Span 的效果，在后面输入的字符应用 Span 效果<br>Spannable.SPAN_INCLUSIVE_EXCLUSIVE : 在 Span 前面输入的字符应用 Span 的效果，在后面输入的字符不应用 Span 效果<br>Spannable.SPAN_INCUJSIVE_INCLUSIVE : 在 Span 前后输入的字符都应用 Span 的效果<br>Spannable.SPAN_EXCLUSIVE_EXCLUSIVE : 前后都不包括</p>
+<h2 id="what-参数"><a href="#what-参数" class="headerlink" title="what 参数"></a>what 参数</h2><p>BackgroundColorSpan : 文本背景色<br>ForegroundColorSpan : 文本颜色<br>MaskFilterSpan : 修饰效果，如模糊 (BlurMaskFilter) 浮雕<br>RasterizerSpan : 光栅效果<br>StrikethroughSpan : 删除线<br>SuggestionSpan : 相当于占位符<br>UnderlineSpan : 下划线<br>AbsoluteSizeSpan : 文本字体 (绝对大小)<br>DynamicDrawableSpan : 设置图片，基于文本基线或底部对齐。<br>ImageSpan : 图片<br>RelativeSizeSpan : 相对大小 (文本字体)<br>ScaleXSpan : 基于 x 轴缩放<br>StyleSpan : 字体样式：粗体、斜体等<br>SubscriptSpan : 下标 (数学公式会用到)<br>SuperscriptSpan : 上标 (数学公式会用到)<br>TextAppearanceSpan : 文本外貌 (包括字体、大小、样式和颜色)<br>TypefaceSpan : 文本字体<br>URLSpan : 文本超链接<br>ClickableSpan : 点击事件</p>
+<h1 id="使用示例-更改颜色"><a href="#使用示例-更改颜色" class="headerlink" title="使用示例-更改颜色"></a>使用示例-更改颜色</h1><p>定义一个TextView：</p>
+<p><img src="/2018/05/21/Android-SpannableStringBuffer和SpannableString/7B2104FA9131D55C11539D13633C9C45.png" alt="IMAGE"></p>
+<p>相关代码：</p>
+<p><img src="/2018/05/21/Android-SpannableStringBuffer和SpannableString/178F1C976B58DC7F3B6294DC91517077.png" alt="IMAGE"></p>
+<p>显示效果：</p>
+<p><img src="/2018/05/21/Android-SpannableStringBuffer和SpannableString/E2398570EA5714F1FE63B4190E49EE4C.png" alt="IMAGE"></p>
+<h1 id="使用示例-更改文字内容为图片"><a href="#使用示例-更改文字内容为图片" class="headerlink" title="使用示例-更改文字内容为图片"></a>使用示例-更改文字内容为图片</h1><p>相关的代码：</p>
+<p><img src="/2018/05/21/Android-SpannableStringBuffer和SpannableString/A02D5959E24B418BEEBEEE279005F7BB.png" alt="IMAGE"></p>
+<p>显示的效果，字符索引为 7 - 9 的字符会被替换成图片：</p>
+<p><img src="/2018/05/21/Android-SpannableStringBuffer和SpannableString/9184F7817C5690DB8F3CDCA49D4D3E13.png" alt="IMAGE"></p>
+<h1 id="使用示例-添加点击事件"><a href="#使用示例-添加点击事件" class="headerlink" title="使用示例-添加点击事件"></a>使用示例-添加点击事件</h1><p>相关的代码：</p>
+<p><img src="/2018/05/21/Android-SpannableStringBuffer和SpannableString/CA3E51B7DD310555A5F25D82F33B2B4F.png" alt="IMAGE"></p>
+<h1 id="点击事件冲突的解决方案"><a href="#点击事件冲突的解决方案" class="headerlink" title="点击事件冲突的解决方案"></a>点击事件冲突的解决方案</h1><p>如果使用了 SpannableStringBuffer 或者 SpannableString 设置了点击事件，又再 TextView 上面设置了点击事件，就会产生冲突，问题如下：</p>
+<ol>
+<li>默认情况下，点击 ClickableSpan 的文本时会同时触发绑定在 TextView 的监听事件</li>
+<li>默认情况下，点击 ClickableSpan 的文本之外的文本时，TextView 会消费该事件，而不会传递给父 View</li>
+</ol>
+<p>解决方案：<code>http://blog.csdn.net/zhaizu/article/details/51038113</code></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Android-SpannableStringBuffer和SpannableString
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2018/05/21/Android-SpannableStringBuffer和SpannableString/" title="Android-SpannableStringBuffer和SpannableString">2018/05/21/Android-SpannableStringBuffer和SpannableString/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/21/Android-软键盘获取高度/" rel="next" title="Android-软键盘获取高度">
+                <i class="fa fa-chevron-left"></i> Android-软键盘获取高度
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/21/Android-运行时权限的封装/" rel="prev" title="Android-运行时权限的封装">
+                Android-运行时权限的封装 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#方法和参数介绍"><span class="nav-number">1.</span> <span class="nav-text">方法和参数介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要使用的方法"><span class="nav-number">1.1.</span> <span class="nav-text">主要使用的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#start-和-end-参数"><span class="nav-number">1.2.</span> <span class="nav-text">start 和 end 参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flag-参数"><span class="nav-number">1.3.</span> <span class="nav-text">flag 参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-参数"><span class="nav-number">1.4.</span> <span class="nav-text">what 参数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用示例-更改颜色"><span class="nav-number">2.</span> <span class="nav-text">使用示例-更改颜色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用示例-更改文字内容为图片"><span class="nav-number">3.</span> <span class="nav-text">使用示例-更改文字内容为图片</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用示例-添加点击事件"><span class="nav-number">4.</span> <span class="nav-text">使用示例-添加点击事件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#点击事件冲突的解决方案"><span class="nav-number">5.</span> <span class="nav-text">点击事件冲突的解决方案</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

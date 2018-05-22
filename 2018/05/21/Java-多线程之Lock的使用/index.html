@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="synchronized 可以解决多线程资源同步的问题，但是 synchronized 的性能是比较低效的，例如在一个线程获取到锁后，如果这线程阻塞了 (如IO操作)，由于使用 synchronized 获取到锁并发生阻塞的线程是不能够响应中断，所以其他线程就会一直等待下去，为此就需要有一种机制能够解决这种线程同步中无限等待的问题，使用 Lock 就可以解决类似的问题。 注：这里说的性能差是相对于">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-多线程之Lock的使用">
+<meta property="og:url" content="http://yoursite.com/2018/05/21/Java-多线程之Lock的使用/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="synchronized 可以解决多线程资源同步的问题，但是 synchronized 的性能是比较低效的，例如在一个线程获取到锁后，如果这线程阻塞了 (如IO操作)，由于使用 synchronized 获取到锁并发生阻塞的线程是不能够响应中断，所以其他线程就会一直等待下去，为此就需要有一种机制能够解决这种线程同步中无限等待的问题，使用 Lock 就可以解决类似的问题。 注：这里说的性能差是相对于">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/05/21/Java-多线程之Lock的使用/20180521235813.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/05/21/Java-多线程之Lock的使用/20180522184151.jpg">
+<meta property="og:updated_time" content="2018-05-22T11:02:37.857Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java-多线程之Lock的使用">
+<meta name="twitter:description" content="synchronized 可以解决多线程资源同步的问题，但是 synchronized 的性能是比较低效的，例如在一个线程获取到锁后，如果这线程阻塞了 (如IO操作)，由于使用 synchronized 获取到锁并发生阻塞的线程是不能够响应中断，所以其他线程就会一直等待下去，为此就需要有一种机制能够解决这种线程同步中无限等待的问题，使用 Lock 就可以解决类似的问题。 注：这里说的性能差是相对于">
+<meta name="twitter:image" content="http://yoursite.com/2018/05/21/Java-多线程之Lock的使用/20180521235813.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/21/Java-多线程之Lock的使用/"/>
+
+
+
+
+
+  <title>Java-多线程之Lock的使用 | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/21/Java-多线程之Lock的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java-多线程之Lock的使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-21T14:20:49+08:00">
+                2018-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>synchronized 可以解决多线程资源同步的问题，但是 synchronized 的性能是比较低效的，例如在一个线程获取到锁后，如果这线程阻塞了 (如IO操作)，由于使用 synchronized 获取到锁并发生阻塞的线程是不能够响应中断，所以其他线程就会一直等待下去，为此就需要有一种机制能够解决这种线程同步中无限等待的问题，使用 Lock 就可以解决类似的问题。</p>
+<p>注：这里说的性能差是相对于 Lock 的比较，但是在 JDK 1.6 后，synchronize进行了很多优化，有适应自旋，锁消除，锁粗化，轻量级锁，偏向锁等等，使得 synchronize 的性能并不比 Lock 差。</p>
+<h1 id="Lock-和-synchronized-的区别"><a href="#Lock-和-synchronized-的区别" class="headerlink" title="Lock 和 synchronized 的区别"></a>Lock 和 synchronized 的区别</h1><ol>
+<li>synchronized 是 Java 语言内置的关键字，Lock 是一个类，通过这个类可以实现同步访问，一个是 JVM 层面的，一个是 JDK 层面的;</li>
+<li>synchronized 可以加在方法上，也可以加在代码块中，Lock 只能在在代码块中;</li>
+<li>synchronized 不需要手动释放锁，会自动释放对锁的占用，而 Lock 则必须要手动释放锁，如果没有主动释放锁，会出现死锁现象;</li>
+<li>synchronized 在同步的时候不能获取锁的状态，Lock 可以;</li>
+<li>synchronized 的锁可重入、但是不可中断，使用的是非公平锁，Lock 可重入且可判断，公平锁和非公平锁都可以使用。</li>
+</ol>
+<a id="more"></a>
+<h1 id="Lock-类"><a href="#Lock-类" class="headerlink" title="Lock 类"></a>Lock 类</h1><p>Lock 类是 JDK 1.5 提供的一个类，位于 java.util.concurrent.locks.Lock 包下，是一个接口，里面的方法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Lock</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 获取锁，如果不能获取锁则一直等待锁</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果当前线程没有标记中断标志位，则获取锁，如果当前线程中断标志位已经被标记则出现 InterruptedException 异常</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">lockInterruptibly</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 尝试获取锁，获取锁成功立即返回 true，失败立即返回 false，如果没有获取锁和 lock() 方法一样也会一直等待</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">tryLock</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 尝试获取锁，在指定时间内获取锁成功立即返回 true，在等待指定的时间后拿不到锁就返回 false，该方法可以响应中断</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">tryLock</span><span class="params">(<span class="keyword">long</span> time, TimeUnit unit)</span> <span class="keyword">throws</span> InterruptedException</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 释放锁，使用 Lock 获取的锁必须主动释放，一般来说需要放在 try-catch-finaly 中的 finaly 代码块中执行，</span></span><br><span class="line">    <span class="comment">// 以避免出现异常导致锁没有被释放，防止死锁的发生</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">unlock</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// wait()/notify() 机制进行通知时是由 JVM 随机选择线程的，使用 Condition 可以实现选择性的通知线程</span></span><br><span class="line">    <span class="comment">// 使用方法见 ReentrantLock 类 newCondition 方法的介绍</span></span><br><span class="line">    <span class="function">Condition <span class="title">newCondition</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="ReentrantLock-类"><a href="#ReentrantLock-类" class="headerlink" title="ReentrantLock 类"></a>ReentrantLock 类</h1><p>ReentrantLoc 是 Lock 的直接子类，其继承关系的 UML 图如下：</p>
+<p><img src="/2018/05/21/Java-多线程之Lock的使用/20180521235813.jpg" alt="IMAGE"></p>
+<p>ReentrantLock 类是 Lock 的子类，除了实现了 Lock 类中的方法外，还有以下方法。</p>
+<h2 id="newCondition-方法和-Condition-类"><a href="#newCondition-方法和-Condition-类" class="headerlink" title="newCondition() 方法和 Condition 类"></a>newCondition() 方法和 Condition 类</h2><p>前面有提到 Condition 类可以实现选择性的通知线程，Condition 类的主要方法是 await 方法和 signal 方法，分别对应 wait 方法和 notify 方法，Condition 的实例可以通过 Lock 的 newCondition 方法获取到，每一次调用都会返回一个新的实例，同一个实例的 signal 方法可以发送通知唤醒其他线程里面使用同一个实例调用 await 方法使线程进入等待状态的线程。</p>
+<p>Condition 类的源码和各个方法的定义如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Condition</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 对应 wait() 方法</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">await</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 对应 wait(long time, TimeUnit unit) 方法</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">await</span><span class="params">(<span class="keyword">long</span> time, TimeUnit unit)</span> <span class="keyword">throws</span> InterruptedException</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">awaitUninterruptibly</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">long</span> <span class="title">awaitNanos</span><span class="params">(<span class="keyword">long</span> nanosTimeout)</span> <span class="keyword">throws</span> InterruptedException</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">awaitUntil</span><span class="params">(Date deadline)</span> <span class="keyword">throws</span> InterruptedException</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 对应 notify() 方法</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">signal</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 对应 notifyAll() 方法</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">signalAll</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Condition 类配合 Lock 实现等待/通知的简单例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConditionService</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="keyword">private</span> Condition condition = lock.newCondition();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> index;</span><br><span class="line">    <span class="keyword">private</span> ThreadLocal&lt;Integer&gt; localIndex = <span class="keyword">new</span> ThreadLocal&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">produce</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            lock.lock();</span><br><span class="line">            index ++;</span><br><span class="line">            localIndex.set(index);</span><br><span class="line">            System.out.println(<span class="string">"线程"</span> + index + <span class="string">"开始等待"</span>);</span><br><span class="line">            condition.await();</span><br><span class="line">            System.out.println(<span class="string">"线程"</span> + localIndex.get() + <span class="string">"继续运行"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">consume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            lock.lock();</span><br><span class="line">            System.out.println(<span class="string">"通知线程继续运行"</span>);</span><br><span class="line">            condition.signal();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProducerThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ConditionService service;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ProducerThread</span><span class="params">(ConditionService service)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.service = service;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.run();</span><br><span class="line">        service.produce();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConsumerThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ConditionService service;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ConsumerThread</span><span class="params">(ConditionService service)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.service = service;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.run();</span><br><span class="line">        service.consume();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ConditionService service = <span class="keyword">new</span> ConditionService();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            ProducerThread producerThread = <span class="keyword">new</span> ProducerThread(service);</span><br><span class="line">            producerThread.start();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">            ConsumerThread consumerThread = <span class="keyword">new</span> ConsumerThread(service);</span><br><span class="line">            consumerThread.start();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"主线程结束"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行 main 方法，输出结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">线程1开始等待</span><br><span class="line">线程2开始等待</span><br><span class="line">线程3开始等待</span><br><span class="line">线程4开始等待</span><br><span class="line">线程5开始等待</span><br><span class="line">主线程结束</span><br><span class="line">通知线程继续运行</span><br><span class="line">线程1继续运行</span><br><span class="line">通知线程继续运行</span><br><span class="line">通知线程继续运行</span><br><span class="line">通知线程继续运行</span><br><span class="line">线程2继续运行</span><br><span class="line">线程3继续运行</span><br><span class="line">线程4继续运行</span><br></pre></td></tr></table></figure>
+<p>这里我故意让发送通知的线程少一个，这样就一直有一个线程处于等待状态，我是在 IDE 里面调试的，可以在输出里窗口面看见主线程是已经结束了的，但是有一个子线程一直处于等待状态，致使这个调试过程也一直处于未调试完成的状态。</p>
+<h2 id="getHoldCount-方法"><a href="#getHoldCount-方法" class="headerlink" title="getHoldCount() 方法"></a>getHoldCount() 方法</h2><p>getHoldCount 方法可以获取当前线程保持锁定的个数，在 unlock() 之前调用 lock() 的次数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadA</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ReentrantLock lock;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ThreadA</span><span class="params">(ReentrantLock lock)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.lock = lock;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.run();</span><br><span class="line">        methodA();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">methodA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            lock.lock();</span><br><span class="line">            System.out.println(<span class="string">"methodA::getHoldCount = "</span> + lock.getHoldCount());</span><br><span class="line">            <span class="comment">// 调用方法 methodB</span></span><br><span class="line">            methodB();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">methodB</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            lock.lock();</span><br><span class="line">            System.out.println(<span class="string">"methodB::getHoldCount = "</span> + lock.getHoldCount());</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">        ThreadA threadA = <span class="keyword">new</span> ThreadA(lock);</span><br><span class="line">        threadA.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出的结果如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">methodA::getHoldCount = 1</span><br><span class="line">methodB::getHoldCount = 2</span><br></pre></td></tr></table></figure>
+<h2 id="getQueueLength-方法"><a href="#getQueueLength-方法" class="headerlink" title="getQueueLength() 方法"></a>getQueueLength() 方法</h2><p>getQueueLength 方法可以获取当前正在等待这个锁的线程数的 <strong>估计数量</strong>，注意数估计数量，跟踪源码 getQueueLength 方法终会调用 AbstractQueuedSynchronizer 类里面的 getQueueLength 方法，源码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns an estimate of the number of threads waiting to</span></span><br><span class="line"><span class="comment"> * acquire.  The value is only an estimate because the number of</span></span><br><span class="line"><span class="comment"> * threads may change dynamically while this method traverses</span></span><br><span class="line"><span class="comment"> * internal data structures.  This method is designed for use in</span></span><br><span class="line"><span class="comment"> * monitoring system state, not for synchronization</span></span><br><span class="line"><span class="comment"> * control.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the estimated number of threads waiting to acquire</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getQueueLength</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (Node p = tail; p != <span class="keyword">null</span>; p = p.prev) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p.thread != <span class="keyword">null</span>)</span><br><span class="line">            ++n;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个方法的注释也写得很明白了，该值只能是一个估计值，因为在此方法遍历内部数据结构时，线程的数量可能发生大的变化。该方法是为用来监视系统状态而设计的，不是为同步控制设计的。</p>
+<h2 id="getWaitQueueLength-Condition-condition"><a href="#getWaitQueueLength-Condition-condition" class="headerlink" title="getWaitQueueLength(Condition condition)"></a>getWaitQueueLength(Condition condition)</h2><p>返回这个 condition 对象在线程里面调用了 await() 方法的次数。</p>
+<h2 id="hasQueuedThread-Thread-thread"><a href="#hasQueuedThread-Thread-thread" class="headerlink" title="hasQueuedThread(Thread thread)"></a>hasQueuedThread(Thread thread)</h2><p>查询指定的线程时候在等待此锁。</p>
+<h2 id="hasQueuedThreads"><a href="#hasQueuedThreads" class="headerlink" title="hasQueuedThreads()"></a>hasQueuedThreads()</h2><p>查询是否有任意的线程在等待此锁。</p>
+<h2 id="hasWaiters-Condition-condition"><a href="#hasWaiters-Condition-condition" class="headerlink" title="hasWaiters(Condition condition)"></a>hasWaiters(Condition condition)</h2><p>查询是否有任意线程调用了 condition.await() 方法并处于等待状态的。</p>
+<h2 id="isFair-方法"><a href="#isFair-方法" class="headerlink" title="isFair() 方法"></a>isFair() 方法</h2><p>返回这个 Lock 是否是公平锁。</p>
+<h2 id="isHeldByCurrentThread-方法"><a href="#isHeldByCurrentThread-方法" class="headerlink" title="isHeldByCurrentThread() 方法"></a>isHeldByCurrentThread() 方法</h2><p>查询当前线程是否持有锁。</p>
+<h2 id="isLocked"><a href="#isLocked" class="headerlink" title="isLocked()"></a>isLocked()</h2><p>查询这把锁是否被任意的线程持有。</p>
+<h1 id="ReentrantReadWriteLock-类"><a href="#ReentrantReadWriteLock-类" class="headerlink" title="ReentrantReadWriteLock 类"></a>ReentrantReadWriteLock 类</h1><p>首先要注意的是这个类并不是 Lock 的子类，其 UML 继承图如下：</p>
+<p><img src="/2018/05/21/Java-多线程之Lock的使用/20180522184151.jpg" alt="IMAGE"></p>
+<p>部分源码如下，可以看出它里面有定义两个内部静态类 ReadLock 和 WriteLock，而这两个类是实现了 Lock 接口的 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReentrantReadWriteLock</span> <span class="keyword">implements</span> <span class="title">ReadWriteLock</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">6992448646407690164L</span>;</span><br><span class="line">    <span class="comment">/** Inner class providing readlock */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ReentrantReadWriteLock.ReadLock readerLock;</span><br><span class="line">    <span class="comment">/** Inner class providing writelock */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ReentrantReadWriteLock.WriteLock writerLock;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ReentrantReadWriteLock 正如字面上的意思，它具有读写两把锁，两把锁的获取方式如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ReentrantReadWriteLock lock = <span class="keyword">new</span> ReentrantReadWriteLock();</span><br><span class="line"><span class="comment">// 获取读锁</span></span><br><span class="line">ReadLock readLock = lock.readLock();</span><br><span class="line"><span class="comment">// 获取写锁</span></span><br><span class="line">WeiteLock writeLock = lock.writeLock();</span><br><span class="line"></span><br><span class="line">readLock.lock();</span><br><span class="line">writeLock.lock();</span><br></pre></td></tr></table></figure>
+<p><strong>我们要了解的是读锁是一把共享锁，写锁是排他锁，即在没有线程获取到写锁之前，进行读操作的线程都可以获取读锁，在有线程获取写锁后，其他线程既不能获取到读锁，也不能获取到写锁。</strong> 其他的方法的使用和 ReentrantLock 类是一样的，这里就不再重复介绍了。</p>
+<h1 id="公平锁和非公平锁"><a href="#公平锁和非公平锁" class="headerlink" title="公平锁和非公平锁"></a>公平锁和非公平锁</h1><p>锁 Lock 分公平锁和非公平锁，使用公平锁时线程按照他们发出请求锁的顺序获取锁，使用非公平锁时在获取锁时是随机的。公平锁需要额外的维护一个队列，所以公平锁的性能要低于非公平锁。创建一个公平锁和非公平锁的代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 默认情况下 ReentrantLock 和 ReentrantReadWriteLock 都是创建的非公平锁</span></span><br><span class="line">ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">ReentrantReadWriteLock readWriteLock = <span class="keyword">new</span> ReentrantReadWriteLock();</span><br><span class="line"></span><br><span class="line"><span class="comment">// ReentrantLock(bool isFair) 和 ReentrantReadWriteLock(isFair) 构造方法可以传递一个 boolean 类型的参数</span></span><br><span class="line"><span class="comment">// true 表示创建一个公平锁，false 表示创建一个非公平锁</span></span><br><span class="line">ReentrantLock lock = <span class="keyword">new</span> ReentrantLock(<span class="keyword">true</span>);</span><br><span class="line">ReentrantReadWriteLock readWriteLock = <span class="keyword">new</span> ReentrantReadWriteLock(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Java-多线程之Lock的使用
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2018/05/21/Java-多线程之Lock的使用/" title="Java-多线程之Lock的使用">2018/05/21/Java-多线程之Lock的使用/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/21/Java-多线程之ThreadLocal（二）/" rel="next" title="Java-多线程之ThreadLocal（二）">
+                <i class="fa fa-chevron-left"></i> Java-多线程之ThreadLocal（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/21/Android-CardView/" rel="prev" title="Android-CardView">
+                Android-CardView <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Lock-和-synchronized-的区别"><span class="nav-number">1.</span> <span class="nav-text">Lock 和 synchronized 的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Lock-类"><span class="nav-number">2.</span> <span class="nav-text">Lock 类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ReentrantLock-类"><span class="nav-number">3.</span> <span class="nav-text">ReentrantLock 类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#newCondition-方法和-Condition-类"><span class="nav-number">3.1.</span> <span class="nav-text">newCondition() 方法和 Condition 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#getHoldCount-方法"><span class="nav-number">3.2.</span> <span class="nav-text">getHoldCount() 方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#getQueueLength-方法"><span class="nav-number">3.3.</span> <span class="nav-text">getQueueLength() 方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#getWaitQueueLength-Condition-condition"><span class="nav-number">3.4.</span> <span class="nav-text">getWaitQueueLength(Condition condition)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hasQueuedThread-Thread-thread"><span class="nav-number">3.5.</span> <span class="nav-text">hasQueuedThread(Thread thread)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hasQueuedThreads"><span class="nav-number">3.6.</span> <span class="nav-text">hasQueuedThreads()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hasWaiters-Condition-condition"><span class="nav-number">3.7.</span> <span class="nav-text">hasWaiters(Condition condition)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#isFair-方法"><span class="nav-number">3.8.</span> <span class="nav-text">isFair() 方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#isHeldByCurrentThread-方法"><span class="nav-number">3.9.</span> <span class="nav-text">isHeldByCurrentThread() 方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#isLocked"><span class="nav-number">3.10.</span> <span class="nav-text">isLocked()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ReentrantReadWriteLock-类"><span class="nav-number">4.</span> <span class="nav-text">ReentrantReadWriteLock 类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#公平锁和非公平锁"><span class="nav-number">5.</span> <span class="nav-text">公平锁和非公平锁</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

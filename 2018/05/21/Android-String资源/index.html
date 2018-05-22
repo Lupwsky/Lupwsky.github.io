@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="基础用法12345// String资源定义&amp;lt;string name=&quot;stringTest&quot;&amp;gt;买1台Mac笔记本&amp;lt;/string&amp;gt;// 使用String资源getString(R.string.stringTest);">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-String资源">
+<meta property="og:url" content="http://yoursite.com/2018/05/21/Android-String资源/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="基础用法12345// String资源定义&amp;lt;string name=&quot;stringTest&quot;&amp;gt;买1台Mac笔记本&amp;lt;/string&amp;gt;// 使用String资源getString(R.string.stringTest);">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/05/21/Android-String资源/6EFCDC52A2B1859BBC54EE9FCC53BC07.png">
+<meta property="og:image" content="http://yoursite.com/2018/05/21/Android-String资源/1F516DA3298AAA5CAE297B3BEFE1BD42.png">
+<meta property="og:image" content="http://yoursite.com/2018/05/21/Android-String资源/EC14B6A63733C79DBB66A09EFA2250B8.png">
+<meta property="og:image" content="http://yoursite.com/2018/05/21/Android-String资源/88B4FFB1D8B49E113BA01B25080A2A25.png">
+<meta property="og:image" content="http://yoursite.com/2018/05/21/Android-String资源/11A458DF037C2E50C2CC2626CC982C88.png">
+<meta property="og:image" content="http://yoursite.com/2018/05/21/Android-String资源/33018EA355502A311B8718D32838EA06.png">
+<meta property="og:image" content="http://yoursite.com/2018/05/21/Android-String资源/829518357CC3EFA9C4C9339A76216915.png">
+<meta property="og:updated_time" content="2018-05-21T10:11:52.576Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android-String资源">
+<meta name="twitter:description" content="基础用法12345// String资源定义&amp;lt;string name=&quot;stringTest&quot;&amp;gt;买1台Mac笔记本&amp;lt;/string&amp;gt;// 使用String资源getString(R.string.stringTest);">
+<meta name="twitter:image" content="http://yoursite.com/2018/05/21/Android-String资源/6EFCDC52A2B1859BBC54EE9FCC53BC07.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/21/Android-String资源/"/>
+
+
+
+
+
+  <title>Android-String资源 | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/21/Android-String资源/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android-String资源</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-21T15:51:12+08:00">
+                2018-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// String资源定义</span></span><br><span class="line">&lt;string name="stringTest"&gt;买1台Mac笔记本&lt;/string&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用String资源</span></span><br><span class="line">getString(R.string.stringTest);</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h1 id="添加参数"><a href="#添加参数" class="headerlink" title="添加参数"></a>添加参数</h1><p>上面的买1台Mac笔记本中，数量被写死了，如果要在程序你将数量写成动态的，就会这样去写</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 硬编码的方式不能国际化</span></span><br><span class="line">String stringTest = <span class="string">"买"</span> + count + <span class="string">"台Mac笔记本"</span>;</span><br><span class="line">textView.setText(stringTest);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义两个string字符串资源然后去拼接，虽然可以国际化，但是太繁琐</span></span><br><span class="line">&lt;string name="stringTest1"&gt;买&lt;/string&gt;</span><br><span class="line">&lt;string name="stringTest2"&gt;台Mac笔记本&lt;/string&gt;</span><br><span class="line"></span><br><span class="line">String stringTest = getString(stringTest1) + count + getString(stringTest2);</span><br><span class="line">textView.setTest(stringTest);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 推荐在string资源中添加参数下：</span></span><br><span class="line">&lt;string name="stringTest"&gt;买%1$s台%2$s笔记本&lt;/string&gt;</span><br><span class="line">String stringTest = getString(getString(R.string.stringTest), <span class="string">"2"</span>, <span class="string">"惠普"</span>);</span><br></pre></td></tr></table></figure>
+<h1 id="转换符"><a href="#转换符" class="headerlink" title="转换符"></a>转换符</h1><p><img src="/2018/05/21/Android-String资源/6EFCDC52A2B1859BBC54EE9FCC53BC07.png" alt="IMAGE"></p>
+<p><img src="/2018/05/21/Android-String资源/1F516DA3298AAA5CAE297B3BEFE1BD42.png" alt="IMAGE"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="keyword">null</span>;</span><br><span class="line">str = String.format(<span class="string">"Hi, %s"</span>, <span class="string">"hello"</span>);</span><br><span class="line">System.out.println(str);</span><br><span class="line">str = String.format(<span class="string">"Hi, %s %s %s"</span>, <span class="string">"你好"</span>,<span class="string">"hello"</span>,<span class="string">"world"</span>);</span><br><span class="line">System.out.println(str);</span><br><span class="line">System.out.printf(<span class="string">"字母c的大写是：%c %n"</span>, <span class="string">'C'</span>);</span><br><span class="line">System.out.printf(<span class="string">"布尔结果是：%b %n"</span>, <span class="string">"小超"</span>.equal(<span class="string">"帅哥"</span>));</span><br><span class="line">System.out.printf(<span class="string">"100的一半是：%d %n"</span>, <span class="number">100</span>/<span class="number">2</span>);</span><br><span class="line">System.out.printf(<span class="string">"100的16进制数是：%x %n"</span>, <span class="number">100</span>);</span><br><span class="line">System.out.printf(<span class="string">"100的8进制数是：%o %n"</span>, <span class="number">100</span>);</span><br><span class="line">System.out.printf(<span class="string">"50元的书打8.5折扣是：%f 元%n"</span>, <span class="number">50</span>*<span class="number">0.85</span>);</span><br><span class="line">System.out.printf(<span class="string">"上面价格的16进制数是：%a %n"</span>, <span class="number">50</span>*<span class="number">0.85</span>);</span><br><span class="line">System.out.printf(<span class="string">"上面价格的指数表示：%e %n"</span>, <span class="number">50</span>*<span class="number">0.85</span>);</span><br><span class="line">System.out.printf(<span class="string">"上面价格的指数和浮点数结果的长度较短的是：%g %n"</span>, <span class="number">50</span>*<span class="number">0.85</span>);</span><br><span class="line">System.out.printf(<span class="string">"上面的折扣是%d%% %n"</span>, <span class="number">85</span>);</span><br><span class="line">System.out.printf(<span class="string">"字母A的散列码是：%h %n"</span>, <span class="string">'A'</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">输出的结果如下：</span><br><span class="line">Hi, 你好</span><br><span class="line">Hi, 你好 hello world</span><br><span class="line">字母c的大写是：C</span><br><span class="line">布尔的结果是：false</span><br><span class="line">100的一半是：50</span><br><span class="line">100的16进制数是：64</span><br><span class="line">100的8进制数是：144</span><br><span class="line">50元的书打8.5折扣是：42.500000 元</span><br><span class="line">上面价格的16进制数是：0x1.54p5</span><br><span class="line">上面价格的指数表示：4.250000e+01</span><br><span class="line">上面价格的指数和浮点数结果的长度较短的是：42.5000</span><br><span class="line">上面的折扣是85%</span><br><span class="line">字母A的散列码是：41</span><br></pre></td></tr></table></figure>
+<p>和时间先相关的的转换符：</p>
+<p><img src="/2018/05/21/Android-String资源/EC14B6A63733C79DBB66A09EFA2250B8.png" alt="IMAGE"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Date date=<span class="keyword">new</span> Date();</span><br><span class="line"><span class="comment">//c 的使用</span></span><br><span class="line">System.out.printf(<span class="string">"全部日期和时间信息：%tc%n"</span>,date);</span><br><span class="line"><span class="comment">//f 的使用</span></span><br><span class="line">System.out.printf(<span class="string">"年-月-日格式：%tF%n"</span>,date);</span><br><span class="line"><span class="comment">//d 的使用</span></span><br><span class="line">System.out.printf(<span class="string">"月/日/年格式：%tD%n"</span>,date);</span><br><span class="line"><span class="comment">//r 的使用</span></span><br><span class="line">System.out.printf(<span class="string">"HH:MM:SS PM格式（12时制）：%tr%n"</span>,date);</span><br><span class="line"><span class="comment">//t 的使用</span></span><br><span class="line">System.out.printf(<span class="string">"HH:MM:SS格式（24时制）：%tT%n"</span>,date);</span><br><span class="line"><span class="comment">//R 的使用</span></span><br><span class="line">System.out.printf(<span class="string">"HH:MM格式（24时制）：%tR"</span>,date);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输出的结果如下：</span><br><span class="line">全部日期和时间信息：星期三 九月 21 22:43:36 CST 2016</span><br><span class="line">年-月-日格式：2016-09-21</span><br><span class="line">月/日/年格式：16/10/21</span><br><span class="line">HH:MM:SS PM格式（12时制）：10:43:36 下午</span><br><span class="line">HH:MM:SS格式（24时制）：22:43:36</span><br><span class="line">HH:MM格式（24时制）：22:43</span><br></pre></td></tr></table></figure>
+<h1 id="带数量判定的字符串"><a href="#带数量判定的字符串" class="headerlink" title="带数量判定的字符串"></a>带数量判定的字符串</h1><p>在翻译成英语后，发现问题来了，如果我想表示买了多台 Kindle，但在英语语法中多台 Kindle 需要用复数形式 Kindles，这要如何做呢？Android 为这种情形提供了 Plurals 方法。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 英文 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plurals</span> <span class="attr">name</span>=<span class="string">"buy_kindle"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">quantity</span>=<span class="string">"one"</span>&gt;</span>I want to buy a Kindle<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">quantity</span>=<span class="string">"other"</span>&gt;</span>I want to buy some Kindles<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plurals</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 中文 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plurals</span> <span class="attr">name</span>=<span class="string">"buy_kindle"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">quantity</span>=<span class="string">"one"</span>&gt;</span>我想买一台<span class="tag">&lt;<span class="name">xliff:g</span> <span class="attr">id</span>=<span class="string">"Kindle"</span>&gt;</span>Kindle<span class="tag">&lt;/<span class="name">xliff:g</span>&gt;</span><span class="tag">&lt;/<span class="name">item</span>&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">quantity</span>=<span class="string">"other"</span>&gt;</span>我想买几台<span class="tag">&lt;<span class="name">xliff:g</span> <span class="attr">id</span>=<span class="string">"Kindle"</span>&gt;</span>Kindle<span class="tag">&lt;/<span class="name">xliff:g</span>&gt;</span><span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plurals</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>获得该 plurals 方法如下，第二参数传入 quantity，系统会根据 quantity 来选择对应的显示，该方法后也可以加入参数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getResources().getQuantityString(R.plurals.buy_kindle, <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<h1 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h1><p>有些字符是没有办法在strings.xml里面直接写的，比如”&lt;”，”&gt;”，但可以用它对应的ASCII码来替代进行显示，比如要表达：我想买一台Kindle&lt;$100&gt;，则可以使用一下方法。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">quantity</span>=<span class="string">"one"</span>&gt;</span>我想买一台<span class="tag">&lt;<span class="name">xliff:g</span> <span class="attr">id</span>=<span class="string">"Kindle"</span>&gt;</span>Kindle&amp;#060$100&amp;#062<span class="tag">&lt;/<span class="name">xliff:g</span>&gt;</span><span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="改变字符串部分字符的大小和颜色"><a href="#改变字符串部分字符的大小和颜色" class="headerlink" title="改变字符串部分字符的大小和颜色"></a>改变字符串部分字符的大小和颜色</h1><p><img src="/2018/05/21/Android-String资源/88B4FFB1D8B49E113BA01B25080A2A25.png" alt="IMAGE"></p>
+<p>上图所示的效果如果使用 TextView 直接实现就会很复杂和繁琐，可能需要多个 TextView 拼接显示。可以利用 Html.fromHtml() 的方法可以改变字体的颜色，其中也有一些属性还可以设置，比如字体等，类似于H5的功能。但是要注意，只支持以下几个标签：</p>
+<ul>
+<li>&lt;b>：粗体</li>
+<li>&lt;i>：斜体</li>
+<li><p>&lt;u>：下划线</p>
+<p>实现上面的效果，首先定义String资源，如下图所示：</p>
+</li>
+</ul>
+<p><img src="/2018/05/21/Android-String资源/11A458DF037C2E50C2CC2626CC982C88.png" alt="IMAGE"></p>
+<p>然后在代码中使用，如下图所示：</p>
+<p><img src="/2018/05/21/Android-String资源/33018EA355502A311B8718D32838EA06.png" alt="IMAGE"></p>
+<h1 id="使用字符串数组"><a href="#使用字符串数组" class="headerlink" title="使用字符串数组"></a>使用字符串数组</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 字符串数组定义 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string-array</span> <span class="attr">name</span>=<span class="string">"planets_array"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">item</span>&gt;</span>Mercury<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">item</span>&gt;</span>Venus<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">item</span>&gt;</span>Earth<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">item</span>&gt;</span>Mars<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">string-array</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用方法</span></span><br><span class="line">Resources res = getResources();</span><br><span class="line">String[] planets = res.getStringArray(R.array.planets_array);</span><br></pre></td></tr></table></figure>
+<h1 id="国际化"><a href="#国际化" class="headerlink" title="国际化"></a>国际化</h1><p>右键res文件夹，添加一个资源文件夹，会对应的生成国际化语言需要的文件夹，里面也有相同的string资源文件，在里面创建相应的字符串资源，在系统语言为其他语言时就会自动使用这个资源，如下图所示选择：</p>
+<p><img src="/2018/05/21/Android-String资源/829518357CC3EFA9C4C9339A76216915.png" alt="IMAGE"></p>
+<p>使用的方法和上面介绍的一样，有一点需要注意，如果字符串资源有字符不需要翻译，可以用下面的方法处理，这样我们把资源文件给他人或者使用Google Play自动翻译服务时，对方就知道该部分无需翻译。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 使用 &lt;xliff:g&gt; 标签之前需要加入命名控件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resources</span> <span class="attr">xmlns:xliff</span>=<span class="string">"urn:oasis:names:tc:xliff:document:1.2"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"buy_kindle"</span>&gt;</span>我想买%s台<span class="tag">&lt;<span class="name">xliff:g</span> <span class="attr">id</span>=<span class="string">"Kindle"</span>&gt;</span>Kindle<span class="tag">&lt;/<span class="name">xliff:g</span>&gt;</span><span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Android-String资源
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2018/05/21/Android-String资源/" title="Android-String资源">2018/05/21/Android-String资源/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/21/Android-CardView/" rel="next" title="Android-CardView">
+                <i class="fa fa-chevron-left"></i> Android-CardView
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/21/Android-软键盘获取高度/" rel="prev" title="Android-软键盘获取高度">
+                Android-软键盘获取高度 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础用法"><span class="nav-number">1.</span> <span class="nav-text">基础用法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加参数"><span class="nav-number">2.</span> <span class="nav-text">添加参数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#转换符"><span class="nav-number">3.</span> <span class="nav-text">转换符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#带数量判定的字符串"><span class="nav-number">4.</span> <span class="nav-text">带数量判定的字符串</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特殊字符"><span class="nav-number">5.</span> <span class="nav-text">特殊字符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#改变字符串部分字符的大小和颜色"><span class="nav-number">6.</span> <span class="nav-text">改变字符串部分字符的大小和颜色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用字符串数组"><span class="nav-number">7.</span> <span class="nav-text">使用字符串数组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#国际化"><span class="nav-number">8.</span> <span class="nav-text">国际化</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
