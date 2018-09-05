@@ -80,18 +80,18 @@
 <meta name="description" content="Ioc 的概念控制反转，程序编程的一种设计思想，和依赖注入 ( DI ) 是同一个概念，主要用于程序解耦。 Ioc 的类型从注入方式上看，分为三种类型，构造类型注入、属性注入和接口注入 ( 不推荐，需要再额外添加一个接口 )。 Spring IoC 容器Sprig IoC 容器主要是完成程序解耦合的功能，帮助完成类的初始化和依赖关系的装配，让开发者从这些工作中脱离出来，专注于业务逻辑开发。举一个简">
 <meta name="keywords" content="技术小站">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring笔记-SpringIoC容器基础知识">
-<meta property="og:url" content="http://yoursite.com/2018/03/25/Spring笔记-SpringIoC容器相关知识/index.html">
+<meta property="og:title" content="Spring-SpringIoC容器基础知识">
+<meta property="og:url" content="http://yoursite.com/2018/03/25/Spring-SpringIoC容器相关知识/index.html">
 <meta property="og:site_name" content="技术小站">
 <meta property="og:description" content="Ioc 的概念控制反转，程序编程的一种设计思想，和依赖注入 ( DI ) 是同一个概念，主要用于程序解耦。 Ioc 的类型从注入方式上看，分为三种类型，构造类型注入、属性注入和接口注入 ( 不推荐，需要再额外添加一个接口 )。 Spring IoC 容器Sprig IoC 容器主要是完成程序解耦合的功能，帮助完成类的初始化和依赖关系的装配，让开发者从这些工作中脱离出来，专注于业务逻辑开发。举一个简">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/03/25/Spring笔记-SpringIoC容器相关知识/20180327233518.png">
-<meta property="og:image" content="http://yoursite.com/2018/03/25/Spring笔记-SpringIoC容器相关知识/20180328011514.png">
-<meta property="og:updated_time" content="2018-05-10T04:42:39.688Z">
+<meta property="og:image" content="http://yoursite.com/2018/03/25/Spring-SpringIoC容器相关知识/20180327233518.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/25/Spring-SpringIoC容器相关知识/20180328011514.png">
+<meta property="og:updated_time" content="2018-09-05T15:08:26.389Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring笔记-SpringIoC容器基础知识">
+<meta name="twitter:title" content="Spring-SpringIoC容器基础知识">
 <meta name="twitter:description" content="Ioc 的概念控制反转，程序编程的一种设计思想，和依赖注入 ( DI ) 是同一个概念，主要用于程序解耦。 Ioc 的类型从注入方式上看，分为三种类型，构造类型注入、属性注入和接口注入 ( 不推荐，需要再额外添加一个接口 )。 Spring IoC 容器Sprig IoC 容器主要是完成程序解耦合的功能，帮助完成类的初始化和依赖关系的装配，让开发者从这些工作中脱离出来，专注于业务逻辑开发。举一个简">
-<meta name="twitter:image" content="http://yoursite.com/2018/03/25/Spring笔记-SpringIoC容器相关知识/20180327233518.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/25/Spring-SpringIoC容器相关知识/20180327233518.png">
 
 
 
@@ -121,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/03/25/Spring笔记-SpringIoC容器相关知识/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/25/Spring-SpringIoC容器相关知识/"/>
 
 
 
 
 
-  <title>Spring笔记-SpringIoC容器基础知识 | 技术小站</title>
+  <title>Spring-SpringIoC容器基础知识 | 技术小站</title>
   
 
 
@@ -254,7 +254,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/25/Spring笔记-SpringIoC容器相关知识/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/25/Spring-SpringIoC容器相关知识/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -271,7 +271,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Spring笔记-SpringIoC容器基础知识</h1>
+          <h1 class="post-title" itemprop="name headline">Spring-SpringIoC容器基础知识</h1>
         
 
         <div class="post-meta">
@@ -364,7 +364,7 @@
 <h1 id="Spring-容器底层依赖的技术"><a href="#Spring-容器底层依赖的技术" class="headerlink" title="Spring 容器底层依赖的技术"></a>Spring 容器底层依赖的技术</h1><p>Spring 通过简单的配置文件可以完成 bean 的实例化和依赖注入，能完成这些功能主要依靠 Java 所提供的反射功能，为了之后能够可以更加深入理解 Spring，我么需要了解反射的相关姿势，除此之外，同时还需要了解 Spring 资源文件的访问功能。</p>
 <h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p>鉴于篇幅，懒得写了，就是那个意思。</p>
 <h2 id="资源访问"><a href="#资源访问" class="headerlink" title="资源访问"></a>资源访问</h2><h3 id="Resource-接口和-Resource-接口的实现类"><a href="#Resource-接口和-Resource-接口的实现类" class="headerlink" title="Resource 接口和 Resource 接口的实现类"></a>Resource 接口和 Resource 接口的实现类</h3><p>Spring 通过读取配置文件来获取 Bena 初始化配置和依赖关系，需要进行资源的访问才能获取这些信息，JDK 所提供的资源访问类 java.net.URL、File类等并不能很好的访问类路径和 WEB 容器上下文的资源文件，因此 Spring 设计了一个 Resource 接口，并提供了相关的实现类，以便于在各种场景下方便的访问资源问件，具体的实现类如下图所示:</p>
-<p><img src="/2018/03/25/Spring笔记-SpringIoC容器相关知识/20180327233518.png" alt="IMAGE"></p>
+<p><img src="/2018/03/25/Spring-SpringIoC容器相关知识/20180327233518.png" alt="IMAGE"></p>
 <p>先看看 Resource 接口的定义的方法:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Resource</span> <span class="keyword">extends</span> <span class="title">InputStreamSource</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 资源是否存在</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">exists</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//　资源是否可读</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">boolean</span> <span class="title">isReadable</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 资源是否已打开</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">boolean</span> <span class="title">isOpen</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 打开的资源是否是一个文件</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">boolean</span> <span class="title">isFile</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果资源文件可以被表示成一个 URL，则返回 URL</span></span><br><span class="line">    <span class="function">URL <span class="title">getURL</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">URI <span class="title">getURI</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果资源文件是一个文件，则返回 File 对象</span></span><br><span class="line">    <span class="function">File <span class="title">getFile</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> ReadableByteChannel <span class="title">readableChannel</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Channels.newChannel(<span class="keyword">this</span>.getInputStream());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">long</span> <span class="title">contentLength</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">long</span> <span class="title">lastModified</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在资源文件的相对路径上创建文件</span></span><br><span class="line">    <span class="function">Resource <span class="title">createRelative</span><span class="params">(String var1)</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">    <span class="function">String <span class="title">getFilename</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">String <span class="title">getDescription</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Resource 的各个实现类的主要功能见下表:</p>
@@ -450,7 +450,7 @@
 </tbody>
 </table>
 <p>上面的资源地址需要通过资源加载器才能加载到资源，Spring 定义了加载器的接口 ResourceLoader，它只有一个接口 getResource(String location)，并且只支持资源地址前缀的表达式，不支持 Ant 风格的资源地址表达式。ResourcePatternResolver 扩展了 ResourceLoader 接口，可以支持 Ant 风格的资源地址表达式，PathMatchingResourcePatternResolver 则是一个标准的实现类，继承关系如下图所示。</p>
-<p><img src="/2018/03/25/Spring笔记-SpringIoC容器相关知识/20180328011514.png" alt="IMAGE"></p>
+<p><img src="/2018/03/25/Spring-SpringIoC容器相关知识/20180328011514.png" alt="IMAGE"></p>
 <p>PathMatchingResourcePatternResolver 类的使用方法如下。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PathMatchingResourcePatternResolver resolver =<span class="keyword">new</span> PathMatchingResourcePatternResolver();</span><br><span class="line"><span class="comment">// 加载所有类目录 (项目被拆分成多个子模块时) 下的 mapper 目录下所有 xml 文件资源</span></span><br><span class="line">Resource resources[] = resolver.getResources(<span class="string">"classpath*:mapper/*.xml"</span>);</span><br><span class="line"><span class="keyword">for</span>(Resource res : resources) &#123;</span><br><span class="line">    ImputStrem is = res.getInputStream();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="Ant-风格资源地址"><a href="#Ant-风格资源地址" class="headerlink" title="Ant 风格资源地址"></a>Ant 风格资源地址</h3><p>Ant 风格的地址支持三种匹配符</p>
@@ -494,12 +494,12 @@
         </li>
 
         <li class="post-copyright-link">
-            <strong>本文标题：</strong> Spring笔记-SpringIoC容器基础知识
+            <strong>本文标题：</strong> Spring-SpringIoC容器基础知识
         </li>
 
         <li class="post-copyright-link">
           <strong>本文链接：</strong>
-          <a href="/2018/03/25/Spring笔记-SpringIoC容器相关知识/" title="Spring笔记-SpringIoC容器基础知识">2018/03/25/Spring笔记-SpringIoC容器相关知识/</a>
+          <a href="/2018/03/25/Spring-SpringIoC容器相关知识/" title="Spring-SpringIoC容器基础知识">2018/03/25/Spring-SpringIoC容器相关知识/</a>
         </li>
 
         <li class="post-copyright-license">
@@ -611,7 +611,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

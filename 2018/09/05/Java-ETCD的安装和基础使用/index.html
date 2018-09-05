@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="下载和安装ETCD源码安装方式下载和安装GOGO 官方网站 下载并解压, 官网需要翻墙 配置环境变量12export GOROOT=/home/lupw/Golang/goexport PATH=$PATH:$GOROOT/bin 执行 go version 能查看版本信息即安装成功">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-ETCD的安装和基础使用">
+<meta property="og:url" content="http://yoursite.com/2018/09/05/Java-ETCD的安装和基础使用/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="下载和安装ETCD源码安装方式下载和安装GOGO 官方网站 下载并解压, 官网需要翻墙 配置环境变量12export GOROOT=/home/lupw/Golang/goexport PATH=$PATH:$GOROOT/bin 执行 go version 能查看版本信息即安装成功">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-05T15:16:53.558Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java-ETCD的安装和基础使用">
+<meta name="twitter:description" content="下载和安装ETCD源码安装方式下载和安装GOGO 官方网站 下载并解压, 官网需要翻墙 配置环境变量12export GOROOT=/home/lupw/Golang/goexport PATH=$PATH:$GOROOT/bin 执行 go version 能查看版本信息即安装成功">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/05/Java-ETCD的安装和基础使用/"/>
+
+
+
+
+
+  <title>Java-ETCD的安装和基础使用 | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/05/Java-ETCD的安装和基础使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java-ETCD的安装和基础使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-05T23:13:21+08:00">
+                2018-09-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="下载和安装ETCD"><a href="#下载和安装ETCD" class="headerlink" title="下载和安装ETCD"></a>下载和安装ETCD</h1><h2 id="源码安装方式"><a href="#源码安装方式" class="headerlink" title="源码安装方式"></a>源码安装方式</h2><h3 id="下载和安装GO"><a href="#下载和安装GO" class="headerlink" title="下载和安装GO"></a>下载和安装GO</h3><p><a href="https://golang.org/" target="_blank" rel="noopener">GO 官方网站</a> 下载并解压, 官网需要翻墙</p>
+<h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export GOROOT=/home/lupw/Golang/go</span><br><span class="line">export PATH=$PATH:$GOROOT/bin</span><br></pre></td></tr></table></figure>
+<p>执行 go version 能查看版本信息即安装成功</p>
+<a id="more"></a>
+<h3 id="下载ETCD源码并编译"><a href="#下载ETCD源码并编译" class="headerlink" title="下载ETCD源码并编译"></a>下载ETCD源码并编译</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go get -u -v https://github.com/coreos/etcd</span><br><span class="line">./build</span><br></pre></td></tr></table></figure>
+<h2 id="二进制文件方式安装"><a href="#二进制文件方式安装" class="headerlink" title="二进制文件方式安装"></a>二进制文件方式安装</h2><p>下载地址 <a href="https://github.com/coreos/etcd/releases/" target="_blank" rel="noopener">https://github.com/coreos/etcd/releases</a>, 找到对应的系统版本下载安装即可</p>
+<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><p>为了方便使用, 创建了环境变量如下:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> ETCD 环境变量, 指定使用 API 的版本为 3, 不指定时默认使用的版本是 2</span><br><span class="line">export ETCDCTL_API=3</span><br><span class="line">export ETCD_HOME=/home/lupw/Etcd/etcd-v3.3.9-linux-amd64</span><br><span class="line">export PATH=$PATH:$ETCD_HOME</span><br></pre></td></tr></table></figure>
+<h2 id="单机启动"><a href="#单机启动" class="headerlink" title="单机启动"></a>单机启动</h2><p>如果不更改端口号, 直接启动即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"># 启动 etcd</span><br><span class="line">nohup etcd</span><br><span class="line">--name etcd0</span><br><span class="line">--listen-peer-urls http://127.0.0.1:23790</span><br><span class="line">--initial-advertise-peer-urls http://192.168.80.130:23790</span><br><span class="line">--listen-client-urls http://127.0.0.1:2379</span><br><span class="line">--advertise-client-urls http://192.168.80.130:2379</span><br><span class="line">--initial-cluster etcd0=http://192.168.80.130:23790</span><br><span class="line">--initial-cluster-token cluster0</span><br><span class="line">--data-dir /home/lupw/Etcd/etcd-v3.3.9-linux-amd64</span><br><span class="line">&gt;etcd0.log 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br><span class="line"># 启动参数说明</span><br><span class="line">--name etcd0 本成员的名字</span><br><span class="line">--listen-peer-urls http://127.0.0.1:23790 用于监听来自其他成员的交互信息</span><br><span class="line">--initial-advertise-peer-urls http://192.168.80.130:23790 其他的成员通过这个地址和这个成员来交互信息, 需要保证其他成员能连接到这个地址 (一般使用公网 IP), 这个 IP 必须在集群描述信息中存在</span><br><span class="line"></span><br><span class="line">--listen-client-urls http://127.0.0.1:2379 用于监听来自客户端的交互信息</span><br><span class="line">--advertise-client-urls http://192.168.80.130:2379 客户端使用这个地址和集群中的这个成员来交互信息, 需要保证客户端能连接到这个地址 (一般使用公网 IP)</span><br><span class="line"></span><br><span class="line">--initial-cluster etcd0=http://192.168.80.130:23790 集群的描述信息, 使用 [成员名称]=[地址] 的格式, 多个以逗号分隔, 逗号之间不能有空格, 这个成员会根据这里描述的地址去和其他成员交互信息</span><br><span class="line">--initial-cluster-token cluster0 用于区分不同的集群, 一台服务器上又多个集群的话需要设置此值, 且值不能相同</span><br><span class="line">--data-dir /home/lupw/Etcd/etcd-v3.3.9-linux-amd64 节点数据的存储目录</span><br><span class="line"></span><br><span class="line"># 存放值和获取值</span><br><span class="line">[lupw@localhost ~]$ etcdctl --endpoints=192.168.80.130:23790 put username lupengwei</span><br><span class="line">OK</span><br><span class="line">[lupw@localhost ~]$ etcdctl --endpoints=192.168.80.130:23790 get username</span><br><span class="line">uername</span><br><span class="line">lupengwei</span><br></pre></td></tr></table></figure>
+<h2 id="单机多成员启动"><a href="#单机多成员启动" class="headerlink" title="单机多成员启动"></a>单机多成员启动</h2><h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>在同一台服务器上使用不同的端口号启动多个成员来模拟多成员集群</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nohup etcd --name etcd0 --listen-peer-urls http://192.168.80.130:23790 --initial-advertise-peer-urls http://192.168.80.130:23790 --listen-client-urls http://192.168.80.130:2379 --advertise-client-urls http://192.168.80.130:2379 --initial-cluster etcd0=http://192.168.80.130:23790,etcd1=http://192.168.80.130:23800,etcd2=http://192.168.80.130:23810 --initial-cluster-token cluster0 --data-dir /home/lupw/Etcd/etcd-v3.3.9-linux-amd64/etcd0 &gt;etcd0.log 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br><span class="line">nohup etcd --name etcd1 --listen-peer-urls http://192.168.80.130:23800 --initial-advertise-peer-urls http://192.168.80.130:23800 --listen-client-urls http://192.168.80.130:2380 --advertise-client-urls http://192.168.80.130:2380 --initial-cluster etcd0=http://192.168.80.130:23790,etcd1=http://192.168.80.130:23800,etcd2=http://192.168.80.130:23810 --initial-cluster-token cluster0 --data-dir /home/lupw/Etcd/etcd-v3.3.9-linux-amd64/etcd1 &gt;etcd1.log 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br><span class="line">nohup etcd --name etcd2 --listen-peer-urls http://192.168.80.130:23810 --initial-advertise-peer-urls http://192.168.80.130:23810 --listen-client-urls http://192.168.80.130:2381 --advertise-client-urls http://192.168.80.130:2381  --initial-cluster etcd0=http://192.168.80.130:23790,etcd1=http://192.168.80.130:23800,etcd2=http://192.168.80.130:23810 --initial-cluster-token cluster0 --data-dir /home/lupw/Etcd/etcd-v3.3.9-linux-amd64/etcd2 &gt;etcd2.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<h3 id="查看成员列表"><a href="#查看成员列表" class="headerlink" title="查看成员列表"></a>查看成员列表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">etcdctl --endpoints=192.168.80.130:2379,192.168.80.130:2380,192.168.80.130:2381 --write-out=table member list</span><br><span class="line">+------------------+---------+-------+-----------------------------+----------------------------+</span><br><span class="line">|        ID        | STATUS  | NAME  |         PEER ADDRS          |        CLIENT ADDRS        |</span><br><span class="line">+------------------+---------+-------+-----------------------------+----------------------------+</span><br><span class="line">| 1a75caa138967ecd | started | etcd0 | http://192.168.80.130:23790 | http://192.168.80.130:2379 |</span><br><span class="line">| 4d36558990e64509 | started | etcd2 | http://192.168.80.130:23810 | http://192.168.80.130:2381 |</span><br><span class="line">| d84198c066efb916 | started | etcd1 | http://192.168.80.130:23800 | http://192.168.80.130:2380 |</span><br><span class="line">+------------------+---------+-------+-----------------------------+----------------------------+</span><br></pre></td></tr></table></figure>
+<h3 id="查看成员状态"><a href="#查看成员状态" class="headerlink" title="查看成员状态"></a>查看成员状态</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">etcdctl --endpoints=192.168.80.130:2379,192.168.80.130:2380,192.168.80.130:2381 --write-out=table endpoint status</span><br><span class="line">+---------------------+------------------+---------+---------+-----------+-----------+------------+</span><br><span class="line">|      ENDPOINT       |        ID        | VERSION | DB SIZE | IS LEADER | RAFT TERM | RAFT INDEX |</span><br><span class="line">+---------------------+------------------+---------+---------+-----------+-----------+------------+</span><br><span class="line">| 192.168.80.130:2379 | 1a75caa138967ecd |  3.2.18 |   25 kB |     false |       142 |         17 |</span><br><span class="line">| 192.168.80.130:2380 | d84198c066efb916 |  3.2.18 |   25 kB |      true |       142 |         17 |</span><br><span class="line">| 192.168.80.130:2381 | 4d36558990e64509 |  3.2.18 |   25 kB |     false |       142 |         17 |</span><br><span class="line">+---------------------+------------------+---------+---------+-----------+-----------+------------+</span><br></pre></td></tr></table></figure>
+<h3 id="查看健康状态"><a href="#查看健康状态" class="headerlink" title="查看健康状态"></a>查看健康状态</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">etcdctl --endpoints=192.168.80.130:2379,192.168.80.130:2380,192.168.80.130:2381 --write-out=table endpoint health</span><br><span class="line">192.168.80.130:2380 is healthy: successfully committed proposal: took = 11.24872ms</span><br><span class="line">192.168.80.130:2379 is healthy: successfully committed proposal: took = 11.060707ms</span><br><span class="line">192.168.80.130:2381 is healthy: successfully committed proposal: took = 11.045883ms</span><br></pre></td></tr></table></figure>
+<h3 id="在成员-etcd0-中存入值"><a href="#在成员-etcd0-中存入值" class="headerlink" title="在成员 etcd0 中存入值"></a>在成员 etcd0 中存入值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">etcdctl --endpoints=192.168.80.130:23790 put username lupw</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+<h3 id="在成员-etcd2-中取出值"><a href="#在成员-etcd2-中取出值" class="headerlink" title="在成员 etcd2 中取出值"></a>在成员 etcd2 中取出值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">etcdctl --endpoints=192.168.80.130:23810 get username</span><br><span class="line">username</span><br><span class="line">lupw</span><br></pre></td></tr></table></figure>
+<h1 id="ETCD的Java客户端"><a href="#ETCD的Java客户端" class="headerlink" title="ETCD的Java客户端"></a>ETCD的Java客户端</h1><p>现在开源的 Java 客户端有 jetcd 和 etcd4j, 官方的 jetcd 项目地址 <code>https://github.com/coreos/jetcd</code> 和 etcd4j 的项目地址 <code>https://github.com/jurmous/etcd4j</code></p>
+<h2 id="jetcd简单使用"><a href="#jetcd简单使用" class="headerlink" title="jetcd简单使用"></a>jetcd简单使用</h2><h3 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.coreos<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jetcd-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Client client = Client.builder().endpoints(<span class="string">"http://192.168.80.130:2379"</span>,</span><br><span class="line">        <span class="string">"http://192.168.80.130:2380"</span>,</span><br><span class="line">        <span class="string">"http://192.168.80.130:2381"</span>).build();</span><br><span class="line">KV kvClient = client.getKVClient();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    ByteSequence bsKey = ByteSequence.fromString(<span class="string">"username"</span>);</span><br><span class="line">    ByteSequence bsValue = ByteSequence.fromString(<span class="string">"lupw"</span>);</span><br><span class="line">    PutResponse putResponse = kvClient.put(bsKey, bsValue).get();</span><br><span class="line">    log.warn(<span class="string">"putResponse = &#123;&#125;"</span>, JSON.toJSONString(putResponse));</span><br><span class="line"></span><br><span class="line">    GetResponse getResponse = kvClient.get(bsKey).get();</span><br><span class="line">    log.warn(<span class="string">"response = &#123;&#125;"</span>, JSON.toJSONString(getResponse));</span><br><span class="line"></span><br><span class="line">    ByteSequence byteSequenceKey = getResponse.getKvs().get(<span class="number">0</span>).getKey();</span><br><span class="line">    ByteSequence byteSequenceValue = getResponse.getKvs().get(<span class="number">0</span>).getValue();</span><br><span class="line">    log.error(byteSequenceKey.toStringUtf8());</span><br><span class="line">    log.error(byteSequenceValue.toStringUtf8());</span><br><span class="line">&#125; <span class="keyword">catch</span> (InterruptedException | ExecutionException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="etcd4j简单使用"><a href="#etcd4j简单使用" class="headerlink" title="etcd4j简单使用"></a>etcd4j简单使用</h2><h3 id="添加依赖-1"><a href="#添加依赖-1" class="headerlink" title="添加依赖"></a>添加依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mousio<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>etcd4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.15.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="No-help-topic-for-‘put’-错误"><a href="#No-help-topic-for-‘put’-错误" class="headerlink" title="No help topic for ‘put’ 错误"></a>No help topic for ‘put’ 错误</h1><p>需要 ETCDCTL_API=3 etcdctl put username lupw, 我上面是有配置环境变量使用 ETCDCTL_API=3 的, 但是忘记了使用 source .bash_profile 使配置环境变量生效</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://blog.csdn.net/defonds/article/details/50538077" target="_blank" rel="noopener">Windows 下 GO 语言安装和环境变量的配置</a></li>
+<li><a href="https://blog.csdn.net/linuxshadow/article/details/49255737" target="_blank" rel="noopener">Windows 下 GOPATH entry is relative 错误</a>* </li>
+<li><a href="https://blog.csdn.net/u011054678/article/details/72877465" target="_blank" rel="noopener">Linux 下 GO 语言安装和环境变量的配置</a></li>
+<li><a href="https://coreos.com/etcd/docs/latest/getting-started-with-etcd.html" target="_blank" rel="noopener">ETCD 官方文档</a></li>
+<li><a href="https://www.bookstack.cn/read/etcd/documentation-dev-guide-local_cluster.md" target="_blank" rel="noopener">ETCD 官方文档中文版</a></li>
+<li><a href="https://segmentfault.com/a/1190000003852735" target="_blank" rel="noopener">搭建 ETCD 集群</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Java-ETCD的安装和基础使用
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2018/09/05/Java-ETCD的安装和基础使用/" title="Java-ETCD的安装和基础使用">2018/09/05/Java-ETCD的安装和基础使用/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/05/Spring-RestTemplate的使用/" rel="next" title="Spring-RestTemplate的使用">
+                <i class="fa fa-chevron-left"></i> Spring-RestTemplate的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/05/SpringCloud-Eureka服务注册与发现/" rel="prev" title="SpringCloud-Eureka服务注册与发现">
+                SpringCloud-Eureka服务注册与发现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#下载和安装ETCD"><span class="nav-number">1.</span> <span class="nav-text">下载和安装ETCD</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#源码安装方式"><span class="nav-number">1.1.</span> <span class="nav-text">源码安装方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载和安装GO"><span class="nav-number">1.1.1.</span> <span class="nav-text">下载和安装GO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置环境变量"><span class="nav-number">1.1.2.</span> <span class="nav-text">配置环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载ETCD源码并编译"><span class="nav-number">1.1.3.</span> <span class="nav-text">下载ETCD源码并编译</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二进制文件方式安装"><span class="nav-number">1.2.</span> <span class="nav-text">二进制文件方式安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用方法"><span class="nav-number">2.</span> <span class="nav-text">使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单机启动"><span class="nav-number">2.1.</span> <span class="nav-text">单机启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单机多成员启动"><span class="nav-number">2.2.</span> <span class="nav-text">单机多成员启动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动"><span class="nav-number">2.2.1.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看成员列表"><span class="nav-number">2.2.2.</span> <span class="nav-text">查看成员列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看成员状态"><span class="nav-number">2.2.3.</span> <span class="nav-text">查看成员状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看健康状态"><span class="nav-number">2.2.4.</span> <span class="nav-text">查看健康状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在成员-etcd0-中存入值"><span class="nav-number">2.2.5.</span> <span class="nav-text">在成员 etcd0 中存入值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在成员-etcd2-中取出值"><span class="nav-number">2.2.6.</span> <span class="nav-text">在成员 etcd2 中取出值</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ETCD的Java客户端"><span class="nav-number">3.</span> <span class="nav-text">ETCD的Java客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#jetcd简单使用"><span class="nav-number">3.1.</span> <span class="nav-text">jetcd简单使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加依赖"><span class="nav-number">3.1.1.</span> <span class="nav-text">添加依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">3.1.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etcd4j简单使用"><span class="nav-number">3.2.</span> <span class="nav-text">etcd4j简单使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加依赖-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">添加依赖</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#No-help-topic-for-‘put’-错误"><span class="nav-number">4.</span> <span class="nav-text">No help topic for ‘put’ 错误</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
