@@ -77,21 +77,18 @@
 
 
 
-<meta name="description" content="JMM 的英文全称是 Java Memory Model，翻译成中文是 Java 内存模型 (也叫共享内存模型)，Java 内存模型定义了多线程之间共享变量的可见性以及如何在需要的时候对共享变量进行同步，通俗点讲 JMM 就是是用来来实现多线程之间的信息交换和数据同步的。 Java 内存模型在 JMM 的定义中，线程之间的共享变量存储在主内存中，每个线程都有一个私有的本地内存，本地内存中存储了该线">
+<meta name="description" content="读取resource目录下的配置文件说一说了解 ClassLoader 的缘由, 在准备开始看 Spring 源码的时候想把 Properties 类的使用了解下, 于是我建立了一个普通的 Java 项目写下如下的这些代码: 1234567891011public class Main &amp;#123;    public static void main(String[] args) &amp;#123;">
 <meta name="keywords" content="技术小站">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java-多线程之JMM">
-<meta property="og:url" content="http://yoursite.com/2018/05/14/Java-多线程之JMM/index.html">
+<meta property="og:title" content="Java-类加载机制">
+<meta property="og:url" content="http://yoursite.com/2018/10/09/Java-类加载机制/index.html">
 <meta property="og:site_name" content="技术小站">
-<meta property="og:description" content="JMM 的英文全称是 Java Memory Model，翻译成中文是 Java 内存模型 (也叫共享内存模型)，Java 内存模型定义了多线程之间共享变量的可见性以及如何在需要的时候对共享变量进行同步，通俗点讲 JMM 就是是用来来实现多线程之间的信息交换和数据同步的。 Java 内存模型在 JMM 的定义中，线程之间的共享变量存储在主内存中，每个线程都有一个私有的本地内存，本地内存中存储了该线">
+<meta property="og:description" content="读取resource目录下的配置文件说一说了解 ClassLoader 的缘由, 在准备开始看 Spring 源码的时候想把 Properties 类的使用了解下, 于是我建立了一个普通的 Java 项目写下如下的这些代码: 1234567891011public class Main &amp;#123;    public static void main(String[] args) &amp;#123;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/05/14/Java-多线程之JMM/20180523190640.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/05/14/Java-多线程之JMM/20180523190854.jpg">
-<meta property="og:updated_time" content="2018-05-23T11:16:40.099Z">
+<meta property="og:updated_time" content="2018-10-09T15:04:34.003Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java-多线程之JMM">
-<meta name="twitter:description" content="JMM 的英文全称是 Java Memory Model，翻译成中文是 Java 内存模型 (也叫共享内存模型)，Java 内存模型定义了多线程之间共享变量的可见性以及如何在需要的时候对共享变量进行同步，通俗点讲 JMM 就是是用来来实现多线程之间的信息交换和数据同步的。 Java 内存模型在 JMM 的定义中，线程之间的共享变量存储在主内存中，每个线程都有一个私有的本地内存，本地内存中存储了该线">
-<meta name="twitter:image" content="http://yoursite.com/2018/05/14/Java-多线程之JMM/20180523190640.jpg">
+<meta name="twitter:title" content="Java-类加载机制">
+<meta name="twitter:description" content="读取resource目录下的配置文件说一说了解 ClassLoader 的缘由, 在准备开始看 Spring 源码的时候想把 Properties 类的使用了解下, 于是我建立了一个普通的 Java 项目写下如下的这些代码: 1234567891011public class Main &amp;#123;    public static void main(String[] args) &amp;#123;">
 
 
 
@@ -121,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/14/Java-多线程之JMM/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/10/09/Java-类加载机制/"/>
 
 
 
 
 
-  <title>Java-多线程之JMM | 技术小站</title>
+  <title>Java-类加载机制 | 技术小站</title>
   
 
 
@@ -254,7 +251,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/14/Java-多线程之JMM/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/09/Java-类加载机制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -271,7 +268,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java-多线程之JMM</h1>
+          <h1 class="post-title" itemprop="name headline">Java-类加载机制</h1>
         
 
         <div class="post-meta">
@@ -283,8 +280,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-14T09:30:16+08:00">
-                2018-05-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-09T23:04:01+08:00">
+                2018-10-09
               </time>
             
 
@@ -343,17 +340,25 @@
       
 
       
-        <p>JMM 的英文全称是 Java Memory Model，翻译成中文是 Java 内存模型 (也叫<strong>共享内存模型</strong>)，Java 内存模型定义了多线程之间共享变量的可见性以及如何在需要的时候对共享变量进行同步，通俗点讲 JMM 就是是用来来实现多线程之间的信息交换和数据同步的。</p>
-<h1 id="Java-内存模型"><a href="#Java-内存模型" class="headerlink" title="Java 内存模型"></a>Java 内存模型</h1><p>在 JMM 的定义中，线程之间的共享变量存储在主内存中，每个线程都有一个私有的本地内存，本地内存中存储了该线程读写共享变量的副本。这个本地内存在 JMM 的定义中是一个抽象的概念，可能是只缓存，写缓冲区等等。以正常的计算机执行程序为例，计算机在执行程序时，需要对数据进行读写，程序运行过程中的临时数据是存放在主存（物理内存）当中的，但是由于 CPU 执行速度很快，从内存读取数据和向内存写入数据的过程跟 CPU 执行指令的速度比起来要慢的多，如果任何时候对数据的操作都要通过和内存的交互来进行，会大大降低指令执行的速度，因此在 CPU 里面就有了高速缓存，以便快速的读写数据，最后再同步到主内存中，这样就可以提高效率。当一个线程读取数据时，先从主内存中复制一份数据到高速缓存中，之后线程对数据的读写都是使用的缓存中的数据，也因此出现了多线程之间数据同步的问题。</p>
-<p>线程 A 和线程 B 数据的同步数据的抽象模型图如下：</p>
-<p><img src="/2018/05/14/Java-多线程之JMM/20180523190640.jpg" alt="IMAGE"></p>
-<a id="more"></a>
-<p>最开始线程 A 从主存中将需要读写的数据复制到工作内存中，线程 A 在操作了数据后载同步到主内存中，然后线程 B 再从主存中读取数据。</p>
-<p><img src="/2018/05/14/Java-多线程之JMM/20180523190854.jpg" alt="IMAGE"></p>
-<h1 id="Java-并发编程的三个特征"><a href="#Java-并发编程的三个特征" class="headerlink" title="Java 并发编程的三个特征"></a>Java 并发编程的三个特征</h1><p>Java 内存模型是围绕着并发编程中原子性、可见性、有序性这三个特征来建立的。</p>
-<p>原子性：一个操作不能被打断，要么全部执行完毕，要么不执行，类似于事务操作。要注意的是基本类型数据的访问大都是原子操作，long 和 double 类型的变量是 64 位，但是在32 位 JVM 中，32 位的 JVM 会将 64 位数据的读写操作分为 2 次 32 位的读写操作来进行，这就导致了 long、double 类型的变量在 32 位虚拟机中是非原子操作，数据有可能会被破坏，也就意味着多个线程在并发访问的时候是线程非安全的。</p>
-<p>可见性：一个线程对共享变量做了修改之后，其他的线程立即能够看到。Java内存模型提供了关键字volatile关键字来实现对可见性的支持，另外也可以通过synchronized和Lock来保证可见性。</p>
-<p>有序性：对于单个线程的代码而言，代码的执行应该是是从前往后的，依次执行。</p>
+        <h1 id="读取resource目录下的配置文件"><a href="#读取resource目录下的配置文件" class="headerlink" title="读取resource目录下的配置文件"></a>读取resource目录下的配置文件</h1><p>说一说了解 ClassLoader 的缘由, 在准备开始看 Spring 源码的时候想把 Properties 类的使用了解下, 于是我建立了一个普通的 Java 项目写下如下的这些代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        InputStream fileInputStream = <span class="keyword">new</span> FileInputStream(<span class="string">"D:\\IdeaProjects\\hello-grpc\\grpc-client\\src\\main\\resources\\application.properties"</span>);</span><br><span class="line">        properties.load(fileInputStream);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(properties.getProperty(<span class="string">"spring.application.name"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以正确的读取和获取到 peoperties 文件中的值, 这里使用了 FileInputStream 类来获取输入流， 需要指定配置文件的路径, 这种方法不推荐使用, 因为很不方便, 通常我们在项目中读取配置文件中的内容, 在本地调试的时候需要使用本地的路径, 正式上传到服务器的时候又需要单独的上传这些配置文件和更改成服务器上配置文件的路径, 每次在本地调试和上传到服务器发布很不方便, 需要检查所有读取配置文件的代码, 很容易漏掉, 况且 JavaWeb 项目的资源文件和配置文件通常放在项目的 resource 目录下, 在编译后打包成 war 和 jar 时这些资源文件也会打包进去, 完全没有理由再去服务器上创建一个专门的目录保存这些资源文件, 在了解相关资料后可以使用 ClassLoader 的 getResourceAsStream() 方法来获取输入流, 在未了解类加载机制的情况下我写下了如下代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line">InputStream inputStream = Application.class.getClassLoader().getResourceAsStream(<span class="string">"D:\\IdeaProjects\\hello-grpc\\grpc-client\\src\\main\\resources\\application.properties"</span>);</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    properties.load(inputStream);</span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line">log.info(properties.getProperty(<span class="string">"spring.application.name"</span>));</span><br></pre></td></tr></table></figure>
+<p>运行后, 这段代码报错了, 空指针异常, 没有读到配置文件的内容, 在网上查阅资料后, 将代码更改如下, 顺利的读取到配置文件中的值:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">InputStream inputStream = Application.class.getClassLoader().getResourceAsStream(<span class="string">"application.properties"</span>);</span><br></pre></td></tr></table></figure>
+<p>为什么获取到 ClassLoader 后不需要指定文件的路径就可以通过 getResourceAsStream() 方法顺利的读取到配置文件呢? 要理解这个问题需要了解虚拟机类加载机制的相关知识, 这里先简单了解下类的加载过程, 更加详细的内容可参考 <code>深入了解Java虚拟机-虚拟机的加载机制</code> 一章</p>
+<h1 id="简单了解类加载机制"><a href="#简单了解类加载机制" class="headerlink" title="简单了解类加载机制"></a>简单了解类加载机制</h1><p>虚拟机将描述类的数据从 class 文件加载到内存, 并对数据进行校验, 解析和初始化直到形成可被虚拟机直接使用的 Java 类型的过程称之为虚拟机的类的加载机制</p>
+<h2 id="类的加载主要过程"><a href="#类的加载主要过程" class="headerlink" title="类的加载主要过程"></a>类的加载主要过程</h2><p>从类被加载虚拟机的内存中开始到它从内存中卸载, 它的生命周期主要包括: <code>加载</code> -&gt; <code>连接</code> -&gt; <code>初始化</code> -&gt; <code>使用</code> -&gt; <code>卸载</code> 五个过程, 其中 <code>验证</code> 又分成 <code>准备</code> -&gt; <code>解析</code> 三个过程</p>
+<h2 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h2><p>使用类加载器可以将类加载到虚拟机的内存中, Java 自带有三个类加载器, BootstrapClassLoader, ExtentionClassLoader 和 AppClassLoader, 这三个类的功能如下:</p>
+<ul>
+<li><p>BootstrapClassLoader: 在虚拟机启动的时候自动加载 <code>%JRE_HOME%/lib</code> 目录下的 jar 包和 class 类, 并且只加载里面特定文件名的 jar 包和 class 类, 由 c++ 实现, 是虚拟机的一部分</p>
+</li>
+<li><p>ExtentionClassLoader: 在虚拟机启动的时候自动加载 <code>%JRE_HOME%/lib/ext</code> 目录下额外的 jar 包和 class 类</p>
+</li>
+<li><p>AppClassLoader: 在虚拟机启动的时候自动加载当前应用的 classpath 目录下的所有类, 即编译后存放 class 文件 (资源文件也回保存在这) 的路径, 如 JavaWeb 是在 target/class 目录下</p>
+</li>
+</ul>
+<p>其启动加载的过程可参考 <code>sun.misc.Launcher</code> 类</p>
 
       
     </div>
@@ -389,12 +394,12 @@
         </li>
 
         <li class="post-copyright-link">
-            <strong>本文标题：</strong> Java-多线程之JMM
+            <strong>本文标题：</strong> Java-类加载机制
         </li>
 
         <li class="post-copyright-link">
           <strong>本文链接：</strong>
-          <a href="/2018/05/14/Java-多线程之JMM/" title="Java-多线程之JMM">2018/05/14/Java-多线程之JMM/</a>
+          <a href="/2018/10/09/Java-类加载机制/" title="Java-类加载机制">2018/10/09/Java-类加载机制/</a>
         </li>
 
         <li class="post-copyright-license">
@@ -415,8 +420,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/11/Java-Http基础/" rel="next" title="Java-HTTP基础">
-                <i class="fa fa-chevron-left"></i> Java-HTTP基础
+              <a href="/2018/09/05/SpringCloud-Eureka服务注册与发现/" rel="next" title="SpringCloud-Eureka服务注册与发现">
+                <i class="fa fa-chevron-left"></i> SpringCloud-Eureka服务注册与发现
               </a>
             
           </div>
@@ -424,10 +429,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/14/Java-多线程之共享数据和线程安全/" rel="prev" title="Java-多线程之共享数据和线程安全">
-                Java-多线程之共享数据和线程安全 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -552,7 +553,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-内存模型"><span class="nav-number">1.</span> <span class="nav-text">Java 内存模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-并发编程的三个特征"><span class="nav-number">2.</span> <span class="nav-text">Java 并发编程的三个特征</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#读取resource目录下的配置文件"><span class="nav-number">1.</span> <span class="nav-text">读取resource目录下的配置文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#简单了解类加载机制"><span class="nav-number">2.</span> <span class="nav-text">简单了解类加载机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类的加载主要过程"><span class="nav-number">2.1.</span> <span class="nav-text">类的加载主要过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类加载器"><span class="nav-number">2.2.</span> <span class="nav-text">类加载器</span></a></li></ol></li></ol></div>
             
 
           </div>
