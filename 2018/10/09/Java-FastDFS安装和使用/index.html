@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="FastDFS 安装下载FastDFS源码下载 FastDFS 源码, https://github.com/happyfish100/fastdfs 安装unzip工具解压 zip 文件需要安装 unzip 工具, 没有安装的可以使用 yum -y install unzip zip 指令安装, 执行 yum 的时候出现 another app is currently holding the">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-FastDFS安装和使用">
+<meta property="og:url" content="http://yoursite.com/2018/10/09/Java-FastDFS安装和使用/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="FastDFS 安装下载FastDFS源码下载 FastDFS 源码, https://github.com/happyfish100/fastdfs 安装unzip工具解压 zip 文件需要安装 unzip 工具, 没有安装的可以使用 yum -y install unzip zip 指令安装, 执行 yum 的时候出现 another app is currently holding the">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/10/09/Java-FastDFS安装和使用/20180929125249.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/09/Java-FastDFS安装和使用/20180929150027.png">
+<meta property="og:updated_time" content="2018-10-09T15:19:14.857Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java-FastDFS安装和使用">
+<meta name="twitter:description" content="FastDFS 安装下载FastDFS源码下载 FastDFS 源码, https://github.com/happyfish100/fastdfs 安装unzip工具解压 zip 文件需要安装 unzip 工具, 没有安装的可以使用 yum -y install unzip zip 指令安装, 执行 yum 的时候出现 another app is currently holding the">
+<meta name="twitter:image" content="http://yoursite.com/2018/10/09/Java-FastDFS安装和使用/20180929125249.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/09/Java-FastDFS安装和使用/"/>
+
+
+
+
+
+  <title>Java-FastDFS安装和使用 | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/09/Java-FastDFS安装和使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java-FastDFS安装和使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-09T23:12:12+08:00">
+                2018-10-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="FastDFS-安装"><a href="#FastDFS-安装" class="headerlink" title="FastDFS 安装"></a>FastDFS 安装</h1><h2 id="下载FastDFS源码"><a href="#下载FastDFS源码" class="headerlink" title="下载FastDFS源码"></a>下载FastDFS源码</h2><p>下载 FastDFS 源码, <code>https://github.com/happyfish100/fastdfs</code></p>
+<h2 id="安装unzip工具"><a href="#安装unzip工具" class="headerlink" title="安装unzip工具"></a>安装unzip工具</h2><p>解压 zip 文件需要安装 unzip 工具, 没有安装的可以使用 <code>yum -y install unzip zip</code> 指令安装, 执行 yum 的时候出现 <code>another app is currently holding the yum lock;waiting for it to exit</code> 错误, 出现原因和解决方法见 <code>https://blog.csdn.net/mal327/article/details/6442253</code></p>
+<h2 id="安装gcc工具"><a href="#安装gcc工具" class="headerlink" title="安装gcc工具"></a>安装gcc工具</h2><p>编译 FastDFS 源码, 由于 FastDFS 由 C 语言编写, 所以需要安装 gcc 编译器, <code>yum -y install gcc-c++</code></p>
+<h2 id="编译和安装libfatscommon"><a href="#编译和安装libfatscommon" class="headerlink" title="编译和安装libfatscommon"></a>编译和安装libfatscommon</h2><p>FastDFS 依赖 libfatscommon, 先安装 libfatscommon, 下载地址 <code>https://github.com/happyfish100/fastdfs</code>, 下载好后分别解压, 编译, 安即可</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 编译</span><br><span class="line">[lupw@localhost libfastcommon-master]$ sudo ./make.sh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 安装</span><br><span class="line">[lupw@localhost libfastcommon-master]$ ./make.sh install</span><br><span class="line">mkdir -p /usr/lib64</span><br><span class="line">mkdir -p /usr/lib</span><br><span class="line">mkdir -p /usr/include/fastcommon</span><br><span class="line">mkdir: cannot create directory ‘/usr/include/fastcommon’: Permission denied</span><br><span class="line">make: *** [install] Error 1</span><br><span class="line">[lupw@localhost libfastcommon-master]$ sudo ./make.sh install</span><br><span class="line">[sudo] password for lupw: </span><br><span class="line">mkdir -p /usr/lib64</span><br><span class="line">mkdir -p /usr/lib</span><br><span class="line">mkdir -p /usr/include/fastcommon</span><br><span class="line">install -m 755 libfastcommon.so /usr/lib64</span><br><span class="line">install -m 644 common_define.h hash.h chain.h logger.h base64.h shared_func.h pthread_func.h ini_file_reader.h _os_define.h sockopt.h sched_thread.h http_func.h md5.h local_ip_func.h avl_tree.h ioevent.h ioevent_loop.h fast_task_queue.h fast_timer.h process_ctrl.h fast_mblock.h connection_pool.h fast_mpool.h fast_allocator.h fast_buffer.h skiplist.h multi_skiplist.h flat_skiplist.h skiplist_common.h system_info.h fast_blocked_queue.h php7_ext_wrapper.h id_generator.h char_converter.h char_convert_loader.h common_blocked_queue.h multi_socket_client.h skiplist_set.h fc_list.h json_parser.h /usr/include/fastcommon</span><br><span class="line">if [ ! -e /usr/lib/libfastcommon.so ]; then ln -s /usr/lib64/libfastcommon.so /usr/lib/libfastcommon.so; fi</span><br><span class="line">[lupw@localhost libfastcommon-master]$</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="编译和安装FastDFS"><a href="#编译和安装FastDFS" class="headerlink" title="编译和安装FastDFS"></a>编译和安装FastDFS</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 编译</span><br><span class="line">[lupw@localhost fastdfs-master]$ sudo ./make.sh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 安装</span><br><span class="line">[lupw@localhost fastdfs-master]$ sudo ./make.sh install</span><br><span class="line">mkdir -p /usr/bin</span><br><span class="line">mkdir -p /etc/fdfs</span><br><span class="line">cp -f fdfs_trackerd /usr/bin</span><br><span class="line">if [ ! -f /etc/fdfs/tracker.conf.sample ]; then cp -f ../conf/tracker.conf /etc/fdfs/tracker.conf.sample; fi</span><br><span class="line">if [ ! -f /etc/fdfs/storage_ids.conf.sample ]; then cp -f ../conf/storage_ids.conf /etc/fdfs/storage_ids.conf.sample; fi</span><br><span class="line">mkdir -p /usr/bin</span><br><span class="line">mkdir -p /etc/fdfs</span><br><span class="line">cp -f fdfs_storaged  /usr/bin</span><br><span class="line">if [ ! -f /etc/fdfs/storage.conf.sample ]; then cp -f ../conf/storage.conf /etc/fdfs/storage.conf.sample; fi</span><br><span class="line">mkdir -p /usr/bin</span><br><span class="line">mkdir -p /etc/fdfs</span><br><span class="line">mkdir -p /usr/lib64</span><br><span class="line">mkdir -p /usr/lib</span><br><span class="line">cp -f fdfs_monitor fdfs_test fdfs_test1 fdfs_crc32 fdfs_upload_file fdfs_download_file fdfs_delete_file fdfs_file_info fdfs_appender_test fdfs_appender_test1 fdfs_append_file fdfs_upload_appender /usr/bin</span><br><span class="line">if [ 0 -eq 1 ]; then cp -f libfdfsclient.a /usr/lib64; cp -f libfdfsclient.a /usr/lib/;fi</span><br><span class="line">if [ 1 -eq 1 ]; then cp -f libfdfsclient.so /usr/lib64; cp -f libfdfsclient.so /usr/lib/;fi</span><br><span class="line">mkdir -p /usr/include/fastdfs</span><br><span class="line">cp -f ../common/fdfs_define.h ../common/fdfs_global.h ../common/mime_file_parser.h ../common/fdfs_http_shared.h ../tracker/tracker_types.h ../tracker/tracker_proto.h ../tracker/fdfs_shared_func.h ../storage/trunk_mgr/trunk_shared.h tracker_client.h storage_client.h storage_client1.h client_func.h client_global.h fdfs_client.h /usr/include/fastdfs</span><br><span class="line">if [ ! -f /etc/fdfs/client.conf.sample ]; then cp -f ../conf/client.conf /etc/fdfs/client.conf.sample; fi</span><br></pre></td></tr></table></figure>
+<h1 id="FastDFS配置和启动"><a href="#FastDFS配置和启动" class="headerlink" title="FastDFS配置和启动"></a>FastDFS配置和启动</h1><p>tracker 要在 storage 之前启动, 先配置和启动 tracker 后再配置和启动 storage</p>
+<h2 id="修改Tracker配置文件"><a href="#修改Tracker配置文件" class="headerlink" title="修改Tracker配置文件"></a>修改Tracker配置文件</h2><p>在安装 FastDFS 后, 可以看到输出的日志里面将 FastDFS 中的 conf 目录下的一些配置文件复制到了 /etc/fdfs 目录下, 如下图所示:</p>
+<p><img src="/2018/10/09/Java-FastDFS安装和使用/20180929125249.png" width="700" height="350"></p>
+<p>这些文件都带有了 .sample 后缀, 这是作者给的示例配置文件, 这里我们复制这些文件:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[lupw@localhost fdfs]$ sudo cp client.conf.sample client.conf</span><br><span class="line">[lupw@localhost fdfs]$ sudo cp storage.conf.sample storage.conf</span><br><span class="line">[lupw@localhost fdfs]$ sudo cp storage_ids.conf.sample storage_ids.conf</span><br><span class="line">[lupw@localhost fdfs]$ sudo cp tracker.conf.sample tracker.conf</span><br></pre></td></tr></table></figure>
+<p>编辑 tracker.conf 文件, 这里简单配置一下, 主要配置 tracker 的数据日志路径 (网上有文章称这里指向的路径都必须要已经存在? 我没有试过) 和 HTTP 请求端口</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置 tracker 的数据文件和日志目录</span></span><br><span class="line"><span class="attr">base_path</span>=/home/lupw/FastDFS/data/tracker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 http 端口号, 默认为 8080, 因为 tomcat 在使用, 这里我改动一下</span></span><br><span class="line">http.server_port=88</span><br></pre></td></tr></table></figure>
+<h2 id="启动Tracker"><a href="#启动Tracker" class="headerlink" title="启动Tracker"></a>启动Tracker</h2><p>修改好 Tracker 的配置文件后, 使用以下指令启动:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 启动</span><br><span class="line"><span class="meta">#</span> /usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf start</span><br><span class="line">[lupw@localhost ~]$ sudo service fdfs_trackerd start</span><br><span class="line">Starting fdfs_trackerd (via systemctl):                    [  OK  ]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查询是否启动</span><br><span class="line">[lupw@localhost ~]$ sudo netstat -unltp|grep fdfs</span><br><span class="line">tcp        0      0 0.0.0.0:22122           0.0.0.0:*               LISTEN      21812/fdfs_trackerd</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 停止</span><br><span class="line">[lupw@localhost ~]$ sudo service fdfs_trackerd stop</span><br><span class="line">Stopping fdfs_trackerd (via systemctl):                    [  OK  ]</span><br></pre></td></tr></table></figure>
+<p>启动成功后, 可以在 <code>/home/lupw/FastDFS/data/tracker</code> 看到生成了 data 和 logs 目录, data 目录下有一个 fdfs_trackered.pid 记载了当前 tracker 启动时占用的 pid</p>
+<h2 id="配置Storage"><a href="#配置Storage" class="headerlink" title="配置Storage"></a>配置Storage</h2><p>编辑 <code>/etc/fdfs/storage.config</code> 配置文件, 这里主要配置 storage 的数据日志路径, HTTP 的请求端口和实际存放文件的路径 (网上有文章称这里指向的路径都必须要已经存在? 我没有试过)</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># group name, 根据实际情况修改</span></span><br><span class="line"><span class="attr">group_name</span>=group1  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 storage 的端口号, 默认是 23000, 同一个组的 storage 端口号必须一致</span></span><br><span class="line"><span class="attr">port</span>=<span class="number">23000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 storage 数据文件和日志目录</span></span><br><span class="line"><span class="attr">base_path</span>=/home/lupw/FastDFS/data/storage</span><br><span class="line"></span><br><span class="line"><span class="comment"># 存储路径个数，需要和 store_path 个数匹配</span></span><br><span class="line"><span class="attr">store_path_count</span>=<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 实际文件存储路径</span></span><br><span class="line"><span class="attr">store_path0</span>=/home/lupw/FastDFS/data/storage_data</span><br><span class="line"></span><br><span class="line"><span class="comment">#tracker 服务器的 IP地址和端口号</span></span><br><span class="line"><span class="attr">tracker_server</span>=<span class="number">192.168</span>.<span class="number">80.131</span>:<span class="number">22122</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 HTTP 端口号, 默认是 8888</span></span><br><span class="line">http.server_port=8888</span><br></pre></td></tr></table></figure>
+<h2 id="启动Storage"><a href="#启动Storage" class="headerlink" title="启动Storage"></a>启动Storage</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 启动</span><br><span class="line">[sudo] password for lupw:</span><br><span class="line">Starting fdfs_storaged (via systemctl):                    [  OK  ]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查看是否启动</span><br><span class="line">[lupw@localhost ~]$ sudo netstat -unltp|grep fdfs</span><br><span class="line">tcp        0      0 0.0.0.0:22122           0.0.0.0:*               LISTEN      29126/fdfs_trackerd </span><br><span class="line">tcp        0      0 0.0.0.0:23000           0.0.0.0:*               LISTEN      80085/fdfs_storaged</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 关闭</span><br><span class="line">[lupw@localhost ~]$ sudo service fdfs_storaged stop</span><br><span class="line">Stopping fdfs_storaged (via systemctl):                    [  OK  ]</span><br></pre></td></tr></table></figure>
+<p>启动成功后会看到 <code>/home/lupw/FastDFS/data/storage</code> 路径下看到生成的 data 和 logs 目录, <code>/home/lupw/FastDFS/data/storage_data</code> 路径下看到存放文件的路径, 如下图:</p>
+<p><img src="/2018/10/09/Java-FastDFS安装和使用/20180929150027.png" width="700" height="350"></p>
+<h2 id="查看torage服务器是否已经登记到tracker服务器"><a href="#查看torage服务器是否已经登记到tracker服务器" class="headerlink" title="查看torage服务器是否已经登记到tracker服务器"></a>查看torage服务器是否已经登记到tracker服务器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">[lupw@localhost data]$ sudo /usr/bin/fdfs_monitor /etc/fdfs/storage.conf</span><br><span class="line">[sudo] password for lupw: </span><br><span class="line">[2018-09-29 00:09:42] DEBUG - base_path=/home/lupw/FastDFS/data/storage, connect_timeout=10, network_timeout=60, tracker_server_count=1, anti_steal_token=0, anti_steal_secret_key length=0, use_connection_pool=0, g_connection_pool_max_idle_time=3600s, use_storage_id=0, storage server id count: 0</span><br><span class="line"></span><br><span class="line">server_count=1, server_index=0</span><br><span class="line">tracker server is 192.168.80.131:22122</span><br><span class="line">group count: 1</span><br><span class="line">Group 1:</span><br><span class="line">group name = group1</span><br><span class="line">disk total space = 46907 MB</span><br><span class="line">disk free space = 41576 MB</span><br><span class="line">trunk free space = 0 MB</span><br><span class="line">storage server count = 1</span><br><span class="line">active server count = 1</span><br><span class="line">storage server port = 23000</span><br><span class="line">storage HTTP port = 8888</span><br><span class="line">store path count = 1</span><br><span class="line">subdir count per path = 256</span><br><span class="line">current write server index = 0</span><br><span class="line">current trunk file id = 0</span><br><span class="line">        Storage 1:</span><br><span class="line">                id = 192.168.80.131</span><br><span class="line">                ip_addr = 192.168.80.131  ACTIVE</span><br><span class="line">                http domain = </span><br><span class="line">                version = 5.12</span><br><span class="line">                join time = 2018-09-28 23:59:21</span><br><span class="line">                // 其他信息</span><br></pre></td></tr></table></figure>
+<p>ip_addr = 192.168.80.131  ACTIVE 表示已经成功登记到 traeker 服务器了</p>
+<h2 id="开机启动"><a href="#开机启动" class="headerlink" title="开机启动"></a>开机启动</h2><p>在 <code>/etc/rc.d/rc.local</code> 分别依次添加 <code>service fdfs_trackered start</code> 和 <code>service fdfs_storaged start</code> 即可</p>
+<h1 id="上传测试"><a href="#上传测试" class="headerlink" title="上传测试"></a>上传测试</h1><p>使用 fdfs_upload_file 指令测试上传需设置客户端的配置文件, 编辑 <code>/etc/fdfs/client.conf</code> 文件, 主要修改的配置如下:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># tracker 服务器文件路径</span></span><br><span class="line"><span class="attr">base_path</span>=/home/lupw/FastDFS/data/tracker</span><br><span class="line"></span><br><span class="line"><span class="comment"># tracker 服务器 IP 地址和端口号</span></span><br><span class="line"><span class="attr">tracker_server</span>=<span class="number">192.168</span>.<span class="number">80.131</span>:<span class="number">22122</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># tracker 服务器的 HTTP 端口号, 必须和 tracker 的配置文件中的对应起来</span></span><br><span class="line">http.tracker_server_port=88</span><br></pre></td></tr></table></figure>
+<p>配置完成后就可以使用如下指令测试了:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[lupw@localhost TempFile]$ /usr/bin/fdfs_upload_</span><br><span class="line">fdfs_upload_appender  fdfs_upload_file</span><br><span class="line"></span><br><span class="line">[lupw@localhost TempFile]$ /usr/bin/fdfs_upload_file /etc/fdfs/client.conf note.txt </span><br><span class="line">group1/M00/00/00/wKhQg1uvNcuAX0PhAAAADQOSefQ788.txt</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Java-FastDFS安装和使用
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2018/10/09/Java-FastDFS安装和使用/" title="Java-FastDFS安装和使用">2018/10/09/Java-FastDFS安装和使用/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/09/Java-类加载机制/" rel="next" title="Java-类加载机制">
+                <i class="fa fa-chevron-left"></i> Java-类加载机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FastDFS-安装"><span class="nav-number">1.</span> <span class="nav-text">FastDFS 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载FastDFS源码"><span class="nav-number">1.1.</span> <span class="nav-text">下载FastDFS源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装unzip工具"><span class="nav-number">1.2.</span> <span class="nav-text">安装unzip工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装gcc工具"><span class="nav-number">1.3.</span> <span class="nav-text">安装gcc工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译和安装libfatscommon"><span class="nav-number">1.4.</span> <span class="nav-text">编译和安装libfatscommon</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译和安装FastDFS"><span class="nav-number">1.5.</span> <span class="nav-text">编译和安装FastDFS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FastDFS配置和启动"><span class="nav-number">2.</span> <span class="nav-text">FastDFS配置和启动</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#修改Tracker配置文件"><span class="nav-number">2.1.</span> <span class="nav-text">修改Tracker配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动Tracker"><span class="nav-number">2.2.</span> <span class="nav-text">启动Tracker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置Storage"><span class="nav-number">2.3.</span> <span class="nav-text">配置Storage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动Storage"><span class="nav-number">2.4.</span> <span class="nav-text">启动Storage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看torage服务器是否已经登记到tracker服务器"><span class="nav-number">2.5.</span> <span class="nav-text">查看torage服务器是否已经登记到tracker服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开机启动"><span class="nav-number">2.6.</span> <span class="nav-text">开机启动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#上传测试"><span class="nav-number">3.</span> <span class="nav-text">上传测试</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
