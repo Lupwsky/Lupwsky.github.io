@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="收集器collect(Collectors.toList()) 将一个流转换成 List 的数据结构, 有时候需要生成其他值, 比如 Map 或者 Set, 或者生成自己定义的数据结构, 那么久必须使用收集器了, 收集器可以将流生成复杂的数据结构, 只需要将这个收集器传递到 collect 方法中。标准类库中使用了提供了一些收集器，如java.util.stream.Collectors类, 使用">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-Java8收集器">
+<meta property="og:url" content="http://yoursite.com/2018/10/10/Java-Java8收集器/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="收集器collect(Collectors.toList()) 将一个流转换成 List 的数据结构, 有时候需要生成其他值, 比如 Map 或者 Set, 或者生成自己定义的数据结构, 那么久必须使用收集器了, 收集器可以将流生成复杂的数据结构, 只需要将这个收集器传递到 collect 方法中。标准类库中使用了提供了一些收集器，如java.util.stream.Collectors类, 使用">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-17T15:46:18.420Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java-Java8收集器">
+<meta name="twitter:description" content="收集器collect(Collectors.toList()) 将一个流转换成 List 的数据结构, 有时候需要生成其他值, 比如 Map 或者 Set, 或者生成自己定义的数据结构, 那么久必须使用收集器了, 收集器可以将流生成复杂的数据结构, 只需要将这个收集器传递到 collect 方法中。标准类库中使用了提供了一些收集器，如java.util.stream.Collectors类, 使用">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/10/Java-Java8收集器/"/>
+
+
+
+
+
+  <title>Java-Java8收集器 | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/Java-Java8收集器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java-Java8收集器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-10T23:56:37+08:00">
+                2018-10-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="收集器"><a href="#收集器" class="headerlink" title="收集器"></a>收集器</h1><p>collect(Collectors.toList()) 将一个流转换成 List 的数据结构, 有时候需要生成其他值, 比如 Map 或者 Set, 或者生成自己定义的数据结构, 那么久必须使用收集器了, 收集器可以将流生成复杂的数据结构, 只需要将这个收集器传递到 collect 方法中。标准类库中使用了提供了一些收集器，如java.util.stream.Collectors类, 使用方法示例如下:</p>
+<h2 id="流转换成集合"><a href="#流转换成集合" class="headerlink" title="流转换成集合"></a>流转换成集合</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Map&lt;String, Object&gt;&gt; mapList = dataList.stream()</span><br><span class="line">        .map(x -&gt; &#123;</span><br><span class="line">            HashMap&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">            map.put(<span class="string">"index"</span>, x);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;)</span><br><span class="line">        .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>注意, 返回的是 List&lt;Map&lt;String, Object&gt;&gt; 对象, 但是调用 toList (也许是 toSet 等)方法时没有指定具体的类型, Stream 类库会自动推导合适的类型。如果需要自己指定类型，可以调用 toCollection 方法来指定, 示例代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Map&lt;String, Object&gt;&gt; mapList = dataList.stream()</span><br><span class="line">        .map(x -&gt; &#123;</span><br><span class="line">            HashMap&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">            map.put(<span class="string">"index"</span>, x);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;)</span><br><span class="line">        .collect(Collectors.toCollection(ArrayList::<span class="keyword">new</span>));</span><br></pre></td></tr></table></figure>
+<h2 id="流转换成值"><a href="#流转换成值" class="headerlink" title="流转换成值"></a>流转换成值</h2><h3 id="maxBy、minBy-求最大最小值"><a href="#maxBy、minBy-求最大最小值" class="headerlink" title="maxBy、minBy 求最大最小值"></a>maxBy、minBy 求最大最小值</h3><p>maxBy、minBy求最大最小值, 需要传入一个比较器作为参数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; dataList = Arrays.asList(<span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>, <span class="string">"4"</span>, <span class="string">"5"</span>, <span class="string">"6"</span>, <span class="string">"7"</span>);</span><br><span class="line">Optional&lt;String&gt; a = dataList.stream().collect(Collectors.maxBy((o1, o2) -&gt; Integer.valueOf(o1) - Integer.valueOf(o2)));</span><br><span class="line">a.ifPresent(logger::debug);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等同于以下代码</span></span><br><span class="line"><span class="keyword">if</span> (a.isPresent()) &#123;</span><br><span class="line">    logger.debug(a.get());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="averagingInt-等求平均值"><a href="#averagingInt-等求平均值" class="headerlink" title="averagingInt 等求平均值"></a>averagingInt 等求平均值</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; dataList = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>);</span><br><span class="line">Double a = dataList.stream().collect(Collectors.averagingInt(x -&gt; (<span class="keyword">int</span>) x));</span><br><span class="line">logger.debug(a);</span><br></pre></td></tr></table></figure>
+<h3 id="partitioningBy-将数据分块"><a href="#partitioningBy-将数据分块" class="headerlink" title="partitioningBy 将数据分块"></a>partitioningBy 将数据分块</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 直接分区不进行任何的操作</span></span><br><span class="line">List&lt;Integer&gt; dataList = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>);</span><br><span class="line">Map&lt;Boolean, List&lt;Integer&gt;&gt; map = dataList.stream().collect(Collectors.partitioningBy(x -&gt; x % <span class="number">2</span> == <span class="number">1</span>));</span><br><span class="line">map.get(<span class="keyword">true</span>).forEach(x -&gt; System.out.print(x + <span class="string">" "</span>));</span><br><span class="line">System.out.println();</span><br><span class="line">map.get(<span class="keyword">false</span>).forEach(x -&gt; System.out.print(x + <span class="string">" "</span>));</span><br><span class="line">System.out.println();</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输出结果：</span><br><span class="line">1 3 5 7</span><br><span class="line">2 4 6 8 8</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 可以在分区后再将流转换成值</span></span><br><span class="line">List&lt;Integer&gt; dataList = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">8</span>);</span><br><span class="line">Map&lt;Boolean, Double&gt; map = dataList.stream().collect(Collectors.partitioningBy((x -&gt; x % <span class="number">2</span> == <span class="number">1</span>),</span><br><span class="line">        Collectors.averagingInt(x -&gt; (<span class="keyword">int</span>) x)));</span><br><span class="line">logger.debug(map.get(<span class="keyword">true</span>));</span><br><span class="line">logger.debug(map.get(<span class="keyword">false</span>));</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输出结果：</span><br><span class="line">4.0</span><br><span class="line">5.6</span><br></pre></td></tr></table></figure>
+<h3 id="groupingBy-将数据进行分组-可以和分区联合使用"><a href="#groupingBy-将数据进行分组-可以和分区联合使用" class="headerlink" title="groupingBy 将数据进行分组 (可以和分区联合使用)"></a>groupingBy 将数据进行分组 (可以和分区联合使用)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; dataList = Arrays.asList(<span class="number">1</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">8</span>);</span><br><span class="line">Map&lt;Integer, List&lt;Integer&gt;&gt; map = dataList.stream().collect(Collectors.groupingBy(x -&gt; x));</span><br><span class="line">map.get(<span class="number">1</span>).forEach(x -&gt; System.out.print(x + <span class="string">" "</span>));</span><br><span class="line">System.out.println();</span><br><span class="line">map.get(<span class="number">4</span>).forEach(x -&gt; System.out.print(x + <span class="string">" "</span>));</span><br><span class="line">System.out.println();</span><br><span class="line">map.get(<span class="number">7</span>).forEach(x -&gt; System.out.print(x + <span class="string">" "</span>));</span><br><span class="line">System.out.println();</span><br><span class="line">map.get(<span class="number">8</span>).forEach(x -&gt; System.out.print(x + <span class="string">" "</span>));</span><br><span class="line">System.out.println();</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输出结果：</span><br><span class="line">1</span><br><span class="line">4 4 4</span><br><span class="line">7 7</span><br><span class="line">8 8 8</span><br></pre></td></tr></table></figure>
+<h3 id="counting-将数据进行统计"><a href="#counting-将数据进行统计" class="headerlink" title="counting 将数据进行统计"></a>counting 将数据进行统计</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Integer, Long&gt; map = dataList.stream().collect(Collectors.counting(x -&gt; x));</span><br></pre></td></tr></table></figure>
+<h2 id="流转换成字符串"><a href="#流转换成字符串" class="headerlink" title="流转换成字符串"></a>流转换成字符串</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不使用分隔符号和前后缀, 输出结果: 144478788</span></span><br><span class="line">List&lt;Integer&gt; dataList = Arrays.asList(<span class="number">1</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">8</span>);</span><br><span class="line">String a = dataList.stream().map(x -&gt; <span class="string">""</span> + x).collect(Collectors.joining());</span><br><span class="line">logger.debug(a);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 仅使用分隔符, 输出结果: 1, 4, 4, 4, 7, 8, 7, 8, 8</span></span><br><span class="line">List&lt;Integer&gt; dataList = Arrays.asList(<span class="number">1</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">8</span>);</span><br><span class="line">String a = dataList.stream().map(x -&gt; <span class="string">""</span> + x).collect(Collectors.joining(<span class="string">", "</span>));</span><br><span class="line">logger.debug(a);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用分隔符和前后缀, 输出结果: &#123;1,4,4,4,7,8,7,8,8&#125;</span></span><br><span class="line">List&lt;Integer&gt; dataList = Arrays.asList(<span class="number">1</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">8</span>);</span><br><span class="line">String a = dataList.stream().map(x -&gt; <span class="string">""</span> + x).collect(Collectors.joining(<span class="string">", "</span>, <span class="string">"&#123;"</span>,  <span class="string">"&#125;"</span>));</span><br><span class="line">logger.debug(a);</span><br></pre></td></tr></table></figure>
+<h1 id="组合收集器"><a href="#组合收集器" class="headerlink" title="组合收集器"></a>组合收集器</h1><p>收集器可以组合使用, 组合收集器将具备更加强大功能, 看一下下面的例子, 体验一下组合收集器的强大</p>
+<h2 id="需要实现的功能"><a href="#需要实现的功能" class="headerlink" title="需要实现的功能"></a>需要实现的功能</h2><p>有一个链表, 链表里面的每一个对象保存的是艺术家的名字和艺术家某一次发布的专辑的专辑名, 模拟数据如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">艺术家：艺术家00，专辑名：专辑名00</span><br><span class="line">艺术家：艺术家01，专辑名：专辑名01</span><br><span class="line">艺术家：艺术家02，专辑名：专辑名02</span><br><span class="line">艺术家：艺术家00，专辑名：专辑名03</span><br><span class="line">艺术家：艺术家01，专辑名：专辑名04</span><br><span class="line">艺术家：艺术家02，专辑名：专辑名05</span><br><span class="line">艺术家：艺术家00，专辑名：专辑名06</span><br><span class="line">艺术家：艺术家01，专辑名：专辑名07</span><br><span class="line">艺术家：艺术家02，专辑名：专辑名08</span><br><span class="line">艺术家：艺术家00，专辑名：专辑名09</span><br><span class="line">艺术家：艺术家01，专辑名：专辑名10</span><br><span class="line">艺术家：艺术家02，专辑名：专辑名11</span><br><span class="line">艺术家：艺术家00，专辑名：专辑名12</span><br><span class="line">艺术家：艺术家01，专辑名：专辑名13</span><br><span class="line">艺术家：艺术家02，专辑名：专辑名14</span><br><span class="line">艺术家：艺术家00，专辑名：专辑名15</span><br><span class="line">艺术家：艺术家01，专辑名：专辑名16</span><br><span class="line">艺术家：艺术家02，专辑名：专辑名17</span><br><span class="line">艺术家：艺术家00，专辑名：专辑名18</span><br><span class="line">艺术家：艺术家01，专辑名：专辑名19</span><br><span class="line">艺术家：艺术家02，专辑名：专辑名20</span><br><span class="line">艺术家：艺术家00，专辑名：专辑名21</span><br><span class="line">艺术家：艺术家01，专辑名：专辑名22</span><br><span class="line">艺术家：艺术家02，专辑名：专辑名23</span><br><span class="line">艺术家：艺术家00，专辑名：专辑名24</span><br><span class="line">艺术家：艺术家01，专辑名：专辑名25</span><br><span class="line">艺术家：艺术家02，专辑名：专辑名26</span><br><span class="line">艺术家：艺术家00，专辑名：专辑名27</span><br><span class="line">艺术家：艺术家01，专辑名：专辑名28</span><br><span class="line">艺术家：艺术家02，专辑名：专辑名29</span><br></pre></td></tr></table></figure>
+<p>需要对这些数据进行处理, 按照艺术家名字进行分类, 找出这个艺术家所有的专辑, 最终处理的数据使用一个 Map&lt;String, String&gt; 的数据结构执行, Map 的 key 为艺术家名, value 的格式为 “{专辑名01, 专辑名02, …}” 的形式, 如下所示:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">key=艺术家01, value=&#123;专辑名01, 专辑名04, 专辑名07, 专辑名10, 专辑名13, 专辑名16, 专辑名19, 专辑名22, 专辑名25, 专辑名28&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="不使用-Stream-时的实现方式"><a href="#不使用-Stream-时的实现方式" class="headerlink" title="不使用 Stream 时的实现方式"></a>不使用 Stream 时的实现方式</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成模拟数据</span></span><br><span class="line">Artist artist;</span><br><span class="line">List&lt;Artist&gt; artistList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">30</span>; i ++) &#123;</span><br><span class="line">    artist = <span class="keyword">new</span> Artist(<span class="string">"艺术家"</span> + String.format(<span class="string">"%02d"</span>, i % <span class="number">3</span>), <span class="string">"专辑名"</span> + String.format(<span class="string">"%02d"</span>, i));</span><br><span class="line">    artistList.add(artist);</span><br><span class="line">    logger.debug(<span class="string">"艺术家："</span> + artist.getName() + <span class="string">"，专辑名："</span> + artist.getAlbums());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 按照艺术家分类, nameSet 作为词典用于分类</span></span><br><span class="line">Set&lt;String&gt; nameSet = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">Map&lt;String, List&lt;String&gt;&gt; tempListMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span> (Artist martist: artistList) &#123;</span><br><span class="line">    List&lt;String&gt; tempList;</span><br><span class="line">    <span class="keyword">if</span> (nameSet.contains(martist.getName())) &#123;</span><br><span class="line">        tempList = tempListMap.get(martist.getName());</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        nameSet.add(martist.getName());</span><br><span class="line">        tempList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    tempList.add(martist.getAlbums());</span><br><span class="line">    tempListMap.put(martist.getName(), tempList);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (Map.Entry&lt;String, List&lt;String&gt;&gt; entry : tempListMap.entrySet()) &#123;</span><br><span class="line">     logger.debug(entry.getKey() + <span class="string">" = "</span> + entry.getValue());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// List 转成指定的格式</span></span><br><span class="line">Map&lt;String, String&gt; finalArtistMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span> (Map.Entry&lt;String, List&lt;String&gt;&gt; entry : tempListMap.entrySet()) &#123;</span><br><span class="line">    StringBuilder builder = <span class="keyword">new</span> StringBuilder(<span class="string">"&#123;"</span>);</span><br><span class="line">    List&lt;String&gt; albums = entry.getValue();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; albums.size() - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        builder.append(albums.get(i));</span><br><span class="line">        builder.append(<span class="string">", "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (albums.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        builder.append(albums.get(albums.size() - <span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    builder.append(<span class="string">"&#125;"</span>);</span><br><span class="line">    finalArtistMap.put(entry.getKey(), builder.toString());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出结果</span></span><br><span class="line"><span class="keyword">for</span> (Map.Entry&lt;String, String&gt; entry : finalArtistMap.entrySet()) &#123;</span><br><span class="line">    logger.debug(entry.getKey() + <span class="string">" = "</span> + entry.getValue());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">艺术家01 = [专辑名01, 专辑名04, 专辑名07, 专辑名10, 专辑名13, 专辑名16, 专辑名19, 专辑名22, 专辑名25, 专辑名28]</span><br><span class="line">艺术家02 = [专辑名02, 专辑名05, 专辑名08, 专辑名11, 专辑名14, 专辑名17, 专辑名20, 专辑名23, 专辑名26, 专辑名29]</span><br><span class="line">艺术家00 = [专辑名00, 专辑名03, 专辑名06, 专辑名09, 专辑名12, 专辑名15, 专辑名18, 专辑名21, 专辑名24, 专辑名27]</span><br></pre></td></tr></table></figure>
+<h2 id="使用-Stream-的实现方式"><a href="#使用-Stream-的实现方式" class="headerlink" title="使用 Stream 的实现方式"></a>使用 Stream 的实现方式</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成模拟数据</span></span><br><span class="line">Artist artist;</span><br><span class="line">List&lt;Artist&gt; artistList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">30</span>; i ++) &#123;</span><br><span class="line">    artist = <span class="keyword">new</span> Artist(<span class="string">"艺术家"</span> + String.format(<span class="string">"%02d"</span>, i % <span class="number">3</span>), <span class="string">"专辑名"</span> + String.format(<span class="string">"%02d"</span>, i));</span><br><span class="line">    artistList.add(artist);</span><br><span class="line">    logger.debug(<span class="string">"艺术家："</span> + artist.getName() + <span class="string">"，专辑名："</span> + artist.getAlbums());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 数据进行处理</span></span><br><span class="line">Stream&lt;Artist&gt; artistStream = artistList.stream();</span><br><span class="line">Map&lt;String, String&gt; finalArtistMap =</span><br><span class="line">        artistStream.collect(Collectors.groupingBy(Artist::getName,</span><br><span class="line">                Collectors.mapping(Artist::getAlbums, Collectors.joining(<span class="string">", "</span>, <span class="string">"&#123;"</span>, <span class="string">"&#125;"</span>))));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出结果</span></span><br><span class="line"><span class="keyword">for</span> (Map.Entry&lt;String, String&gt; entry : finalArtistMap.entrySet()) &#123;</span><br><span class="line">    logger.debug(entry.getKey() + <span class="string">" = "</span> + entry.getValue());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">艺术家01 = &#123;专辑名01, 专辑名04, 专辑名07, 专辑名10, 专辑名13, 专辑名16, 专辑名19, 专辑名22, 专辑名25, 专辑名28&#125;</span><br><span class="line">艺术家02 = &#123;专辑名02, 专辑名05, 专辑名08, 专辑名11, 专辑名14, 专辑名17, 专辑名20, 专辑名23, 专辑名26, 专辑名29&#125;</span><br><span class="line">艺术家00 = &#123;专辑名00, 专辑名03, 专辑名06, 专辑名09, 专辑名12, 专辑名15, 专辑名18, 专辑名21, 专辑名24, 专辑名27&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到两种方式都可以得到同样的结果, 但是使用 stream 组合收集器的方式的代码更加简单和简洁</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Java-Java8收集器
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2018/10/10/Java-Java8收集器/" title="Java-Java8收集器">2018/10/10/Java-Java8收集器/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/10/Java-Java8接口的增强/" rel="next" title="Java-Java8接口的增强">
+                <i class="fa fa-chevron-left"></i> Java-Java8接口的增强
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/17/Java-Java8中StreamAPI的reduce方法的使用/" rel="prev" title="Java-Java8中StreamAPI的reduce方法的使用">
+                Java-Java8中StreamAPI的reduce方法的使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#收集器"><span class="nav-number">1.</span> <span class="nav-text">收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#流转换成集合"><span class="nav-number">1.1.</span> <span class="nav-text">流转换成集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流转换成值"><span class="nav-number">1.2.</span> <span class="nav-text">流转换成值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#maxBy、minBy-求最大最小值"><span class="nav-number">1.2.1.</span> <span class="nav-text">maxBy、minBy 求最大最小值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#averagingInt-等求平均值"><span class="nav-number">1.2.2.</span> <span class="nav-text">averagingInt 等求平均值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#partitioningBy-将数据分块"><span class="nav-number">1.2.3.</span> <span class="nav-text">partitioningBy 将数据分块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#groupingBy-将数据进行分组-可以和分区联合使用"><span class="nav-number">1.2.4.</span> <span class="nav-text">groupingBy 将数据进行分组 (可以和分区联合使用)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#counting-将数据进行统计"><span class="nav-number">1.2.5.</span> <span class="nav-text">counting 将数据进行统计</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流转换成字符串"><span class="nav-number">1.3.</span> <span class="nav-text">流转换成字符串</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组合收集器"><span class="nav-number">2.</span> <span class="nav-text">组合收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#需要实现的功能"><span class="nav-number">2.1.</span> <span class="nav-text">需要实现的功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不使用-Stream-时的实现方式"><span class="nav-number">2.2.</span> <span class="nav-text">不使用 Stream 时的实现方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-Stream-的实现方式"><span class="nav-number">2.3.</span> <span class="nav-text">使用 Stream 的实现方式</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
