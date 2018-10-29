@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在了解 Java 8 的函数表达式之前, 先了解下 Lambda 表达式, Lambda 表达式是一种可传递匿名表达式的一种方式, 可以作为参数传递或者存储在变量中, 使用 Lambda 可以让行为参数化 (关于行为参数见 Java-行为参数化 笔记) 更加的灵活 Lamdbda 的语法(parameters) -&amp;gt; expression这种语法函数体是一个表达式, 表达式后面不需要分号,">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-Java8函数式接口">
+<meta property="og:url" content="http://yoursite.com/2018/10/18/Java-Java8函数式接口/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="在了解 Java 8 的函数表达式之前, 先了解下 Lambda 表达式, Lambda 表达式是一种可传递匿名表达式的一种方式, 可以作为参数传递或者存储在变量中, 使用 Lambda 可以让行为参数化 (关于行为参数见 Java-行为参数化 笔记) 更加的灵活 Lamdbda 的语法(parameters) -&amp;gt; expression这种语法函数体是一个表达式, 表达式后面不需要分号,">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-29T14:02:39.463Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java-Java8函数式接口">
+<meta name="twitter:description" content="在了解 Java 8 的函数表达式之前, 先了解下 Lambda 表达式, Lambda 表达式是一种可传递匿名表达式的一种方式, 可以作为参数传递或者存储在变量中, 使用 Lambda 可以让行为参数化 (关于行为参数见 Java-行为参数化 笔记) 更加的灵活 Lamdbda 的语法(parameters) -&amp;gt; expression这种语法函数体是一个表达式, 表达式后面不需要分号,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/18/Java-Java8函数式接口/"/>
+
+
+
+
+
+  <title>Java-Java8函数式接口 | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/18/Java-Java8函数式接口/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java-Java8函数式接口</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-18T23:19:22+08:00">
+                2018-10-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在了解 Java 8 的函数表达式之前, 先了解下 Lambda 表达式, Lambda 表达式是一种可传递匿名表达式的一种方式, 可以作为参数传递或者存储在变量中, 使用 Lambda 可以让<code>行为参数化</code> (关于行为参数见 <code>Java-行为参数化</code> 笔记) 更加的灵活</p>
+<h1 id="Lamdbda-的语法"><a href="#Lamdbda-的语法" class="headerlink" title="Lamdbda 的语法"></a>Lamdbda 的语法</h1><h2 id="parameters-gt-expression"><a href="#parameters-gt-expression" class="headerlink" title="(parameters) -&gt; expression"></a>(parameters) -&gt; expression</h2><p>这种语法函数体是一个表达式, 表达式后面不需要分号, 不需要带大括号, 例 <code>(x) -&gt; &quot;TEST&quot;</code></p>
+<h2 id="parameters-gt-statements"><a href="#parameters-gt-statements" class="headerlink" title="(parameters) -&gt; {statements;}"></a>(parameters) -&gt; {statements;}</h2><p>这种语法的函数体是语句, 语句后面需要带分号, 且需要带大括号, 例 <code>(x) -&gt; {return &quot;TEST&quot;;}</code></p>
+<h1 id="可以使用-Lambda-表达式的地方"><a href="#可以使用-Lambda-表达式的地方" class="headerlink" title="可以使用 Lambda 表达式的地方"></a>可以使用 Lambda 表达式的地方</h1><p>在<code>函数式接口上</code>可以使用 Lambda 表达式</p>
+<a id="more"></a>
+<h1 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h1><p>函数式接口是之定义了一个抽象方法的接口, 在 Java 8 中的接口开始运行拥有多个默认方法, 即使有多个默认方法, 只要只有一个抽象方法任然还是一个函数式接口</p>
+<h1 id="函数式接口和-Lambda-表达式"><a href="#函数式接口和-Lambda-表达式" class="headerlink" title="函数式接口和 Lambda 表达式"></a>函数式接口和 Lambda 表达式</h1><p>Lambda 表达式是函数式接口的一个具体实例 (使用内部匿名类也可以完成 Lambda 表达式一样的功能, 但是比较笨拙)</p>
+<h1 id="Java-8-中的新增的函数式接口"><a href="#Java-8-中的新增的函数式接口" class="headerlink" title="Java 8 中的新增的函数式接口"></a>Java 8 中的新增的函数式接口</h1><p>Java 8 的 java.util.function 包中引入了一些新的函数式接口, 如 Predicate, Consumer 和 Function, 现在分别介绍这几个接口</p>
+<h2 id="Predicate"><a href="#Predicate" class="headerlink" title="Predicate"></a>Predicate</h2><p>Predicate 接口里面有一个返回 boolean 类型的 test 抽象方法和其他几个默认实现方法, 当调用 test 方法时会执行传递进来的 Lambad 表达式的方法体里面的代码并返回一个 boolean 对象, 例如实现一个类似 Stream API 中的 filter 方法这种需求可以使用这个接口, Predicate 接口的源码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Predicate</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">test</span><span class="params">(T t)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> Predicate&lt;T&gt; <span class="title">and</span><span class="params">(Predicate&lt;? <span class="keyword">super</span> T&gt; other)</span> </span>&#123;</span><br><span class="line">        Objects.requireNonNull(other);</span><br><span class="line">        <span class="keyword">return</span> (t) -&gt; test(t) &amp;&amp; other.test(t);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> Predicate&lt;T&gt; <span class="title">negate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (t) -&gt; !test(t);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> Predicate&lt;T&gt; <span class="title">or</span><span class="params">(Predicate&lt;? <span class="keyword">super</span> T&gt; other)</span> </span>&#123;</span><br><span class="line">        Objects.requireNonNull(other);</span><br><span class="line">        <span class="keyword">return</span> (t) -&gt; test(t) || other.test(t);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Predicate 可用于需要返回一个 boolean 类型的 Lambda 表达式, 下面实现一个类似 Stream API 中的 filter 的接口, 对 List 进行过滤, 使用示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    List&lt;DataNode&gt; dataNodeList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    dataNodeList.add(DataNode.builder().name(<span class="string">"A"</span>).soc(<span class="number">1</span>).build());</span><br><span class="line">    dataNodeList.add(DataNode.builder().name(<span class="string">"B"</span>).soc(<span class="number">1</span>).build());</span><br><span class="line">    dataNodeList.add(DataNode.builder().name(<span class="string">"C"</span>).soc(<span class="number">1</span>).build());</span><br><span class="line">    dataNodeList.add(DataNode.builder().name(<span class="string">"D"</span>).soc(<span class="number">1</span>).build());</span><br><span class="line">    dataNodeList.add(DataNode.builder().name(<span class="string">"E"</span>).soc(<span class="number">2</span>).build());</span><br><span class="line">    dataNodeList.add(DataNode.builder().name(<span class="string">"F"</span>).soc(<span class="number">2</span>).build());</span><br><span class="line">    dataNodeList.add(DataNode.builder().name(<span class="string">"G"</span>).soc(<span class="number">2</span>).build());</span><br><span class="line">    dataNodeList.add(DataNode.builder().name(<span class="string">"H"</span>).soc(<span class="number">2</span>).build());</span><br><span class="line">    dataNodeList.add(DataNode.builder().name(<span class="string">"I"</span>).soc(<span class="number">3</span>).build());</span><br><span class="line">    dataNodeList.add(DataNode.builder().name(<span class="string">"J"</span>).soc(<span class="number">3</span>).build());</span><br><span class="line">    dataNodeList.add(DataNode.builder().name(<span class="string">"K"</span>).soc(<span class="number">3</span>).build());</span><br><span class="line">    dataNodeList.add(DataNode.builder().name(<span class="string">"L"</span>).soc(<span class="number">3</span>).build());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 过滤掉 sco 值大于 2 的元素</span></span><br><span class="line">    List&lt;DataNode&gt; filterDataList = filter(dataNodeList, (dataNode -&gt; dataNode.getSoc() &gt; <span class="number">2</span>));</span><br><span class="line">    log.info(filterDataList.toString());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> List&lt;DataNode&gt; <span class="title">filter</span><span class="params">(List&lt;DataNode&gt; sourceDataList, Predicate&lt;DataNode&gt; predicate)</span> </span>&#123;</span><br><span class="line">    List&lt;DataNode&gt; returnDataList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    sourceDataList.forEach(dataNode -&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (predicate.test(dataNode)) &#123;</span><br><span class="line">            returnDataList.add(dataNode);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> returnDataList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[DataNode(name=I, soc=3), DataNode(name=J, soc=3), DataNode(name=K, soc=3), DataNode(name=L, soc=3)]</span><br></pre></td></tr></table></figure>
+<p>Predicate 接口还默认实现了 and, or 和 negate 方法, 这些方法可以和 test 组合使用, 例如将上面的 filter 方法改成既要满足 Lambda 表达式的刷选条件, 又要满足元素的 name 是 L 的元素, 代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> List&lt;DataNode&gt; <span class="title">filter</span><span class="params">(List&lt;DataNode&gt; sourceDataList, Predicate&lt;DataNode&gt; predicate)</span> </span>&#123;</span><br><span class="line">    List&lt;DataNode&gt; returnDataList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    sourceDataList.forEach(dataNode -&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (predicate.and(dataNodec -&gt; &#123;</span><br><span class="line">            log.info(<span class="string">"AND    = "</span> + dataNodec.toString());</span><br><span class="line">            <span class="keyword">return</span> dataNodec.getName().equals(<span class="string">"L"</span>);</span><br><span class="line">        &#125;).test(dataNode)) &#123;</span><br><span class="line">            log.info(<span class="string">"TEST   = "</span> + dataNode.toString());</span><br><span class="line">            returnDataList.add(dataNode);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> returnDataList;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">List&lt;DataNode&gt; filterDataList = filter(dataNodeList, (dataNode -&gt; dataNode.getSoc() &gt; <span class="number">2</span>));</span><br><span class="line">log.info(<span class="string">"RESULT = "</span> + filterDataList.toString());</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[main] - AND    = DataNode(name=I, soc=3)</span><br><span class="line">[main] - AND    = DataNode(name=J, soc=3)</span><br><span class="line">[main] - AND    = DataNode(name=K, soc=3)</span><br><span class="line">[main] - AND    = DataNode(name=L, soc=3)</span><br><span class="line">[main] - TEST   = DataNode(name=L, soc=3)</span><br><span class="line">[main] - RESULT = [DataNode(name=L, soc=3)]</span><br></pre></td></tr></table></figure>
+<p>从输出结果可以看到最终的结果集都是 name = “L” 并且 sco &gt; 3 的元素, 也可以了解到 and, or 和 negate 方法都是在 test 方法过滤元素之前执行的</p>
+<h2 id="Comsumer"><a href="#Comsumer" class="headerlink" title="Comsumer"></a>Comsumer</h2><p>Consumer 接口里面定义了一个 accept 的抽象方法, 接收一个泛型参数, 返回一个 void 类型, 另外一个默认的实现方法 addThen 可以在 accept 方法执行后再次对数据进行一次操作, 如果仅需要对某个数据进行操作, 可以使用次接口, 类似于 Stream API 中的 forEach 方法, Consumer 接口的源码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Consumer</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">accept</span><span class="params">(T t)</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">default</span> Consumer&lt;T&gt; <span class="title">andThen</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> T&gt; after)</span> </span>&#123;</span><br><span class="line">        Objects.requireNonNull(after);</span><br><span class="line">        <span class="keyword">return</span> (T t) -&gt; &#123; accept(t); after.accept(t); &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现一个类似 Stream API 中的 forEach 方法的效果, 使用示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    List&lt;DataNode&gt; dataNodeList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    dataNodeList.add(DataNode.builder().name(<span class="string">"A"</span>).soc(<span class="number">1</span>).build());</span><br><span class="line">    dataNodeList.add(DataNode.builder().name(<span class="string">"B"</span>).soc(<span class="number">2</span>).build());</span><br><span class="line">    dataNodeList.add(DataNode.builder().name(<span class="string">"C"</span>).soc(<span class="number">3</span>).build());</span><br><span class="line">    dataNodeList.add(DataNode.builder().name(<span class="string">"D"</span>).soc(<span class="number">4</span>).build());</span><br><span class="line"></span><br><span class="line">    Consumer&lt;DataNode&gt; consumer = dataNode -&gt; &#123;</span><br><span class="line">        <span class="keyword">int</span> i = dataNode.getSoc();</span><br><span class="line">        i += <span class="number">1</span>;</span><br><span class="line">        dataNode.setSoc(i);</span><br><span class="line">        log.info(<span class="string">"ACCEPT  = "</span> + dataNode.toString());</span><br><span class="line">    &#125;;</span><br><span class="line">    forEach(dataNodeList, consumer);</span><br><span class="line">    log.info(<span class="string">"RESULT  = "</span> + dataNodeList.toString());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// addThen 方法可以在每次执行了 accept 方法后执行一次其他的操作</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">forEach</span><span class="params">(List&lt;DataNode&gt; dataNodeList, Consumer&lt;DataNode&gt; consumer)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (DataNode dataNode : dataNodeList) &#123;</span><br><span class="line">        consumer.andThen(node -&gt; &#123;</span><br><span class="line">            node.setName(node.getName() + <span class="string">"1"</span>);</span><br><span class="line">            log.info(<span class="string">"ADDTHEN = "</span> + node.toString());</span><br><span class="line">        &#125;).accept(dataNode);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[main] - ACCEPT  = DataNode(name=A, soc=2)</span><br><span class="line">[main] - ADDTHEN = DataNode(name=A1, soc=2)</span><br><span class="line"></span><br><span class="line">[main] - ACCEPT  = DataNode(name=B, soc=3)</span><br><span class="line">[main] - ADDTHEN = DataNode(name=B1, soc=3)</span><br><span class="line"></span><br><span class="line">[main] - ACCEPT  = DataNode(name=C, soc=4)</span><br><span class="line">[main] - ADDTHEN = DataNode(name=C1, soc=4)</span><br><span class="line"></span><br><span class="line">[main] - ACCEPT  = DataNode(name=D, soc=5)</span><br><span class="line">[main] - ADDTHEN = DataNode(name=D1, soc=5)</span><br><span class="line">[main] - RESULT  = [DataNode(name=A1, soc=2), DataNode(name=B1, soc=3), DataNode(name=C1, soc=4), DataNode(name=D1, soc=5)]</span><br></pre></td></tr></table></figure>
+<h2 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h2><p>Function 接口定义了一个 apply 的接口, 接收一个泛型类型 T, 并返回一个泛型 R, 其中还有两个默认实现的方法, compose 和 andThen, 这两个方法分别在 apply 方法执行前调用和执行后再次对数据进行一次映射, 如果需要将某个类型映射成其他的类型, 可以使用该接口, 和 Stream API 中的 map 方法类似, Function 源码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Function</span>&lt;<span class="title">T</span>, <span class="title">R</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">R <span class="title">apply</span><span class="params">(T t)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">default</span> &lt;V&gt; <span class="function">Function&lt;V, R&gt; <span class="title">compose</span><span class="params">(Function&lt;? <span class="keyword">super</span> V, ? extends T&gt; before)</span> </span>&#123;</span><br><span class="line">        Objects.requireNonNull(before);</span><br><span class="line">        <span class="keyword">return</span> (V v) -&gt; apply(before.apply(v));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">default</span> &lt;V&gt; <span class="function">Function&lt;T, V&gt; <span class="title">andThen</span><span class="params">(Function&lt;? <span class="keyword">super</span> R, ? extends V&gt; after)</span> </span>&#123;</span><br><span class="line">        Objects.requireNonNull(after);</span><br><span class="line">        <span class="keyword">return</span> (T t) -&gt; after.apply(apply(t));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现一个简单的 map 方法, 将定义好的 DataNode 的列表映射成 String 类型的列表, 使用示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    List&lt;DataNode&gt; dataNodeList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    dataNodeList.add(DataNode.builder().name(<span class="string">"A"</span>).soc(<span class="number">1</span>).build());</span><br><span class="line">    dataNodeList.add(DataNode.builder().name(<span class="string">"B"</span>).soc(<span class="number">2</span>).build());</span><br><span class="line">    dataNodeList.add(DataNode.builder().name(<span class="string">"C"</span>).soc(<span class="number">3</span>).build());</span><br><span class="line">    dataNodeList.add(DataNode.builder().name(<span class="string">"D"</span>).soc(<span class="number">4</span>).build());</span><br><span class="line"></span><br><span class="line">    List&lt;String&gt; list = map(dataNodeList, DataNode::getName);</span><br><span class="line">    log.info(list.toString());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> List&lt;String&gt; <span class="title">map</span><span class="params">(List&lt;DataNode&gt; dataNodeList, Function&lt;DataNode, String&gt; function)</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; returnDataList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (DataNode dataNode : dataNodeList) &#123;</span><br><span class="line">        returnDataList.add(function.apply(dataNode));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> returnDataList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[main] - [A, B, C, D]</span><br></pre></td></tr></table></figure>
+<h2 id="Supplier"><a href="#Supplier" class="headerlink" title="Supplier"></a>Supplier</h2><p>Supplier 接口只有一个抽象的 get 方法, 不接受任何参数, 返回一个泛型 T 参数, 比较简单就不举例了, 源码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Supplier</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">T <span class="title">get</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="其他的接口"><a href="#其他的接口" class="headerlink" title="其他的接口"></a>其他的接口</h2><p>上面说到的 Predicate, Comsumer 和 Function 是 java.util.function 提供的接口, 除了这些接口外, 还提供了一些其他的接口, 但都是和 Predicate, Comsumer 和 Function 相关的接口, 主要分成以下两类:</p>
+<ul>
+<li>BiXXX 类型的接口, 如 BiFunction 接口, 这类接口和 Predicate, Comsumer 和 Function 接口功能一样, 不同的是这类接口有两个入参</li>
+<li>ObjXXXYYY 类型接口, 如 ObjIntFunction 接口, 这类接口有两个入参, 只是第一个参数是对象类型, 第二个参数是基础数据类型 (int, long, double)</li>
+<li>XXXToYYYFunction, 如 LongToIntFunction 接口, 基础类型 long 映射 int 类型使用</li>
+<li>最后还有一类是为了不让处理数据时对基础类型进行自动的拆箱和装箱操作影响性能而创建的诸如 ToIntFunction 等接口</li>
+</ul>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li>Java 8 实战 (书籍)</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Java-Java8函数式接口
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2018/10/18/Java-Java8函数式接口/" title="Java-Java8函数式接口">2018/10/18/Java-Java8函数式接口/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/17/Java-Java8中StreamAPI的reduce方法的使用/" rel="next" title="Java-Java8中StreamAPI的reduce方法的使用">
+                <i class="fa fa-chevron-left"></i> Java-Java8中StreamAPI的reduce方法的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/18/Java-Java8之StreamAPI中的faltMap方法/" rel="prev" title="Java-Java8之StreamAPI中的faltMap方法">
+                Java-Java8之StreamAPI中的faltMap方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">79</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Lamdbda-的语法"><span class="nav-number">1.</span> <span class="nav-text">Lamdbda 的语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#parameters-gt-expression"><span class="nav-number">1.1.</span> <span class="nav-text">(parameters) -&gt; expression</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#parameters-gt-statements"><span class="nav-number">1.2.</span> <span class="nav-text">(parameters) -&gt; {statements;}</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#可以使用-Lambda-表达式的地方"><span class="nav-number">2.</span> <span class="nav-text">可以使用 Lambda 表达式的地方</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数式接口"><span class="nav-number">3.</span> <span class="nav-text">函数式接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数式接口和-Lambda-表达式"><span class="nav-number">4.</span> <span class="nav-text">函数式接口和 Lambda 表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-8-中的新增的函数式接口"><span class="nav-number">5.</span> <span class="nav-text">Java 8 中的新增的函数式接口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Predicate"><span class="nav-number">5.1.</span> <span class="nav-text">Predicate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Comsumer"><span class="nav-number">5.2.</span> <span class="nav-text">Comsumer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Function"><span class="nav-number">5.3.</span> <span class="nav-text">Function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Supplier"><span class="nav-number">5.4.</span> <span class="nav-text">Supplier</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他的接口"><span class="nav-number">5.5.</span> <span class="nav-text">其他的接口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="集合数据在内存中的存储方式Java 对于集合数据的遍历提供了几种不同的方式, 普通的 for 循环, 迭代器 Iterator 和 forEach, 在了解集合数据的遍历之前, 有必要先了解下集合数据在内存中如何存放方式, 主要有以下顺序存储和链式存储两种 顺序存储顺序存储时保存数据的内存是连续的, 可以根据元素的位置直接计算出内存地址, 可以很方便的获取对应位置的元素, 但是顺序存储在删除和插入">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-ArrayList和LinkedList循环遍历性能测试">
+<meta property="og:url" content="http://yoursite.com/2018/10/20/Java-ArrayList和LinkedList循环遍历性能测试/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="集合数据在内存中的存储方式Java 对于集合数据的遍历提供了几种不同的方式, 普通的 for 循环, 迭代器 Iterator 和 forEach, 在了解集合数据的遍历之前, 有必要先了解下集合数据在内存中如何存放方式, 主要有以下顺序存储和链式存储两种 顺序存储顺序存储时保存数据的内存是连续的, 可以根据元素的位置直接计算出内存地址, 可以很方便的获取对应位置的元素, 但是顺序存储在删除和插入">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-29T14:02:39.451Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java-ArrayList和LinkedList循环遍历性能测试">
+<meta name="twitter:description" content="集合数据在内存中的存储方式Java 对于集合数据的遍历提供了几种不同的方式, 普通的 for 循环, 迭代器 Iterator 和 forEach, 在了解集合数据的遍历之前, 有必要先了解下集合数据在内存中如何存放方式, 主要有以下顺序存储和链式存储两种 顺序存储顺序存储时保存数据的内存是连续的, 可以根据元素的位置直接计算出内存地址, 可以很方便的获取对应位置的元素, 但是顺序存储在删除和插入">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/20/Java-ArrayList和LinkedList循环遍历性能测试/"/>
+
+
+
+
+
+  <title>Java-ArrayList和LinkedList循环遍历性能测试 | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/20/Java-ArrayList和LinkedList循环遍历性能测试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java-ArrayList和LinkedList循环遍历性能测试</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-20T00:43:21+08:00">
+                2018-10-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="集合数据在内存中的存储方式"><a href="#集合数据在内存中的存储方式" class="headerlink" title="集合数据在内存中的存储方式"></a>集合数据在内存中的存储方式</h1><p>Java 对于集合数据的遍历提供了几种不同的方式, 普通的 for 循环, 迭代器 Iterator 和 forEach, 在了解集合数据的遍历之前, 有必要先了解下集合数据在内存中如何存放方式, 主要有以下顺序存储和链式存储两种</p>
+<h2 id="顺序存储"><a href="#顺序存储" class="headerlink" title="顺序存储"></a>顺序存储</h2><p>顺序存储时保存数据的内存是连续的, 可以根据元素的位置直接计算出内存地址, 可以很方便的获取对应位置的元素, 但是顺序存储在删除和插入数据时不方便, 删除数据和插入数据时需要将删除元素后的所有元素都要往前或者往后移动, 在内存中使用这种存储方式的数据集合最具代表性的是 ArrayList</p>
+<h2 id="链式存储"><a href="#链式存储" class="headerlink" title="链式存储"></a>链式存储</h2><p>链式存储保存数据时各个元素的内存不是连续的, 不能通过元素的位置计算出内存地址, 每个元素都会保存下一个元素的内存地址, 因此删除和插入数据很方便, 但是查找数据需要循环遍历才能找到 (原因时不能通过元素的位置计算出内存地址), 在内存中使用这种存储方式的数据集合最具代表性的是 LinkedList</p>
+<a id="more"></a>
+<h2 id="一般性结论"><a href="#一般性结论" class="headerlink" title="一般性结论"></a>一般性结论</h2><p>了解上面的知识后, 可以大致得出一个一般性结论, 使用顺序存储的集合数据查询效率要高于链式存储, 而使用链式存储的集合数据在删除和插入的性能上要高于链式存储, <code>为什么是一般性结论, 因为决定这些效率的时要看查询, 删除和删除元素的在集合数据中的位置是相关的</code></p>
+<h1 id="开始测试"><a href="#开始测试" class="headerlink" title="开始测试"></a>开始测试</h1><p>下面的测试都是基于 ArrayList 和 LinkedList 来测试, 测试环境 Windows 10, i7-7770 CPU @ 3.60GHz, 16G RAM</p>
+<h2 id="for-循环"><a href="#for-循环" class="headerlink" title="for 循环"></a>for 循环</h2><p>for 循环时最基础也是 Java 最开始提供的循环方式, 适合于遍历顺序存储的集合数据, 测试代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 模拟 10w 数据</span></span><br><span class="line">    List&lt;DataNode&gt; dataNodeList1 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    List&lt;DataNode&gt; dataNodeList2 = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000000</span>; i++) &#123;</span><br><span class="line">        dataNodeList1.add(DataNode.builder().soc(i).build());</span><br><span class="line">        dataNodeList2.add(DataNode.builder().soc(i).build());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ArrayList 测试</span></span><br><span class="line">    DateTime startTime = DateTime.now();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; dataNodeList1.size(); i++) &#123;</span><br><span class="line">        dataNodeList1.get(i).setSoc(<span class="number">10000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    DateTime endTime = DateTime.now();</span><br><span class="line">    log.info(<span class="string">"[循环测试] ArrayList 的 for 循环, 花费时间 = &#123;&#125; ms"</span>,</span><br><span class="line">        endTime.getMillis() - startTime.getMillis());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// LinkedList 测试</span></span><br><span class="line">    startTime = DateTime.now();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; dataNodeList2.size(); i++) &#123;</span><br><span class="line">        dataNodeList2.get(i).setSoc(<span class="number">10000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    endTime = DateTime.now();</span><br><span class="line">    log.info(<span class="string">"[循环测试], LinkedList 的 for 循环, 花费时间 = &#123;&#125; ms"</span>,</span><br><span class="line">        endTime.getMillis() - startTime.getMillis());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[循环测试] ArrayList 的 for 循环,  花费时间 = 34 ms</span><br><span class="line">[循环测试] LinkedList 的 for 循环, 花费时间 = 8441 ms</span><br><span class="line"></span><br><span class="line">// 100w 数据, LinkedList 的循环我等了近一个小时仍然没有遍历完</span><br><span class="line">[循环测试] ArrayList 的 for 循环,  花费时间 = 42 ms</span><br></pre></td></tr></table></figure>
+<p>可以看到 LinkedList 的效率是远低于 ArrayList 的, 主要是在 LinkedList 的 get 方法, LinkedList 需要不断的循环遍历获取值, 导致获取值耗时较多, 具体分析见 <a href="">Java-LinkedList源码分析</a> 一节的笔记</p>
+<h2 id="Iterator-迭代器循环"><a href="#Iterator-迭代器循环" class="headerlink" title="Iterator 迭代器循环"></a>Iterator 迭代器循环</h2><p>迭代器是对 Collection 进行迭代的类, 用于循环取出集合元素并对元素进行操作, Collection 接口中定义了获取集合类迭代器的方法 iterator(),  所有的 Collection 体系集合都可以获取自身的迭代器, 使用迭代器可以在循环时添加, 删除和替换元素, 不需要和 for 循环一样维护一个显示的计数器, 当然缺点也是由于没有显示的计数器, 在需要获取元素下标的情况下, 需要自己维护一个计数器, 这里测试下在相同的条件下, 循环遍历 ArrayList 和 LinkedList 的效率, 测试代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">DateTime startTime = DateTime.now();</span><br><span class="line">DataNode dataNode;</span><br><span class="line">Iterator&lt;DataNode&gt; dataNodeIterator1 = dataNodeList1.iterator();</span><br><span class="line"><span class="keyword">while</span> (dataNodeIterator1.hasNext()) &#123;</span><br><span class="line">    dataNode = dataNodeIterator1.next();</span><br><span class="line">    dataNode.setSoc(<span class="number">10000</span>);</span><br><span class="line">&#125;</span><br><span class="line">DateTime endTime = DateTime.now();</span><br><span class="line">log.info(<span class="string">"[循环测试] ArrayList 的 Iterator 方式遍历, 花费时间 = &#123;&#125; ms"</span>,</span><br><span class="line">    endTime.getMillis() - startTime.getMillis());</span><br><span class="line"></span><br><span class="line">startTime = DateTime.now();</span><br><span class="line">DataNode dataNode2;</span><br><span class="line">Iterator&lt;DataNode&gt; dataNodeIterator2 = dataNodeList1.iterator();</span><br><span class="line"><span class="keyword">while</span> (dataNodeIterator2.hasNext()) &#123;</span><br><span class="line">    dataNode2 = dataNodeIterator2.next();</span><br><span class="line">    dataNode2.setSoc(<span class="number">10000</span>);</span><br><span class="line">&#125;</span><br><span class="line">endTime = DateTime.now();</span><br><span class="line">log.info(<span class="string">"[循环测试] LinkedList 的 Iterator 方式遍历, 花费时间 = &#123;&#125; ms"</span>,</span><br><span class="line">    endTime.getMillis() - startTime.getMillis());</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 10w 数据</span><br><span class="line">[循环测试] ArrayList 的 Iterator 方式遍历, 花费时间 = 40 ms</span><br><span class="line">[循环测试] LinkedList 的 Iterator 方式遍历, 花费时间 = 2 ms</span><br><span class="line"></span><br><span class="line">// 100w 数据</span><br><span class="line">[循环测试] ArrayList 的 Iterator 方式遍历, 花费时间 = 45 ms</span><br><span class="line">[循环测试] LinkedList 的 Iterator 方式遍历, 花费时间 = 12 ms</span><br></pre></td></tr></table></figure>
+<p>使用迭代器的方式遍历, 很明显可以看到 LinkedList 的查询效率是得到明显的提升的, 具体见 <a href="">Java-ArrayList和LinkedList的迭代器源码分析</a></p>
+<h2 id="forEach-循环"><a href="#forEach-循环" class="headerlink" title="forEach 循环"></a>forEach 循环</h2><p>forEach 循环本质上使用的也是迭代器, 因此循环速度也是很快的, 相比直接使用迭代器, forEach 语句的代码简洁, 且遍历速度和直接使用迭代差别微小, 缺点就是不能在迭代器循环时对数据进行添加, 删除, 替换元素的操作, 测试代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    List&lt;DataNode&gt; dataNodeList1 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    List&lt;DataNode&gt; dataNodeList2 = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000000</span>; i++) &#123;</span><br><span class="line">        dataNodeList1.add(DataNode.builder().soc(i).build());</span><br><span class="line">        dataNodeList2.add(DataNode.builder().soc(i).build());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    DateTime startTime = DateTime.now();</span><br><span class="line">    <span class="keyword">for</span> (DataNode dataNode : dataNodeList1) &#123;</span><br><span class="line">        dataNode.setSoc(<span class="number">10000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    DateTime endTime = DateTime.now();</span><br><span class="line">    log.info(<span class="string">"[循环测试] ArrayList 的 forEach 方式遍历, 花费时间 = &#123;&#125; ms"</span>,</span><br><span class="line">        endTime.getMillis() - startTime.getMillis());</span><br><span class="line"></span><br><span class="line">    startTime = DateTime.now();</span><br><span class="line">    <span class="keyword">for</span> (DataNode dataNode : dataNodeList2) &#123;</span><br><span class="line">        dataNode.setSoc(<span class="number">10000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    endTime = DateTime.now();</span><br><span class="line">    log.info(<span class="string">"[循环测试] LinkedList 的 forEach 方式遍历, 花费时间 = &#123;&#125; ms"</span>,</span><br><span class="line">        endTime.getMillis() - startTime.getMillis());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 100w 数据</span><br><span class="line">[循环测试] ArrayList 的 forEach 方式遍历, 花费时间 = 66 ms</span><br><span class="line">[循环测试] LinkedList 的 forEach 方式遍历, 花费时间 = 16 ms</span><br></pre></td></tr></table></figure>
+<p>在 Java 8 后 forEach 还有另外一种调用的方法, 使用示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">DateTime startTime = DateTime.now();</span><br><span class="line">dataNodeList1.forEach(dataNode -&gt; dataNode.setSoc(<span class="number">10000</span>));</span><br><span class="line">DateTime endTime = DateTime.now();</span><br><span class="line">log.info(<span class="string">"[循环测试] ArrayList Java 8 中的 forEach 方式遍历, 花费时间 = &#123;&#125; ms"</span>,</span><br><span class="line">    endTime.getMillis() - startTime.getMillis());</span><br><span class="line"></span><br><span class="line">startTime = DateTime.now();</span><br><span class="line">dataNodeList2.forEach(dataNode -&gt; dataNode.setSoc(<span class="number">10000</span>));</span><br><span class="line">endTime = DateTime.now();</span><br><span class="line">log.info(<span class="string">"[循环测试] LinkedList Java 8 中的 forEach 方式遍历, 花费时间 = &#123;&#125; ms"</span>,</span><br><span class="line">    endTime.getMillis() - startTime.getMillis());</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 100w 数据</span><br><span class="line">[循环测试] ArrayList Java 8 中的 forEach 方式遍历, 花费时间 = 78 ms</span><br><span class="line">[循环测试] LinkedList Java 8 中的 forEach 方式遍历, 花费时间 = 16 ms</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Java-ArrayList和LinkedList循环遍历性能测试
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2018/10/20/Java-ArrayList和LinkedList循环遍历性能测试/" title="Java-ArrayList和LinkedList循环遍历性能测试">2018/10/20/Java-ArrayList和LinkedList循环遍历性能测试/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/18/Java-Java8之StreamAPI中的faltMap方法/" rel="next" title="Java-Java8之StreamAPI中的faltMap方法">
+                <i class="fa fa-chevron-left"></i> Java-Java8之StreamAPI中的faltMap方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/21/Docker-在Mac上安装Docker/" rel="prev" title="Docker-在Mac上安装Docker">
+                Docker-在Mac上安装Docker <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">79</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#集合数据在内存中的存储方式"><span class="nav-number">1.</span> <span class="nav-text">集合数据在内存中的存储方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#顺序存储"><span class="nav-number">1.1.</span> <span class="nav-text">顺序存储</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链式存储"><span class="nav-number">1.2.</span> <span class="nav-text">链式存储</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一般性结论"><span class="nav-number">1.3.</span> <span class="nav-text">一般性结论</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开始测试"><span class="nav-number">2.</span> <span class="nav-text">开始测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#for-循环"><span class="nav-number">2.1.</span> <span class="nav-text">for 循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Iterator-迭代器循环"><span class="nav-number">2.2.</span> <span class="nav-text">Iterator 迭代器循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#forEach-循环"><span class="nav-number">2.3.</span> <span class="nav-text">forEach 循环</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
