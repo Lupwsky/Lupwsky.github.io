@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="代理模式简介代理模式使设计模式的一种, 为其他对象提供一种代理以控制对这个对象的访问, 这样可以在不修改原目标对象的前提下, 提供额外的功能操作, 扩展目标对象的功能, 代理模式有以下四个角色:  Subject: 定义代理类和真实主题的公共对外方法, 委托类合代理类都需要实现这个接口 RealSubject: 真正实现业务逻辑的类, 称之为委托类 Proxy: 用来封装真实主题的类 (持有委托类">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-静态代理和动态代理">
+<meta property="og:url" content="http://yoursite.com/2018/12/11/Java-静态代理和动态代理/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="代理模式简介代理模式使设计模式的一种, 为其他对象提供一种代理以控制对这个对象的访问, 这样可以在不修改原目标对象的前提下, 提供额外的功能操作, 扩展目标对象的功能, 代理模式有以下四个角色:  Subject: 定义代理类和真实主题的公共对外方法, 委托类合代理类都需要实现这个接口 RealSubject: 真正实现业务逻辑的类, 称之为委托类 Proxy: 用来封装真实主题的类 (持有委托类">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-26T06:16:14.926Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java-静态代理和动态代理">
+<meta name="twitter:description" content="代理模式简介代理模式使设计模式的一种, 为其他对象提供一种代理以控制对这个对象的访问, 这样可以在不修改原目标对象的前提下, 提供额外的功能操作, 扩展目标对象的功能, 代理模式有以下四个角色:  Subject: 定义代理类和真实主题的公共对外方法, 委托类合代理类都需要实现这个接口 RealSubject: 真正实现业务逻辑的类, 称之为委托类 Proxy: 用来封装真实主题的类 (持有委托类">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/11/Java-静态代理和动态代理/"/>
+
+
+
+
+
+  <title>Java-静态代理和动态代理 | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/11/Java-静态代理和动态代理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java-静态代理和动态代理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-11T23:03:55+08:00">
+                2018-12-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="代理模式简介"><a href="#代理模式简介" class="headerlink" title="代理模式简介"></a>代理模式简介</h1><p>代理模式使设计模式的一种, 为其他对象提供一种代理以控制对这个对象的访问, 这样可以在不修改原目标对象的前提下, 提供额外的功能操作, 扩展目标对象的功能, 代理模式有以下四个角色:</p>
+<ul>
+<li>Subject: 定义代理类和真实主题的公共对外方法, 委托类合代理类都需要实现这个接口</li>
+<li>RealSubject: 真正实现业务逻辑的类, 称之为委托类</li>
+<li>Proxy: 用来封装真实主题的类 (持有委托类的引用, 并加入其他的业务处理), 称之为代理类</li>
+<li>Client: 调用代理类完成业务操作的类</li>
+</ul>
+<p>四个角色对应的 UML 关系图如下:</p>
+<a id="more"></a>
+<h2 id="代理模式优点"><a href="#代理模式优点" class="headerlink" title="代理模式优点"></a>代理模式优点</h2><ul>
+<li>业务拆分解耦方便</li>
+<li>具备高扩展性</li>
+</ul>
+<h2 id="代理模式缺点"><a href="#代理模式缺点" class="headerlink" title="代理模式缺点"></a>代理模式缺点</h2><ul>
+<li>需要额外的代理类, 随着业务增加, 类的文件会大量增加, 不易维护</li>
+</ul>
+<h1 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h1><p>静态代理的代理即代理模式中提到的代理, 主要在与静态, 在 Java 中的这里的静态也就是在程序运行前就已经存在代理类的字节码文件, 即这个代理类是由程序员直接写在 class 文件中的, 在程序运行前委托类和代理类的关系就已经确定, 而动态代理类是在程序运行期间由 JVM 根据反射等机制动态的生成, 所以不存在代理类的字节码文件, 代理类和委托类的关系是在程序运行时确定, 一个简单 Java 静态代理使用示例如下</p>
+<h2 id="创建接口类"><a href="#创建接口类" class="headerlink" title="创建接口类"></a>创建接口类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SubjectInterface</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="创建委托类"><a href="#创建委托类" class="headerlink" title="创建委托类"></a>创建委托类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RealSubjectClass</span> <span class="keyword">implements</span> <span class="title">SubjectInterface</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"RealSubjectClass.print() 已经调用"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="创建代理类"><a href="#创建代理类" class="headerlink" title="创建代理类"></a>创建代理类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyClass</span> <span class="keyword">implements</span> <span class="title">SubjectInterface</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> RealSubjectClass realSubjectClass;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ProxyClass</span><span class="params">(RealSubjectClass realSubjectClass)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.realSubjectClass = realSubjectClass;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"ProxyClass.print() 开始调用"</span>);</span><br><span class="line">        realSubjectClass.print();</span><br><span class="line">        log.info(<span class="string">"ProxyClass.print() 完成调用"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="客户端调用代理类完成相关业务操作"><a href="#客户端调用代理类完成相关业务操作" class="headerlink" title="客户端调用代理类完成相关业务操作"></a>客户端调用代理类完成相关业务操作</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ProxyClass proxyClass = <span class="keyword">new</span> ProxyClass(<span class="keyword">new</span> RealSubjectClass());</span><br><span class="line">proxyClass.print();</span><br></pre></td></tr></table></figure>
+<h1 id="JDK-原生动态代理"><a href="#JDK-原生动态代理" class="headerlink" title="JDK 原生动态代理"></a>JDK 原生动态代理</h1><p>JDK 原生动态代理设计是按照代理模式设计的, 原理是使用反射的方式实现, 代理类需要实现一个接口, 同时委托类是通过 java.lang.reflect 包中的 InvocationHandler 接口和 Proxy 类动态生成的, JDK 原生动态代理使用示例如下</p>
+<h2 id="创建接口类-1"><a href="#创建接口类-1" class="headerlink" title="创建接口类"></a>创建接口类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SubjectInterface</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="创建委托类-1"><a href="#创建委托类-1" class="headerlink" title="创建委托类"></a>创建委托类</h2><p>实现一个代理类, 完成实际的业务处理, 代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RealSubjectClass</span> <span class="keyword">implements</span> <span class="title">SubjectInterface</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"RealSubjectClass.print() 已经调用"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="继承-InvocationHandler-实现生成代理类的程序处理器"><a href="#继承-InvocationHandler-实现生成代理类的程序处理器" class="headerlink" title="继承 InvocationHandler 实现生成代理类的程序处理器"></a>继承 InvocationHandler 实现生成代理类的程序处理器</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyInvocationHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> RealSubjectClass realSubjectClass;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ProxyInvocationHandler</span><span class="params">(RealSubjectClass realSubjectClass)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.realSubjectClass = realSubjectClass;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 重写 invoke 方法, 加入横切业务逻辑, 如果不对 invoke 接口方法做任何其他处理, 这个横切逻辑会调用对代理类内的所有方法都有效</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> proxy 被代理的对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> method 要调用的方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> args 方法调用时所需要的参数</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Throwable</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        log.info(<span class="string">"RealSubjectClass.print() 开始调用"</span>);</span><br><span class="line">        method.invoke(realSubjectClass, args);</span><br><span class="line">        log.info(<span class="string">"RealSubjectClass.print() 结束调用"</span>);</span><br><span class="line">        <span class="keyword">return</span> realSubjectClass;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用-Proxy-生成代理类"><a href="#使用-Proxy-生成代理类" class="headerlink" title="使用 Proxy 生成代理类"></a>使用 Proxy 生成代理类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RealSubjectClass realSubjectClass = <span class="keyword">new</span> RealSubjectClass();</span><br><span class="line">RealSubjectInvocationHandler handler = <span class="keyword">new</span> RealSubjectInvocationHandler(realSubjectClass);</span><br><span class="line">SubjectClass subjectClass = (SubjectClass) Proxy.newProxyInstance(realSubjectClass.getClass().getClassLoader(),</span><br><span class="line">        realSubjectClass.getClass().getInterfaces(), handler);</span><br><span class="line">subjectClass.print();</span><br></pre></td></tr></table></figure>
+<h2 id="测试输出的日志"><a href="#测试输出的日志" class="headerlink" title="测试输出的日志"></a>测试输出的日志</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[main] INFO com.thread.excutor.proxy.RealSubjectInvocationHandler - RealSubjectClass.print() 开始调用</span><br><span class="line">[main] INFO com.thread.excutor.proxy.RealSubjectClass - RealSubjectClass.print() 已经调用</span><br><span class="line">[main] INFO com.thread.excutor.proxy.RealSubjectInvocationHandler - RealSubjectClass.print() 结束调用</span><br></pre></td></tr></table></figure>
+<h2 id="原生动态代理缺点"><a href="#原生动态代理缺点" class="headerlink" title="原生动态代理缺点"></a>原生动态代理缺点</h2><p>代理类和委托类需要都实现同一个接口, 对于没有实现接口的类, 就不能使用动态代理</p>
+<h1 id="CGLIB-动态代理"><a href="#CGLIB-动态代理" class="headerlink" title="CGLIB 动态代理"></a>CGLIB 动态代理</h1><p>CGLIB 是一个高性能的代码生成包, JDK 原生的动态代理遵循代理模式的设计, 代理类需要实现接口, 对于没有实现接口的代理类就不能使用 JDK 原生的动态代理方式生成委托类, CGLIB 可以为没有实现接口的类提供代理 (既可以面向类, 也可以面向接口), 对 JDK 原生的动态代理是一个很好的补充, CGLIB 原理是使用继承的方法来实现 (CGLIB 底层使用字节码处理框架 ASM, 来转换字节码并生成新的类), 会动态生成一个代理类的子类, 该子类会重写所有代理类中不是 final 的方法, 然后使用拦截器的拦截方法来织入横切逻辑, 由于产用的是继承, 因此也不能对 final 修饰的类进行处理,同时由于没有使用反射, CGLIB 比 JDK 原生的动态代理性能要好, CGLIB 动态代理使用示例如下</p>
+<h2 id="创建委托类-2"><a href="#创建委托类-2" class="headerlink" title="创建委托类"></a>创建委托类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RealSubjectClass</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"RealSubjectClass.print() 已经调用"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="创建拦截器"><a href="#创建拦截器" class="headerlink" title="创建拦截器"></a>创建拦截器</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyInterceptor</span> <span class="keyword">implements</span> <span class="title">MethodInterceptor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 重写拦截方法, 在代理类方法中加入业务</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o           目标对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> method      目标方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> objects     为参数</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> methodProxy CGlib方法代理对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Throwable</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Object o, Method method, Object[] objects, MethodProxy methodProxy)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        log.info(<span class="string">"RealSubjectClass.print() 开始调用"</span>);</span><br><span class="line">        <span class="comment">// 调用代理类实例上的父类方法</span></span><br><span class="line">        Object result = methodProxy.invokeSuper(o, objects);</span><br><span class="line">        log.info(<span class="string">"RealSubjectClass.print() 结束调用"</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="生成代理类并调用"><a href="#生成代理类并调用" class="headerlink" title="生成代理类并调用"></a>生成代理类并调用</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// enhancer 中文翻译为增强, 扩展</span></span><br><span class="line">Enhancer enhancer =<span class="keyword">new</span> Enhancer();</span><br><span class="line">enhancer.setSuperclass(RealSubjectClass.class);</span><br><span class="line">enhancer.setCallback(<span class="keyword">new</span> ProxyInterceptor());</span><br><span class="line">RealSubjectClass realSubjectClass =(RealSubjectClass)enhancer.create();</span><br><span class="line">RealSubjectClass.print();</span><br></pre></td></tr></table></figure>
+<h1 id="静态代理优缺点"><a href="#静态代理优缺点" class="headerlink" title="静态代理优缺点"></a>静态代理优缺点</h1><ul>
+<li>解耦, 如实现业务层和数据层的分离</li>
+<li>扩展性高</li>
+<li>随着业务的复杂度增加, 会产生过多的代理类</li>
+<li>不易维护, 接口增加方法, 委托类和代理类都需要更改, 随着业务复杂度增加该问题更加凸显</li>
+</ul>
+<h1 id="动态代理优缺点"><a href="#动态代理优缺点" class="headerlink" title="动态代理优缺点"></a>动态代理优缺点</h1><ul>
+<li>解耦, 如实现业务层和数据层的分离</li>
+<li>扩展性高</li>
+<li>可以实现无侵入式的代码扩展, 随着业务复杂程度增加, 代理类不会因此大量增加</li>
+<li>可以实现 AOP 编程, 静态代理方式难以实现, Spring AOP 就使用了动态代理</li>
+<li>使用了反射等生成代理类, 性能相比静态代理性能要低</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Java-静态代理和动态代理
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2018/12/11/Java-静态代理和动态代理/" title="Java-静态代理和动态代理">2018/12/11/Java-静态代理和动态代理/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/19/Spring-源码阅读之XML验证模式和XmlValidationModeDetector类/" rel="next" title="Spring-源码阅读之XML验证模式和XmlValidationModeDetector类">
+                <i class="fa fa-chevron-left"></i> Spring-源码阅读之XML验证模式和XmlValidationModeDetector类
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/18/Spring-XML方式配置Bean/" rel="prev" title="Spring-XML方式配置Bean的">
+                Spring-XML方式配置Bean的 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">94</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#代理模式简介"><span class="nav-number">1.</span> <span class="nav-text">代理模式简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代理模式优点"><span class="nav-number">1.1.</span> <span class="nav-text">代理模式优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代理模式缺点"><span class="nav-number">1.2.</span> <span class="nav-text">代理模式缺点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#静态代理"><span class="nav-number">2.</span> <span class="nav-text">静态代理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建接口类"><span class="nav-number">2.1.</span> <span class="nav-text">创建接口类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建委托类"><span class="nav-number">2.2.</span> <span class="nav-text">创建委托类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建代理类"><span class="nav-number">2.3.</span> <span class="nav-text">创建代理类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端调用代理类完成相关业务操作"><span class="nav-number">2.4.</span> <span class="nav-text">客户端调用代理类完成相关业务操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JDK-原生动态代理"><span class="nav-number">3.</span> <span class="nav-text">JDK 原生动态代理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建接口类-1"><span class="nav-number">3.1.</span> <span class="nav-text">创建接口类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建委托类-1"><span class="nav-number">3.2.</span> <span class="nav-text">创建委托类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#继承-InvocationHandler-实现生成代理类的程序处理器"><span class="nav-number">3.3.</span> <span class="nav-text">继承 InvocationHandler 实现生成代理类的程序处理器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-Proxy-生成代理类"><span class="nav-number">3.4.</span> <span class="nav-text">使用 Proxy 生成代理类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试输出的日志"><span class="nav-number">3.5.</span> <span class="nav-text">测试输出的日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原生动态代理缺点"><span class="nav-number">3.6.</span> <span class="nav-text">原生动态代理缺点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CGLIB-动态代理"><span class="nav-number">4.</span> <span class="nav-text">CGLIB 动态代理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建委托类-2"><span class="nav-number">4.1.</span> <span class="nav-text">创建委托类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建拦截器"><span class="nav-number">4.2.</span> <span class="nav-text">创建拦截器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成代理类并调用"><span class="nav-number">4.3.</span> <span class="nav-text">生成代理类并调用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#静态代理优缺点"><span class="nav-number">5.</span> <span class="nav-text">静态代理优缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动态代理优缺点"><span class="nav-number">6.</span> <span class="nav-text">动态代理优缺点</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -251,7 +251,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/Java-Java8的StreamAPI/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/Spring-源码阅读之XML验证模式和XmlValidationModeDetector类/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -270,7 +270,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/10/Java-Java8的StreamAPI/" itemprop="url">Java-Java8的StreamAPI</a></h1>
+                <a class="post-title-link" href="/2018/11/19/Spring-源码阅读之XML验证模式和XmlValidationModeDetector类/" itemprop="url">Spring-源码阅读之XML验证模式和XmlValidationModeDetector类</a></h1>
         
 
         <div class="post-meta">
@@ -282,797 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-10T23:29:47+08:00">
-                2018-10-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Java 8 中引入了全新的 Stream API, 这里的 Stream 和 I/O 中的 Stream 不同, 他更像是具有 Iterable 的集合, 但是行为和集合类又不相同, Stream API 引入的目的在于弥补 Java 函数式编程的缺陷。对于很多支持函数式编程的语言, map()、reduce() 基本上都内置到语言的标准库中了, 不过, Java 8 的 Stream API 总体来讲仍然是非常完善和强大，足以用很少的代码完成许多复杂的功能</p>
-<h1 id="创建-Stream-对象"><a href="#创建-Stream-对象" class="headerlink" title="创建 Stream 对象"></a>创建 Stream 对象</h1><p>创建的方法有很多, 最简单的方法就是将 Collection 转变成一个 Stream, 看下面一个例子:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt; numbers = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>);</span><br><span class="line">    Stream&lt;Integer&gt; stream = numbers.stream();</span><br><span class="line">    stream.filter((x) -&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> x % <span class="number">2</span> == <span class="number">0</span>;</span><br><span class="line">    &#125;).map((x) -&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> x * x;</span><br><span class="line">    &#125;).forEach(System.out::println);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/10/Java-Java8的StreamAPI/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/09/Java-线程池相关知识和资料/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/09/Java-线程池相关知识和资料/" itemprop="url">Java-线程池相关知识和资料</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-09T23:28:49+08:00">
-                2018-10-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="为什么使用线程池"><a href="#为什么使用线程池" class="headerlink" title="为什么使用线程池"></a>为什么使用线程池</h1><h2 id="减少系统开销"><a href="#减少系统开销" class="headerlink" title="减少系统开销"></a>减少系统开销</h2><p>记创建线程消耗时间 T1, 执行任务消耗时间 T2, 销毁线程消耗时间 T3, 线程池缓存线程, 可用已有的闲置线程来执行新任务，避免了创建线程和销毁线程消耗的时间带来的系统开销</p>
-<h2 id="控制并发数-防止抢占系统资源从而导致阻塞"><a href="#控制并发数-防止抢占系统资源从而导致阻塞" class="headerlink" title="控制并发数, 防止抢占系统资源从而导致阻塞"></a>控制并发数, 防止抢占系统资源从而导致阻塞</h2><p>如果同时执行的线程过多, 就有可能导致系统资源不足而产生阻塞的情况, 运用线程池能有效的控制线程最大并发数, 避免以上的问题</p>
-<h2 id="对线程进行一些简单的管理"><a href="#对线程进行一些简单的管理" class="headerlink" title="对线程进行一些简单的管理"></a>对线程进行一些简单的管理</h2><p>延时执行, 定时循环执行的策略等运用线程池都能进行很好的实现</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/09/Java-线程池相关知识和资料/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/09/Java-环境变量配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/09/Java-环境变量配置/" itemprop="url">Java-环境变量配置</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-09T23:25:51+08:00">
-                2018-10-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Java-环境变量"><a href="#Java-环境变量" class="headerlink" title="Java 环境变量"></a>Java 环境变量</h1><p>export JAVA_HOME=/home/lupw/Java/jdk1.8.0_101<br>export JRE_HOME=/home/lupw/Java/jdk1.8.0_101/jre<br>export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib<br>export PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin</p>
-<p>经常忘记, 记录下来</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/09/Java-环境变量配置/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/09/Java-FastDFS安装和使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/09/Java-FastDFS安装和使用/" itemprop="url">Java-FastDFS安装和使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-09T23:12:12+08:00">
-                2018-10-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="FastDFS-安装"><a href="#FastDFS-安装" class="headerlink" title="FastDFS 安装"></a>FastDFS 安装</h1><h2 id="下载FastDFS源码"><a href="#下载FastDFS源码" class="headerlink" title="下载FastDFS源码"></a>下载FastDFS源码</h2><p>下载 FastDFS 源码, <code>https://github.com/happyfish100/fastdfs</code></p>
-<h2 id="安装unzip工具"><a href="#安装unzip工具" class="headerlink" title="安装unzip工具"></a>安装unzip工具</h2><p>解压 zip 文件需要安装 unzip 工具, 没有安装的可以使用 <code>yum -y install unzip zip</code> 指令安装, 执行 yum 的时候出现 <code>another app is currently holding the yum lock;waiting for it to exit</code> 错误, 出现原因和解决方法见 <code>https://blog.csdn.net/mal327/article/details/6442253</code></p>
-<h2 id="安装gcc工具"><a href="#安装gcc工具" class="headerlink" title="安装gcc工具"></a>安装gcc工具</h2><p>编译 FastDFS 源码, 由于 FastDFS 由 C 语言编写, 所以需要安装 gcc 编译器, <code>yum -y install gcc-c++</code></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/09/Java-FastDFS安装和使用/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/09/Java-类加载机制/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/09/Java-类加载机制/" itemprop="url">Java-类加载机制</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-09T23:04:01+08:00">
-                2018-10-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="读取resource目录下的配置文件"><a href="#读取resource目录下的配置文件" class="headerlink" title="读取resource目录下的配置文件"></a>读取resource目录下的配置文件</h1><p>说一说了解 ClassLoader 的缘由, 在准备开始看 Spring 源码的时候想把 Properties 类的使用了解下, 于是我建立了一个普通的 Java 项目写下如下的这些代码:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        InputStream fileInputStream = <span class="keyword">new</span> FileInputStream(<span class="string">"D:\\IdeaProjects\\hello-grpc\\grpc-client\\src\\main\\resources\\application.properties"</span>);</span><br><span class="line">        properties.load(fileInputStream);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(properties.getProperty(<span class="string">"spring.application.name"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面的代码可以正确的读取和获取到 peoperties 文件中的值, 这里使用了 FileInputStream 类来获取输入流， 需要指定配置文件的路径, 这种方法不推荐使用, 因为很不方便, 通常我们在项目中读取配置文件中的内容, 在本地调试的时候需要使用本地的路径, 正式上传到服务器的时候又需要单独的上传这些配置文件和更改成服务器上配置文件的路径, 每次在本地调试和上传到服务器发布很不方便, 需要检查所有读取配置文件的代码, 很容易漏掉, 况且 JavaWeb 项目的资源文件和配置文件通常放在项目的 resource 目录下, 在编译后打包成 war 和 jar 时这些资源文件也会打包进去, 完全没有理由再去服务器上创建一个专门的目录保存这些资源文件, 在了解相关资料后可以使用 ClassLoader 的 getResourceAsStream() 方法来获取输入流, 在未了解类加载机制的情况下我写下了如下代码:</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/09/Java-类加载机制/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/05/SpringCloud-Eureka服务注册与发现/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/05/SpringCloud-Eureka服务注册与发现/" itemprop="url">SpringCloud-Eureka服务注册与发现</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-05T23:16:15+08:00">
-                2018-09-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-19T22:18:59+08:00">
+                2018-11-19
               </time>
             
 
@@ -1132,11 +343,12 @@
 
       
         
-          <h1 id="Eureka-服务注册和发现"><a href="#Eureka-服务注册和发现" class="headerlink" title="Eureka 服务注册和发现"></a>Eureka 服务注册和发现</h1><p>首先创建一个项目作为所有之后项目的父项目, 添加以下相关依赖</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 版本管理 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- spring-cloud-dependencies  --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>Finchley.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- spring-cloud-starter-ribbon --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-ribbon<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
+          <h1 id="XML-的两种验证模式-DTD-和-XSD"><a href="#XML-的两种验证模式-DTD-和-XSD" class="headerlink" title="XML 的两种验证模式 DTD 和 XSD"></a>XML 的两种验证模式 DTD 和 XSD</h1><p>XML 文件的验证模式保证了 XML 文件的正确性, 而比较常用的验证模式有两种: DTD 和 XSD, 这里先简单了解下</p>
+<h2 id="DTD"><a href="#DTD" class="headerlink" title="DTD"></a>DTD</h2><p>DTD (Document Type Definition) 即文档类型定义, 是一种XML约束模式语言, 是XML文件的验证机制, 属于XML文件组成的一部分, DTD 是一种保证 XML 文档格式正确的有效方法, 可以通过比较 XML 文档和 DTD 文件来看文档是否符合规范, 元素和标签使用是否正确, 要使用 DTD 验证模式的时候需要在 XML 文件的头部声明类似如下, 宏观特点带有一个 DOCTYPE 字符串, Spring 也是判断是否包含 DOCTYPE 字符串来判断是否使用 DTD 验证的:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="meta">&lt;!DOCTYPE note [</span></span><br><span class="line"><span class="meta">  &lt;!ELEMENT note (to,from,heading,body)&gt;</span></span><br><span class="line"><span class="meta">  &lt;!ELEMENT to      (#PCDATA)&gt;</span></span><br><span class="line"><span class="meta">  &lt;!ELEMENT from    (#PCDATA)&gt;</span></span><br><span class="line"><span class="meta">  &lt;!ELEMENT heading (#PCDATA)&gt;</span></span><br><span class="line"><span class="meta">  &lt;!ELEMENT body    (#PCDATA)&gt;</span></span><br><span class="line"><span class="meta">]&gt;</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/09/05/SpringCloud-Eureka服务注册与发现/#more" rel="contents">
+            <a class="btn" href="/2018/11/19/Spring-源码阅读之XML验证模式和XmlValidationModeDetector类/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1197,7 +409,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/05/Java-ETCD的安装和基础使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/18/Java-getProperties方法和getEnv方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1216,7 +428,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/05/Java-ETCD的安装和基础使用/" itemprop="url">Java-ETCD的安装和基础使用</a></h1>
+                <a class="post-title-link" href="/2018/11/18/Java-getProperties方法和getEnv方法/" itemprop="url">Java-getProperties方法和getEnv方法</a></h1>
         
 
         <div class="post-meta">
@@ -1228,8 +440,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-05T23:13:21+08:00">
-                2018-09-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-18T22:19:51+08:00">
+                2018-11-18
               </time>
             
 
@@ -1289,12 +501,11 @@
 
       
         
-          <h1 id="下载和安装ETCD"><a href="#下载和安装ETCD" class="headerlink" title="下载和安装ETCD"></a>下载和安装ETCD</h1><h2 id="源码安装方式"><a href="#源码安装方式" class="headerlink" title="源码安装方式"></a>源码安装方式</h2><h3 id="下载和安装GO"><a href="#下载和安装GO" class="headerlink" title="下载和安装GO"></a>下载和安装GO</h3><p><a href="https://golang.org/" target="_blank" rel="noopener">GO 官方网站</a> 下载并解压, 官网需要翻墙</p>
-<h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export GOROOT=/home/lupw/Golang/go</span><br><span class="line">export PATH=$PATH:$GOROOT/bin</span><br></pre></td></tr></table></figure>
-<p>执行 go version 能查看版本信息即安装成功</p>
+          <h1 id="getProperties-方法"><a href="#getProperties-方法" class="headerlink" title="getProperties 方法"></a>getProperties 方法</h1><p>getProperties 方法可以获取系统相关属性, 比如: Java版本, 操作系统信息, 用户名等, 这个系统获取的相关属性的值可以在 JVM 启动的时候使用 <code>-D</code> 参数添加自定义的属性值, 也可以在项目中 (如 static 代码块中) 使用 System.setProperty 方法添加自定义的属性, 方便在其他的地方取用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Properties 类继承于 HashTable</span></span><br><span class="line">Properties properties = System.getProperties();</span><br><span class="line">properties.forEach((key, value) -&gt; log.info(<span class="string">"key = &#123;&#125;, value = &#123;&#125;"</span>, key, value));</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/09/05/Java-ETCD的安装和基础使用/#more" rel="contents">
+            <a class="btn" href="/2018/11/18/Java-getProperties方法和getEnv方法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1355,7 +566,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/05/Spring-RestTemplate的使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/18/Spring-源码阅读之Constant类/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1374,7 +585,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/05/Spring-RestTemplate的使用/" itemprop="url">Spring-RestTemplate的使用</a></h1>
+                <a class="post-title-link" href="/2018/11/18/Spring-源码阅读之Constant类/" itemprop="url">Spring-源码阅读之Constant类</a></h1>
         
 
         <div class="post-meta">
@@ -1386,8 +597,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-05T23:07:27+08:00">
-                2018-09-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-18T22:17:17+08:00">
+                2018-11-18
               </time>
             
 
@@ -1447,10 +658,10 @@
 
       
         
-          <h1 id="RestTemplate-注入失败"><a href="#RestTemplate-注入失败" class="headerlink" title="RestTemplate 注入失败"></a>RestTemplate 注入失败</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RestTemplateServiceImpl</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> RestTemplate restTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RestTemplateServiceImpl</span><span class="params">(RestTemplate restTemplate)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.restTemplate = restTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">getRestTemplete</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String url = <span class="string">"http://localhost:8001/grpc/demo/1/test"</span>;</span><br><span class="line">        ResponseEntity&lt;String&gt; responseEntity = restTemplate.getForEntity(url, String.class);</span><br><span class="line">        String body = responseEntity.getBody();</span><br><span class="line">        log.warn(<span class="string">"body = &#123;&#125;"</span>, body);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <h1 id="Constant-类"><a href="#Constant-类" class="headerlink" title="Constant 类"></a>Constant 类</h1><p>Constant 类位于 <code>org.springframework.core</code> 包下, 这个类可以将指定类的 public static final 的常量通过反射的方式添加到一个 map 中, 并提供了一些便捷性的方法获取这些常量值, 其源码如下:</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/09/05/Spring-RestTemplate的使用/#more" rel="contents">
+            <a class="btn" href="/2018/11/18/Spring-源码阅读之Constant类/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1511,7 +722,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/05/SpringBoot-自定义注解配置gRPC客户端（一）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/29/Java-Java8中的Future类/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1530,7 +741,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/05/SpringBoot-自定义注解配置gRPC客户端（一）/" itemprop="url">SpringBoot-自定义注解配置gRPC客户端（一）</a></h1>
+                <a class="post-title-link" href="/2018/10/29/Java-Java8中的Future类/" itemprop="url">Java-Java8中的Future类</a></h1>
         
 
         <div class="post-meta">
@@ -1542,8 +753,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-05T23:04:35+08:00">
-                2018-09-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-29T22:20:19+08:00">
+                2018-10-29
               </time>
             
 
@@ -1565,8 +776,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -1603,11 +814,12 @@
 
       
         
-          <h1 id="基于注解自动配置的-gRPC-客户端实现（一）"><a href="#基于注解自动配置的-gRPC-客户端实现（一）" class="headerlink" title="基于注解自动配置的 gRPC 客户端实现（一）"></a>基于注解自动配置的 gRPC 客户端实现（一）</h1><p>基于注解自动配置的gRPC 的客户端的实现相较于服务端实现起来复杂一些，客户端除了可以绑定拦截器，还可以根据需要实现 NameResoler 和 LoadBalancer 等，先从简单的来慢慢实现 (主要用于捋清思路)。先看一看一个最简单的 gRCP 客户端调用 gRPC 服务端的例子，这个简单例子完整的使用在<a href="http://antsnote.club/2018/06/21/SpringBoot-gRPC%E7%9A%84%E4%BD%BF%E7%94%A8/" target="_blank" rel="noopener">gRPC的使用</a>笔记中有记录。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainClient</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建 channel</span></span><br><span class="line">        ManagedChannel channel = ManagedChannelBuilder.forAddress(<span class="string">"127.0.0.1"</span>, <span class="number">8000</span>)</span><br><span class="line">                .usePlaintext(<span class="keyword">true</span>)</span><br><span class="line">                .keepAliveWithoutCalls(<span class="keyword">true</span>)</span><br><span class="line">                .keepAliveTimeout(<span class="number">120</span>, TimeUnit.SECONDS)</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 使用 channel 创建 BlockingStub 后就可以调用服务提供的方法</span></span><br><span class="line">        TestServiceGrpc.TestServiceBlockingStub blockingStub = TestServiceGrpc.newBlockingStub(channel);</span><br><span class="line">        Response response = blockingStub.test(Request.newBuilder().setId(<span class="number">1</span>).build());</span><br><span class="line">        System.out.println(<span class="string">"id = "</span> + response.getId());</span><br><span class="line">        System.out.println(<span class="string">"name = "</span> + response.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>创建线程的 2 种方式, 一种是直接继承 Thread, 另外一种就是实现 Runnable 接口, 这两种方式在执行完任务之后无法获取执行结果, 从 Java 1.5 开始，就提供了 Callable 和 Future 两个类, 通过它们可以在任务执行完毕之后得到任务执行结果, Future 可以监视目标线程调用 call 的情况, 当你调用 Future 的 get 方法以获获取结果时, 当前线程就开始阻塞, 直到 call 方法结束返回结果</p>
+<h1 id="Future-的使用示例"><a href="#Future-的使用示例" class="headerlink" title="Future 的使用示例"></a>Future 的使用示例</h1><p>Future 的一个优点是比底层的 Thread 更加容易使用, 使用 Future, 只需要将耗时的操作封装到 Callable, 再提交到 ExecutorService 就可以了, Java 8 之前的 Future 使用, 使用示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FutureMain</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">DelayTask</span> <span class="keyword">implements</span> <span class="title">Callable</span>&lt;<span class="title">String</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            <span class="keyword">return</span> Thread.currentThread().getName();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        List&lt;Future&lt;String&gt;&gt; futureList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// public static ExecutorService newCachedThreadPool() &#123;</span></span><br><span class="line">        <span class="comment">//    return new ThreadPoolExecutor(0,                 // 0 个核心线程</span></span><br><span class="line">        <span class="comment">//                                  Integer.MAX_VALUE, // 2147483647 个非核心线程</span></span><br><span class="line">        <span class="comment">//                                  60L,               // 非核心线程空闲超过 60s 销毁</span></span><br><span class="line">        <span class="comment">//                                  TimeUnit.SECONDS,</span></span><br><span class="line">        <span class="comment">//                                  new SynchronousQueue&lt;Runnable&gt;());</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">        DateTime startTime = DateTime.now();</span><br><span class="line">        ExecutorService executorService = Executors.newCachedThreadPool();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++) &#123;</span><br><span class="line">            futureList.add(executorService.submit(<span class="keyword">new</span> DelayTask()));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        futureList.forEach(future -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// get 方法会一直阻塞, future 提供了一个 get(int time, TimeUnit) 方法, 在阻塞指定时间后, 如果没有获取到结果, 就退出</span></span><br><span class="line">                String threadName = future.get();</span><br><span class="line">                log.info(<span class="string">"[Future 测试] threadName = &#123;&#125;"</span>, threadName);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException | ExecutionException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        DateTime endTime = DateTime.now();</span><br><span class="line">        log.info(<span class="string">"[Future 测试] 总耗时 = &#123;&#125;ms"</span>, endTime.getMillis() - startTime.getMillis());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!executorService.isShutdown()) &#123;</span><br><span class="line">            executorService.shutdown();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/09/05/SpringBoot-自定义注解配置gRPC客户端（一）/#more" rel="contents">
+            <a class="btn" href="/2018/10/29/Java-Java8中的Future类/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1668,7 +880,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/05/SpringBoot-自定义注解配置gRPC服务端/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/29/Java-Java8中的Optional类/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1687,7 +899,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/05/SpringBoot-自定义注解配置gRPC服务端/" itemprop="url">SpringBoot-自定义注解配置gRPC服务端</a></h1>
+                <a class="post-title-link" href="/2018/10/29/Java-Java8中的Optional类/" itemprop="url">Java-Java8中的Optional类</a></h1>
         
 
         <div class="post-meta">
@@ -1699,8 +911,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-05T23:00:27+08:00">
-                2018-09-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-29T22:19:00+08:00">
+                2018-10-29
               </time>
             
 
@@ -1722,8 +934,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -1760,12 +972,799 @@
 
       
         
-          <h1 id="基于注解自动配置的-gRPC-服务端"><a href="#基于注解自动配置的-gRPC-服务端" class="headerlink" title="基于注解自动配置的 gRPC 服务端"></a>基于注解自动配置的 gRPC 服务端</h1><p>在实际的 SpringBoot 或者项目中, 通常是基于注解和配置的方式实现在项目启动的时候创建 gRPC 服务端, 这里先来实现一个简单的版本。在<a href="http://antsnote.club/2018/06/21/SpringBoot-gRPC%E7%9A%84%E4%BD%BF%E7%94%A8/" target="_blank" rel="noopener">SpringBoot-gRPC的使用</a>笔记中创建一个 gRPC 服务端需要提供端口号, 绑定服务实现类和拦截器实现类，虽然是要实现基于注解和配置的方式实现在项目启动的时候创建 gRPC 服务端功能，但是创建 gRPC 服务端的步骤是一样的，按照这个步骤来一步一步实现即可。</p>
-<h2 id="定义配置类"><a href="#定义配置类" class="headerlink" title="定义配置类"></a>定义配置类</h2><p>为了可以从配置文件中读取到端口号, 创建一个 Porperties 类, 从配置文件中注入属性值创建 bean。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置配置文件,  value 接收 String[] 类型的值, 多个路径 value = &#123;"classpath:xxx", "classpath:xxx"&#125; 的格式设置</span></span><br><span class="line"><span class="meta">@PropertySource</span>(value = <span class="string">"classpath:application.properties"</span>)</span><br><span class="line"><span class="comment">// 属性值匹配的前缀</span></span><br><span class="line"><span class="meta">@ConfigurationProperties</span>(prefix=<span class="string">"grpc.server"</span>)</span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GrpcServerProperties</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> port;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>Optional 是个容, 它可以保存类型 T 的值，或者仅仅保存 null, Optional提供很多有用的方法，这样我们就不用显式进行空值检测, Optional 类的引入很好的解决空指针异常</p>
+<h1 id="isPresent-方法"><a href="#isPresent-方法" class="headerlink" title="isPresent 方法"></a>isPresent 方法</h1><p>isPresent 用于判断对象的实例是否存在, true 表示存在, false 表示不存在, 即值为 null, 使用示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;DataNode&gt; dataNodeOptional = Optional.empty();</span><br><span class="line"><span class="keyword">if</span> (dataNodeOptional.isPresent()) &#123;</span><br><span class="line">    log.info(<span class="string">"[Optional isPresent 方法] dataNode = &#123;&#125;"</span>, dataNodeOptional.get().toString());</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    log.info(<span class="string">"[Optional isPresent 方法] dataNode 的值为 null"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/09/05/SpringBoot-自定义注解配置gRPC服务端/#more" rel="contents">
+            <a class="btn" href="/2018/10/29/Java-Java8中的Optional类/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/22/Java-Java8中Map的新方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/22/Java-Java8中Map的新方法/" itemprop="url">Java-Java8中Map的新方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-22T22:55:06+08:00">
+                2018-10-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="Java-8-中-Map-的方法"><a href="#Java-8-中-Map-的方法" class="headerlink" title="Java 8 中 Map 的方法"></a>Java 8 中 Map 的方法</h1><p>今天使用 HashMap 的时候发现在 Java 8 中多了一些方法, 于是查找资料了解下这些方法的使用方式, 首先看看在 Java 8 中 HashMap 有哪些方法, 再来了解这些方法是如何使用的, 截图如下:</p>
+<p><img src="/2018/10/22/Java-Java8中Map的新方法/2018102222540.png" alt="IMAGE"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/22/Java-Java8中Map的新方法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/22/Docker-Docker部署官方的Tomcat/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/22/Docker-Docker部署官方的Tomcat/" itemprop="url">Docker-Docker部署官方的Tomcat</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-22T00:01:55+08:00">
+                2018-10-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="在-Docker-Hub-中搜索-Tomcat-镜像"><a href="#在-Docker-Hub-中搜索-Tomcat-镜像" class="headerlink" title="在 Docker Hub 中搜索 Tomcat 镜像"></a>在 Docker Hub 中搜索 Tomcat 镜像</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search tomcat</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/10/22/Docker-Docker部署官方的Tomcat/78FCDB13487FE3F52AB6951F4448660E.jpg" alt="IMAGE"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/22/Docker-Docker部署官方的Tomcat/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/21/Docker-在Mac上安装Docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/21/Docker-在Mac上安装Docker/" itemprop="url">Docker-在Mac上安装Docker</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-21T23:54:12+08:00">
+                2018-10-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="Mac-上使用-HomeBrew-Cask-安装"><a href="#Mac-上使用-HomeBrew-Cask-安装" class="headerlink" title="Mac 上使用 HomeBrew Cask 安装"></a>Mac 上使用 HomeBrew Cask 安装</h1><p>安装指令：<code>brew cask install docker</code></p>
+<p><img src="/2018/10/21/Docker-在Mac上安装Docker/14F8C95A8433949C42265CBB127072FA.jpg" alt="IMAGE"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/21/Docker-在Mac上安装Docker/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/20/Java-ArrayList和LinkedList循环遍历性能测试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/20/Java-ArrayList和LinkedList循环遍历性能测试/" itemprop="url">Java-ArrayList和LinkedList循环遍历性能测试</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-20T00:43:21+08:00">
+                2018-10-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="集合数据在内存中的存储方式"><a href="#集合数据在内存中的存储方式" class="headerlink" title="集合数据在内存中的存储方式"></a>集合数据在内存中的存储方式</h1><p>Java 对于集合数据的遍历提供了几种不同的方式, 普通的 for 循环, 迭代器 Iterator 和 forEach, 在了解集合数据的遍历之前, 有必要先了解下集合数据在内存中如何存放方式, 主要有以下顺序存储和链式存储两种</p>
+<h2 id="顺序存储"><a href="#顺序存储" class="headerlink" title="顺序存储"></a>顺序存储</h2><p>顺序存储时保存数据的内存是连续的, 可以根据元素的位置直接计算出内存地址, 可以很方便的获取对应位置的元素, 但是顺序存储在删除和插入数据时不方便, 删除数据和插入数据时需要将删除元素后的所有元素都要往前或者往后移动, 在内存中使用这种存储方式的数据集合最具代表性的是 ArrayList</p>
+<h2 id="链式存储"><a href="#链式存储" class="headerlink" title="链式存储"></a>链式存储</h2><p>链式存储保存数据时各个元素的内存不是连续的, 不能通过元素的位置计算出内存地址, 每个元素都会保存下一个元素的内存地址, 因此删除和插入数据很方便, 但是查找数据需要循环遍历才能找到 (原因时不能通过元素的位置计算出内存地址), 在内存中使用这种存储方式的数据集合最具代表性的是 LinkedList</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/20/Java-ArrayList和LinkedList循环遍历性能测试/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/18/Java-Java8之StreamAPI中的faltMap方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/18/Java-Java8之StreamAPI中的faltMap方法/" itemprop="url">Java-Java8之StreamAPI中的faltMap方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-18T23:21:49+08:00">
+                2018-10-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="flatMap-方法"><a href="#flatMap-方法" class="headerlink" title="flatMap 方法"></a>flatMap 方法</h1><p>flatMap 方法可以将多个 Stream 连接成一个 Stream, 可以简单理解为将 List&lt;List<t>&gt; 合并或转换成 List<t> 类型</t></t></p>
+<p>使用示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// DataNode 只有一个 String 类型的成员变量 name 和 int 类型的成员变量 soc</span></span><br><span class="line">List&lt;DataNode&gt; dataNodeList1 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">dataNodeList1.add(DataNode.builder().name(<span class="string">"A"</span>).soc(<span class="number">1</span>).build());</span><br><span class="line">dataNodeList1.add(DataNode.builder().name(<span class="string">"B"</span>).soc(<span class="number">1</span>).build());</span><br><span class="line">dataNodeList1.add(DataNode.builder().name(<span class="string">"C"</span>).soc(<span class="number">1</span>).build());</span><br><span class="line">dataNodeList1.add(DataNode.builder().name(<span class="string">"D"</span>).soc(<span class="number">1</span>).build());</span><br><span class="line"></span><br><span class="line">List&lt;DataNode&gt; dataNodeList2 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">dataNodeList2.add(DataNode.builder().name(<span class="string">"E"</span>).soc(<span class="number">1</span>).build());</span><br><span class="line">dataNodeList2.add(DataNode.builder().name(<span class="string">"F"</span>).soc(<span class="number">1</span>).build());</span><br><span class="line">dataNodeList2.add(DataNode.builder().name(<span class="string">"G"</span>).soc(<span class="number">1</span>).build());</span><br><span class="line">dataNodeList2.add(DataNode.builder().name(<span class="string">"H"</span>).soc(<span class="number">1</span>).build());</span><br><span class="line"></span><br><span class="line">List&lt;DataNode&gt; dataNodeList3 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">dataNodeList3.add(DataNode.builder().name(<span class="string">"I"</span>).soc(<span class="number">1</span>).build());</span><br><span class="line">dataNodeList3.add(DataNode.builder().name(<span class="string">"J"</span>).soc(<span class="number">1</span>).build());</span><br><span class="line">dataNodeList3.add(DataNode.builder().name(<span class="string">"K"</span>).soc(<span class="number">1</span>).build());</span><br><span class="line">dataNodeList3.add(DataNode.builder().name(<span class="string">"L"</span>).soc(<span class="number">1</span>).build());</span><br><span class="line"></span><br><span class="line">List&lt;List&lt;DataNode&gt;&gt; dataList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">dataList.add(dataNodeList1);</span><br><span class="line">dataList.add(dataNodeList2);</span><br><span class="line">dataList.add(dataNodeList3);</span><br><span class="line"></span><br><span class="line">List&lt;DataNode&gt; newDataList = dataList.stream().flatMap(Collection::stream).collect(Collectors.toList());</span><br><span class="line">log.info(newDataList.toString());</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/18/Java-Java8之StreamAPI中的faltMap方法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1817,7 +1816,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1865,7 +1864,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">79</span>
+                  <span class="site-state-item-count">94</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1876,7 +1875,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1915,7 +1914,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

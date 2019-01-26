@@ -86,7 +86,7 @@
 <meta property="og:description" content="创建项目创建一个maven项目在pom.xml文件中添加依赖包，如下图所示： 123456789101112131415&amp;lt;parent&amp;gt;    &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId&amp;gt;spring-boot-starter-parent&amp;lt;/artifactId&amp;gt;">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/05/07/SpringBoot-创建SpringBoot项目使用jar包方式启动/7F80306B4CC580EA8E8A472098F11E41.jpg">
-<meta property="og:updated_time" content="2018-06-24T06:53:14.477Z">
+<meta property="og:updated_time" content="2019-01-26T06:16:14.972Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringBoot-创建SpringBoot项目使用jar包方式启动">
 <meta name="twitter:description" content="创建项目创建一个maven项目在pom.xml文件中添加依赖包，如下图所示： 123456789101112131415&amp;lt;parent&amp;gt;    &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId&amp;gt;spring-boot-starter-parent&amp;lt;/artifactId&amp;gt;">
@@ -361,8 +361,11 @@
 <h2 id="java-jar-app-jar-amp"><a href="#java-jar-app-jar-amp" class="headerlink" title="java -jar app.jar &amp;"></a>java -jar app.jar &amp;</h2><p>&amp;代表在后台运行。<br>特点：当前ssh窗口不被锁定，但是当窗口关闭时，程序中止运行</p>
 <h2 id="nohup-java-jar-app-jar-amp"><a href="#nohup-java-jar-app-jar-amp" class="headerlink" title="nohup java -jar app.jar &amp;"></a>nohup java -jar app.jar &amp;</h2><p>语法：nohup Command [ Arg … ] [　&amp; ]<br>描述：nohup 命令运行由 Command 参数和任何相关的 Arg 参数指定的命令，忽略所有挂断（SIGHUP）信号。<br>在注销后使用 nohup 命令运行后台中的程序。<br>要运行后台中的 nohup 命令，添加 &amp; （ 表示“and”的符号）到命令的尾部。<br>nohup java -jar app.jar &amp;<br>nohup 意思是不挂断运行命令,当账户退出或终端关闭时,程序仍然运行</p>
 <h2 id="nohup-java-jar-app-jar-gt-output-2-gt-amp-1-amp"><a href="#nohup-java-jar-app-jar-gt-output-2-gt-amp-1-amp" class="headerlink" title="nohup java -jar app.jar &gt;output 2&gt;&amp;1 &amp;"></a>nohup java -jar app.jar &gt;output 2&gt;&amp;1 &amp;</h2><p>操作系统中有三个常用的流：<br>0：标准输入流 stdin<br>1：标准输出流 stdout<br>2：标准错误流 stderr<br>一般当我们用 &gt;output，实际是 1&gt;output 的省略用法；\&lt; input ，实际是 0 \&lt; input的省略用法;<br>带 &amp; 的命令行，即使 terminal（终端）关闭，或者电脑死机程序依然运行（前提是你把程序递交到服务器上);<br>而 2&gt;&amp;1 是把标准错误（2）重定向到标准输出中（1），而标准输出又导入文件 output 里面，所以结果是标准错误和标准输出都导入文件 output 里面了。至于为什么需要将标准错误重定向到标准输出的原因，那就归结为 stderr 没有缓冲区，而 stdout 有。这就会导致 &gt;output 2&gt;output 文件 output 被两次打开，而 stdout 和 stder r将会竞争覆盖。这就是为什么有人会写成：nohup ./command.sh &gt;output 2&gt;output 出错的原因了。</p>
-<h2 id="带-JVM-参数的启动方式"><a href="#带-JVM-参数的启动方式" class="headerlink" title="带 JVM 参数的启动方式"></a>带 JVM 参数的启动方式</h2><p>nohup java -Xms1024m -Xmx1024m -Xmn512m -jar app.jar &gt;output 2&gt;&amp;1 &amp;</p>
-<p>关于 JVM 参数：<code>https://yq.aliyun.com/articles/269858</code></p>
+<h2 id="带-JVM-参数的启动方式"><a href="#带-JVM-参数的启动方式" class="headerlink" title="带 JVM 参数的启动方式"></a>带 JVM 参数的启动方式</h2><p>nohup java -Xms1024m -Xmx1024m -Xmn512m -jar app.jar –spring.config.location=./config/application.properties &gt;/dev/null 2&gt;&amp;1 &amp;</p>
+<ul>
+<li>关于 JVM 参数：<code>https://yq.aliyun.com/articles/269858</code></li>
+<li>关于外部配置文件: <code>https://www.cnblogs.com/xiaoqi/p/6955288.html</code></li>
+</ul>
 
       
     </div>
@@ -515,7 +518,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">79</span>
+                  <span class="site-state-item-count">94</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -526,7 +529,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -581,7 +584,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

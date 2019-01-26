@@ -251,7 +251,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/25/Java-反射/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/18/Java-Java8函数式接口/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -270,7 +270,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/25/Java-反射/" itemprop="url">Java-反射</a></h1>
+                <a class="post-title-link" href="/2018/10/18/Java-Java8函数式接口/" itemprop="url">Java-Java8函数式接口</a></h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-25T22:11:54+08:00">
-                2018-06-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-18T23:19:22+08:00">
+                2018-10-18
               </time>
             
 
@@ -343,15 +343,175 @@
 
       
         
-          <p>在看 Spring 框架的源码时，需要 Java 反射相关的知识，了解反射知识时网上看到几篇反射相关的文章，个人感觉挺不错的，记录如下：</p>
+          <p>在了解 Java 8 的函数表达式之前, 先了解下 Lambda 表达式, Lambda 表达式是一种可传递匿名表达式的一种方式, 可以作为参数传递或者存储在变量中, 使用 Lambda 可以让<code>行为参数化</code> (关于行为参数见 <code>Java-行为参数化</code> 笔记) 更加的灵活</p>
+<h1 id="Lamdbda-的语法"><a href="#Lamdbda-的语法" class="headerlink" title="Lamdbda 的语法"></a>Lamdbda 的语法</h1><h2 id="parameters-gt-expression"><a href="#parameters-gt-expression" class="headerlink" title="(parameters) -&gt; expression"></a>(parameters) -&gt; expression</h2><p>这种语法函数体是一个表达式, 表达式后面不需要分号, 不需要带大括号, 例 <code>(x) -&gt; &quot;TEST&quot;</code></p>
+<h2 id="parameters-gt-statements"><a href="#parameters-gt-statements" class="headerlink" title="(parameters) -&gt; {statements;}"></a>(parameters) -&gt; {statements;}</h2><p>这种语法的函数体是语句, 语句后面需要带分号, 且需要带大括号, 例 <code>(x) -&gt; {return &quot;TEST&quot;;}</code></p>
+<h1 id="可以使用-Lambda-表达式的地方"><a href="#可以使用-Lambda-表达式的地方" class="headerlink" title="可以使用 Lambda 表达式的地方"></a>可以使用 Lambda 表达式的地方</h1><p>在<code>函数式接口上</code>可以使用 Lambda 表达式</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/18/Java-Java8函数式接口/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/17/Java-Java8中StreamAPI的reduce方法的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/17/Java-Java8中StreamAPI的reduce方法的使用/" itemprop="url">Java-Java8中StreamAPI的reduce方法的使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-17T23:38:14+08:00">
+                2018-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>reduce 可以根据计算模型从 stream 中得到一个值, stream 中的 count 方法, max 方法, min 方法本质上都是 reduce 方法实现的, 由于这些方法常用, 因此在封装后放入了标准库中, reduce 一共有三个重载方法, 如下:</p>
 <ul>
-<li><a href="https://blog.csdn.net/qq_24341197/article/details/77964172" target="_blank" rel="noopener">JAVA中的反射 超级详解</a></li>
-<li><a href="https://blog.csdn.net/u011240877/article/details/54604212" target="_blank" rel="noopener">深入理解 Java 反射：Field (成员变量)</a></li>
-<li><a href="https://blog.csdn.net/u011240877/article/details/54604224" target="_blank" rel="noopener">深入理解 Java 反射：Method (成员方法)</a></li>
+<li><code>Optional&lt;T&gt; reduce(BinaryOperator&lt;T&gt; accumulator)</code></li>
+<li><code>T reduce(T identity, BinaryOperator&lt;T&gt; accumulator)</code></li>
+<li><code>&lt;U&gt; U reduce(U identity, BiFunction&lt;U, ? super T, U&gt; accumulator, BinaryOperator&lt;U&gt; combiner)</code></li>
 </ul>
+<h1 id="Optional-reduce-BinaryOperator-accumulator-方法"><a href="#Optional-reduce-BinaryOperator-accumulator-方法" class="headerlink" title="Optional reduce(BinaryOperator accumulator) 方法"></a>Optional<t> reduce(BinaryOperator<t> accumulator) 方法</t></t></h1><p>该方法接受一个函数, 函数有两个参数, 第一个参数是计算后返回的值, 每次进行计算后的值会被设置到第一个参数里面, 如果是第一次计算, 这个值是 stream 里面的第一个元素, 而第二个参数是每次计算时 stream 对应的元素, 第一次计算是 stream 的第二个元素, 第二次则是 stream 的第三个元素, 以此类推 </p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/25/Java-反射/#more" rel="contents">
+            <a class="btn" href="/2018/10/17/Java-Java8中StreamAPI的reduce方法的使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -412,7 +572,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/23/SpringBoot-ConfigurationProperties/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/Java-Java8收集器/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -431,7 +591,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/23/SpringBoot-ConfigurationProperties/" itemprop="url">SpringBoot-ConfigurationProperties</a></h1>
+                <a class="post-title-link" href="/2018/10/10/Java-Java8收集器/" itemprop="url">Java-Java8收集器</a></h1>
         
 
         <div class="post-meta">
@@ -443,8 +603,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-23T13:16:42+08:00">
-                2018-06-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-10T23:56:37+08:00">
+                2018-10-10
               </time>
             
 
@@ -466,8 +626,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -504,15 +664,11 @@
 
       
         
-          <p>Configuration 注解可以用来定义一个配置类，需要为每一个属性声明绑定的属性的字段，先简单了解下是 Configuration 注解是如何使用的。</p>
-<h1 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h1><p>Configuration 注解用于定义配置类，可以用来他取代 xml 配置，配置的属性值通常放定义在 properties 文件中，通过绑定字段，在创建相应的 Bean 是会自动的将值填入绑定的类的成员属性中，例如将下面的 ServerProperties 中的 port 值以这种方法将值填入的例子。</p>
-<p>定义一个将用于配置用的 ServerPropertie 类：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServerProperties</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> port;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>先在配置文件中定义一个属性字段</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def.server.port=6000</span><br></pre></td></tr></table></figure>
+          <h1 id="收集器"><a href="#收集器" class="headerlink" title="收集器"></a>收集器</h1><p>collect(Collectors.toList()) 将一个流转换成 List 的数据结构, 有时候需要生成其他值, 比如 Map 或者 Set, 或者生成自己定义的数据结构, 那么久必须使用收集器了, 收集器可以将流生成复杂的数据结构, 只需要将这个收集器传递到 collect 方法中。标准类库中使用了提供了一些收集器，如java.util.stream.Collectors类, 使用方法示例如下:</p>
+<h2 id="流转换成集合"><a href="#流转换成集合" class="headerlink" title="流转换成集合"></a>流转换成集合</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Map&lt;String, Object&gt;&gt; mapList = dataList.stream()</span><br><span class="line">        .map(x -&gt; &#123;</span><br><span class="line">            HashMap&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">            map.put(<span class="string">"index"</span>, x);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;)</span><br><span class="line">        .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/23/SpringBoot-ConfigurationProperties/#more" rel="contents">
+            <a class="btn" href="/2018/10/10/Java-Java8收集器/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -573,7 +729,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/22/SpringBoot-Bean的初始之前操作和销毁之前操作/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/Java-Java8接口的增强/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -592,7 +748,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/22/SpringBoot-Bean的初始之前操作和销毁之前操作/" itemprop="url">SpringBoot-Bean的初始之前操作和销毁之前操作</a></h1>
+                <a class="post-title-link" href="/2018/10/10/Java-Java8接口的增强/" itemprop="url">Java-Java8接口的增强</a></h1>
         
 
         <div class="post-meta">
@@ -604,8 +760,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-22T01:08:25+08:00">
-                2018-06-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-10T23:56:31+08:00">
+                2018-10-10
               </time>
             
 
@@ -627,8 +783,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -665,19 +821,12 @@
 
       
         
-          <p>本篇学习笔记仅记录 Bean 的初始之前操作和销毁之前操作的实现方式的基础使用方法。</p>
-<h1 id="PostConstruct-和-PreDestroy"><a href="#PostConstruct-和-PreDestroy" class="headerlink" title="@PostConstruct 和 @PreDestroy"></a>@PostConstruct 和 @PreDestroy</h1><p>JDK 1.5 引入了 @PostConstruct 和 @PreDestroy 这两个作用于 Servlet 生命周期的注解，实现 Bean 初始化之前和销毁之前的自定义操作，这两个注解使用时有以下几个注意的地方。</p>
-<ul>
-<li>只有一个方法可以使用此注释进行注解；</li>
-<li>被注解方法不得有任何参数；</li>
-<li>被注解方法返回值为 void；</li>
-<li>被注解方法不得抛出已检查异常；</li>
-<li>被注解方法需是非静态方法；</li>
-<li>此方法只会被执行一次且在构造方法之后执行。</li>
-</ul>
+          <p>Java 8 对接口做了进一步的增强, 在接口中可以添加 default 关键字修饰方法, 还可以在接口中定义静态方法, 使得接口和抽象类的功能越来越相似。使用 default 修饰的方法也称为扩展方法, 他的使用方法类似于抽象类中的非抽象成员方法, 但是扩展方法不能承载 Object 中的方法, 例如 toString, equals 和 hashCode等。</p>
+<h1 id="default-关键字"><a href="#default-关键字" class="headerlink" title="default 关键字"></a>default 关键字</h1><p>在接口中定义一个扩展方法 count, 该方法可以在其子类中直接使用, 示例代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">DefaultFunInterface</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 定义默认方法 count</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">int</span> <span class="title">count</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/22/SpringBoot-Bean的初始之前操作和销毁之前操作/#more" rel="contents">
+            <a class="btn" href="/2018/10/10/Java-Java8接口的增强/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -738,7 +887,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/22/SpringBoot-CommandLineRunner/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/Java-Java8的StreamAPI/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -757,7 +906,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/22/SpringBoot-CommandLineRunner/" itemprop="url">SpringBoot-CommandLineRunner</a></h1>
+                <a class="post-title-link" href="/2018/10/10/Java-Java8的StreamAPI/" itemprop="url">Java-Java8的StreamAPI</a></h1>
         
 
         <div class="post-meta">
@@ -769,8 +918,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-22T00:35:53+08:00">
-                2018-06-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-10T23:29:47+08:00">
+                2018-10-10
               </time>
             
 
@@ -792,8 +941,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -830,13 +979,12 @@
 
       
         
-          <p>CommandLineRunner 是 SpringBoot 提供的一个接口类，可以在项目服务启动的时候进行初始化操作或者加载其他的一些数据，其定义如下。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CommandLineRunner</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">(String... var1)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="CommandLineRunner-基础使用"><a href="#CommandLineRunner-基础使用" class="headerlink" title="CommandLineRunner 基础使用"></a>CommandLineRunner 基础使用</h1><p>下面的例子直接在 Application 类中实现 CommandLineRunner 接口类，在 SpringBoot 项目启动后在控制台输出输出日志数据。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> <span class="keyword">implements</span> <span class="title">CommandLineRunner</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(String... strings)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"测试"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>Java 8 中引入了全新的 Stream API, 这里的 Stream 和 I/O 中的 Stream 不同, 他更像是具有 Iterable 的集合, 但是行为和集合类又不相同, Stream API 引入的目的在于弥补 Java 函数式编程的缺陷。对于很多支持函数式编程的语言, map()、reduce() 基本上都内置到语言的标准库中了, 不过, Java 8 的 Stream API 总体来讲仍然是非常完善和强大，足以用很少的代码完成许多复杂的功能</p>
+<h1 id="创建-Stream-对象"><a href="#创建-Stream-对象" class="headerlink" title="创建 Stream 对象"></a>创建 Stream 对象</h1><p>创建的方法有很多, 最简单的方法就是将 Collection 转变成一个 Stream, 看下面一个例子:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt; numbers = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>);</span><br><span class="line">    Stream&lt;Integer&gt; stream = numbers.stream();</span><br><span class="line">    stream.filter((x) -&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> x % <span class="number">2</span> == <span class="number">0</span>;</span><br><span class="line">    &#125;).map((x) -&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> x * x;</span><br><span class="line">    &#125;).forEach(System.out::println);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/22/SpringBoot-CommandLineRunner/#more" rel="contents">
+            <a class="btn" href="/2018/10/10/Java-Java8的StreamAPI/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -897,7 +1045,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/21/SpringBoot-gRPC的使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/09/Java-线程池相关知识和资料/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -916,7 +1064,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/21/SpringBoot-gRPC的使用/" itemprop="url">SpringBoot-gRPC的使用</a></h1>
+                <a class="post-title-link" href="/2018/10/09/Java-线程池相关知识和资料/" itemprop="url">Java-线程池相关知识和资料</a></h1>
         
 
         <div class="post-meta">
@@ -928,8 +1076,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-21T23:44:45+08:00">
-                2018-06-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-09T23:28:49+08:00">
+                2018-10-09
               </time>
             
 
@@ -951,8 +1099,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -989,11 +1137,12 @@
 
       
         
-          <p>上一篇笔记中，使用了 SpringBoot 自动配置的功能在 SpringBoot 项目中自动启动 gRPC 服务和客户端连接到指定的服务，我们要做的仅仅是在 application.properties 为文件中配置服务端的 port 和客户端需要连接的 host 和 port，主要是在 SpringBoot 项目中引入下面的两个依赖，这两个依赖对 gRPC 的 API 进行了封装，在项目启动后自动的完成服务端的启动和客户端的连接等初始化工作。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">spring.boot.grpc.server.version</span>&gt;</span>1.4.0.RELEASE<span class="tag">&lt;/<span class="name">spring.boot.grpc.server.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 客户端 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>net.devh<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>grpc-client-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring.boot.grpc.client.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 服务端 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>net.devh<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>grpc-server-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring.boot.grpc.server.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+          <h1 id="为什么使用线程池"><a href="#为什么使用线程池" class="headerlink" title="为什么使用线程池"></a>为什么使用线程池</h1><h2 id="减少系统开销"><a href="#减少系统开销" class="headerlink" title="减少系统开销"></a>减少系统开销</h2><p>记创建线程消耗时间 T1, 执行任务消耗时间 T2, 销毁线程消耗时间 T3, 线程池缓存线程, 可用已有的闲置线程来执行新任务，避免了创建线程和销毁线程消耗的时间带来的系统开销</p>
+<h2 id="控制并发数-防止抢占系统资源从而导致阻塞"><a href="#控制并发数-防止抢占系统资源从而导致阻塞" class="headerlink" title="控制并发数, 防止抢占系统资源从而导致阻塞"></a>控制并发数, 防止抢占系统资源从而导致阻塞</h2><p>如果同时执行的线程过多, 就有可能导致系统资源不足而产生阻塞的情况, 运用线程池能有效的控制线程最大并发数, 避免以上的问题</p>
+<h2 id="对线程进行一些简单的管理"><a href="#对线程进行一些简单的管理" class="headerlink" title="对线程进行一些简单的管理"></a>对线程进行一些简单的管理</h2><p>延时执行, 定时循环执行的策略等运用线程池都能进行很好的实现</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/21/SpringBoot-gRPC的使用/#more" rel="contents">
+            <a class="btn" href="/2018/10/09/Java-线程池相关知识和资料/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1054,7 +1203,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/17/SpringBoot-配置使用gRPC/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/09/Java-环境变量配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1073,7 +1222,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/17/SpringBoot-配置使用gRPC/" itemprop="url">SpringBoot-配置使用gRPC</a></h1>
+                <a class="post-title-link" href="/2018/10/09/Java-环境变量配置/" itemprop="url">Java-环境变量配置</a></h1>
         
 
         <div class="post-meta">
@@ -1085,8 +1234,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-17T17:26:12+08:00">
-                2018-06-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-09T23:25:51+08:00">
+                2018-10-09
               </time>
             
 
@@ -1108,8 +1257,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -1146,15 +1295,11 @@
 
       
         
-          <p>gRPC 是一 Google 开源的的 RPC 框架，主要面向移动应用开发并基于 HTTP/2 协议标准和 ProtoBuf 序列化协议来设计的，gRPC 需要配合 ProtoBuf 来使用，首先需要先写好 .proto 描述文件定义 RPC 接口，然后使用 protoc 编译工具编译 .proto 文件生成客户端和服务端所需要的接口代码，这篇笔记主要记录下在 SpringBoot 项目中如何使用 gRPC。gPRC 和 ProtoBuf 的一些参考资料如下：</p>
-<ul>
-<li>oschina 上翻译的 gRPC 官方文档：<code>http://doc.oschina.net/grpc?t=60134</code></li>
-<li>gRPC 总结的学习笔记：<code>https://legacy.gitbook.com/book/skyao/learning-grpc/details</code></li>
-<li>PtotoBuf 官方网址： <code>https://developers.google.com/protocol-buffers/</code></li>
-</ul>
+          <h1 id="Java-环境变量"><a href="#Java-环境变量" class="headerlink" title="Java 环境变量"></a>Java 环境变量</h1><p>export JAVA_HOME=/home/lupw/Java/jdk1.8.0_101<br>export JRE_HOME=/home/lupw/Java/jdk1.8.0_101/jre<br>export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib<br>export PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin</p>
+<p>经常忘记, 记录下来</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/17/SpringBoot-配置使用gRPC/#more" rel="contents">
+            <a class="btn" href="/2018/10/09/Java-环境变量配置/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1215,7 +1360,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/16/IDEA-Git管理项目的相关操作/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/09/Java-FastDFS安装和使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1234,7 +1379,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/16/IDEA-Git管理项目的相关操作/" itemprop="url">IDEA-Git管理项目的相关操作</a></h1>
+                <a class="post-title-link" href="/2018/10/09/Java-FastDFS安装和使用/" itemprop="url">Java-FastDFS安装和使用</a></h1>
         
 
         <div class="post-meta">
@@ -1246,8 +1391,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-16T03:22:30+08:00">
-                2018-06-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-09T23:12:12+08:00">
+                2018-10-09
               </time>
             
 
@@ -1269,8 +1414,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/IDEA/" itemprop="url" rel="index">
-                    <span itemprop="name">IDEA</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -1307,12 +1452,12 @@
 
       
         
-          <h1 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h1><p>分别点击菜单栏的 VCS -&gt; Git -&gt; Branches 选项，如下图所示：</p>
-<p><img src="/2018/06/16/IDEA-Git管理项目的相关操作/20180616033851.jpg" width="1020" height="200"></p>
-<p>点击 New Branch 选项，输入分支的名字点击确定即可创建分支，创建完成后一般自动切换到分支工作空间，可以在 IDEA 的状态栏查看当前分支的工作空间，如下图所示：</p>
+          <h1 id="FastDFS-安装"><a href="#FastDFS-安装" class="headerlink" title="FastDFS 安装"></a>FastDFS 安装</h1><h2 id="下载FastDFS源码"><a href="#下载FastDFS源码" class="headerlink" title="下载FastDFS源码"></a>下载FastDFS源码</h2><p>下载 FastDFS 源码, <code>https://github.com/happyfish100/fastdfs</code></p>
+<h2 id="安装unzip工具"><a href="#安装unzip工具" class="headerlink" title="安装unzip工具"></a>安装unzip工具</h2><p>解压 zip 文件需要安装 unzip 工具, 没有安装的可以使用 <code>yum -y install unzip zip</code> 指令安装, 执行 yum 的时候出现 <code>another app is currently holding the yum lock;waiting for it to exit</code> 错误, 出现原因和解决方法见 <code>https://blog.csdn.net/mal327/article/details/6442253</code></p>
+<h2 id="安装gcc工具"><a href="#安装gcc工具" class="headerlink" title="安装gcc工具"></a>安装gcc工具</h2><p>编译 FastDFS 源码, 由于 FastDFS 由 C 语言编写, 所以需要安装 gcc 编译器, <code>yum -y install gcc-c++</code></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/16/IDEA-Git管理项目的相关操作/#more" rel="contents">
+            <a class="btn" href="/2018/10/09/Java-FastDFS安装和使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1373,7 +1518,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/07/IDEA-Maven多模块项目/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/09/Java-类加载机制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1392,7 +1537,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/07/IDEA-Maven多模块项目/" itemprop="url">IDEA-Maven多模块项目</a></h1>
+                <a class="post-title-link" href="/2018/10/09/Java-类加载机制/" itemprop="url">Java-类加载机制</a></h1>
         
 
         <div class="post-meta">
@@ -1404,8 +1549,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-07T14:10:25+08:00">
-                2018-06-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-09T23:04:01+08:00">
+                2018-10-09
               </time>
             
 
@@ -1427,8 +1572,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/IDEA/" itemprop="url" rel="index">
-                    <span itemprop="name">IDEA</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -1465,11 +1610,12 @@
 
       
         
-          <h1 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h1><p>参考笔记：<code>Maven 创建 JavaWeb 项目</code>，创建好的项目的目录结构如下：</p>
-<p><img src="/2018/06/07/IDEA-Maven多模块项目/20180607142458.jpg" weight="1000" height="240"></p>
+          <h1 id="读取resource目录下的配置文件"><a href="#读取resource目录下的配置文件" class="headerlink" title="读取resource目录下的配置文件"></a>读取resource目录下的配置文件</h1><p>说一说了解 ClassLoader 的缘由, 在准备开始看 Spring 源码的时候想把 Properties 类的使用了解下, 于是我建立了一个普通的 Java 项目写下如下的这些代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        InputStream fileInputStream = <span class="keyword">new</span> FileInputStream(<span class="string">"D:\\IdeaProjects\\hello-grpc\\grpc-client\\src\\main\\resources\\application.properties"</span>);</span><br><span class="line">        properties.load(fileInputStream);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(properties.getProperty(<span class="string">"spring.application.name"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码可以正确的读取和获取到 peoperties 文件中的值, 这里使用了 FileInputStream 类来获取输入流， 需要指定配置文件的路径, 这种方法不推荐使用, 因为很不方便, 通常我们在项目中读取配置文件中的内容, 在本地调试的时候需要使用本地的路径, 正式上传到服务器的时候又需要单独的上传这些配置文件和更改成服务器上配置文件的路径, 每次在本地调试和上传到服务器发布很不方便, 需要检查所有读取配置文件的代码, 很容易漏掉, 况且 JavaWeb 项目的资源文件和配置文件通常放在项目的 resource 目录下, 在编译后打包成 war 和 jar 时这些资源文件也会打包进去, 完全没有理由再去服务器上创建一个专门的目录保存这些资源文件, 在了解相关资料后可以使用 ClassLoader 的 getResourceAsStream() 方法来获取输入流, 在未了解类加载机制的情况下我写下了如下代码:</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/07/IDEA-Maven多模块项目/#more" rel="contents">
+            <a class="btn" href="/2018/10/09/Java-类加载机制/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1530,7 +1676,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/06/Linux-创建和修改用户权限/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/17/Java-运行时内存区域/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1549,7 +1695,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/06/Linux-创建和修改用户权限/" itemprop="url">Linux-创建和删修改用户权限</a></h1>
+                <a class="post-title-link" href="/2018/09/17/Java-运行时内存区域/" itemprop="url">Java-运行时内存区域</a></h1>
         
 
         <div class="post-meta">
@@ -1561,8 +1707,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-06T23:39:14+08:00">
-                2018-06-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-17T23:10:32+08:00">
+                2018-09-17
               </time>
             
 
@@ -1584,8 +1730,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -1622,178 +1768,11 @@
 
       
         
-          <p>以下操作的服务器是在阿里云服务器上有实际的操作成功。</p>
-<h1 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h1><p>创建用户，并在 home 目录下创建 lupw 目录。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -d /home/lupw -m lupw</span><br></pre></td></tr></table></figure>
-<p>配置用户的登录密码，passwd [用户名]。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd lupw</span><br></pre></td></tr></table></figure>
-<h1 id="修改用户权限"><a href="#修改用户权限" class="headerlink" title="修改用户权限"></a>修改用户权限</h1><p>默认新创建的用户是无法使用 sudo 权限的，需要进行配置，没有 sudo 权限时执行 sudo 指令时会提示：[用户名] is not in the sudoers file。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[lupw@iZwz95w6z2icuvzwoxbna3Z ~]$ sudo mkdir jdk</span><br><span class="line">[sudo] password for lupw:</span><br><span class="line">lupw is not in the sudoers file.  This incident will be reported.</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/06/Linux-创建和修改用户权限/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/05/Dubbo-Dubbo入门学习笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/05/Dubbo-Dubbo入门学习笔记/" itemprop="url">Dubbo-Dubbo入门学习笔记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-05T10:35:04+08:00">
-                2018-06-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Dubbo/" itemprop="url" rel="index">
-                    <span itemprop="name">Dubbo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <p>最近在看 “深入理解 Java 虚拟机” 一书, 做一些笔记</p>
+<h1 id="Java运行时内存区域"><a href="#Java运行时内存区域" class="headerlink" title="Java运行时内存区域"></a>Java运行时内存区域</h1><p>Java 虚拟机在运行时会将他所管理的区域分为方法区, 堆区, 虚拟机栈, 本地方法区栈, 程序计数器五个运行时区域</p>
+<h1 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h1>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在了解 Dubbo 之前，先了解下 RPC 的概念，RPC (Remote Procedure Call) 即远程过程调用，是一种计算机协议，该协议允许运行于一台计算机的程序调用另一台计算机的子程序。几个例子说明，两台服务器 A、B，分别部署不同的应用 a、b，当 A 服务器想要调用 B 服务器上应用 b 提供的函数或方法的时候，由于不在一个内存空间，不能直接调用，但是通过 RPC 可以完成这种远程服务调用。</p>
-<h1 id="Dubbo"><a href="#Dubbo" class="headerlink" title="Dubbo"></a>Dubbo</h1><p>Dubbo 是一款分布式服务框架，是一个高性能和透明化的 RPC 远程服务调用方案以及SOA服务治理方案。</p>
-<h1 id="Dubbo-架构"><a href="#Dubbo-架构" class="headerlink" title="Dubbo 架构"></a>Dubbo 架构</h1><p><img src="/2018/06/05/Dubbo-Dubbo入门学习笔记/20180605110541.jpg" width="1000" height="550"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/05/Dubbo-Dubbo入门学习笔记/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -1841,7 +1820,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1889,7 +1868,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">79</span>
+                  <span class="site-state-item-count">94</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1900,7 +1879,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1939,7 +1918,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

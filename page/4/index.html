@@ -251,7 +251,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/31/Java-ConcurrentHashMap/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/05/SpringCloud-Eureka服务注册与发现/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -270,7 +270,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/31/Java-ConcurrentHashMap/" itemprop="url">Java-ConcurrentHahsMap实现原理（JDK 1.8）- 未完成</a></h1>
+                <a class="post-title-link" href="/2018/09/05/SpringCloud-Eureka服务注册与发现/" itemprop="url">SpringCloud-Eureka服务注册与发现</a></h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,165 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-31T17:51:32+08:00">
-                2018-05-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-05T23:16:15+08:00">
+                2018-09-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="Eureka-服务注册和发现"><a href="#Eureka-服务注册和发现" class="headerlink" title="Eureka 服务注册和发现"></a>Eureka 服务注册和发现</h1><p>首先创建一个项目作为所有之后项目的父项目, 添加以下相关依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 版本管理 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- spring-cloud-dependencies  --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>Finchley.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- spring-cloud-starter-ribbon --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-ribbon<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/05/SpringCloud-Eureka服务注册与发现/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/05/Java-ETCD的安装和基础使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/05/Java-ETCD的安装和基础使用/" itemprop="url">Java-ETCD的安装和基础使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-05T23:13:21+08:00">
+                2018-09-05
               </time>
             
 
@@ -343,12 +500,12 @@
 
       
         
-          <p>ConcurrentHashMap 是一种线程安全且高效的 HashMap，HashMap 是非线程安全的，在多线程情况下使用 HashMap 的 put 操作 (发生在扩容的时) 可能会引起死循环。HashTable 虽然是线程安全的，但是其效率低下。ConcurrentHashMap 就可以解决上面出现的问题。ConcurrentHashMap 在 JDK 1.8 中相较之前的版本改动较大，使用了全新的 CAS 算法实现，本文我主要看的还是 JDK 1.8 中的源码，和之前版本的区别就简单的了解一下。</p>
-<h1 id="HashTable-效率低原因"><a href="#HashTable-效率低原因" class="headerlink" title="HashTable 效率低原因"></a>HashTable 效率低原因</h1><p>我们先可以看看 HashTable 的源码中对 Map 进行操作的几个方法的定义，如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// put 方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> V <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// remove 方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> V <span class="title">remove</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// putAll 方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">putAll</span><span class="params">(Map&lt;? extends K, ? extends V&gt; t)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <h1 id="下载和安装ETCD"><a href="#下载和安装ETCD" class="headerlink" title="下载和安装ETCD"></a>下载和安装ETCD</h1><h2 id="源码安装方式"><a href="#源码安装方式" class="headerlink" title="源码安装方式"></a>源码安装方式</h2><h3 id="下载和安装GO"><a href="#下载和安装GO" class="headerlink" title="下载和安装GO"></a>下载和安装GO</h3><p><a href="https://golang.org/" target="_blank" rel="noopener">GO 官方网站</a> 下载并解压, 官网需要翻墙</p>
+<h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export GOROOT=/home/lupw/Golang/go</span><br><span class="line">export PATH=$PATH:$GOROOT/bin</span><br></pre></td></tr></table></figure>
+<p>执行 go version 能查看版本信息即安装成功</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/31/Java-ConcurrentHashMap/#more" rel="contents">
+            <a class="btn" href="/2018/09/05/Java-ETCD的安装和基础使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -409,7 +566,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/31/Java-HashMap（二）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/05/Spring-RestTemplate的使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -428,7 +585,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/31/Java-HashMap（二）/" itemprop="url">Java-HashMap（二）</a></h1>
+                <a class="post-title-link" href="/2018/09/05/Spring-RestTemplate的使用/" itemprop="url">Spring-RestTemplate的使用</a></h1>
         
 
         <div class="post-meta">
@@ -440,8 +597,479 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-31T11:02:10+08:00">
-                2018-05-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-05T23:07:27+08:00">
+                2018-09-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="RestTemplate-注入失败"><a href="#RestTemplate-注入失败" class="headerlink" title="RestTemplate 注入失败"></a>RestTemplate 注入失败</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RestTemplateServiceImpl</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> RestTemplate restTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RestTemplateServiceImpl</span><span class="params">(RestTemplate restTemplate)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.restTemplate = restTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">getRestTemplete</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String url = <span class="string">"http://localhost:8001/grpc/demo/1/test"</span>;</span><br><span class="line">        ResponseEntity&lt;String&gt; responseEntity = restTemplate.getForEntity(url, String.class);</span><br><span class="line">        String body = responseEntity.getBody();</span><br><span class="line">        log.warn(<span class="string">"body = &#123;&#125;"</span>, body);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/05/Spring-RestTemplate的使用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/05/SpringBoot-自定义注解配置gRPC客户端（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/05/SpringBoot-自定义注解配置gRPC客户端（一）/" itemprop="url">SpringBoot-自定义注解配置gRPC客户端（一）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-05T23:04:35+08:00">
+                2018-09-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="基于注解自动配置的-gRPC-客户端实现（一）"><a href="#基于注解自动配置的-gRPC-客户端实现（一）" class="headerlink" title="基于注解自动配置的 gRPC 客户端实现（一）"></a>基于注解自动配置的 gRPC 客户端实现（一）</h1><p>基于注解自动配置的gRPC 的客户端的实现相较于服务端实现起来复杂一些，客户端除了可以绑定拦截器，还可以根据需要实现 NameResoler 和 LoadBalancer 等，先从简单的来慢慢实现 (主要用于捋清思路)。先看一看一个最简单的 gRCP 客户端调用 gRPC 服务端的例子，这个简单例子完整的使用在<a href="http://antsnote.club/2018/06/21/SpringBoot-gRPC%E7%9A%84%E4%BD%BF%E7%94%A8/" target="_blank" rel="noopener">gRPC的使用</a>笔记中有记录。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainClient</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建 channel</span></span><br><span class="line">        ManagedChannel channel = ManagedChannelBuilder.forAddress(<span class="string">"127.0.0.1"</span>, <span class="number">8000</span>)</span><br><span class="line">                .usePlaintext(<span class="keyword">true</span>)</span><br><span class="line">                .keepAliveWithoutCalls(<span class="keyword">true</span>)</span><br><span class="line">                .keepAliveTimeout(<span class="number">120</span>, TimeUnit.SECONDS)</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 使用 channel 创建 BlockingStub 后就可以调用服务提供的方法</span></span><br><span class="line">        TestServiceGrpc.TestServiceBlockingStub blockingStub = TestServiceGrpc.newBlockingStub(channel);</span><br><span class="line">        Response response = blockingStub.test(Request.newBuilder().setId(<span class="number">1</span>).build());</span><br><span class="line">        System.out.println(<span class="string">"id = "</span> + response.getId());</span><br><span class="line">        System.out.println(<span class="string">"name = "</span> + response.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/05/SpringBoot-自定义注解配置gRPC客户端（一）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/05/SpringBoot-自定义注解配置gRPC服务端/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/05/SpringBoot-自定义注解配置gRPC服务端/" itemprop="url">SpringBoot-自定义注解配置gRPC服务端</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-05T23:00:27+08:00">
+                2018-09-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="基于注解自动配置的-gRPC-服务端"><a href="#基于注解自动配置的-gRPC-服务端" class="headerlink" title="基于注解自动配置的 gRPC 服务端"></a>基于注解自动配置的 gRPC 服务端</h1><p>在实际的 SpringBoot 或者项目中, 通常是基于注解和配置的方式实现在项目启动的时候创建 gRPC 服务端, 这里先来实现一个简单的版本。在<a href="http://antsnote.club/2018/06/21/SpringBoot-gRPC%E7%9A%84%E4%BD%BF%E7%94%A8/" target="_blank" rel="noopener">SpringBoot-gRPC的使用</a>笔记中创建一个 gRPC 服务端需要提供端口号, 绑定服务实现类和拦截器实现类，虽然是要实现基于注解和配置的方式实现在项目启动的时候创建 gRPC 服务端功能，但是创建 gRPC 服务端的步骤是一样的，按照这个步骤来一步一步实现即可。</p>
+<h2 id="定义配置类"><a href="#定义配置类" class="headerlink" title="定义配置类"></a>定义配置类</h2><p>为了可以从配置文件中读取到端口号, 创建一个 Porperties 类, 从配置文件中注入属性值创建 bean。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置配置文件,  value 接收 String[] 类型的值, 多个路径 value = &#123;"classpath:xxx", "classpath:xxx"&#125; 的格式设置</span></span><br><span class="line"><span class="meta">@PropertySource</span>(value = <span class="string">"classpath:application.properties"</span>)</span><br><span class="line"><span class="comment">// 属性值匹配的前缀</span></span><br><span class="line"><span class="meta">@ConfigurationProperties</span>(prefix=<span class="string">"grpc.server"</span>)</span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GrpcServerProperties</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> port;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/05/SpringBoot-自定义注解配置gRPC服务端/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/25/Java-反射/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/25/Java-反射/" itemprop="url">Java-反射</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-25T22:11:54+08:00">
+                2018-06-25
               </time>
             
 
@@ -501,12 +1129,15 @@
 
       
         
-          <p>HashMap 是 Java 中一种重要的结构，在上一篇笔记中已经了解了什么是哈希表和 Map 接口，HashMap 是基于 Hash 表的设计实现的，也同时实现了 Map 接口，这篇笔记继续深入的了解 HashMap 从源码上具体是如何实现的。</p>
-<h1 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h1><p>HashMap 是 Java 中经常使用的一种数据结构，HashMap 是 Map 的实现类，关于 Map 其常用的实现类和类关系继承图如下 UML 图所示：</p>
-<p><img src="/2018/05/31/Java-HashMap（二）/20180531180921.jpg" width="1000" height="370"></p>
+          <p>在看 Spring 框架的源码时，需要 Java 反射相关的知识，了解反射知识时网上看到几篇反射相关的文章，个人感觉挺不错的，记录如下：</p>
+<ul>
+<li><a href="https://blog.csdn.net/qq_24341197/article/details/77964172" target="_blank" rel="noopener">JAVA中的反射 超级详解</a></li>
+<li><a href="https://blog.csdn.net/u011240877/article/details/54604212" target="_blank" rel="noopener">深入理解 Java 反射：Field (成员变量)</a></li>
+<li><a href="https://blog.csdn.net/u011240877/article/details/54604224" target="_blank" rel="noopener">深入理解 Java 反射：Method (成员方法)</a></li>
+</ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/31/Java-HashMap（二）/#more" rel="contents">
+            <a class="btn" href="/2018/06/25/Java-反射/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -567,7 +1198,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/29/Java-HashMap（一）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/23/SpringBoot-ConfigurationProperties/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -586,7 +1217,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/29/Java-HashMap（一）/" itemprop="url">Java-HashMap（一）</a></h1>
+                <a class="post-title-link" href="/2018/06/23/SpringBoot-ConfigurationProperties/" itemprop="url">SpringBoot-ConfigurationProperties</a></h1>
         
 
         <div class="post-meta">
@@ -598,8 +1229,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-29T23:10:10+08:00">
-                2018-05-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-23T13:16:42+08:00">
+                2018-06-23
               </time>
             
 
@@ -621,8 +1252,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
                   </a>
                 </span>
 
@@ -659,11 +1290,15 @@
 
       
         
-          <p>HashMap 是 Java 中一种重要的数据结构，由数组加链表组成 (数组和链表是 Java 中的基础数据结构)，HashMap 是 Map 接口的非同步实现，HashMap 同时也是基于哈希算法实现的。为了方便后面深入的理解 HashMap，首先需要了解的是哈希表和 Java 中的 Map 接口的基础知识。</p>
-<h1 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h1><h2 id="什么是哈希表"><a href="#什么是哈希表" class="headerlink" title="什么是哈希表"></a>什么是哈希表</h2><p>HashTable (哈希表) 同时也称为散列表 (以 下全部翻译 Hash 为散列的意思)，是一种根据键直接访问存储在内存中值的数据结构。若关键字为 k，则其值存放在 f(k) 的存储位置上，不需要通过额外的比较就可以直接取得所查记录，通常称这个对应关系为散列函数，按这个思想建立的表为散列表，即哈希表。</p>
+          <p>Configuration 注解可以用来定义一个配置类，需要为每一个属性声明绑定的属性的字段，先简单了解下是 Configuration 注解是如何使用的。</p>
+<h1 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h1><p>Configuration 注解用于定义配置类，可以用来他取代 xml 配置，配置的属性值通常放定义在 properties 文件中，通过绑定字段，在创建相应的 Bean 是会自动的将值填入绑定的类的成员属性中，例如将下面的 ServerProperties 中的 port 值以这种方法将值填入的例子。</p>
+<p>定义一个将用于配置用的 ServerPropertie 类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServerProperties</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> port;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先在配置文件中定义一个属性字段</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def.server.port=6000</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/29/Java-HashMap（一）/#more" rel="contents">
+            <a class="btn" href="/2018/06/23/SpringBoot-ConfigurationProperties/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -724,7 +1359,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/23/Java-定时器Timer类/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/22/SpringBoot-Bean的初始之前操作和销毁之前操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -743,7 +1378,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/23/Java-定时器Timer类/" itemprop="url">Java-定时器Timer类和TimerTask类</a></h1>
+                <a class="post-title-link" href="/2018/06/22/SpringBoot-Bean的初始之前操作和销毁之前操作/" itemprop="url">SpringBoot-Bean的初始之前操作和销毁之前操作</a></h1>
         
 
         <div class="post-meta">
@@ -755,8 +1390,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-23T19:03:25+08:00">
-                2018-05-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-22T01:08:25+08:00">
+                2018-06-22
               </time>
             
 
@@ -778,8 +1413,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
                   </a>
                 </span>
 
@@ -816,12 +1451,19 @@
 
       
         
-          <p>Timer 类负责计划任务的功能，也即指定的时间开始执行某个任务。Timer 类的作用只是用于设置计划任务，对任务做排期，而任务的封装类则通过TimerTask完成。执行计划任务的代码要放入 TimerTask 的子类中，因为 TimerTask 为抽象类，具体功能均由子类处理，而 TimerTask 实现 Runnable 接口，Timer 中 TimerThread 类继承于 Thread 类。</p>
-<h1 id="Timer-类"><a href="#Timer-类" class="headerlink" title="Timer 类"></a>Timer 类</h1><p>Timer 类对外的方法如下图所示：</p>
-<p><img src="/2018/05/23/Java-定时器Timer类/20180523194306_435_360.jpg" width="400" height="350"></p>
+          <p>本篇学习笔记仅记录 Bean 的初始之前操作和销毁之前操作的实现方式的基础使用方法。</p>
+<h1 id="PostConstruct-和-PreDestroy"><a href="#PostConstruct-和-PreDestroy" class="headerlink" title="@PostConstruct 和 @PreDestroy"></a>@PostConstruct 和 @PreDestroy</h1><p>JDK 1.5 引入了 @PostConstruct 和 @PreDestroy 这两个作用于 Servlet 生命周期的注解，实现 Bean 初始化之前和销毁之前的自定义操作，这两个注解使用时有以下几个注意的地方。</p>
+<ul>
+<li>只有一个方法可以使用此注释进行注解；</li>
+<li>被注解方法不得有任何参数；</li>
+<li>被注解方法返回值为 void；</li>
+<li>被注解方法不得抛出已检查异常；</li>
+<li>被注解方法需是非静态方法；</li>
+<li>此方法只会被执行一次且在构造方法之后执行。</li>
+</ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/23/Java-定时器Timer类/#more" rel="contents">
+            <a class="btn" href="/2018/06/22/SpringBoot-Bean的初始之前操作和销毁之前操作/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -882,7 +1524,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/21/Android-ToolBar的使用方法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/22/SpringBoot-CommandLineRunner/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -901,7 +1543,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/21/Android-ToolBar的使用方法/" itemprop="url">Android-ToolBar的使用方法</a></h1>
+                <a class="post-title-link" href="/2018/06/22/SpringBoot-CommandLineRunner/" itemprop="url">SpringBoot-CommandLineRunner</a></h1>
         
 
         <div class="post-meta">
@@ -913,8 +1555,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-21T16:40:41+08:00">
-                2018-05-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-22T00:35:53+08:00">
+                2018-06-22
               </time>
             
 
@@ -936,8 +1578,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
                   </a>
                 </span>
 
@@ -974,12 +1616,13 @@
 
       
         
-          <p>ToolBar 是用来取代 ActionBar 的控件，在 material design 中也称之为 App bar，ActionBar 过去最多使用的两个套件就是 ActionBarSherlock 以及在support library v7 里面的 AppCompat。官方在某些程度上认为 ActionBar 限制了 android app 的开发与设计，而后推出了 ToolBar，在 material design 中也做了对应的名称 App bar。</p>
-<h1 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h1><p>调整 res/values/styles.xml 的内容，因为需要使用 ToolBar，并且由于 ToolBar 是用于替代 ActionBar 的，需要将 style 里面的 windowActionBar 设置为 false，android:windowNoTitle 设置为 true。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"AppTheme"</span> <span class="attr">parent</span>=<span class="string">"Theme.AppCompat.Light.DarkActionBar"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"colorPrimary"</span>&gt;</span>@color/colorPrimary<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"colorPrimaryDark"</span>&gt;</span>@color/colorPrimaryDark<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"colorAccent"</span>&gt;</span>@color/colorAccent<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"windowActionBar"</span>&gt;</span>false<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowNoTitle"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">style\</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+          <p>CommandLineRunner 是 SpringBoot 提供的一个接口类，可以在项目服务启动的时候进行初始化操作或者加载其他的一些数据，其定义如下。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CommandLineRunner</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">(String... var1)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="CommandLineRunner-基础使用"><a href="#CommandLineRunner-基础使用" class="headerlink" title="CommandLineRunner 基础使用"></a>CommandLineRunner 基础使用</h1><p>下面的例子直接在 Application 类中实现 CommandLineRunner 接口类，在 SpringBoot 项目启动后在控制台输出输出日志数据。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> <span class="keyword">implements</span> <span class="title">CommandLineRunner</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(String... strings)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"测试"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/21/Android-ToolBar的使用方法/#more" rel="contents">
+            <a class="btn" href="/2018/06/22/SpringBoot-CommandLineRunner/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1040,7 +1683,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/21/Android-WebView手势监听事件的实现/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/21/SpringBoot-gRPC的使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1059,7 +1702,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/21/Android-WebView手势监听事件的实现/" itemprop="url">Android-WebView手势监听事件的实现</a></h1>
+                <a class="post-title-link" href="/2018/06/21/SpringBoot-gRPC的使用/" itemprop="url">SpringBoot-gRPC的使用</a></h1>
         
 
         <div class="post-meta">
@@ -1071,8 +1714,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-21T16:36:24+08:00">
-                2018-05-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-21T23:44:45+08:00">
+                2018-06-21
               </time>
             
 
@@ -1094,8 +1737,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
                   </a>
                 </span>
 
@@ -1132,636 +1775,11 @@
 
       
         
-          <p>自定义一个 WebView，实现对滑动是否到顶部进行监听。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InnerWebView</span> <span class="keyword">extends</span> <span class="title">WebView</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> downX, downY; <span class="comment">// 按下时的坐标值</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> currX, currY; <span class="comment">// 移动时的坐标值</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> moveX;        <span class="comment">// 横向移动的长度</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>上一篇笔记中，使用了 SpringBoot 自动配置的功能在 SpringBoot 项目中自动启动 gRPC 服务和客户端连接到指定的服务，我们要做的仅仅是在 application.properties 为文件中配置服务端的 port 和客户端需要连接的 host 和 port，主要是在 SpringBoot 项目中引入下面的两个依赖，这两个依赖对 gRPC 的 API 进行了封装，在项目启动后自动的完成服务端的启动和客户端的连接等初始化工作。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">spring.boot.grpc.server.version</span>&gt;</span>1.4.0.RELEASE<span class="tag">&lt;/<span class="name">spring.boot.grpc.server.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 客户端 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>net.devh<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>grpc-client-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring.boot.grpc.client.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 服务端 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>net.devh<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>grpc-server-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring.boot.grpc.server.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/21/Android-WebView手势监听事件的实现/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/21/Android-运行时权限的封装/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/21/Android-运行时权限的封装/" itemprop="url">Android-运行时权限的封装</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-21T16:29:19+08:00">
-                2018-05-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="运行时权限工具类的封装"><a href="#运行时权限工具类的封装" class="headerlink" title="运行时权限工具类的封装"></a>运行时权限工具类的封装</h1><p>自己封装的运行时权限工具类，代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@TargetApi</span>(Build.VERSION_CODES.KITKAT_WATCH)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PermissionUtils</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 定义权限组，权限的申请在同一组的只需要申请其中一个就可以了，</span></span><br><span class="line">    <span class="comment">// 所以这里只需要定义其中一个就可以代表一个权限组</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/21/Android-运行时权限的封装/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/21/Android-SpannableStringBuffer和SpannableString/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/21/Android-SpannableStringBuffer和SpannableString/" itemprop="url">Android-SpannableStringBuffer和SpannableString</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-21T16:15:08+08:00">
-                2018-05-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>这两个类用于更改文本的内容、样式或者标记。当需要显示一段文字的时候，通常的做法是在布局文件中使用 TextVeiw 来显示，如果需要改变这一段文字，在 Activity 中获取这个控件，然后调用 setText 方法将整端文字给替换掉，如果需要更改字体颜色，样式，也是调用的 TextView 中的相关方法去改变 TextView 的属性，例如 setColor 来改变颜色，setBackgroundColor 来设置背景色。而且这样的方式改变内容或者样式，都会影响到所有的文字。再来设想一个情景，一段话，总共 8 个字符长度，第 1 - 2 个字符颜色为黑色，第 3 - 4 个字符颜色为红色，第 5 - 6 个字符为蓝色，第 7 - 8 个字符为绿色，并且这四个小段的字符都有自己的监听方法，如果使用 TextView 来做，肯定得定义四个 TextView 来实现。使用 SpannableStringBuffer 和 SpannableString 可以轻松得使用一个 TextView 就可以实现，不仅仅是将指定得字符更改样式或者是内容，还可以将文字设置成图片，同样图片也可以设置监听方法。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/21/Android-SpannableStringBuffer和SpannableString/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/21/Android-软键盘获取高度/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/21/Android-软键盘获取高度/" itemprop="url">Android-软键盘获取高度</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-21T16:07:32+08:00">
-                2018-05-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="软键盘弹出时和屏幕各部分尺寸"><a href="#软键盘弹出时和屏幕各部分尺寸" class="headerlink" title="软键盘弹出时和屏幕各部分尺寸"></a>软键盘弹出时和屏幕各部分尺寸</h1><p><img src="/2018/05/21/Android-软键盘获取高度/FD21D930551F1FBB79742701BAE53166.png" alt="IMAGE"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/21/Android-软键盘获取高度/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/21/Android-String资源/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/21/Android-String资源/" itemprop="url">Android-String资源</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-21T15:51:12+08:00">
-                2018-05-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// String资源定义</span></span><br><span class="line">&lt;string name="stringTest"&gt;买1台Mac笔记本&lt;/string&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用String资源</span></span><br><span class="line">getString(R.string.stringTest);</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/21/Android-String资源/#more" rel="contents">
+            <a class="btn" href="/2018/06/21/SpringBoot-gRPC的使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1813,7 +1831,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1861,7 +1879,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">79</span>
+                  <span class="site-state-item-count">94</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1872,7 +1890,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1911,7 +1929,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

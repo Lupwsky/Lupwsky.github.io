@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="之前一直有听说过谷歌的 Guava, 但是在项目中也仅是非常简单使用过其中的缓存功能 , 称着这段时间项目不是很忙, 抓紧时间系统的了解下 (主要参考 官方的文档 和 Guava官方教程(中文版)), 这里记录下自己的学习笔记, 这篇笔记主要是关于 Guava 中提供了一些新的集合类型的 MultiSetMultiSet 是 Set 的延伸, MultiSet 是继承 Collection 实现的">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-Guava工具类之集合的使用">
+<meta property="og:url" content="http://yoursite.com/2019/01/26/Java-Guava工具类之集合的使用/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="之前一直有听说过谷歌的 Guava, 但是在项目中也仅是非常简单使用过其中的缓存功能 , 称着这段时间项目不是很忙, 抓紧时间系统的了解下 (主要参考 官方的文档 和 Guava官方教程(中文版)), 这里记录下自己的学习笔记, 这篇笔记主要是关于 Guava 中提供了一些新的集合类型的 MultiSetMultiSet 是 Set 的延伸, MultiSet 是继承 Collection 实现的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-26T05:25:30.381Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java-Guava工具类之集合的使用">
+<meta name="twitter:description" content="之前一直有听说过谷歌的 Guava, 但是在项目中也仅是非常简单使用过其中的缓存功能 , 称着这段时间项目不是很忙, 抓紧时间系统的了解下 (主要参考 官方的文档 和 Guava官方教程(中文版)), 这里记录下自己的学习笔记, 这篇笔记主要是关于 Guava 中提供了一些新的集合类型的 MultiSetMultiSet 是 Set 的延伸, MultiSet 是继承 Collection 实现的">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/26/Java-Guava工具类之集合的使用/"/>
+
+
+
+
+
+  <title>Java-Guava工具类之集合的使用 | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/Java-Guava工具类之集合的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java-Guava工具类之集合的使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T12:03:49+08:00">
+                2019-01-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>之前一直有听说过谷歌的 Guava, 但是在项目中也仅是非常简单使用过其中的缓存功能 , 称着这段时间项目不是很忙, 抓紧时间系统的了解下 (主要参考 <a href="https://github.com/google/guava" target="_blank" rel="noopener">官方的文档</a> 和 <a href="https://willnewii.gitbooks.io/google-guava/content/index.html" target="_blank" rel="noopener">Guava官方教程(中文版)</a>), 这里记录下自己的学习笔记, 这篇笔记主要是关于 Guava 中提供了一些新的集合类型的</p>
+<h1 id="MultiSet"><a href="#MultiSet" class="headerlink" title="MultiSet"></a>MultiSet</h1><p>MultiSet 是 Set 的延伸, MultiSet 是继承 Collection 实现的, 它可以分成两种方式来使用, 将 MultiSet 看做一个普通的  Set 时, 是一个允许出现重复的元素 Set , 因此和 JDK 自带的 Set 不同, MultiSet 允许出现重复的元素, 当看成 Map&lt;E, Integer&gt; 类型时, 则表示键为元素, 值为计数的 Map 类型, 可以方便的对键的值进行计数</p>
+<h2 id="MultiSet-作为-Set-使用允许元素重复出现"><a href="#MultiSet-作为-Set-使用允许元素重复出现" class="headerlink" title="MultiSet 作为 Set 使用允许元素重复出现"></a>MultiSet 作为 Set 使用允许元素重复出现</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;String&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">set.add(<span class="string">"1"</span>);</span><br><span class="line">set.add(<span class="string">"2"</span>);</span><br><span class="line">set.add(<span class="string">"2"</span>);</span><br><span class="line">set.add(<span class="string">"3"</span>);</span><br><span class="line">set.forEach(log::info);</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">12:08:26.686 [main] INFO com.lupw.guava.set.GuavaSetMain - 1</span><br><span class="line">12:08:26.691 [main] INFO com.lupw.guava.set.GuavaSetMain - 2</span><br><span class="line">12:08:26.691 [main] INFO com.lupw.guava.set.GuavaSetMain - 3</span><br></pre></td></tr></table></figure>
+<p>MultiSet 运行重复的元素出现, 示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Multiset&lt;String&gt; multiset = HashMultiset.create();</span><br><span class="line">multiset.add(<span class="string">"1"</span>);</span><br><span class="line">multiset.add(<span class="string">"2"</span>);</span><br><span class="line">multiset.add(<span class="string">"2"</span>);</span><br><span class="line">multiset.add(<span class="string">"3"</span>);</span><br><span class="line">multiset.forEach(log::info);</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">12:08:26.709 [main] INFO com.lupw.guava.set.GuavaSetMain - 1</span><br><span class="line">12:08:26.709 [main] INFO com.lupw.guava.set.GuavaSetMain - 2</span><br><span class="line">12:08:26.709 [main] INFO com.lupw.guava.set.GuavaSetMain - 2</span><br><span class="line">12:08:26.709 [main] INFO com.lupw.guava.set.GuavaSetMain - 3</span><br></pre></td></tr></table></figure>
+<h2 id="MultiSet-作为-Map-使用对键的值计数"><a href="#MultiSet-作为-Map-使用对键的值计数" class="headerlink" title="MultiSet 作为 Map 使用对键的值计数"></a>MultiSet 作为 Map 使用对键的值计数</h2><p>在 JDK 中使用 Map 计数的实现方式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在 JDK 7 之前Map 实现计数</span></span><br><span class="line">Map&lt;String, Integer&gt; countsMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"><span class="keyword">if</span> (countsMap.containsKey(<span class="string">"1"</span>)) &#123;</span><br><span class="line">    <span class="keyword">int</span> count = countsMap.get(<span class="string">"1"</span>);</span><br><span class="line">    countsMap.put(<span class="string">"1"</span>, count + <span class="number">1</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    countsMap.put(<span class="string">"1"</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 MultiSet 进行计数:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Multiset&lt;String&gt; multiset = HashMultiset.create();</span><br><span class="line">multiset.add(<span class="string">"1"</span>);</span><br><span class="line"><span class="comment">// key 为 1 的键加两次计数, 可以理解为是两个 add("1")</span></span><br><span class="line">multiset.add(<span class="string">"1"</span>, <span class="number">2</span>);</span><br><span class="line">log.info(String.valueOf(multiset.count(<span class="string">"1"</span>)));</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">12:08:26.718 [main] INFO com.lupw.guava.set.GuavaSetMain - 3</span><br></pre></td></tr></table></figure>
+<h2 id="MultiSet-看作-Map-时对应-JDK-中的类"><a href="#MultiSet-看作-Map-时对应-JDK-中的类" class="headerlink" title="MultiSet 看作 Map 时对应 JDK 中的类"></a>MultiSet 看作 Map 时对应 JDK 中的类</h2><p>将 MultiSet 用作 Map 时, 对应 JDK 各个 Map 的实现如下</p>
+<table>
+<thead>
+<tr>
+<th>JDK</th>
+<th>Guava</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HashMap</td>
+<td>HashMultiset</td>
+</tr>
+<tr>
+<td>TreeMap</td>
+<td>TreeMultiset</td>
+</tr>
+<tr>
+<td>LinkedHashMap</td>
+<td>LinkedHashMultiset</td>
+</tr>
+<tr>
+<td>LinkedHashMultiset</td>
+<td>ConcurrentHashMultiset</td>
+</tr>
+<tr>
+<td>ImmutableMap</td>
+<td>ImmutableMultiset</td>
+</tr>
+</tbody>
+</table>
+<h2 id="一些-MultiSet-的其他方法"><a href="#一些-MultiSet-的其他方法" class="headerlink" title="一些 MultiSet 的其他方法"></a>一些 MultiSet 的其他方法</h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>iterator()</td>
+<td>返回一个迭代器, 包含 Multiset 的所有元素</td>
+</tr>
+<tr>
+<td>size()</td>
+<td>返回包括重复的元素所有元素的总计数数量</td>
+</tr>
+<tr>
+<td>count()</td>
+<td>返回给定元素的计数</td>
+</tr>
+<tr>
+<td>elementSet()</td>
+<td>返回所有不重复元素的 Set, elementSet().size() 可以获取到不重复的元素数量</td>
+</tr>
+<tr>
+<td>entrySet()</td>
+<td>返回包括重复元素的 Set&lt;Multiset.Entry&gt;</td>
+</tr>
+<tr>
+<td>remove(E e, int count)</td>
+<td>设置给定元素的计数, 不允许为负数, 为 0 时表示删除元素</td>
+</tr>
+<tr>
+<td>setCount(E e, int count)</td>
+<td>HashMultiset</td>
+</tr>
+<tr>
+<td>setCount(E e, int oldCount, int newCount)</td>
+<td>设置给定元素的计数, 如果 oldCount 的值和目前计数相同, 则设置成新值, 否则不变</td>
+</tr>
+</tbody>
+</table>
+<h1 id="Multimap"><a href="#Multimap" class="headerlink" title="Multimap"></a>Multimap</h1><h2 id="Multimap-解决多键值索引的数据结构"><a href="#Multimap-解决多键值索引的数据结构" class="headerlink" title="Multimap 解决多键值索引的数据结构"></a>Multimap 解决多键值索引的数据结构</h2><p>Multimap 主要被设置为解决于多键值索引的数据结构的场景, 例如使用 Map 实现这样的数据结构, 我们必须要定义成 <code>Map&lt;String, List&lt;Object&gt;&gt; ObjectMap = new HashMap&lt;&gt;&gt;()</code> 这样的类型, 在使用的时候需要检查 key 是否存在, 不存在时则创建一个 List, 将值放入 List 后在放入 Map, 存在时在先取出 List , 然后再 List 后面添加后再将 List 放入 Map, 有过这样开发经验的人都回知道这样的过程是比较繁琐的, Multimap 可以很方便的解决这个问题, Guaua 提供常用有继承于 ListMultimap 和 SetMultimap 的子类, 如 ArrayListMultimap, 使用示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ArrayListMultimap&lt;String, String&gt; -&gt; Map&lt;String, List&lt;String&gt;&gt;</span></span><br><span class="line">ArrayListMultimap&lt;String, String&gt; multimap = ArrayListMultimap.create();</span><br><span class="line"><span class="comment">// 如果 对应键值的 List 不存在, put 的时候会自动创建, 免去我们还要去检测的步骤</span></span><br><span class="line">multimap.put(<span class="string">"1"</span>, <span class="string">"1"</span>);</span><br><span class="line">List&lt;String&gt; dataList1 = multimap.get(<span class="string">"1"</span>);</span><br><span class="line">dataList1.forEach(log::info);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果获取的 key 对应的 List 不存在, 会返回一个空的集合</span></span><br><span class="line">List&lt;String&gt; dataList2 = multimap.get(<span class="string">"2"</span>);</span><br><span class="line">log.info(<span class="string">"&#123;&#125;"</span>, dataList2.size());</span><br></pre></td></tr></table></figure>
+<h2 id="Guava-提供的-Multimap-类"><a href="#Guava-提供的-Multimap-类" class="headerlink" title="Guava 提供的 Multimap 类"></a>Guava 提供的 Multimap 类</h2><table>
+<thead>
+<tr>
+<th>类名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ArrayListMultimap</td>
+</tr>
+<tr>
+<td>HashMultimap</td>
+</tr>
+<tr>
+<td>LinkedListMultimap</td>
+</tr>
+<tr>
+<td>LinkedHashMultimap</td>
+</tr>
+<tr>
+<td>TreeMultimap</td>
+</tr>
+<tr>
+<td>ImmutableListMultimap</td>
+</tr>
+<tr>
+<td>ImmutableSetMultimap</td>
+</tr>
+</tbody>
+</table>
+<h1 id="不可变集合"><a href="#不可变集合" class="headerlink" title="不可变集合"></a>不可变集合</h1><p>不可变集合在 JDK 中也有提供, 使用 Collections.unmodifiableSet() 方法将原集合包装为不可变集合, 但是 JDK 不可变集合对原集合的引用进行修改, 仍然可以更改元素, 这种不可变需要保证原始集合没有人引用, 这里主要选 JDK 的 Set 包装成不可变集合和 ImmutableMultiSet 进行一下比较, 其他类型就没有去测试了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;String&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">set.add(<span class="string">"1"</span>);</span><br><span class="line">set.add(<span class="string">"2"</span>);</span><br><span class="line">set.add(<span class="string">"3"</span>);</span><br><span class="line">set.add(<span class="string">"4"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Collections.unmodifiableSet() 方法将原集合包装为不可变集合</span></span><br><span class="line">Set&lt;String&gt; unmodifiableSet = Collections.unmodifiableSet(set);</span><br><span class="line">unmodifiableSet.forEach(log::info);</span><br><span class="line"></span><br><span class="line"><span class="comment">// JDK 不可变集合对原集合的引用进行修改, 仍然可以更改元素, 这种不可变需要保证原始集合没有人引用</span></span><br><span class="line">set.add(<span class="string">"6"</span>);</span><br><span class="line">unmodifiableSet.forEach(log::info);</span><br><span class="line"></span><br><span class="line"><span class="comment">// JDK 不可变集合虽然可以调用 add 方法, 但是会出现 UnsupportedOperationException 异常, 方法没有被屏蔽</span></span><br><span class="line">unmodifiableSet.add(<span class="string">"7"</span>);</span><br><span class="line">unmodifiableSet.forEach(log::info);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Guava 不可变集合的使用</span></span><br><span class="line">ImmutableMultiset&lt;String&gt; immutableMultiset = ImmutableMultiset.of(<span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>, <span class="string">"4"</span>);</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">13:06:58.625 [main] INFO com.lupw.guava.set.GuavaSetMain - 1</span><br><span class="line">13:06:58.629 [main] INFO com.lupw.guava.set.GuavaSetMain - 2</span><br><span class="line">13:06:58.629 [main] INFO com.lupw.guava.set.GuavaSetMain - 3</span><br><span class="line">13:06:58.629 [main] INFO com.lupw.guava.set.GuavaSetMain - 4</span><br><span class="line"></span><br><span class="line"># 不可变集合对原集合的引用进行修改后成功将元素 6 添加进去</span><br><span class="line">13:06:58.630 [main] INFO com.lupw.guava.set.GuavaSetMain - 1</span><br><span class="line">13:06:58.630 [main] INFO com.lupw.guava.set.GuavaSetMain - 2</span><br><span class="line">13:06:58.630 [main] INFO com.lupw.guava.set.GuavaSetMain - 3</span><br><span class="line">13:06:58.630 [main] INFO com.lupw.guava.set.GuavaSetMain - 4</span><br><span class="line">13:06:58.630 [main] INFO com.lupw.guava.set.GuavaSetMain - 6</span><br></pre></td></tr></table></figure>
+<h1 id="BiMap"><a href="#BiMap" class="headerlink" title="BiMap"></a>BiMap</h1><h2 id="BiMap-双向映射"><a href="#BiMap-双向映射" class="headerlink" title="BiMap 双向映射"></a>BiMap 双向映射</h2><p>BiMap 主要被设计于解决双向映射的, 在 JDK 中通常的做法需要维护两张表, 同步的时候也需要特别小心, 两边都要同步, 如果有一个没有同步, 很有可能造成程序上的逻辑异常, 如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, Integer&gt; nameToIdMap = Maps.newHashMap();</span><br><span class="line">Map&lt;Integer, String&gt; idToNameMap = Maps.newHashMap();</span><br><span class="line">nameToIdMap.put(<span class="string">"lpw"</span>, <span class="number">1</span>);</span><br><span class="line">idToNameMap.put(<span class="number">1</span>, <span class="string">"lpw"</span>);</span><br></pre></td></tr></table></figure>
+<p>BiMap 核心的方法为 inverse(), 对 Map 进行反转后可以获取反转后的 Map, 对反转后的 Map 进行修改会同步到原 Map, 对原 Map 进行修改也会同步到反转后的 Map, 使用示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 此时 biMap 里面有 key1 = value1, key2 = value2 两组值</span></span><br><span class="line">BiMap&lt;String, String&gt; biMap = HashBiMap.create();</span><br><span class="line">biMap.put(<span class="string">"key1"</span>, <span class="string">"value1"</span>);</span><br><span class="line">biMap.put(<span class="string">"key2"</span>, <span class="string">"value2"</span>);</span><br><span class="line">log.info(biMap.get(<span class="string">"key1"</span>));</span><br><span class="line">log.info(biMap.get(<span class="string">"key2"</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对于已经存在的值, 不允许使用新的键再次进行映射, 出现 IllegalArgumentException 异常</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    biMap.put(<span class="string">"key3"</span>, <span class="string">"value1"</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span> (IllegalArgumentException e)&#123;</span><br><span class="line">    log.info(<span class="string">"error = &#123;&#125;"</span>, e);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果有需要, 使用 forcePut 方法可以强制替换值对应的键, 重新进行映射, 此时有 key3 = value1, key2 = value2 两组值</span></span><br><span class="line">biMap.forcePut(<span class="string">"key3"</span>, <span class="string">"value1"</span>);</span><br><span class="line">log.info(biMap.toString());</span><br><span class="line"></span><br><span class="line"><span class="comment">// inverse() 反转 BiMap&lt;K, V&gt; 的键值映射</span></span><br><span class="line">log.info(biMap.get(<span class="string">"key3"</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 此时有 value1 = key3, value2 = key2 两组值</span></span><br><span class="line">BiMap&lt;String, String&gt; inverseBiMap = biMap.inverse();</span><br><span class="line">log.info(inverseBiMap.get(<span class="string">"value1"</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对 biMap 添加新的键值对或者进行修改, 会直接同步到inverseBiMap</span></span><br><span class="line"><span class="comment">// 此时 biMap 有 key3 = value1, key2 = value2, key4 = value4</span></span><br><span class="line"><span class="comment">// 此时 inverseBiMap 有 value1 = key3, value2 = key2, value4 = key4</span></span><br><span class="line"><span class="comment">// 同样对反转后的 inverseBiMap 进行修改也会直接同步到 biMap</span></span><br><span class="line">biMap.put(<span class="string">"key4"</span>, <span class="string">"value4"</span>);</span><br><span class="line">biMap.forEach(log::info);</span><br><span class="line">inverseBiMap.forEach(log::info);</span><br></pre></td></tr></table></figure>
+<h2 id="Guava-提供的-BiMap-类"><a href="#Guava-提供的-BiMap-类" class="headerlink" title="Guava 提供的 BiMap 类"></a>Guava 提供的 BiMap 类</h2><table>
+<thead>
+<tr>
+<th>类名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HashBiMap</td>
+</tr>
+<tr>
+<td>ImmutableBiMap</td>
+</tr>
+<tr>
+<td>EnumBiMap</td>
+</tr>
+<tr>
+<td>EnumHashBiMap</td>
+</tr>
+</tbody>
+</table>
+<h1 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h1><p>通常我们选择使用诸如 Map&lt;String, Map&lt;String, String&gt;&gt; 这样的数据结构类型来实现多个键做索引获取值的情况, 通过第一个 key 和第二个 key 一同确认最终需要的值, 无论是获取值和存入值都是不便于处理的, Guava 提供了新的集合类型 Table 来实现多个键做索引, 可以友好的处理多个键做索引获取值的需求</p>
+<h2 id="HashBasedTable-的使用"><a href="#HashBasedTable-的使用" class="headerlink" title="HashBasedTable 的使用"></a>HashBasedTable 的使用</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">Table&lt;String, String, String&gt; hashBasedTable = HashBasedTable.create();</span><br><span class="line">hashBasedTable.put(<span class="string">"R1"</span>, <span class="string">"C1"</span>, <span class="string">"R1C1"</span>);</span><br><span class="line">hashBasedTable.put(<span class="string">"R1"</span>, <span class="string">"C2"</span>, <span class="string">"R1C2"</span>);</span><br><span class="line">hashBasedTable.put(<span class="string">"R1"</span>, <span class="string">"C3"</span>, <span class="string">"R1C3"</span>);</span><br><span class="line">hashBasedTable.put(<span class="string">"R2"</span>, <span class="string">"C1"</span>, <span class="string">"R2C1"</span>);</span><br><span class="line">hashBasedTable.put(<span class="string">"R2"</span>, <span class="string">"C2"</span>, <span class="string">"R2C2"</span>);</span><br><span class="line">hashBasedTable.put(<span class="string">"R2"</span>, <span class="string">"C3"</span>, <span class="string">"R2C3"</span>);</span><br><span class="line">hashBasedTable.put(<span class="string">"R3"</span>, <span class="string">"C1"</span>, <span class="string">"R3C1"</span>);</span><br><span class="line">hashBasedTable.put(<span class="string">"R3"</span>, <span class="string">"C2"</span>, <span class="string">"R3C2"</span>);</span><br><span class="line">hashBasedTable.put(<span class="string">"R3"</span>, <span class="string">"C3"</span>, <span class="string">"R3C3"</span>);</span><br><span class="line"></span><br><span class="line">log.info(hashBasedTable.get(<span class="string">"R2"</span>, <span class="string">"C2"</span>));</span><br><span class="line">log.info(<span class="string">"------------------------------------------------"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// rowMap() 方法将 Table 转换成 Map&lt;T, Map&lt;T, T&gt;&gt; 的数据结构类型, 第一个键值为行, 第二个键值为列, 对这个结果集的操作同样会同步到到 Table 中</span></span><br><span class="line">Map&lt;String, Map&lt;String, String&gt;&gt; rowMapMap = hashBasedTable.rowMap();</span><br><span class="line">rowMapMap.forEach((key, value) -&gt; &#123;</span><br><span class="line">    log.info(<span class="string">"key = &#123;&#125;, value = &#123;&#125;"</span>, key, value);</span><br><span class="line">&#125;);</span><br><span class="line">log.info(<span class="string">"------------------------------------------------"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// rowMap() 方法将 Table 转换成 Map&lt;T, Map&lt;T, T&gt;&gt; 的数据结构类型, 第一个键值为列, 第二个键值为行, 对这个结果集的操作同样会同步到到 Table 中</span></span><br><span class="line">Map&lt;String, Map&lt;String, String&gt;&gt; columnMapMap = hashBasedTable.columnMap();</span><br><span class="line">columnMapMap.forEach((key, value) -&gt; &#123;</span><br><span class="line">    log.info(<span class="string">"key = &#123;&#125;, value = &#123;&#125;"</span>, key, value);</span><br><span class="line">&#125;);</span><br><span class="line">log.info(<span class="string">"------------------------------------------------"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// row(key) 方法返回给定行的值集合, 数据结构类型为 Map&lt;T, T&gt;, 对这个结果集的操作同样会同步到到 Table 中</span></span><br><span class="line">Map&lt;String, String&gt; columnMap = hashBasedTable.row(<span class="string">"R1"</span>);</span><br><span class="line">columnMap.forEach((key, value) -&gt; &#123;</span><br><span class="line">    log.info(<span class="string">"key = &#123;&#125;, value = &#123;&#125;"</span>, key, value);</span><br><span class="line">&#125;);</span><br><span class="line">log.info(<span class="string">"------------------------------------------------"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// column(key) 方法返回给定列的值集合, 数据结构类型为 Map&lt;T, T&gt;, 对这个结果集的操作同样会同步到到 Table 中</span></span><br><span class="line">Map&lt;String, String&gt; rowMap = hashBasedTable.column(<span class="string">"C1"</span>);</span><br><span class="line">rowMap.forEach((key, value) -&gt; &#123;</span><br><span class="line">    log.info(<span class="string">"key = &#123;&#125;, value = &#123;&#125;"</span>, key, value);</span><br><span class="line">&#125;);</span><br><span class="line">log.info(<span class="string">"------------------------------------------------"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// cellSet() 获取集合</span></span><br><span class="line">Set&lt;Table.Cell&lt;String, String, String&gt;&gt; cellSet = hashBasedTable.cellSet();</span><br><span class="line">cellSet.forEach(cell -&gt; &#123;</span><br><span class="line">    log.info(<span class="string">"rowKey = &#123;&#125;, columnKey = &#123;&#125;, value = &#123;&#125;"</span>, cell.getRowKey(), cell.getColumnKey(), cell.getValue());</span><br><span class="line">&#125;);</span><br><span class="line">log.info(<span class="string">"------------------------------------------------"</span>);</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">13:19:44.899 [main] INFO com.lupw.guava.set.GuavaTableMain - R2C2</span><br><span class="line">13:19:44.903 [main] INFO com.lupw.guava.set.GuavaTableMain - ------------------------------------------------</span><br><span class="line">13:19:44.947 [main] INFO com.lupw.guava.set.GuavaTableMain - key = R1, value = &#123;C1=R1C1, C2=R1C2, C3=R1C3&#125;</span><br><span class="line">13:19:44.951 [main] INFO com.lupw.guava.set.GuavaTableMain - key = R2, value = &#123;C1=R2C1, C2=R2C2, C3=R2C3&#125;</span><br><span class="line">13:19:44.951 [main] INFO com.lupw.guava.set.GuavaTableMain - key = R3, value = &#123;C1=R3C1, C2=R3C2, C3=R3C3&#125;</span><br><span class="line">13:19:44.951 [main] INFO com.lupw.guava.set.GuavaTableMain - ------------------------------------------------</span><br><span class="line">13:19:44.969 [main] INFO com.lupw.guava.set.GuavaTableMain - key = C1, value = &#123;R1=R1C1, R2=R2C1, R3=R3C1&#125;</span><br><span class="line">13:19:44.971 [main] INFO com.lupw.guava.set.GuavaTableMain - key = C2, value = &#123;R1=R1C2, R2=R2C2, R3=R3C2&#125;</span><br><span class="line">13:19:44.971 [main] INFO com.lupw.guava.set.GuavaTableMain - key = C3, value = &#123;R1=R1C3, R2=R2C3, R3=R3C3&#125;</span><br><span class="line">13:19:44.971 [main] INFO com.lupw.guava.set.GuavaTableMain - ------------------------------------------------</span><br><span class="line">13:19:44.971 [main] INFO com.lupw.guava.set.GuavaTableMain - key = C1, value = R1C1</span><br><span class="line">13:19:44.971 [main] INFO com.lupw.guava.set.GuavaTableMain - key = C2, value = R1C2</span><br><span class="line">13:19:44.971 [main] INFO com.lupw.guava.set.GuavaTableMain - key = C3, value = R1C3</span><br><span class="line">13:19:44.971 [main] INFO com.lupw.guava.set.GuavaTableMain - ------------------------------------------------</span><br><span class="line">13:19:44.972 [main] INFO com.lupw.guava.set.GuavaTableMain - key = R1, value = R1C1</span><br><span class="line">13:19:44.972 [main] INFO com.lupw.guava.set.GuavaTableMain - key = R2, value = R2C1</span><br><span class="line">13:19:44.972 [main] INFO com.lupw.guava.set.GuavaTableMain - key = R3, value = R3C1</span><br><span class="line">13:19:44.972 [main] INFO com.lupw.guava.set.GuavaTableMain - ------------------------------------------------</span><br><span class="line">Disconnected from the target VM, address: &apos;127.0.0.1:56436&apos;, transport: &apos;socket&apos;</span><br><span class="line">13:19:44.976 [main] INFO com.lupw.guava.set.GuavaTableMain - rowKey = R1, columnKey = C1, value = R1C1</span><br><span class="line">13:19:44.976 [main] INFO com.lupw.guava.set.GuavaTableMain - rowKey = R1, columnKey = C2, value = R1C2</span><br><span class="line">13:19:44.976 [main] INFO com.lupw.guava.set.GuavaTableMain - rowKey = R1, columnKey = C3, value = R1C3</span><br><span class="line">13:19:44.976 [main] INFO com.lupw.guava.set.GuavaTableMain - rowKey = R2, columnKey = C1, value = R2C1</span><br><span class="line">13:19:44.976 [main] INFO com.lupw.guava.set.GuavaTableMain - rowKey = R2, columnKey = C2, value = R2C2</span><br><span class="line">13:19:44.976 [main] INFO com.lupw.guava.set.GuavaTableMain - rowKey = R2, columnKey = C3, value = R2C3</span><br><span class="line">13:19:44.976 [main] INFO com.lupw.guava.set.GuavaTableMain - rowKey = R3, columnKey = C1, value = R3C1</span><br><span class="line">13:19:44.976 [main] INFO com.lupw.guava.set.GuavaTableMain - rowKey = R3, columnKey = C2, value = R3C2</span><br><span class="line">13:19:44.976 [main] INFO com.lupw.guava.set.GuavaTableMain - rowKey = R3, columnKey = C3, value = R3C3</span><br><span class="line">13:19:44.976 [main] INFO com.lupw.guava.set.GuavaTableMain - ------------------------------------------------</span><br></pre></td></tr></table></figure>
+<h2 id="Guava-提供的-Table-类"><a href="#Guava-提供的-Table-类" class="headerlink" title="Guava 提供的 Table 类"></a>Guava 提供的 Table 类</h2><table>
+<thead>
+<tr>
+<th>类名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HashBasedTable, 本质上用 HashMap&lt;R, HashMap&lt;C, V&gt;&gt; 实现</td>
+</tr>
+<tr>
+<td>ImmuTreeBasedTable, 本质上用 TreeMap&lt;R, TreeMap&lt;C,V&gt;&gt; 实现tableBiMap</td>
+</tr>
+<tr>
+<td>ImmutableTable, 本质上用 ImmutableMap&lt;R, ImmutableMap&lt;C, V&gt;&gt; 实现, 注: ImmutableTable 对稀疏或密集的数据集都有优化</td>
+</tr>
+<tr>
+<td>ArrayTable, 要求在构造时就指定行和列的大小, 本质上由一个二维数组实现, 以提升访问速度和密集 Table 的内存利用率</td>
+</tr>
+</tbody>
+</table>
+<h1 id="ClassToInstanceMap"><a href="#ClassToInstanceMap" class="headerlink" title="ClassToInstanceMap"></a>ClassToInstanceMap</h1><p>ClassToInstanceMap 是一种特殊的 Map, 它的键是类型, 而值是符合键所指类型的对象对象, 用法和普通的 Map 没有区别, Guava 提供了两种有用的实现, MutableClassToInstanceMap 和 ImmutableClassToInstanceMap, 使用示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ClassToInstanceMap&lt;String&gt; classToInstanceMap = MutableClassToInstanceMap.create();</span><br><span class="line">classToInstanceMap.put(String.class, <span class="string">"1"</span>);</span><br><span class="line">log.info(classToInstanceMap.get(String.class));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将值更改为 2</span></span><br><span class="line">classToInstanceMap.put(String.class, <span class="string">"2"</span>);</span><br><span class="line">log.info(classToInstanceMap.get(String.class));</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Java-Guava工具类之集合的使用
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2019/01/26/Java-Guava工具类之集合的使用/" title="Java-Guava工具类之集合的使用">2019/01/26/Java-Guava工具类之集合的使用/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/26/Redis-Windows10上安装Redis/" rel="next" title="Redis-Windows10上安装Redis">
+                <i class="fa fa-chevron-left"></i> Redis-Windows10上安装Redis
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/26/Java-Guava工具类之缓存的使用/" rel="prev" title="Java-Guava工具类之缓存的使用">
+                Java-Guava工具类之缓存的使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">94</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MultiSet"><span class="nav-number">1.</span> <span class="nav-text">MultiSet</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MultiSet-作为-Set-使用允许元素重复出现"><span class="nav-number">1.1.</span> <span class="nav-text">MultiSet 作为 Set 使用允许元素重复出现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MultiSet-作为-Map-使用对键的值计数"><span class="nav-number">1.2.</span> <span class="nav-text">MultiSet 作为 Map 使用对键的值计数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MultiSet-看作-Map-时对应-JDK-中的类"><span class="nav-number">1.3.</span> <span class="nav-text">MultiSet 看作 Map 时对应 JDK 中的类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些-MultiSet-的其他方法"><span class="nav-number">1.4.</span> <span class="nav-text">一些 MultiSet 的其他方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Multimap"><span class="nav-number">2.</span> <span class="nav-text">Multimap</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Multimap-解决多键值索引的数据结构"><span class="nav-number">2.1.</span> <span class="nav-text">Multimap 解决多键值索引的数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Guava-提供的-Multimap-类"><span class="nav-number">2.2.</span> <span class="nav-text">Guava 提供的 Multimap 类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#不可变集合"><span class="nav-number">3.</span> <span class="nav-text">不可变集合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BiMap"><span class="nav-number">4.</span> <span class="nav-text">BiMap</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BiMap-双向映射"><span class="nav-number">4.1.</span> <span class="nav-text">BiMap 双向映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Guava-提供的-BiMap-类"><span class="nav-number">4.2.</span> <span class="nav-text">Guava 提供的 BiMap 类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Table"><span class="nav-number">5.</span> <span class="nav-text">Table</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HashBasedTable-的使用"><span class="nav-number">5.1.</span> <span class="nav-text">HashBasedTable 的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Guava-提供的-Table-类"><span class="nav-number">5.2.</span> <span class="nav-text">Guava 提供的 Table 类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ClassToInstanceMap"><span class="nav-number">6.</span> <span class="nav-text">ClassToInstanceMap</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
