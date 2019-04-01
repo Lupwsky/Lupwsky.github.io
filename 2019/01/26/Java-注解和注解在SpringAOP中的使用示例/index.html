@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="注解和 class, interface 一样属于一种类型, 在 Spring 中, 注解就被经常使用, 最典型的用法就是注解来注入属性值, 日常开发中我也经常会用到反射和注解配合使用的的方式动态的处理一些代码, 来完成某些业务代码的解耦 注解的作用 编写文档, 如 JDK 中用于帮助生成文档的注解 @param, @return 编译检测, 让编译器能实现基本的编译检查, 如 @Override">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-注解和注解在SpringAOP中的使用示例">
+<meta property="og:url" content="http://yoursite.com/2019/01/26/Java-注解和注解在SpringAOP中的使用示例/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="注解和 class, interface 一样属于一种类型, 在 Spring 中, 注解就被经常使用, 最典型的用法就是注解来注入属性值, 日常开发中我也经常会用到反射和注解配合使用的的方式动态的处理一些代码, 来完成某些业务代码的解耦 注解的作用 编写文档, 如 JDK 中用于帮助生成文档的注解 @param, @return 编译检测, 让编译器能实现基本的编译检查, 如 @Override">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-31T04:31:34.596Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java-注解和注解在SpringAOP中的使用示例">
+<meta name="twitter:description" content="注解和 class, interface 一样属于一种类型, 在 Spring 中, 注解就被经常使用, 最典型的用法就是注解来注入属性值, 日常开发中我也经常会用到反射和注解配合使用的的方式动态的处理一些代码, 来完成某些业务代码的解耦 注解的作用 编写文档, 如 JDK 中用于帮助生成文档的注解 @param, @return 编译检测, 让编译器能实现基本的编译检查, 如 @Override">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/26/Java-注解和注解在SpringAOP中的使用示例/"/>
+
+
+
+
+
+  <title>Java-注解和注解在SpringAOP中的使用示例 | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/Java-注解和注解在SpringAOP中的使用示例/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java-注解和注解在SpringAOP中的使用示例</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T21:01:55+08:00">
+                2019-01-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>注解和 class, interface 一样属于一种类型, 在 Spring 中, 注解就被经常使用, 最典型的用法就是注解来注入属性值, 日常开发中我也经常会用到反射和注解配合使用的的方式动态的处理一些代码, 来完成某些业务代码的解耦</p>
+<h1 id="注解的作用"><a href="#注解的作用" class="headerlink" title="注解的作用"></a>注解的作用</h1><ul>
+<li>编写文档, 如 JDK 中用于帮助生成文档的注解 @param, @return</li>
+<li>编译检测, 让编译器能实现基本的编译检查, 如 @Override 注解在重写父类父类方法时帮助检查方法的正确性, 如果不是重写的父类的方法, 则编译器会报错</li>
+<li>动态处理代码, 如 Spring 使用反射 + 注解配合使用完成依赖注入</li>
+</ul>
+<a id="more"></a>
+<h1 id="注解的定义"><a href="#注解的定义" class="headerlink" title="注解的定义"></a>注解的定义</h1><p>class 定义一个类, interface 定义一个接口, @interface 定义一个注解, 示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> AopAnnotation &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="注解的分类"><a href="#注解的分类" class="headerlink" title="注解的分类"></a>注解的分类</h1><ul>
+<li>元注解 (注解的注解), @Retention, @Target, @Inherited, @Documented, @Repeatable 五种</li>
+<li>标准注解, JDK 中使用的注解, 如典型的 @Override, @Deprecated, @SuppressWarnings, @FunctionalInterface (JDK 1.8 新增, 标识接口为函数式接口) 等</li>
+<li>自定义注解</li>
+</ul>
+<h1 id="注解的注解"><a href="#注解的注解" class="headerlink" title="注解的注解"></a>注解的注解</h1><p>注解的注解, 即元注解也是一种特殊的注解, 用于描述一个普通注解的基础信息, 可以理解为注解的注解, JDK 中一共提供了五种元注解</p>
+<h2 id="Retention"><a href="#Retention" class="headerlink" title="@Retention"></a>@Retention</h2><p>@Retention 注解描述了一个注解的存活时间, 有以下值, 只能选一个</p>
+<ul>
+<li>RetentionPolicy.SOURCE 注解只在源码阶段保留, 在编译器进行编译时它将被丢弃忽视</li>
+<li>RetentionPolicy.CLASS 注解只被保留到编译进行的时候, 并不会被加载到 JVM 中</li>
+<li>RetentionPolicy.RUNTIME 注解可以保留到程序运行的时候, 会被加载进入到 JVM 中, 在程序运行时可以获取到它们</li>
+</ul>
+<h2 id="Target"><a href="#Target" class="headerlink" title="@Target"></a>@Target</h2><p>@Target 注解描述了这个注解可以被用到的地方, 如注解可以被用于包上, 类上或者成员属性或成员方法上, 有以下值, 可以配置多个值</p>
+<ul>
+<li>ElementType.ANNOTATION_TYPE 可以给一个注解进行注解</li>
+<li>ElementType.CONSTRUCTOR 可以给构造方法进行注解</li>
+<li>ElementType.FIELD 可以给属性进行注解</li>
+<li>ElementType.LOCAL_VARIABLE 可以给局部变量进行注解</li>
+<li>ElementType.METHOD 可以给方法进行注解</li>
+<li>ElementType.PACKAGE 可以给一个包进行注解</li>
+<li>ElementType.PARAMETER 可以给一个方法内的参数进行注解</li>
+<li>ElementType.TYPE 可以给一个类型进行注解, 比如类, 接口, 枚举</li>
+</ul>
+<h2 id="Inherited"><a href="#Inherited" class="headerlink" title="@Inherited"></a>@Inherited</h2><p>注解的继承, 一个类注解了使用了@Inherited 注解的注解, 如果这个类被继承, 如果子类没有使用其他任何注解, 就会继承父类的注解</p>
+<h2 id="Documented"><a href="#Documented" class="headerlink" title="@Documented"></a>@Documented</h2><p>用于文档的生成, 能够将注解中的元素包含到 Javadoc 中去</p>
+<h2 id="Repeatable"><a href="#Repeatable" class="headerlink" title="@Repeatable"></a>@Repeatable</h2><p>JDK 1.8 新增的注解, 允许我们使用重复的注解, 使用多个值, 例如定义如下一个注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@interface</span> AopAnnotation &#123;</span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果我们像如下使用, 编译器则会直接报错</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@AopAnnotation</span>(value = <span class="string">"A"</span>)</span><br><span class="line"><span class="meta">@AopAnnotation</span>(value = <span class="string">"B"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(String name, String userId)</span> </span>&#123;</span><br><span class="line">    log.info(<span class="string">"[aopTest] name = &#123;&#125;, userId = &#123;&#125;"</span>, name, userId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>创建一个新的 AopAnnotations 注解, 到 AopAnnotation 注解上添加 @Repeatable(AopAnnotations.class) 注解后就可以重复的添加注解了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> AopAnnotations &#123;</span><br><span class="line">    AopAnnotation[] value();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="注解的属性"><a href="#注解的属性" class="headerlink" title="注解的属性"></a>注解的属性</h1><p>注解的属性, 使用示例如下, 这样就定义了一个 value 属性, 在使用的时候可以这样为属性赋值 @AopAnnotation(value = “A”), 接着如果我们获取到了注解实例, 那我们就可以通过 aopAnnotation.value() 的方式获取到值 “A”</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> AopAnnotation &#123;</span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="代码中提起注解信息"><a href="#代码中提起注解信息" class="headerlink" title="代码中提起注解信息"></a>代码中提起注解信息</h1><p>当开发者使用了注解后, 这些注解不会自己生效, 必须由开发者提供相应的代码提取并处理 Annotation 信息, 这些提取和处理注解的代码统称为 APT (Annotation Processing Toll), 获取 Annotation 信息主要是 java.lang,annotation.Annotation 接口和 java.lang.reflect.AnnotatedElement 两个接口, Class<t> 类实现 AnnotatedElement 接口, 通过反射获取到 Class 类的实例后就可以通过相关方法获取注解信息了, 源码如下:</t></p>
+<p>Annotation接口, 其中最主要的方法是annotationType方法, 用于返回该注解的java.lang.Calss, Annotation 是所有注解的父类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Annotation</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">String <span class="title">toString</span><span class="params">()</span></span>;</span><br><span class="line">    Class&lt;? extends Annotation&gt; annotationType();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>AnnotatedElemetnt 接口, 反射中的 Method 实现了这个借口, 在通过反射获取到 Method 后就可以调用这里的方法来获取注解信息了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AnnotatedElement</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 判断程序元素上是否有指定的类型的注解</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">boolean</span> <span class="title">isAnnotationPresent</span><span class="params">(Class&lt;? extends Annotation&gt; annotationClass)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getAnnotation(annotationClass) != <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取程序元素上指定类型的注解, 如果不存在返回null</span></span><br><span class="line">    &lt;T extends Annotation&gt; <span class="function">T <span class="title">getAnnotation</span><span class="params">(Class&lt;T&gt; annotationClass)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取程序元素上所有的注解, 如果不存在返回null</span></span><br><span class="line">    Annotation[] getAnnotations();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取指定类型的注解</span></span><br><span class="line">    <span class="keyword">default</span> &lt;T extends Annotation&gt; T[] getAnnotationsByType(Class&lt;T&gt; annotationClass) &#123;</span><br><span class="line">         T[] result = getDeclaredAnnotationsByType(annotationClass);</span><br><span class="line">         <span class="keyword">if</span> (result.length == <span class="number">0</span> &amp;&amp; </span><br><span class="line">             <span class="keyword">this</span> <span class="keyword">instanceof</span> Class &amp;&amp; </span><br><span class="line">             AnnotationType.getInstance(annotationClass).isInherited()) &#123; </span><br><span class="line">             Class&lt;?&gt; superClass = ((Class&lt;?&gt;) <span class="keyword">this</span>).getSuperclass();</span><br><span class="line">             <span class="keyword">if</span> (superClass != <span class="keyword">null</span>) &#123;</span><br><span class="line">                 result = superClass.getAnnotationsByType(annotationClass);</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">default</span> &lt;T extends Annotation&gt; <span class="function">T <span class="title">getDeclaredAnnotation</span><span class="params">(Class&lt;T&gt; annotationClass)</span> </span>&#123;</span><br><span class="line">         Objects.requireNonNull(annotationClass);</span><br><span class="line">         <span class="keyword">for</span> (Annotation annotation : getDeclaredAnnotations()) &#123;</span><br><span class="line">             <span class="keyword">if</span> (annotationClass.equals(annotation.annotationType())) &#123;</span><br><span class="line">                 <span class="keyword">return</span> annotationClass.cast(annotation);</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">default</span> &lt;T extends Annotation&gt; T[] getDeclaredAnnotationsByType(Class&lt;T&gt; annotationClass) &#123;</span><br><span class="line">        Objects.requireNonNull(annotationClass);</span><br><span class="line">        <span class="keyword">return</span> AnnotationSupport.getDirectlyAndIndirectlyPresent(Arrays.stream(getDeclaredAnnotations()).collect(Collectors.toMap(Annotation::annotationType, Function.identity(), ((first,second) -&gt; first), LinkedHashMap::<span class="keyword">new</span>)),</span><br><span class="line">        annotationClass);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Annotation[] getDeclaredAnnotations();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实例, 通过反射判断一个类中的方法是否使用了注解, 如果有使用注解, 打印出注解的元数据:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Test &#123;</span><br><span class="line">    <span class="function">String <span class="title">name</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">age</span><span class="params">()</span> <span class="keyword">default</span> 18</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AnnotationTest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span>(name = <span class="string">"Lupw"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFunction1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFunction2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Class annotationTestClass;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        annotationTestClass = Class.forName(<span class="string">"com.lupw.AnnotationTest"</span>);</span><br><span class="line">        <span class="keyword">for</span> (Method m : annotationTestClass.getMethods())&#123;</span><br><span class="line">            <span class="keyword">if</span> (m.isAnnotationPresent(Test.class)) &#123;</span><br><span class="line">                System.out.println(<span class="string">"被@Test注解修饰的方法 : "</span> + m.getName());</span><br><span class="line">                System.out.println(<span class="string">"@Test元数据name的值 : "</span> + m.getAnnotation(Test.class).name());</span><br><span class="line">                System.out.println(<span class="string">"@Test元数据age的值 : "</span> + m.getAnnotation(Test.class).age());</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">"未被@Test注解修饰的方法 : "</span> + m.getName());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="在Spring-AOP-中使用示例"><a href="#在Spring-AOP-中使用示例" class="headerlink" title="在Spring AOP 中使用示例"></a>在Spring AOP 中使用示例</h1><p>引入依赖:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-aop<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在类上面添加 @Aspect 注解:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LogAop</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 定义切点</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Pointcut</span>(value = <span class="string">"@annotation(com.lupw.guava.aspect.AopAnnotation)"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">aopAnnotation</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span>(value = <span class="string">"aopAnnotation()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">before</span><span class="params">(JoinPoint point)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 使用 ProceedingJoinPoint 时 IDEA 提示只能在 @Around 注解的方法中被接收</span></span><br><span class="line">        <span class="comment">// 简单参数值</span></span><br><span class="line">        Object[] args = point.getArgs();</span><br><span class="line">        Arrays.stream(args).forEach(arg -&gt; log.info(<span class="string">"[LogAop] arg = &#123;&#125;"</span>, arg));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 代理类全类名, 获取到全类名, 就能获取 Class 的实例对象, 也就能使用反射了</span></span><br><span class="line">        String className = point.getThis().getClass().getName();</span><br><span class="line">        log.info(<span class="string">"[LogAop] classType = &#123;&#125;"</span>, className);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 当前被调用方法的方法信息, 里面有参数名, 参数类型</span></span><br><span class="line">        MethodSignature methodSignature = (MethodSignature) point.getSignature();</span><br><span class="line">        String[] params = methodSignature.getParameterNames();</span><br><span class="line">        log.info(<span class="string">"[LogAop] methodName = &#123;&#125;"</span>, methodSignature.getMethod().getName());</span><br><span class="line">        log.info(<span class="string">"[LogAop] param0 = &#123;&#125;, param1 = &#123;&#125;"</span>, params[<span class="number">0</span>], params[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 在 test 后运行</span></span><br><span class="line"><span class="comment">     * try &#123;</span></span><br><span class="line"><span class="comment">     *     try&#123;</span></span><br><span class="line"><span class="comment">     *         // <span class="doctag">@Before</span></span></span><br><span class="line"><span class="comment">     *         method.invoke(..);</span></span><br><span class="line"><span class="comment">     *     &#125;finally&#123;</span></span><br><span class="line"><span class="comment">     *         // <span class="doctag">@After</span></span></span><br><span class="line"><span class="comment">     *     &#125;</span></span><br><span class="line"><span class="comment">     *     // <span class="doctag">@AfterReturning</span></span></span><br><span class="line"><span class="comment">     * &#125; catch()&#123;</span></span><br><span class="line"><span class="comment">     *     // <span class="doctag">@AfterThrowing</span></span></span><br><span class="line"><span class="comment">     * &#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@After</span>(value = <span class="string">"aopAnnotation()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">after</span><span class="params">(JoinPoint point)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"[LogAop] 1----------"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取运行之后的返回值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@AfterReturning</span>(returning = <span class="string">"o"</span>, pointcut = <span class="string">"aopAnnotation()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">afterReturning</span><span class="params">(JoinPoint point, Object o)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"[LogAop] 2----------"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Around</span>(value = <span class="string">"aopAnnotation()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">around</span><span class="params">(ProceedingJoinPoint point)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 在 Before 之前, 并在 After 之后执行</span></span><br><span class="line">        <span class="comment">// @Around("execution(* com.lupw.guava.controller.*(..))")</span></span><br><span class="line">        Object[] args = point.getArgs();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 获取返回方法返回值, 这里可以对 args 进行修改后再用新的值调用方法</span></span><br><span class="line">            Object returnValue = point.proceed(args);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable throwable) &#123;</span><br><span class="line">            throwable.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 对返回值进行修改后再返回新的值</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义的注解:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Repeatable</span>(AopAnnotations.class)</span><br><span class="line"><span class="meta">@interface</span> AopAnnotation &#123;</span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> AopAnnotations &#123;</span><br><span class="line">    AopAnnotation[] value();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在方法上使用添加 @AopAnnotations 注解, 就会调用定义的切点方法:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AopTestController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@PostMapping</span>(value = <span class="string">"/aop/test"</span>)</span><br><span class="line">    <span class="meta">@AopAnnotation</span>(value = <span class="string">"A"</span>)</span><br><span class="line">    <span class="meta">@AopAnnotation</span>(value = <span class="string">"B"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(String name, String userId)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"[aopTest] name = &#123;&#125;, userId = &#123;&#125;"</span>, name, userId);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://blog.csdn.net/briblue/article/details/73824058" target="_blank" rel="noopener">秒懂, Java 注解 (Annotation) 你可以这样学</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Java-注解和注解在SpringAOP中的使用示例
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2019/01/26/Java-注解和注解在SpringAOP中的使用示例/" title="Java-注解和注解在SpringAOP中的使用示例">2019/01/26/Java-注解和注解在SpringAOP中的使用示例/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/26/Spring-SpringBoot项目在配置文件中配置复杂类型属性值/" rel="next" title="Spring-SpringBoot项目在配置文件中配置复杂类型属性值">
+                <i class="fa fa-chevron-left"></i> Spring-SpringBoot项目在配置文件中配置复杂类型属性值
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/26/Redis-Redis客户端Lettuce的使用/" rel="prev" title="Redis-Redis客户端Lettuce的使用">
+                Redis-Redis客户端Lettuce的使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#注解的作用"><span class="nav-number">1.</span> <span class="nav-text">注解的作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注解的定义"><span class="nav-number">2.</span> <span class="nav-text">注解的定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注解的分类"><span class="nav-number">3.</span> <span class="nav-text">注解的分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注解的注解"><span class="nav-number">4.</span> <span class="nav-text">注解的注解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Retention"><span class="nav-number">4.1.</span> <span class="nav-text">@Retention</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Target"><span class="nav-number">4.2.</span> <span class="nav-text">@Target</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Inherited"><span class="nav-number">4.3.</span> <span class="nav-text">@Inherited</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Documented"><span class="nav-number">4.4.</span> <span class="nav-text">@Documented</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Repeatable"><span class="nav-number">4.5.</span> <span class="nav-text">@Repeatable</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注解的属性"><span class="nav-number">5.</span> <span class="nav-text">注解的属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码中提起注解信息"><span class="nav-number">6.</span> <span class="nav-text">代码中提起注解信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在Spring-AOP-中使用示例"><span class="nav-number">7.</span> <span class="nav-text">在Spring AOP 中使用示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">8.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

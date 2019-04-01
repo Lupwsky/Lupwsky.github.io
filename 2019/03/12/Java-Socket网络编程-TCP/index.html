@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="TCP 是专门设计用于在不可靠的英特网上提供可靠的端到端的字节流通信的协议, 是一个面向连接的协议, Java 为 TCP 协议提供了两个 Socket 类: ServerSocket 和 Socket, ServerSocket 代表 TCP 协议中的一个服务器端, Socket 代表 TCP 中的一个客户端, 这两个 Socket 类用于实现服务器端和客户端的数据通信 (使用 TCP 或者 U">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-Socket网络编程-TCP">
+<meta property="og:url" content="http://yoursite.com/2019/03/12/Java-Socket网络编程-TCP/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="TCP 是专门设计用于在不可靠的英特网上提供可靠的端到端的字节流通信的协议, 是一个面向连接的协议, Java 为 TCP 协议提供了两个 Socket 类: ServerSocket 和 Socket, ServerSocket 代表 TCP 协议中的一个服务器端, Socket 代表 TCP 中的一个客户端, 这两个 Socket 类用于实现服务器端和客户端的数据通信 (使用 TCP 或者 U">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/03/12/Java-Socket网络编程-TCP/WechatIMG219.png">
+<meta property="og:updated_time" content="2019-03-31T04:31:34.580Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java-Socket网络编程-TCP">
+<meta name="twitter:description" content="TCP 是专门设计用于在不可靠的英特网上提供可靠的端到端的字节流通信的协议, 是一个面向连接的协议, Java 为 TCP 协议提供了两个 Socket 类: ServerSocket 和 Socket, ServerSocket 代表 TCP 协议中的一个服务器端, Socket 代表 TCP 中的一个客户端, 这两个 Socket 类用于实现服务器端和客户端的数据通信 (使用 TCP 或者 U">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/12/Java-Socket网络编程-TCP/WechatIMG219.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/12/Java-Socket网络编程-TCP/"/>
+
+
+
+
+
+  <title>Java-Socket网络编程-TCP | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/12/Java-Socket网络编程-TCP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java-Socket网络编程-TCP</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-12T22:11:49+08:00">
+                2019-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>TCP 是专门设计用于在不可靠的英特网上提供可靠的端到端的字节流通信的协议, 是一个面向连接的协议, Java 为 TCP 协议提供了两个 Socket 类: ServerSocket 和 Socket, ServerSocket 代表 TCP 协议中的一个服务器端, Socket 代表 TCP 中的一个客户端, 这两个 Socket 类用于实现服务器端和客户端的数据通信 (使用 TCP 或者 UDP), 一个完整的 Socket 编程流程图如下 (图片来源: NIO 与 Socket 编程技术指南):</p>
+<p><img src="/2019/03/12/Java-Socket网络编程-TCP/WechatIMG219.png" width="500" height="700"></p>
+<a id="more"></a>
+<h1 id="服务端实现简单示例"><a href="#服务端实现简单示例" class="headerlink" title="服务端实现简单示例"></a>服务端实现简单示例</h1><p>按照上面的 Socket 编程流程图实现一个服务端, 不停的接收客户端发送的数据并打印出来, 示例代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 创建 ServerSocket 实例, 绑定端口号, 并设置监听队列</span></span><br><span class="line">        log.info(<span class="string">"服务端初始化..."</span>);</span><br><span class="line">        ServerSocket serverSocket = <span class="keyword">new</span> ServerSocket(<span class="number">9000</span>);</span><br><span class="line">        log.info(<span class="string">"服务端初始化完成"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 等待客户端连接, 该方法会一直阻塞, 直到有客户端接入</span></span><br><span class="line">        log.info(<span class="string">"等待客户端连接"</span>);</span><br><span class="line">        Socket socket = serverSocket.accept();</span><br><span class="line">        log.info(<span class="string">"客户端连接成功"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 接收数据, read 方法会阻塞, 直到读取数据</span></span><br><span class="line">        InputStream inputStream = socket.getInputStream();</span><br><span class="line">        InputStreamReader inputStreamReader = <span class="keyword">new</span> InputStreamReader(inputStream);</span><br><span class="line">        BufferedReader bufferedReader = <span class="keyword">new</span> BufferedReader(inputStreamReader);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 不能使用 readLine() 读取, 使用 readLine() 读取只有在 BufferedReader 断开的时候才能读取到数据</span></span><br><span class="line">        <span class="comment">// String content = bufferedReader.readLine();</span></span><br><span class="line">        <span class="comment">// log.info("服务端收到数据 = &#123;&#125;", content);</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> len;</span><br><span class="line">        <span class="keyword">char</span>[] contentChars = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">1024</span>];</span><br><span class="line">        <span class="keyword">while</span> ((len = bufferedReader.read(contentChars)) != -<span class="number">1</span>) &#123;</span><br><span class="line">            log.info(<span class="string">"服务端收到数据 = &#123;&#125;"</span>, <span class="keyword">new</span> String(contentChars, <span class="number">0</span>, len));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="comment">// 关闭各种连接和资源</span></span><br><span class="line">        <span class="comment">// bufferedReader.close();</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码需要注意的是, <code>不能使用 BufferedReader.readLine() 读取, 使用 readLine() 读取只有在 BufferedReader 断开的时候才能读取到数据, 另外要了解的是只有当 TCP 通信连接的一方关闭了套接字时, read() 方法才会返回 -1, 和读取文件不同, 当文件没有内容时就会返回 -1</code>, 会一直阻塞在这里</p>
+<h1 id="客户端实现简单示例"><a href="#客户端实现简单示例" class="headerlink" title="客户端实现简单示例"></a>客户端实现简单示例</h1><p>同样按照Socket 编程流程图实现一个服务端, 每隔 5 秒发送信息, 实例代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 创建 Socket 实例, 并发起连接</span></span><br><span class="line">        log.info(<span class="string">"客户端初始化..."</span>);</span><br><span class="line">        Socket socket = <span class="keyword">new</span> Socket(<span class="string">"127.0.0.1"</span>, <span class="number">9000</span>);</span><br><span class="line">        log.info(<span class="string">"连接服务端成功"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 发送数据, 使用缓存时需要主动刷新缓存才会发送</span></span><br><span class="line">        OutputStream outputStream = socket.getOutputStream();</span><br><span class="line">        OutputStreamWriter outputStreamWriter = <span class="keyword">new</span> OutputStreamWriter(outputStream);</span><br><span class="line">        BufferedWriter bufferedWriter = <span class="keyword">new</span> BufferedWriter(outputStreamWriter);</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            Thread.sleep(<span class="number">5000</span>);</span><br><span class="line">            log.info(<span class="string">"开始发送数据 = &#123;&#125;"</span>, <span class="string">"你好, 来自客户端的问候, 时间 = "</span> + DateTime.now().toString(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>));</span><br><span class="line">            bufferedWriter.write(<span class="string">"你好, 来自客户端的问候, 时间 = "</span> + DateTime.now().toString(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>));</span><br><span class="line">            bufferedWriter.flush();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException | InterruptedException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="comment">// 关闭连接和各种资源</span></span><br><span class="line">        <span class="comment">// bufferedWriter.close();</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h1><p>服务端输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">23:49:44.840 [main] INFO com.lupw.guava.socket.ServerMain - 服务端初始化...</span><br><span class="line">23:49:44.862 [main] INFO com.lupw.guava.socket.ServerMain - 服务端初始化完成</span><br><span class="line">23:49:44.862 [main] INFO com.lupw.guava.socket.ServerMain - 等待客户端连接</span><br><span class="line">23:49:48.385 [main] INFO com.lupw.guava.socket.ServerMain - 客户端连接成功</span><br><span class="line">23:49:53.465 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = 你好, 来自客户端的问候, 时间 = 2019-03-12 23:49:53</span><br><span class="line">23:49:58.470 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = 你好, 来自客户端的问候, 时间 = 2019-03-12 23:49:58</span><br><span class="line">23:50:03.475 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = 你好, 来自客户端的问候, 时间 = 2019-03-12 23:50:03</span><br><span class="line">23:50:08.476 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = 你好, 来自客户端的问候, 时间 = 2019-03-12 23:50:08</span><br><span class="line">23:50:13.481 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = 你好, 来自客户端的问候, 时间 = 2019-03-12 23:50:13</span><br></pre></td></tr></table></figure>
+<p>客户端输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">23:49:48.355 [main] INFO com.lupw.guava.socket.ClientMain - 客户端初始化...</span><br><span class="line">23:49:48.385 [main] INFO com.lupw.guava.socket.ClientMain - 连接服务端成功</span><br><span class="line">23:49:53.462 [main] INFO com.lupw.guava.socket.ClientMain - 开始发送数据 = 你好, 来自客户端的问候, 时间 = 2019-03-12 23:49:53</span><br><span class="line">23:49:58.469 [main] INFO com.lupw.guava.socket.ClientMain - 开始发送数据 = 你好, 来自客户端的问候, 时间 = 2019-03-12 23:49:58</span><br><span class="line">23:50:03.475 [main] INFO com.lupw.guava.socket.ClientMain - 开始发送数据 = 你好, 来自客户端的问候, 时间 = 2019-03-12 23:50:03</span><br><span class="line">23:50:08.476 [main] INFO com.lupw.guava.socket.ClientMain - 开始发送数据 = 你好, 来自客户端的问候, 时间 = 2019-03-12 23:50:08</span><br><span class="line">23:50:13.481 [main] INFO com.lupw.guava.socket.ClientMain - 开始发送数据 = 你好, 来自客户端的问候, 时间 = 2019-03-12 23:50:13</span><br></pre></td></tr></table></figure>
+<h1 id="完整的接收一条消息-消息成帧与解析"><a href="#完整的接收一条消息-消息成帧与解析" class="headerlink" title="完整的接收一条消息 (消息成帧与解析)"></a>完整的接收一条消息 (消息成帧与解析)</h1><p>上面的例子中, 看日志似乎时一行一行的再读取数据, 其实并不是, 第一个原因客户端发送信息的时间间隔比较长, 第二个原因是服务端接收数据的 char 数组比每次发送过来的消息要大, 将服务端接收数据的 char 数组改小一点, 比客户端发送的消息要小, 示例代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> len;</span><br><span class="line"><span class="keyword">char</span>[] contentChars = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">2</span>];</span><br><span class="line"><span class="keyword">while</span> ((len = bufferedReader.read(contentChars)) != -<span class="number">1</span>) &#123;</span><br><span class="line">    log.info(<span class="string">"服务端收到数据 = &#123;&#125;"</span>, <span class="keyword">new</span> String(contentChars, <span class="number">0</span>, len));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>服务端输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">09:44:50.121 [main] INFO com.lupw.guava.socket.ServerMain - 服务端初始化...</span><br><span class="line">09:44:50.126 [main] INFO com.lupw.guava.socket.ServerMain - 服务端初始化完成</span><br><span class="line">09:44:50.126 [main] INFO com.lupw.guava.socket.ServerMain - 等待客户端连接</span><br><span class="line">09:45:12.155 [main] INFO com.lupw.guava.socket.ServerMain - 客户端连接成功</span><br><span class="line">09:45:17.263 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = 你好</span><br><span class="line">09:45:17.265 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = , </span><br><span class="line">09:45:17.265 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = 来自</span><br><span class="line">09:45:17.265 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = 客户</span><br><span class="line">09:45:17.265 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = 端的</span><br><span class="line">09:45:17.265 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = 问候</span><br><span class="line">09:45:17.265 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = , </span><br><span class="line">09:45:17.265 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = 时间</span><br><span class="line">09:45:17.265 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 =  =</span><br><span class="line">09:45:17.265 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 =  2</span><br><span class="line">09:45:17.265 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = 01</span><br><span class="line">09:45:17.265 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = 9-</span><br><span class="line">09:45:17.265 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = 03</span><br><span class="line">09:45:17.265 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = -1</span><br><span class="line">09:45:17.265 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = 3 </span><br><span class="line">09:45:17.266 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = 09</span><br><span class="line">09:45:17.266 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = :4</span><br><span class="line">09:45:17.266 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = 5:</span><br><span class="line">09:45:17.266 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = 17</span><br></pre></td></tr></table></figure>
+<p>可以看到, 本来是完整的一条消息, 接收的时候是按照每两个字符的接收, 并非是一条完整的消息了, 要每次读取一次完整的消息, 就需要定义客户端和服务端发送和接收数据时的协议, 以特定标识开头和特定标识结尾的才算是一条完整的消息, 否则认为这条消息不是一个完整的消息, 这个时候服务端可以丢弃这个消息并发送一个消息告诉客户端发送的消息失败了, 下面的例子, 当每次接收到连续 rn 标识表示接收到一条消息</p>
+<p>客户端发送消息, 末尾加上 “rn”:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 发送数据, 主动刷新缓存才会发送</span></span><br><span class="line">OutputStream outputStream = socket.getOutputStream();</span><br><span class="line">OutputStreamWriter outputStreamWriter = <span class="keyword">new</span> OutputStreamWriter(outputStream);</span><br><span class="line">BufferedWriter bufferedWriter = <span class="keyword">new</span> BufferedWriter(outputStreamWriter);</span><br><span class="line"><span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">    Thread.sleep(<span class="number">5000</span>);</span><br><span class="line">    log.info(<span class="string">"开始发送数据 = &#123;&#125;"</span>, <span class="string">"你好, 来自客户端的问候, 时间 = "</span> + DateTime.now().toString(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>));</span><br><span class="line">    bufferedWriter.write(<span class="string">"你好, 来自客户端的问候, 时间 = "</span> + DateTime.now().toString(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>) + <span class="string">"rn"</span>);</span><br><span class="line">    bufferedWriter.flush();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>服务器端接收消息, 接收到 “rn” 认为时一条完整消息:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 接收数据</span></span><br><span class="line">InputStream inputStream = socket.getInputStream();</span><br><span class="line">InputStreamReader inputStreamReader = <span class="keyword">new</span> InputStreamReader(inputStream);</span><br><span class="line">BufferedReader bufferedReader = <span class="keyword">new</span> BufferedReader(inputStreamReader);</span><br><span class="line">String content;</span><br><span class="line"><span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">    content = readLine(bufferedReader);</span><br><span class="line">    log.info(<span class="string">"服务端收到数据 = &#123;&#125;"</span>, content);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 收到连续 `rn` 标识表示接收到一条消息</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">readLine</span><span class="params">(BufferedReader bufferedReader)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    StringBuilder stringBuilder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    <span class="keyword">int</span> value = -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> ((value = bufferedReader.read()) != -<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (value == <span class="string">'r'</span>) &#123;</span><br><span class="line">            bufferedReader.mark(<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span> (bufferedReader.read() != <span class="string">'n'</span>) &#123;</span><br><span class="line">                bufferedReader.reset();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 字符流读取到值可以直接使用 char 强转</span></span><br><span class="line">        stringBuilder.append((<span class="keyword">char</span>) value);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> stringBuilder.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>服务端输出的结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">11:33:22.740 [main] INFO com.lupw.guava.socket.ServerMain - 服务端初始化...</span><br><span class="line">11:33:22.745 [main] INFO com.lupw.guava.socket.ServerMain - 服务端初始化完成</span><br><span class="line">11:33:22.745 [main] INFO com.lupw.guava.socket.ServerMain - 等待客户端连接</span><br><span class="line">11:33:36.510 [main] INFO com.lupw.guava.socket.ServerMain - 客户端连接成功</span><br><span class="line">11:33:41.569 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = 你好, 来自客户端的问候, 时间 = 2019-03-13 11:33:41</span><br><span class="line">11:33:46.569 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = 你好, 来自客户端的问候, 时间 = 2019-03-13 11:33:46</span><br><span class="line">11:33:51.570 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = 你好, 来自客户端的问候, 时间 = 2019-03-13 11:33:51</span><br><span class="line">11:33:56.570 [main] INFO com.lupw.guava.socket.ServerMain - 服务端收到数据 = 你好, 来自客户端的问候, 时间 = 2019-03-13 11:33:56</span><br></pre></td></tr></table></figure>
+<p>上面只是一个简单的示例, 实际开发中很多的细节这里并没有体现, 例如发送消息的长度限制, 特殊字符的处理, 消息接收失败的处理, 服务端实现使用多线程处理允许多个客户端连接等等</p>
+<h1 id="ServerSocket-类构造方法的-backlog-参数"><a href="#ServerSocket-类构造方法的-backlog-参数" class="headerlink" title="ServerSocket 类构造方法的 backlog 参数"></a>ServerSocket 类构造方法的 backlog 参数</h1><p>设置 ServerSocket 允许接受的客户端连接数, 默认为 50, 这个设置只是应用层面的控制, 实际允许的 TCP 连接数的最大值和操作系统允许进程打开的文件句柄数有关, 默认为允许的文件句柄数为 1024,  详见 <a href="http://www.52im.net/thread-561-1-1.html" target="_blank" rel="noopener">高性能网络编程(一): 单台服务器并发 TCP 连接数到底可以有多少</a></p>
+<h1 id="ServerSocket-类常用-API"><a href="#ServerSocket-类常用-API" class="headerlink" title="ServerSocket 类常用 API"></a>ServerSocket 类常用 API</h1><p>详细参考: <a href="http://tool.oschina.net/apidocs/apidoc?api=jdk-zh" target="_blank" rel="noopener">ServerSocket API</a></p>
+<h1 id="Socket-类常用-API"><a href="#Socket-类常用-API" class="headerlink" title="Socket 类常用 API"></a>Socket 类常用 API</h1><p>详细参考: <a href="http://tool.oschina.net/apidocs/apidoc?api=jdk-zh" target="_blank" rel="noopener">Socket API</a></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li>NIO 与 SOCKET 编程技术指南 - 书籍</li>
+<li><a href="http://www.52im.net/thread-561-1-1.html" target="_blank" rel="noopener">高性能网络编程(一): 单台服务器并发 TCP 连接数到底可以有多少</a></li>
+<li><a href="http://www.52im.net/forum.php?mod=viewthread&amp;tid=166&amp;ctid=9" target="_blank" rel="noopener">基于 Netty 实现海量接入的推送服务技术要点</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Java-Socket网络编程-TCP
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2019/03/12/Java-Socket网络编程-TCP/" title="Java-Socket网络编程-TCP">2019/03/12/Java-Socket网络编程-TCP/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/12/Java-IO和IO流/" rel="next" title="Java-IO和IO流">
+                <i class="fa fa-chevron-left"></i> Java-IO和IO流
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/12/Java-Socket网络编程-UDP/" rel="prev" title="Java-Socket网络编程-UDP">
+                Java-Socket网络编程-UDP <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#服务端实现简单示例"><span class="nav-number">1.</span> <span class="nav-text">服务端实现简单示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#客户端实现简单示例"><span class="nav-number">2.</span> <span class="nav-text">客户端实现简单示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试结果"><span class="nav-number">3.</span> <span class="nav-text">测试结果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整的接收一条消息-消息成帧与解析"><span class="nav-number">4.</span> <span class="nav-text">完整的接收一条消息 (消息成帧与解析)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ServerSocket-类构造方法的-backlog-参数"><span class="nav-number">5.</span> <span class="nav-text">ServerSocket 类构造方法的 backlog 参数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ServerSocket-类常用-API"><span class="nav-number">6.</span> <span class="nav-text">ServerSocket 类常用 API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Socket-类常用-API"><span class="nav-number">7.</span> <span class="nav-text">Socket 类常用 API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">8.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

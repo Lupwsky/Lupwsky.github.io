@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="关于位图: https://juejin.im/book/5afc2e5f6fb9a07a9b362527/section/5b330620e51d4558e03ce7f8 12StatefulRedisConnection&amp;lt;String, String&amp;gt; connection = redisClient.connect();RedisCommands&amp;lt;String, Strin">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis-Redis位图">
+<meta property="og:url" content="http://yoursite.com/2019/02/16/Redis-Redis位图/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="关于位图: https://juejin.im/book/5afc2e5f6fb9a07a9b362527/section/5b330620e51d4558e03ce7f8 12StatefulRedisConnection&amp;lt;String, String&amp;gt; connection = redisClient.connect();RedisCommands&amp;lt;String, Strin">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-31T04:31:34.596Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis-Redis位图">
+<meta name="twitter:description" content="关于位图: https://juejin.im/book/5afc2e5f6fb9a07a9b362527/section/5b330620e51d4558e03ce7f8 12StatefulRedisConnection&amp;lt;String, String&amp;gt; connection = redisClient.connect();RedisCommands&amp;lt;String, Strin">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/16/Redis-Redis位图/"/>
+
+
+
+
+
+  <title>Redis-Redis位图 | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/16/Redis-Redis位图/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Redis-Redis位图</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-16T20:54:44+08:00">
+                2019-02-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>关于位图: <a href="https://juejin.im/book/5afc2e5f6fb9a07a9b362527/section/5b330620e51d4558e03ce7f8" target="_blank" rel="noopener">https://juejin.im/book/5afc2e5f6fb9a07a9b362527/section/5b330620e51d4558e03ce7f8</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StatefulRedisConnection&lt;String, String&gt; connection = redisClient.connect();</span><br><span class="line">RedisCommands&lt;String, String&gt; redisCommands = connection.sync();</span><br></pre></td></tr></table></figure>
+<h1 id="设置值-零存"><a href="#设置值-零存" class="headerlink" title="设置值-零存"></a>设置值-零存</h1><p>设置的时候从高位往低位设置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">redisCommands.setbit(<span class="string">"bitmap"</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">redisCommands.setbit(<span class="string">"bitmap"</span>, <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">redisCommands.setbit(<span class="string">"bitmap"</span>, <span class="number">2</span>, <span class="number">1</span>);</span><br><span class="line">redisCommands.setbit(<span class="string">"bitmap"</span>, <span class="number">4</span>, <span class="number">1</span>);</span><br><span class="line">redisCommands.setbit(<span class="string">"bitmap"</span>, <span class="number">9</span>, <span class="number">1</span>);</span><br><span class="line">redisCommands.setbit(<span class="string">"bitmap"</span>, <span class="number">10</span>, <span class="number">1</span>);</span><br><span class="line">redisCommands.setbit(<span class="string">"bitmap"</span>, <span class="number">13</span>, <span class="number">1</span>);</span><br><span class="line">redisCommands.setbit(<span class="string">"bitmap"</span>, <span class="number">15</span>, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h1 id="设置值-整存"><a href="#设置值-整存" class="headerlink" title="设置值-整存"></a>设置值-整存</h1><p>整存的方法和存放普通的字符串并无差别, 如下, 和上面使用零存的方式存入的值时一致的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redisCommands.set(<span class="string">"bitmap"</span>, <span class="string">"he"</span>);</span><br></pre></td></tr></table></figure>
+<h1 id="获取值-整取"><a href="#获取值-整取" class="headerlink" title="获取值-整取"></a>获取值-整取</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">og.info(<span class="string">"value = &#123;&#125;"</span>, redisCommands.get(<span class="string">"bitmap"</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读取的时候从低位的第一位非 0 位开始的往高位读取, 高位不足的部分补零</span></span><br><span class="line"><span class="comment">// 将上例中的第 16 位设置为 0, 结果是一样的</span></span><br><span class="line">redisCommands.setbit(<span class="string">"bitmap"</span>, <span class="number">16</span>, <span class="number">0</span>);</span><br><span class="line">log.info(<span class="string">"value = &#123;&#125;"</span>, redisCommands.get(<span class="string">"bitmap"</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// offset 参数必须大于或等于 0 且小于 2^32, bit 映射被限制在 512 MB 之内</span></span><br><span class="line"><span class="comment">// offset 越大消耗的内存也越大, 尽量避免大的 offset 的值, 大量的大内存分配很可能造成 Redis 服务器被阻塞</span></span><br></pre></td></tr></table></figure>
+<h1 id="获取值-零取"><a href="#获取值-零取" class="headerlink" title="获取值-零取"></a>获取值-零取</h1><p>获取指定 key 所存储的字符串的偏移量的位的值, 0 或者 1, 当 key 不存在或者 offset 超出当前的位数范围, 均返回 0</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">log.info(<span class="string">"value = &#123;&#125;"</span>, redisCommands.getbit(<span class="string">"bitmap"</span>, <span class="number">1</span>));</span><br></pre></td></tr></table></figure>
+<h1 id="BITCOUNT"><a href="#BITCOUNT" class="headerlink" title="BITCOUNT"></a>BITCOUNT</h1><p><code>BITCOUNT key [start] [end]</code>, 时间复杂度 O(N)</p>
+<ul>
+<li><a href="http://redisdoc.com/bitmap/bitcount.html" target="_blank" rel="noopener">http://redisdoc.com/bitmap/bitcount.html</a></li>
+<li>bitcount 指令用于统计给定的 key 对应的值的比特位被设置为 1 的数量</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如上例中, 字符串 "he" 的比特位被设置为 1 的数量为 7</span></span><br><span class="line">log.info(<span class="string">"value = &#123;&#125;"</span>, redisCommands.bitcount(<span class="string">"bitmap"</span>));</span><br></pre></td></tr></table></figure>
+<p>可以设置参数 [start, end], 统计指定字节范围内比特位被设置为 1 的数量:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字符串 "he" 的第 0 字节开始位至第 0 字节结束位的比特位被设置为 1 的数量为 3</span></span><br><span class="line"><span class="comment">// 字符串 "he" 的第 1 字节开始位至第 1 字节结束位的比特位被设置为 1 的数量为 4</span></span><br><span class="line"><span class="comment">// 字符串 "he" 的第 0 字节开始位至第 1 字节结束位的比特位被设置为 1 的数量为 7</span></span><br><span class="line"><span class="comment">// 字符串 "he" 的第 1 字节开始位至第 2 字节结束位的比特位被设置为 1 的数量为 4, 这种情况和第二种一样, 统计时对超出的字节补 0 计算</span></span><br><span class="line">log.info(<span class="string">"value = &#123;&#125;"</span>, redisCommands.bitcount(<span class="string">"bitmap"</span>, <span class="number">0</span>, <span class="number">0</span>));</span><br><span class="line">log.info(<span class="string">"value = &#123;&#125;"</span>, redisCommands.bitcount(<span class="string">"bitmap"</span>, <span class="number">1</span>, <span class="number">1</span>));</span><br><span class="line">log.info(<span class="string">"value = &#123;&#125;"</span>, redisCommands.bitcount(<span class="string">"bitmap"</span>, <span class="number">0</span>, <span class="number">1</span>));</span><br><span class="line">log.info(<span class="string">"value = &#123;&#125;"</span>, redisCommands.bitcount(<span class="string">"bitmap"</span>, <span class="number">1</span>, <span class="number">2</span>));</span><br></pre></td></tr></table></figure>
+<p>参数 [start, end] 可以为负值, 如 -1 表示倒数第一个字节:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">log.info(<span class="string">"value = &#123;&#125;"</span>, redisCommands.bitcount(<span class="string">"bitmap"</span>, <span class="number">0</span>, -<span class="number">1</span>));</span><br></pre></td></tr></table></figure>
+<h1 id="BITOPS"><a href="#BITOPS" class="headerlink" title="BITOPS"></a>BITOPS</h1><p><code>BITOPS key bit [start] [end]</code>, 时间复杂度 O(N)</p>
+<ul>
+<li>参考资料: <a href="http://redisdoc.com/bitmap/bitpos.html" target="_blank" rel="noopener">http://redisdoc.com/bitmap/bitpos.html</a></li>
+<li>返回第一个比特位为 1 或者为 0 的位置, 如果 key 对应的值不存在返回 -1</li>
+<li>也可以设置参数 [start, end], 返回第一个比特位为 1 或者为 0 的位置</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">redisCommands.setbit(<span class="string">"bitops"</span>, <span class="number">3</span>, <span class="number">1</span>);</span><br><span class="line">redisCommands.setbit(<span class="string">"bitops"</span>, <span class="number">10</span>, <span class="number">1</span>);</span><br><span class="line">redisCommands.setbit(<span class="string">"bitops"</span>, <span class="number">15</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回第一个比特位为 1 的位置, 此处值为 3</span></span><br><span class="line">log.info(<span class="string">"value = &#123;&#125;"</span>, redisCommands.bitpos(<span class="string">"bitops"</span>, <span class="keyword">true</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回第一个比特位为 0 的位置, 此处值为 0</span></span><br><span class="line">log.info(<span class="string">"value = &#123;&#125;"</span>, redisCommands.bitpos(<span class="string">"bitops"</span>, <span class="keyword">true</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// key 对应的值不存在返回 -1</span></span><br><span class="line">log.info(<span class="string">"value = &#123;&#125;"</span>, redisCommands.bitpos(<span class="string">"none"</span>, <span class="keyword">true</span>));</span><br></pre></td></tr></table></figure>
+<h1 id="BITOP"><a href="#BITOP" class="headerlink" title="BITOP"></a>BITOP</h1><p>参考资料: <a href="http://redisdoc.com/bitmap/bitop.html" target="_blank" rel="noopener">http://redisdoc.com/bitmap/bitop.html</a></p>
+<ul>
+<li>BITOP AND destkey key [key …], 对一个或多个 key 求逻辑并，并将结果保存到 destkey, 时间复杂度 O(N)</li>
+<li>BITOP OR destkey key [key …], 对一个或多个 key 求逻辑或，并将结果保存到 destkey, 时间复杂度 O(N)</li>
+<li>BITOP XOR destkey key [key …], 对一个或多个 key 求逻辑异或，并将结果保存到 destkey, 时间复杂度 O(N)</li>
+<li>BITOP NOT destkey key, 对给定 key 求逻辑非，并将结果保存到 destkey, 时间复杂度 O(N)</li>
+<li>除了 NOT 操作之外, 其他操作都可以接受一个或多个 key 作为输入</li>
+<li>当 BITOP 处理不同长度的字符串时, 较短的那个字符串或者对应的 key 没有值字符串, 所缺少的部分会被看作 0</li>
+<li>以上指令最终保存的字符串长度是输入的 key 对应的最长的字符串的长度</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redisCommands.bitopOr(<span class="string">"destkey"</span>, <span class="string">"bitmap"</span>, <span class="string">"bitops"</span>);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Redis-Redis位图
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2019/02/16/Redis-Redis位图/" title="Redis-Redis位图">2019/02/16/Redis-Redis位图/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/16/Redis-Redis字符串/" rel="next" title="Redis-Redis字符串">
+                <i class="fa fa-chevron-left"></i> Redis-Redis字符串
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/16/Redis-Redis列表/" rel="prev" title="Redis-Redis列表">
+                Redis-Redis列表 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#设置值-零存"><span class="nav-number">1.</span> <span class="nav-text">设置值-零存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置值-整存"><span class="nav-number">2.</span> <span class="nav-text">设置值-整存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取值-整取"><span class="nav-number">3.</span> <span class="nav-text">获取值-整取</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取值-零取"><span class="nav-number">4.</span> <span class="nav-text">获取值-零取</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BITCOUNT"><span class="nav-number">5.</span> <span class="nav-text">BITCOUNT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BITOPS"><span class="nav-number">6.</span> <span class="nav-text">BITOPS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BITOP"><span class="nav-number">7.</span> <span class="nav-text">BITOP</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="ClassPathXmlApplicationContext 的简单用法123ApplicationContext applicationContext = new ClassPathXmlApplicationContext(&quot;beans/UserBeans.xml&quot;);UserInfo userInfo = applicationContext.getBean(&quot;userInfo&quot;, User">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring-源码阅读ClassPathXmlApplicationContext之prepareRefresh方法">
+<meta property="og:url" content="http://yoursite.com/2019/03/25/Spring-源码阅读ClassPathXmlApplicationContext之prepareRefresh方法/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="ClassPathXmlApplicationContext 的简单用法123ApplicationContext applicationContext = new ClassPathXmlApplicationContext(&quot;beans/UserBeans.xml&quot;);UserInfo userInfo = applicationContext.getBean(&quot;userInfo&quot;, User">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-31T04:31:34.612Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring-源码阅读ClassPathXmlApplicationContext之prepareRefresh方法">
+<meta name="twitter:description" content="ClassPathXmlApplicationContext 的简单用法123ApplicationContext applicationContext = new ClassPathXmlApplicationContext(&quot;beans/UserBeans.xml&quot;);UserInfo userInfo = applicationContext.getBean(&quot;userInfo&quot;, User">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/25/Spring-源码阅读ClassPathXmlApplicationContext之prepareRefresh方法/"/>
+
+
+
+
+
+  <title>Spring-源码阅读ClassPathXmlApplicationContext之prepareRefresh方法 | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/25/Spring-源码阅读ClassPathXmlApplicationContext之prepareRefresh方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring-源码阅读ClassPathXmlApplicationContext之prepareRefresh方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-25T22:36:03+08:00">
+                2019-03-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="ClassPathXmlApplicationContext-的简单用法"><a href="#ClassPathXmlApplicationContext-的简单用法" class="headerlink" title="ClassPathXmlApplicationContext 的简单用法"></a>ClassPathXmlApplicationContext 的简单用法</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext applicationContext = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"beans/UserBeans.xml"</span>);</span><br><span class="line">UserInfo userInfo = applicationContext.getBean(<span class="string">"userInfo"</span>, UserInfo.class);</span><br><span class="line">log.info(<span class="string">"name = &#123;&#125;, email = &#123;&#125;"</span>, userInfo.getName(), userInfo.getEmail());</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>从 ClassPathXmlApplicationContext 的构造方法开始对源码进行分析, 进入跟踪构造法方法, 主要调用了 setConfigLocations() 和 refresh() 方法, setConfigLocations() 方法用于配置文件路径的解析, 如果配置文件路径里面有 ${KEY} 表示的系统属性会在 resolvePath() 方法中被替换掉, 并且支持 SPEL 语法, 源码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ClassPathXmlApplicationContext</span><span class="params">(String[] configLocations, <span class="keyword">boolean</span> refresh, @Nullable ApplicationContext parent)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(parent);</span><br><span class="line">    <span class="keyword">this</span>.setConfigLocations(configLocations);</span><br><span class="line">    <span class="keyword">if</span> (refresh) &#123;</span><br><span class="line">        <span class="keyword">this</span>.refresh();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setConfigLocations</span><span class="params">(@Nullable String... locations)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (locations != <span class="keyword">null</span>) &#123;</span><br><span class="line">        Assert.noNullElements(locations, <span class="string">"Config locations must not be null"</span>);</span><br><span class="line">        <span class="keyword">this</span>.configLocations = <span class="keyword">new</span> String[locations.length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; locations.length; i++) &#123;</span><br><span class="line">            <span class="keyword">this</span>.configLocations[i] = resolvePath(locations[i]).trim();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.configLocations = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="prepareRefresh-方法"><a href="#prepareRefresh-方法" class="headerlink" title="prepareRefresh 方法"></a>prepareRefresh 方法</h1><p>refresh() 方法描述了整个 ClassPathXmlApplicationContext 初始化的过程, 调用的第一个方法就是 prepareRefresh() 方法, 主要用于初始化前的有些准备工作, 其源码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">refresh</span><span class="params">()</span> <span class="keyword">throws</span> BeansException, IllegalStateException </span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (<span class="keyword">this</span>.startupShutdownMonitor) &#123;</span><br><span class="line">        prepareRefresh();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">prepareRefresh</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.startupDate = System.currentTimeMillis();</span><br><span class="line">    <span class="keyword">this</span>.closed.set(<span class="keyword">false</span>);</span><br><span class="line">    <span class="keyword">this</span>.active.set(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (logger.isTraceEnabled()) &#123;</span><br><span class="line">            logger.trace(<span class="string">"Refreshing "</span> + <span class="keyword">this</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            logger.debug(<span class="string">"Refreshing "</span> + getDisplayName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    initPropertySources();</span><br><span class="line">    getEnvironment().validateRequiredProperties();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.earlyApplicationListeners == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.earlyApplicationListeners = <span class="keyword">new</span> LinkedHashSet&lt;&gt;(<span class="keyword">this</span>.applicationListeners);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.applicationListeners.clear();</span><br><span class="line">        <span class="keyword">this</span>.applicationListeners.addAll(<span class="keyword">this</span>.earlyApplicationListeners);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.earlyApplicationEvents = <span class="keyword">new</span> LinkedHashSet&lt;&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先调用了 initPropertySources() 方法, 用于初始化之前的准备工作, 一般用于对环境变量进行检测或者对系统属性进行设置和检测, 这个方法在源码中时没有任何实现的, 用户可以重写 initPropertySources 方法来实现自己的验证属性的逻辑, 是 Spring 开放式结构的体现, 源码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">initPropertySources</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// For subclasses: do nothing by default.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接着调用了 validateRequiredProperties() 方法, 用于对需要验证系统属性进行验证, 其源码实现如下, 可以知道只是简单的判断属性的值是否为 null, 如果需要更加复杂的验证还是自己去手动在 initPropertySources() 方法中去实现, 源码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">validateRequiredProperties</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    MissingRequiredPropertiesException ex = <span class="keyword">new</span> MissingRequiredPropertiesException();</span><br><span class="line">    <span class="keyword">for</span> (String key : <span class="keyword">this</span>.requiredProperties) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.getProperty(key) == <span class="keyword">null</span>) &#123;</span><br><span class="line">            ex.addMissingRequiredProperty(key);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!ex.getMissingRequiredProperties().isEmpty()) &#123;</span><br><span class="line">        <span class="keyword">throw</span> ex;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="重写-initPropertySources-方法"><a href="#重写-initPropertySources-方法" class="headerlink" title="重写 initPropertySources() 方法"></a>重写 initPropertySources() 方法</h1><p>使用 ClassPathXmlApplicationContext 时, 如果需要重写 initPropertySources() 方法需要自定义一个类继承 ClassPathXmlApplicationContext, 然后重写 initPropertySources() 方法, 使用示例如下, 这里实现一个简单的系统属性检测:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DefineClassPathXmlApplicationContext</span> <span class="keyword">extends</span> <span class="title">ClassPathXmlApplicationContext</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    DefineClassPathXmlApplicationContext(String... configLocations) <span class="keyword">throws</span> BeansException &#123;</span><br><span class="line">        <span class="keyword">super</span>(configLocations);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">initPropertySources</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"Spring 初始化之前的准备工作, 一般用于对环境变量进行检测或者对系统属性进行设置和检测"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 系统的相关属性, JVM 启动的时候使用 -D 参数可以添加自定义的属性值</span></span><br><span class="line">        Map&lt;String, Object&gt; jvmProperties = <span class="keyword">this</span>.getEnvironment().getSystemProperties();</span><br><span class="line">        jvmProperties.forEach((key, value) -&gt; log.info(<span class="string">"key = &#123;&#125;, value = &#123;&#125;"</span>, key, value));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 系统的环境变量</span></span><br><span class="line">        Map&lt;String, Object&gt; systemProperties = <span class="keyword">this</span>.getEnvironment().getSystemEnvironment();</span><br><span class="line">        systemProperties.forEach((key, value) -&gt; log.info(<span class="string">"key = &#123;&#125;, value = &#123;&#125;"</span>, key, value));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 自己手动检测, 检测不存在手动抛出异常</span></span><br><span class="line">        String javaHome = <span class="string">"JAVA_HOME"</span>;</span><br><span class="line">        <span class="keyword">if</span> (Objects.equals(<span class="keyword">null</span>, systemProperties.get(javaHome)) || Objects.equals(<span class="string">""</span>, systemProperties.get(javaHome))) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"JAVA_HOME 没有配置"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 调用 setRequiredProperties() 方法后, 通过 validateRequiredProperties() 方法来检测</span></span><br><span class="line">        <span class="comment">// 如果该属性不存在则抛出 MissingRequiredPropertiesException 异常</span></span><br><span class="line">        <span class="comment">// 假设 JAVA_HOME 属性不存在抛出的异常提示 = MissingRequiredPropertiesException: The following properties were declared as required but could not be resolved: [JAVA_HOME]</span></span><br><span class="line">        <span class="keyword">this</span>.getEnvironment().setRequiredProperties(<span class="string">"JAVA_HOME"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用方法和普通的 ClassPathXmlApplicationContext 方法一样, 如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext applicationContext = <span class="keyword">new</span> DefineClassPathXmlApplicationContext(<span class="string">"beans/UserBeans.xml"</span>);</span><br><span class="line">UserInfo userInfo = applicationContext.getBean(<span class="string">"userInfo"</span>, UserInfo.class);</span><br><span class="line">log.info(<span class="string">"name = &#123;&#125;, email = &#123;&#125;"</span>, userInfo.getName(), userInfo.getEmail());</span><br></pre></td></tr></table></figure>
+<h1 id="SpringBoot-项目中重写-initPropertySources-方法"><a href="#SpringBoot-项目中重写-initPropertySources-方法" class="headerlink" title="SpringBoot 项目中重写 initPropertySources() 方法"></a>SpringBoot 项目中重写 initPropertySources() 方法</h1><p>SpringBoot 项目中是 WEB 项目, 需要继承的是 AnnotationConfigServletWebServerApplicationContext, 如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DefineAnnotationConfigServletWebServerApplicationContext</span> <span class="keyword">extends</span> <span class="title">AnnotationConfigServletWebServerApplicationContext</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">initPropertySources</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 可以对不同环境下的属进行检测或者设置不同环境下所需属性</span></span><br><span class="line">        <span class="comment">// 观察日志, 可以看到 initPropertySources 方法被执行了两次, 是因为除了 AbstractApplicationContext 类中有调用</span></span><br><span class="line">        <span class="comment">// 在 ServletWebServerApplicationContext 类的 onRefresh 中执行 createWebServer 方法时也会调用一次 initPropertySources 方法</span></span><br><span class="line">        log.info(<span class="string">"[系统配置属性检测] 项目启动, 开始检测"</span>);</span><br><span class="line">        String[] activeProfiles = <span class="keyword">this</span>.getEnvironment().getActiveProfiles();</span><br><span class="line">        <span class="keyword">if</span> (Arrays.stream(activeProfiles).allMatch(activeProfile -&gt; Objects.equals(<span class="string">"dev"</span>, activeProfile))) &#123;</span><br><span class="line">            log.info(<span class="string">"[系统配置属性检测] 当前是 DEV 环境, 对 JAVA_HOME 属性进行检测"</span>);</span><br><span class="line">            <span class="keyword">this</span>.getEnvironment().setRequiredProperties(<span class="string">"JAVA_HOME"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            log.info(<span class="string">"[系统配置属性检测] 当前非 DEV 环境, 对 JAVA_HOME1 属性进行检测"</span>);</span><br><span class="line">            <span class="keyword">this</span>.getEnvironment().setRequiredProperties(<span class="string">"JAVA_HOME1"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        log.info(<span class="string">"[系统配置属性检测] 通过检测"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在启动项中设置 DefineAnnotationConfigServletWebServerApplicationContext 类型为创建容器的类型即可, 如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication springApplication = <span class="keyword">new</span> SpringApplication(Application.class);</span><br><span class="line">        springApplication.setApplicationContextClass(DefineAnnotationConfigServletWebServerApplicationContext.class);</span><br><span class="line">        springApplication.run(args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Spring-源码阅读ClassPathXmlApplicationContext之prepareRefresh方法
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2019/03/25/Spring-源码阅读ClassPathXmlApplicationContext之prepareRefresh方法/" title="Spring-源码阅读ClassPathXmlApplicationContext之prepareRefresh方法">2019/03/25/Spring-源码阅读ClassPathXmlApplicationContext之prepareRefresh方法/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/15/Java-NIO学习Selector使用示例/" rel="next" title="Java-NIO学习Selector使用示例">
+                <i class="fa fa-chevron-left"></i> Java-NIO学习Selector使用示例
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/31/Spring-源码阅读ClassPathXmlApplicationContext之prepareBeanFactory方法/" rel="prev" title="Spring-源码阅读ClassPathXmlApplicationContext之prepareBeanFactory方法">
+                Spring-源码阅读ClassPathXmlApplicationContext之prepareBeanFactory方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ClassPathXmlApplicationContext-的简单用法"><span class="nav-number">1.</span> <span class="nav-text">ClassPathXmlApplicationContext 的简单用法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#prepareRefresh-方法"><span class="nav-number">2.</span> <span class="nav-text">prepareRefresh 方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重写-initPropertySources-方法"><span class="nav-number">3.</span> <span class="nav-text">重写 initPropertySources() 方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringBoot-项目中重写-initPropertySources-方法"><span class="nav-number">4.</span> <span class="nav-text">SpringBoot 项目中重写 initPropertySources() 方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

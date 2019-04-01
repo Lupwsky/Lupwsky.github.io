@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="NetworkInterface 类是 1.4 加入的类, 此类表示一个由名称和分配给此接口的 IP 地址列表组成的网络接口, 包含了网络接口名称和IP地址等信息 NetworkInterface 类提供的方法NetworkInterface 类提供的方法可以参考文档: NetworkInterface 类 获取 NetworkInterface 类实例获取 NetworkInterface 类实">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-NIO学习NetworkInterface类">
+<meta property="og:url" content="http://yoursite.com/2019/03/11/Java-NIO学习NetworkInterface类/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="NetworkInterface 类是 1.4 加入的类, 此类表示一个由名称和分配给此接口的 IP 地址列表组成的网络接口, 包含了网络接口名称和IP地址等信息 NetworkInterface 类提供的方法NetworkInterface 类提供的方法可以参考文档: NetworkInterface 类 获取 NetworkInterface 类实例获取 NetworkInterface 类实">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-31T04:31:34.580Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java-NIO学习NetworkInterface类">
+<meta name="twitter:description" content="NetworkInterface 类是 1.4 加入的类, 此类表示一个由名称和分配给此接口的 IP 地址列表组成的网络接口, 包含了网络接口名称和IP地址等信息 NetworkInterface 类提供的方法NetworkInterface 类提供的方法可以参考文档: NetworkInterface 类 获取 NetworkInterface 类实例获取 NetworkInterface 类实">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/11/Java-NIO学习NetworkInterface类/"/>
+
+
+
+
+
+  <title>Java-NIO学习NetworkInterface类 | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/11/Java-NIO学习NetworkInterface类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java-NIO学习NetworkInterface类</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-11T23:01:26+08:00">
+                2019-03-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>NetworkInterface 类是 1.4 加入的类, 此类表示一个由名称和分配给此接口的 IP 地址列表组成的网络接口, 包含了网络接口名称和IP地址等信息</p>
+<h1 id="NetworkInterface-类提供的方法"><a href="#NetworkInterface-类提供的方法" class="headerlink" title="NetworkInterface 类提供的方法"></a>NetworkInterface 类提供的方法</h1><p>NetworkInterface 类提供的方法可以参考文档: <a href="http://doc.codingdict.com/java_api/java/net/NetworkInterface.html" target="_blank" rel="noopener">NetworkInterface 类</a></p>
+<h1 id="获取-NetworkInterface-类实例"><a href="#获取-NetworkInterface-类实例" class="headerlink" title="获取 NetworkInterface 类实例"></a>获取 NetworkInterface 类实例</h1><p>获取 NetworkInterface 类实例只能通过 NetworkInterface 的静态方法获取, 一共有四个, 如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过网络设备在当前操作系统中的 IP 获取 NetworkInterface 类实例</span></span><br><span class="line">NetworkInterface.getByInetAddress(InetAddress inetAddress);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过网络设备在当前操作系统中的名称获取 NetworkInterface 类实例</span></span><br><span class="line">NetworkInterface.getByName(String name);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过网络设备在当前操作系统中的网络索引值获取 NetworkInterface 类实例</span></span><br><span class="line">NetworkInterface.getByIndex(<span class="keyword">int</span> index);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取当前操作系统的所有网络设备的网络接口</span></span><br><span class="line">Enumeration&lt;NetworkInterface&gt; networkInterface = NetworkInterface.getNetworkInterfaces();</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h1 id="获取网络接口的信息示例"><a href="#获取网络接口的信息示例" class="headerlink" title="获取网络接口的信息示例"></a>获取网络接口的信息示例</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">NetworkInterface firstNetworkInterface = <span class="keyword">null</span>;</span><br><span class="line">Enumeration&lt;NetworkInterface&gt; networkInterfaces = NetworkInterface.getNetworkInterfaces();</span><br><span class="line"><span class="keyword">while</span> (networkInterfaces.hasMoreElements()) &#123;</span><br><span class="line">    NetworkInterface networkInterface = networkInterfaces.nextElement();</span><br><span class="line">    <span class="keyword">if</span> (firstNetworkInterface == <span class="keyword">null</span>) &#123;</span><br><span class="line">        firstNetworkInterface = networkInterface;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    log.info(<span class="string">"网络接口名称 = &#123;&#125;"</span>, networkInterface.getName());</span><br><span class="line">    log.info(<span class="string">"网络接口显示名称 = &#123;&#125;"</span>, networkInterface.getDisplayName());</span><br><span class="line">    log.info(<span class="string">"网络接口的索引值 = &#123;&#125;"</span>, networkInterface.getIndex());</span><br><span class="line">    log.info(<span class="string">"网络接口 MAC 地址 = &#123;&#125;"</span>, networkInterface.getHardwareAddress());</span><br><span class="line">    log.info(<span class="string">"网络接口子的父 NetworkInterface 实例 (如果是物理接口, 为 null) = &#123;&#125;"</span>, networkInterface.getParent());</span><br><span class="line">    log.info(<span class="string">"网络接口是否是虚拟接口 (子接口) = &#123;&#125;"</span>, networkInterface.isVirtual());</span><br><span class="line">    log.info(<span class="string">"网络接口是否已经开启并运行 = &#123;&#125;"</span>, networkInterface.isVirtual());</span><br><span class="line">    log.info(<span class="string">"网络接口是回环网络接口 (通常我们访问的 127.0.0.1, 此 IP 一台机器上只有一个) = &#123;&#125;"</span>, networkInterface.isVirtual());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">网络接口名称 = lo0</span><br><span class="line">网络接口显示名称 = lo0</span><br><span class="line">网络接口的索引值 = 1</span><br><span class="line">网络接口 MAC 地址 = null</span><br><span class="line">网络接口子的父 NetworkInterface 实例 (如果是物理接口, 为 null) = null</span><br><span class="line">网络接口是否是虚拟接口 (子接口) = false</span><br><span class="line">网络接口是否已经开启并运行 = false</span><br><span class="line">网络接口是回环网络接口 (通常我们访问的 127.0.0.1, 此 IP 一台机器上只有一个) = false</span><br><span class="line"></span><br><span class="line">网络接口名称 = en0</span><br><span class="line">网络接口显示名称 = en0</span><br><span class="line">网络接口的索引值 = 5</span><br><span class="line">网络接口 MAC 地址 = [76, 50, 117, -117, -24, 5]</span><br><span class="line">网络接口子的父 NetworkInterface 实例 (如果是物理接口, 为 null) = null</span><br><span class="line">网络接口是否是虚拟接口 (子接口) = false</span><br><span class="line">网络接口是否已经开启并运行 = false</span><br><span class="line">网络接口是回环网络接口 (通常我们访问的 127.0.0.1, 此 IP 一台机器上只有一个) = false</span><br></pre></td></tr></table></figure>
+<p>使用示例二, 如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">Enumeration&lt;NetworkInterface&gt; networkInterfaceEnumeration = NetworkInterface.getNetworkInterfaces();</span><br><span class="line">    <span class="comment">// 通常情况下, 即使主机没有任何其他网络连接, 回环接口也总是存在的, IPv4 = 127.0.0.1, IPv6 = 0:0:0:0:0:0:0:1</span></span><br><span class="line">    <span class="keyword">if</span> (networkInterfaceEnumeration == <span class="keyword">null</span>) &#123;</span><br><span class="line">        log.info(<span class="string">"[获取IP信息] 没有获取到IP信息"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (networkInterfaceEnumeration.hasMoreElements()) &#123;</span><br><span class="line">            NetworkInterface networkInterface = networkInterfaceEnumeration.nextElement();</span><br><span class="line">            <span class="comment">// 网络名称</span></span><br><span class="line">            String networkName = networkInterface.getName();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// IP 版本</span></span><br><span class="line">            String ipVersion = <span class="string">"NONE"</span>;</span><br><span class="line">            List&lt;String&gt; hostNameList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            List&lt;String&gt; addressList  = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            Enumeration&lt;InetAddress&gt; inetAddressEnumeration = networkInterface.getInetAddresses();</span><br><span class="line">            <span class="keyword">while</span>(inetAddressEnumeration.hasMoreElements()) &#123;</span><br><span class="line">                InetAddress inetAddress = inetAddressEnumeration.nextElement();</span><br><span class="line">                <span class="keyword">if</span> (inetAddress <span class="keyword">instanceof</span> Inet4Address) &#123;</span><br><span class="line">                    ipVersion = <span class="string">"v4"</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span>(inetAddress <span class="keyword">instanceof</span> Inet6Address) &#123;</span><br><span class="line">                    ipVersion = <span class="string">"v6"</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    ipVersion = <span class="string">"NONE"</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                hostNameList.add(inetAddress.getHostName());</span><br><span class="line"></span><br><span class="line">                <span class="comment">// IPv4 是点分形式, IPv6 是冒号分隔的 16 进制形式</span></span><br><span class="line">                addressList.add(inetAddress.getHostAddress());</span><br><span class="line">            &#125;</span><br><span class="line">            log.info(<span class="string">"[获取IP信息] ipVersion = &#123;&#125;, networkName = &#123;&#125;, hostName = &#123;&#125;, address = &#123;&#125;"</span>,</span><br><span class="line">                    ipVersion, networkName, hostNameList.toString(), addressList.toString());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">catch</span> (SocketException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[获取IP信息] ipVersion = v6, networkName = utun0, hostName = [fe80:0:0:0:f54a:8459:f37a:1fd%utun0], address = [fe80:0:0:0:f54a:8459:f37a:1fd%utun0]</span><br><span class="line">[获取IP信息] ipVersion = v6, networkName = awdl0, hostName = [fe80:0:0:0:a462:a3ff:fe53:401d%awdl0], address = [fe80:0:0:0:a462:a3ff:fe53:401d%awdl0]</span><br><span class="line">[获取IP信息] ipVersion = v4, networkName = en0, hostName = [fe80:0:0:0:18a6:6895:8725:a61e%en0, 192.168.0.107], address = [fe80:0:0:0:18a6:6895:8725:a61e%en0, 192.168.0.107]</span><br><span class="line">[获取IP信息] ipVersion = v4, networkName = lo0, hostName = [fe80:0:0:0:0:0:0:1%lo0, localhost, localhost], address = [fe80:0:0:0:0:0:0:1%lo0, 0:0:0:0:0:0:0:1, 127.0.0.1]</span><br></pre></td></tr></table></figure>
+<h1 id="获取网络接口-IP-信息"><a href="#获取网络接口-IP-信息" class="headerlink" title="获取网络接口 IP 信息"></a>获取网络接口 IP 信息</h1><p>InetAddress 类表示了一个 IP 地址信息, 获取 InetAddress 的示例, 可以通过通过 InetAddress 的静态方法来构造, 如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下方法的 host 可以是计算机名, IP 地址或者域名, 获取的时候如果没有对应 IP 信息, 则会抛出异常</span></span><br><span class="line">InetAddress.getAllByName(String host);</span><br><span class="line">InetAddress.getByAddress(<span class="keyword">byte</span>[] addr);</span><br><span class="line">InetAddress.getByAddress(String host, <span class="keyword">byte</span>[] addr);</span><br><span class="line">InetAddress.getByName(String host);</span><br></pre></td></tr></table></figure>
+<p>使用示例:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过 hostName 获取地址信息</span></span><br><span class="line">String hostName = <span class="string">"www.baidu.com"</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    List&lt;String&gt; addressList  = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    InetAddress[] inetAddressList = InetAddress.getAllByName(hostName);</span><br><span class="line">    <span class="keyword">for</span> (InetAddress inetAddress : inetAddressList) &#123;</span><br><span class="line">        addressList.add(inetAddress.getHostAddress());</span><br><span class="line">    &#125;</span><br><span class="line">    log.info(<span class="string">"[获取IP信息] hostName = &#123;&#125;, address = &#123;&#125;"</span>, hostName, addressList.toString());</span><br><span class="line">&#125; <span class="keyword">catch</span> (UnknownHostException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[获取IP信息] hostName = www.baidu.com, address = [14.215.177.38, 14.215.177.39]</span><br></pre></td></tr></table></figure>
+<p>InetAddress 的常用的方法如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回 IP 地址, 以字符串的形式, 如 127.0.0.1</span></span><br><span class="line">InetAddress.getHostAddress();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回 IP 地址, 返回的是 byte 数组</span></span><br><span class="line">InetAddress.getAddress();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取 IP 地址所对应的的主机别名</span></span><br><span class="line">InetAddress.getHostName();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取 IP 地址所对应的主机名</span></span><br><span class="line">InetAddress.getCanonicalHostName();</span><br></pre></td></tr></table></figure>
+<p>InetAddress 还有有两个子类, Inet4Address, Inet6Address 分别表示 IPv4 和 IPv6 地址信息, 开发的时候需要获取网络接口的 IP, 可以通过 NetworkInterface.getInetAddresses() 获取绑定在这个网络接口上的 IP 信息, 使用示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Enumeration&lt;InetAddress&gt; addressEnumeration = networkInterface.getInetAddresses();</span><br><span class="line"><span class="keyword">while</span> (addressEnumeration.hasMoreElements()) &#123;</span><br><span class="line">    InetAddress inetAddress = addressEnumeration.nextElement();</span><br><span class="line">    log.info(inetAddress.getHostAddress());</span><br><span class="line">    log.info(inetAddress.getHostName());</span><br><span class="line">    log.info(inetAddress.getCanonicalHostName());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="获取本机-IP"><a href="#获取本机-IP" class="headerlink" title="获取本机 IP"></a>获取本机 IP</h1><p>获取本机 IP 可以使用如下代码实现:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">InetAddress.getLocalHost().getHostAddress()</span><br></pre></td></tr></table></figure>
+<p>上面的方法在大多数机器上都可以取到本机 IP, 但是在多网卡时获取就会出现问题, 曾经在项目中使用这种方法时就出现过问题, 可以使用下面的方法获取, 下面的方法在多网卡时可以获取本机 IP, 但是如果对虚拟网卡可能会获取到虚拟网卡, 获取到不是正确的 IP, 代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> InetAddress <span class="title">getLocalHostLANAddress</span><span class="params">()</span> <span class="keyword">throws</span> UnknownHostException </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        InetAddress candidateAddress = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">// 遍历所有的网络接口</span></span><br><span class="line">        <span class="keyword">for</span> (Enumeration ifaces = NetworkInterface.getNetworkInterfaces(); ifaces.hasMoreElements();) &#123;</span><br><span class="line">            NetworkInterface iface = (NetworkInterface) ifaces.nextElement();</span><br><span class="line">            <span class="comment">// 在所有的接口下再遍历 IP</span></span><br><span class="line">            <span class="keyword">for</span> (Enumeration inetAddrs = iface.getInetAddresses(); inetAddrs.hasMoreElements();) &#123;</span><br><span class="line">                InetAddress inetAddr = (InetAddress) inetAddrs.nextElement();</span><br><span class="line">                <span class="comment">// 排除 loopback 类型地址</span></span><br><span class="line">                <span class="keyword">if</span> (!inetAddr.isLoopbackAddress()) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (inetAddr.isSiteLocalAddress()) &#123;</span><br><span class="line">                        <span class="comment">// 如果是 site-local 地址，就是它了</span></span><br><span class="line">                        <span class="keyword">return</span> inetAddr;</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (candidateAddress == <span class="keyword">null</span>) &#123;</span><br><span class="line">                        <span class="comment">// site-local 类型的地址未被发现，先记录候选地址</span></span><br><span class="line">                        candidateAddress = inetAddr;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (candidateAddress != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> candidateAddress;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果没有发现 non-loopback 地址.只能用最次选的方案</span></span><br><span class="line">        InetAddress jdkSuppliedAddress = InetAddress.getLocalHost();</span><br><span class="line">        <span class="keyword">if</span> (jdkSuppliedAddress == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UnknownHostException(<span class="string">"The JDK InetAddress.getLocalHost() method unexpectedly returned null."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> jdkSuppliedAddress;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        UnknownHostException unknownHostException = <span class="keyword">new</span> UnknownHostException(<span class="string">"Failed to determine LAN address: "</span> + e);</span><br><span class="line">        unknownHostException.initCause(e);</span><br><span class="line">        <span class="keyword">throw</span> unknownHostException;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的方法源自文章: <a href="https://www.cnblogs.com/starcrm/p/7071227.html" target="_blank" rel="noopener">详谈再论JAVA获取本机IP地址</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Java-NIO学习NetworkInterface类
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2019/03/11/Java-NIO学习NetworkInterface类/" title="Java-NIO学习NetworkInterface类">2019/03/11/Java-NIO学习NetworkInterface类/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/11/Spring-SpringRetry重试实现机制/" rel="next" title="Spring-SpringRetry重试实现机制">
+                <i class="fa fa-chevron-left"></i> Spring-SpringRetry重试实现机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/12/Java-IO和IO流/" rel="prev" title="Java-IO和IO流">
+                Java-IO和IO流 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NetworkInterface-类提供的方法"><span class="nav-number">1.</span> <span class="nav-text">NetworkInterface 类提供的方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取-NetworkInterface-类实例"><span class="nav-number">2.</span> <span class="nav-text">获取 NetworkInterface 类实例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取网络接口的信息示例"><span class="nav-number">3.</span> <span class="nav-text">获取网络接口的信息示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取网络接口-IP-信息"><span class="nav-number">4.</span> <span class="nav-text">获取网络接口 IP 信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取本机-IP"><span class="nav-number">5.</span> <span class="nav-text">获取本机 IP</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

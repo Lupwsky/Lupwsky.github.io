@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="实现了多数据源配置后, 在实际使用的时候会有一些问题, 一个是数据源的事物, 例如在一个方法里面, 只对其中一个库进行更改, 在方法上添加 @Transactional 注解并指定事物管理器, 可以使用正常使用相应数据源的事物, 但是如果需要在同一个方法里面修改多个库中的表,  @Transactional 注解就会出现问题了, 另外多个数据源只是分库, 就像上一篇笔记例子里面的只是库名不同, 表">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring-多数据源之间的切换和动态加载数据源">
+<meta property="og:url" content="http://yoursite.com/2019/02/20/Spring-多数据源之间的切换和动态加载数据源/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="实现了多数据源配置后, 在实际使用的时候会有一些问题, 一个是数据源的事物, 例如在一个方法里面, 只对其中一个库进行更改, 在方法上添加 @Transactional 注解并指定事物管理器, 可以使用正常使用相应数据源的事物, 但是如果需要在同一个方法里面修改多个库中的表,  @Transactional 注解就会出现问题了, 另外多个数据源只是分库, 就像上一篇笔记例子里面的只是库名不同, 表">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-31T04:31:34.612Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring-多数据源之间的切换和动态加载数据源">
+<meta name="twitter:description" content="实现了多数据源配置后, 在实际使用的时候会有一些问题, 一个是数据源的事物, 例如在一个方法里面, 只对其中一个库进行更改, 在方法上添加 @Transactional 注解并指定事物管理器, 可以使用正常使用相应数据源的事物, 但是如果需要在同一个方法里面修改多个库中的表,  @Transactional 注解就会出现问题了, 另外多个数据源只是分库, 就像上一篇笔记例子里面的只是库名不同, 表">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/20/Spring-多数据源之间的切换和动态加载数据源/"/>
+
+
+
+
+
+  <title>Spring-多数据源之间的切换和动态加载数据源 | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/20/Spring-多数据源之间的切换和动态加载数据源/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring-多数据源之间的切换和动态加载数据源</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-20T23:33:58+08:00">
+                2019-02-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>实现了多数据源配置后, 在实际使用的时候会有一些问题, 一个是数据源的事物, 例如在一个方法里面, 只对其中一个库进行更改, 在方法上添加 @Transactional 注解并指定事物管理器, 可以使用正常使用相应数据源的事物, 但是如果需要在同一个方法里面修改多个库中的表,  @Transactional 注解就会出现问题了, 另外多个数据源只是分库, 就像上一篇笔记例子里面的只是库名不同, 表结构相同时, 如果也像上一篇笔记例子里面这样去使用也是比较繁琐的, 需要一种更加灵活的方式来实现, Spring 提供的 AbstractRoutingDataSource 就实现动态数据源切换, 它可以充当 DataSource 的路由中介, 能有在运行时, 根据某种 key 值来动态切换到真正的 DataSource 上</p>
+<h1 id="保存线程当前数据源的-KEY"><a href="#保存线程当前数据源的-KEY" class="headerlink" title="保存线程当前数据源的 KEY"></a>保存线程当前数据源的 KEY</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MultiRoutingDataSourceContext</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> ThreadLocal&lt;String&gt; DB_KEY = <span class="keyword">new</span> ThreadLocal&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">MultiRoutingDataSourceContext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getCurrentDbKey</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> DB_KEY.get();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">setCurrentDbKey</span><span class="params">(String tenant)</span> </span>&#123;</span><br><span class="line">        DB_KEY.set(tenant);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        DB_KEY.remove();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h1 id="继承-AbstractRoutingDataSource-类"><a href="#继承-AbstractRoutingDataSource-类" class="headerlink" title="继承 AbstractRoutingDataSource 类"></a>继承 AbstractRoutingDataSource 类</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MultiRoutingDataSource</span> <span class="keyword">extends</span> <span class="title">AbstractRoutingDataSource</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 见 AbstractRoutingDataSource 源码, 会自动的根据名字获取 DataSource 的 Bean, 并切换数据源</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> Object <span class="title">determineCurrentLookupKey</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String currentDbKey = MultiRoutingDataSourceContext.getCurrentDbKey();</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isEmpty(currentDbKey)) &#123;</span><br><span class="line">            log.error(<span class="string">"当前数据源为空, 使用默认的数据源"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            log.info(<span class="string">"当前数据源 = &#123;&#125;, 使用默认的数据源"</span>, currentDbKey);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> currentDbKey;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="配置数据源和使用"><a href="#配置数据源和使用" class="headerlink" title="配置数据源和使用"></a>配置数据源和使用</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 多个 basePackages = &#123;"", ""&#125;</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties</span>(&#123;Db0DataSourceProperties.class, Db1DataSourceProperties.class, Db2DataSourceProperties.class&#125;)</span><br><span class="line"><span class="meta">@MapperScan</span>(basePackages = <span class="string">"com.lupw.guava.datasource.db.mapper"</span>, sqlSessionFactoryRef = <span class="string">"dbFactory"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MultiDataSourceConfig</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Db0DataSourceProperties db0DataSourceProperties;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Db1DataSourceProperties db1DataSourceProperties;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Db2DataSourceProperties db2DataSourceProperties;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MultiDataSourceConfig</span><span class="params">(Db0DataSourceProperties db0DataSourceProperties,</span></span></span><br><span class="line"><span class="function"><span class="params">                                 Db1DataSourceProperties db1DataSourceProperties,</span></span></span><br><span class="line"><span class="function"><span class="params">                                 Db2DataSourceProperties db2DataSourceProperties)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.db0DataSourceProperties = db0DataSourceProperties;</span><br><span class="line">        <span class="keyword">this</span>.db1DataSourceProperties = db1DataSourceProperties;</span><br><span class="line">        <span class="keyword">this</span>.db2DataSourceProperties = db2DataSourceProperties;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span>(name = <span class="string">"db0"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">getDb0DataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        DruidDataSource dataSource = <span class="keyword">new</span> DruidDataSource();</span><br><span class="line">        dataSource.setDriverClassName(db0DataSourceProperties.getDriverClass());</span><br><span class="line">        dataSource.setUrl(db0DataSourceProperties.getUrl());</span><br><span class="line">        dataSource.setUsername(db0DataSourceProperties.getUsername());</span><br><span class="line">        dataSource.setPassword(db0DataSourceProperties.getPassword());</span><br><span class="line">        dataSource.setInitialSize(db0DataSourceProperties.getInitialSize());</span><br><span class="line">        dataSource.setMinIdle(db0DataSourceProperties.getMinIdle());</span><br><span class="line">        dataSource.setMaxActive(db0DataSourceProperties.getMaxActive());</span><br><span class="line">        dataSource.setMaxWait(db0DataSourceProperties.getMaxWait());</span><br><span class="line">        <span class="keyword">return</span> dataSource;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span>(name = <span class="string">"db1"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">getDb1DataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        DruidDataSource dataSource = <span class="keyword">new</span> DruidDataSource();</span><br><span class="line">        dataSource.setDriverClassName(db1DataSourceProperties.getDriverClass());</span><br><span class="line">        dataSource.setUrl(db1DataSourceProperties.getUrl());</span><br><span class="line">        dataSource.setUsername(db1DataSourceProperties.getUsername());</span><br><span class="line">        dataSource.setPassword(db1DataSourceProperties.getPassword());</span><br><span class="line">        dataSource.setInitialSize(db1DataSourceProperties.getInitialSize());</span><br><span class="line">        dataSource.setMinIdle(db1DataSourceProperties.getMinIdle());</span><br><span class="line">        dataSource.setMaxActive(db1DataSourceProperties.getMaxActive());</span><br><span class="line">        dataSource.setMaxWait(db1DataSourceProperties.getMaxWait());</span><br><span class="line">        <span class="keyword">return</span> dataSource;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span>(name = <span class="string">"db2"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">getDb2DataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        DruidDataSource dataSource = <span class="keyword">new</span> DruidDataSource();</span><br><span class="line">        dataSource.setDriverClassName(db2DataSourceProperties.getDriverClass());</span><br><span class="line">        dataSource.setUrl(db2DataSourceProperties.getUrl());</span><br><span class="line">        dataSource.setUsername(db2DataSourceProperties.getUsername());</span><br><span class="line">        dataSource.setPassword(db2DataSourceProperties.getPassword());</span><br><span class="line">        dataSource.setInitialSize(db2DataSourceProperties.getInitialSize());</span><br><span class="line">        dataSource.setMinIdle(db2DataSourceProperties.getMinIdle());</span><br><span class="line">        dataSource.setMaxActive(db2DataSourceProperties.getMaxActive());</span><br><span class="line">        dataSource.setMaxWait(db2DataSourceProperties.getMaxWait());</span><br><span class="line">        <span class="keyword">return</span> dataSource;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span>(name = <span class="string">"multiRoutingDataSource"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">getMultiRoutingDataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        MultiRoutingDataSource dataSource = <span class="keyword">new</span> MultiRoutingDataSource();</span><br><span class="line">        dataSource.setDefaultTargetDataSource(getDb0DataSource());</span><br><span class="line">        Map&lt;Object, Object&gt; dataSourceMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        dataSourceMap.put(<span class="string">"db0"</span>, getDb0DataSource());</span><br><span class="line">        dataSourceMap.put(<span class="string">"db1"</span>, getDb1DataSource());</span><br><span class="line">        dataSourceMap.put(<span class="string">"db2"</span>, getDb2DataSource());</span><br><span class="line">        dataSource.setTargetDataSources(dataSourceMap);</span><br><span class="line">        <span class="keyword">return</span> dataSource;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span>(name = <span class="string">"dbFactory"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> SqlSessionFactory <span class="title">getDataSourceFactory</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        SqlSessionFactoryBean sessionFactoryBean = <span class="keyword">new</span> SqlSessionFactoryBean();</span><br><span class="line">        sessionFactoryBean.setDataSource(getMultiRoutingDataSource());</span><br><span class="line">        sessionFactoryBean.setMapperLocations(<span class="keyword">new</span> PathMatchingResourcePatternResolver().getResources(<span class="string">"classpath:mapper/*/*.xml"</span>));</span><br><span class="line">        <span class="keyword">return</span> sessionFactoryBean.getObject();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span>(name = <span class="string">"multiRoutingTransaction"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> PlatformTransactionManager <span class="title">platformTransactionManager</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DataSourceTransactionManager(getMultiRoutingDataSource());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在使用的使用通过 <code>MultiRoutingDataSourceContext.setCurrentDbKey(String dbKey)</code> 就能切换库了, 当然也可以使用 AOP 功能使用注解来完成切换, 由于实际项目中, 在一个方法里面切换数据源时常有的事, 使用注解在这种情况下个人认为不太灵活, 使用示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DbTestController</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> UserMapper db0UserMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DbTestController</span><span class="params">(UserMapper db0UserMapper)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.db0UserMapper = db0UserMapper;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(value = <span class="string">"/db/test"</span>)</span><br><span class="line">    <span class="meta">@Transactional</span>(rollbackFor = Exception.class)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dbTestController</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 默认使用 db0</span></span><br><span class="line">        db0UserMapper.addUserInfo(<span class="string">"lpw-db0"</span>, <span class="string">"123456"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 切换到数据源 db1</span></span><br><span class="line">        MultiRoutingDataSourceContext.setCurrentDbKey(<span class="string">"db1"</span>);</span><br><span class="line">        db0UserMapper.addUserInfo(<span class="string">"lpw-db1"</span>, <span class="string">"123456"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 切换到数据源 db2</span></span><br><span class="line">        MultiRoutingDataSourceContext.setCurrentDbKey(<span class="string">"db2"</span>);</span><br><span class="line">        db0UserMapper.addUserInfo(<span class="string">"lpw-db2"</span>, <span class="string">"123456"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 测试事物</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="关于动态加载数据源"><a href="#关于动态加载数据源" class="headerlink" title="关于动态加载数据源"></a>关于动态加载数据源</h1><p>在实际项目中, 数据库的连接信息都放在数据库中, 一开始无法获取全部的数据源的配置信息, 需要进行动态的加载或者删除数据源, 实际项目中参考了以下文章实现:</p>
+<ul>
+<li><a href="https://my.oschina.net/u/1189928/blog/1650013" target="_blank" rel="noopener">Spring 配置动态数据源 (动态添加免重启)</a></li>
+<li><a href="https://www.jianshu.com/p/c57772c8b802" target="_blank" rel="noopener">Spring 动态创建, 加载, 使用多数据源</a></li>
+</ul>
+<h1 id="关于分布式事物"><a href="#关于分布式事物" class="headerlink" title="关于分布式事物"></a>关于分布式事物</h1><ul>
+<li><a href="https://juejin.im/post/5b5a0bf9f265da0f6523913b" target="_blank" rel="noopener">再有人问你分布式事务, 把这篇扔给他</a></li>
+<li><a href="https://www.cnblogs.com/savorboard/p/distributed-system-transaction-consistency.html" target="_blank" rel="noopener">聊聊分布式事务, 再说说解决方案</a></li>
+<li><a href="https://blog.csdn.net/weixin_40533111/article/details/85069536" target="_blank" rel="noopener">分布式事务 CAP 理解论证和解决方案</a></li>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MzI4Njc5NjM1NQ==&amp;mid=2247487469&amp;idx=1&amp;sn=79949284b766731c58703374cdeb846c&amp;chksm=ebd630c1dca1b9d75dac461a14660e5ae379183ca37ddb809258f5ba1dbd210a850410a43321&amp;mpshare=1&amp;scene=1&amp;srcid=0128NSYfQuGGtSIBk0uGv1dh#rd" target="_blank" rel="noopener">分布式事务管理之 JTA 与链式事务</a></li>
+<li><a href="https://www.jianshu.com/p/0dde641295af" target="_blank" rel="noopener">Mysql 和 Druid 结合 Atomikos 实现分布式事务</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Spring-多数据源之间的切换和动态加载数据源
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2019/02/20/Spring-多数据源之间的切换和动态加载数据源/" title="Spring-多数据源之间的切换和动态加载数据源">2019/02/20/Spring-多数据源之间的切换和动态加载数据源/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/20/Spring-基于配置类实现多数据源/" rel="next" title="Spring-基于配置类实现多数据源">
+                <i class="fa fa-chevron-left"></i> Spring-基于配置类实现多数据源
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/20/Java-关于集群下的Session共享/" rel="prev" title="Java-关于集群下的Session共享">
+                Java-关于集群下的Session共享 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#保存线程当前数据源的-KEY"><span class="nav-number">1.</span> <span class="nav-text">保存线程当前数据源的 KEY</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#继承-AbstractRoutingDataSource-类"><span class="nav-number">2.</span> <span class="nav-text">继承 AbstractRoutingDataSource 类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置数据源和使用"><span class="nav-number">3.</span> <span class="nav-text">配置数据源和使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于动态加载数据源"><span class="nav-number">4.</span> <span class="nav-text">关于动态加载数据源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于分布式事物"><span class="nav-number">5.</span> <span class="nav-text">关于分布式事物</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

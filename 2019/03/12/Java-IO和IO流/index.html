@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="I/OI/O, 即输入和输出, 通常指数据在内部存储器和外部存储器或其他周边设备之间的输入和输出, 几乎任何涉及到计算机与其他设备之间的数据交换的都可称之为 I/O, 如内存和磁盘, 计算机之间网络数据交换等, 一个完整的 IO 操作指的是 I/O 的调用和 I/O 的执行两个部分, 首先由应用程序调用操作系统的 I/O 接口进行 I/O 操作, 随即操作系统底层执行相关的 I/O 的操作 I/O">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-IO和IO流">
+<meta property="og:url" content="http://yoursite.com/2019/03/12/Java-IO和IO流/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="I/OI/O, 即输入和输出, 通常指数据在内部存储器和外部存储器或其他周边设备之间的输入和输出, 几乎任何涉及到计算机与其他设备之间的数据交换的都可称之为 I/O, 如内存和磁盘, 计算机之间网络数据交换等, 一个完整的 IO 操作指的是 I/O 的调用和 I/O 的执行两个部分, 首先由应用程序调用操作系统的 I/O 接口进行 I/O 操作, 随即操作系统底层执行相关的 I/O 的操作 I/O">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-31T04:31:34.565Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java-IO和IO流">
+<meta name="twitter:description" content="I/OI/O, 即输入和输出, 通常指数据在内部存储器和外部存储器或其他周边设备之间的输入和输出, 几乎任何涉及到计算机与其他设备之间的数据交换的都可称之为 I/O, 如内存和磁盘, 计算机之间网络数据交换等, 一个完整的 IO 操作指的是 I/O 的调用和 I/O 的执行两个部分, 首先由应用程序调用操作系统的 I/O 接口进行 I/O 操作, 随即操作系统底层执行相关的 I/O 的操作 I/O">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/12/Java-IO和IO流/"/>
+
+
+
+
+
+  <title>Java-IO和IO流 | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/12/Java-IO和IO流/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java-IO和IO流</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-12T21:57:06+08:00">
+                2019-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="I-O"><a href="#I-O" class="headerlink" title="I/O"></a>I/O</h1><p>I/O, 即输入和输出, 通常指数据在内部存储器和外部存储器或其他周边设备之间的输入和输出, 几乎任何涉及到计算机与其他设备之间的数据交换的都可称之为 I/O, 如内存和磁盘, 计算机之间网络数据交换等, 一个完整的 IO 操作指的是 I/O 的调用和 I/O 的执行两个部分, 首先由应用程序调用操作系统的 I/O 接口进行 I/O 操作, 随即操作系统底层执行相关的 I/O 的操作</p>
+<h1 id="I-O-流"><a href="#I-O-流" class="headerlink" title="I/O 流"></a>I/O 流</h1><p>I/O 操作中, 一个重要的知识点是数据的交换, 这个数据交换的过程就是数据的输入和数据的输出, 在 Java 的 I/O 操作中, 对数据的输入输出操作都是以 “流” 的方式进行的, 即 I/O 流, 通常也称之为数据流, “流” 是一个抽象的概念，它是对输入输出设备的一种抽象理解, 表示数据从源对象 (如文件, 内存, 网络) 按顺序流向目标对象的一种流动形式, 例如在 Java 中应用程序需要向文件中写数据的时候, 就需要开启一个输出流, 然后往输出流中写入数据, 反之则需要开启一个输入流, 然后从输入流中接收数据</p>
+<a id="more"></a>
+<h1 id="I-O-操作类的分类"><a href="#I-O-操作类的分类" class="headerlink" title="I/O 操作类的分类"></a>I/O 操作类的分类</h1><p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-javaio/index.html" target="_blank" rel="noopener">深入分析 Java I/O 的工作机制</a> 一文的分类如下, 个人很赞同作者的这种分类, 所以直接贴出了该文中分类:</p>
+<p>基于字节操作的 I/O 接口: InputStream 和 OutputStream<br>基于字符操作的 I/O 接口: Writer 和 Reader<br>基于磁盘操作的 I/O 接口: File<br>基于网络操作的 I/O 接口: Socket (注意 Socket 类并不在 java.io 包下)</p>
+<h1 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h1><p>创建一个 <code>test.txt</code>文件, 输入内容: <code>测试读取数据</code>, 从文件中读取数据, 示例代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">FileInputStream fileInputStream = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    fileInputStream = <span class="keyword">new</span> FileInputStream(<span class="string">"D:\\Work\\hello-grpc\\java-guava\\src\\main\\resources\\md\\test.txt"</span>);</span><br><span class="line">    StringBuilder stringBuilder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 每次最多读取 1024 个字节</span></span><br><span class="line">    <span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">    <span class="keyword">while</span> (fileInputStream.read(bytes) != -<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// 字节转字符串</span></span><br><span class="line">        stringBuilder.append(<span class="keyword">new</span> String(bytes));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    String value = stringBuilder.toString();</span><br><span class="line">    log.info(<span class="string">"length = &#123;&#125;, value = &#123;&#125;"</span>, value.length(), value);</span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (fileInputStream != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 关闭流</span></span><br><span class="line">            fileInputStream.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">length = 1012, value = 测试读取数据</span><br></pre></td></tr></table></figure>
+<p><code>长度不应该为 6 么?</code> 由于使用了 <code>byte[] bytes = new byte[1024]</code> 保存字节, 实际上文件中只有 <code>测试读取数据</code> 个字符, bytes 数组没有内容的区域默认值为 0, 在 <code>stringBuilder.append(new String(bytes))</code> 转换的时候也被转换了, 字符长度是 1012, 为什么是 1012 而不是 1024 呢? 如果全部为 0, 则刚好是 1024 个字符长度, 但是系统默认使用的编码格式是 UTF-8, 汉字 UTF-8 占用 3 个字节或 4 个字节, 这里的 6 个汉字都是占用 3 个字节, 6 个字符占用了 18 个字节, 剩下的字节 1006 转换成 1006 个字符, 所以一共 1012 个长度的字符, 但是 StringBuilder 里面的值有一个变量记录的这个长度, 在使用 StringBuilder.toString(), 将 len 值直接给了 String 对象, 又由于将 bytes 数组在转化成字符串的时候丢弃了全部为 0 的字节, 所以最终输出的 value 长度为 1012 的, value 的值为 <code>测试读取数据</code> 的结果 </p>
+<p>解决方法可以定义一个 len 记录每次读取字节数的长度, 字节转字符串时指定转换的字节长度, 示例代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 记录长度</span></span><br><span class="line"><span class="keyword">int</span> len;</span><br><span class="line"><span class="comment">// 每次最多读取 1024 个字节</span></span><br><span class="line"><span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line"><span class="keyword">while</span> ((len = fileInputStream.read(bytes)) != -<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="comment">// 字节转字符串</span></span><br><span class="line">    stringBuilder.append(<span class="keyword">new</span> String(bytes, <span class="number">0</span>, len));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或者<code>使用 read() 方法, 每次都一个字节 (效率比都多个字节底), 但是这种方式只能读取英文字符和数字, 读取中文会有问题</code>, 示例代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> readValue;</span><br><span class="line"><span class="keyword">while</span> ((readValue = fileInputStream.read()) != -<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="comment">// 字节转字符串</span></span><br><span class="line">    stringBuilder.append((<span class="keyword">byte</span>) readValue);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">length = 54, value = 230181139232175149232175187229143150230149176230141174</span><br></pre></td></tr></table></figure>
+<p>一般读取文件内容, 一般使用字符流读取, 可以解决读取中文的问题, 创建字符流的时候还能指定字符集, 这样就能解决中文乱码的问题, 示例代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">FileInputStream fileInputStream = <span class="keyword">null</span>;</span><br><span class="line">fileInputStream = <span class="keyword">new</span> FileInputStream(<span class="string">"D:\\Work\\hello-grpc\\java-guava\\src\\main\\resources\\md\\test.txt"</span>);</span><br><span class="line"><span class="comment">// 字节输入流转换成字符输入流, 并指定编码集, 不指定默认使用 UTF-8</span></span><br><span class="line">InputStreamReader inputStreamReader = <span class="keyword">new</span> InputStreamReader(fileInputStream, StandardCharsets.UTF_8);</span><br><span class="line"><span class="comment">// 加入缓存提高读取效率, 每次读取一行</span></span><br><span class="line">BufferedReader bufferedReader = <span class="keyword">new</span> BufferedReader(inputStreamReader);</span><br><span class="line"></span><br><span class="line">StringBuilder stringBuilder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">String readValue;</span><br><span class="line"><span class="keyword">while</span> ((readValue = bufferedReader.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">    stringBuilder.append(readValue);</span><br><span class="line">&#125;</span><br><span class="line">String value = stringBuilder.toString();</span><br><span class="line">log.info(<span class="string">"length = &#123;&#125;, value = &#123;&#125;"</span>, value.length(), value);</span><br></pre></td></tr></table></figure>
+<p>不加入缓存的处理方式, 和字节的读取方式一样, 需要设置一个 len 记录读取的长度:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">FileInputStream fileInputStream = <span class="keyword">null</span>;</span><br><span class="line">fileInputStream = <span class="keyword">new</span> FileInputStream(<span class="string">"D:\\Work\\hello-grpc\\java-guava\\src\\main\\resources\\md\\test.txt"</span>);</span><br><span class="line">InputStreamReader inputStreamReader = <span class="keyword">new</span> InputStreamReader(fileInputStream, StandardCharsets.UTF_8);</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span>[] chars = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">1024</span>];</span><br><span class="line">StringBuilder stringBuilder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line"><span class="keyword">int</span> len;</span><br><span class="line"><span class="keyword">while</span> ((len = inputStreamReader.read(chars)) != -<span class="number">1</span>) &#123;</span><br><span class="line">    stringBuilder.append(<span class="keyword">new</span> String(chars, <span class="number">0</span>, len));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">length = 6, value = 测试读取数据</span><br></pre></td></tr></table></figure>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://www.cnblogs.com/forget406/p/5316452.html" target="_blank" rel="noopener">深入理解 Java 流机制 (一)</a></li>
+<li><a href="https://www.ibm.com/developerworks/cn/java/j-lo-javaio/index.html" target="_blank" rel="noopener">深入分析 Java I/O 的工作机制</a></li>
+<li><a href="http://www.importnew.com/23708.html" target="_blank" rel="noopener">Java I/O 总结</a> - 如何选择I/O流</li>
+<li><a href="https://blog.csdn.net/zhaoyanjun6/article/details/54292148" target="_blank" rel="noopener">Java I/O 流学习总结一 : 输入输出流</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Java-IO和IO流
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2019/03/12/Java-IO和IO流/" title="Java-IO和IO流">2019/03/12/Java-IO和IO流/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/11/Java-NIO学习NetworkInterface类/" rel="next" title="Java-NIO学习NetworkInterface类">
+                <i class="fa fa-chevron-left"></i> Java-NIO学习NetworkInterface类
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/12/Java-Socket网络编程-TCP/" rel="prev" title="Java-Socket网络编程-TCP">
+                Java-Socket网络编程-TCP <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#I-O"><span class="nav-number">1.</span> <span class="nav-text">I/O</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#I-O-流"><span class="nav-number">2.</span> <span class="nav-text">I/O 流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#I-O-操作类的分类"><span class="nav-number">3.</span> <span class="nav-text">I/O 操作类的分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用示例"><span class="nav-number">4.</span> <span class="nav-text">使用示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

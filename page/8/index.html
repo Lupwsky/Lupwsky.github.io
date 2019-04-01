@@ -251,7 +251,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/11/Java-Comparable与Comparator/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/22/SpringBoot-Bean的初始之前操作和销毁之前操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -270,7 +270,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/11/Java-Comparable与Comparator/" itemprop="url">Java-Comparable与Comparator</a></h1>
+                <a class="post-title-link" href="/2018/06/22/SpringBoot-Bean的初始之前操作和销毁之前操作/" itemprop="url">SpringBoot-Bean的初始之前操作和销毁之前操作</a></h1>
         
 
         <div class="post-meta">
@@ -282,813 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-11T18:44:15+08:00">
-                2018-05-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>有时候需要对集合中的对象进行排序，例如 Android 开发中经常就需要按照某个条件进行排序，这个时候就需要使用比较器来实现了。实现一个比较器只需要实现 Comparable 接口或者实现 Comparator 比较器就可以了，实现了接口后就可以调用下面两个方法来排序了。Comparable 和 Comparator不同的是在集合对象的内部实现的，一个是在集合对象的外部实现的，其次使用 Comparable， 由于 JavaBean 实现 Comparable，JavaBean 里面只能有一种排序方法，所以也只能使用一种排序方式，而使用 Comparator 则可以 JavaBena 列表的的多种排序。</p>
-<h1 id="排序方法"><a href="#排序方法" class="headerlink" title="排序方法"></a>排序方法</h1><p>两个使用比较器排序的方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法一</span></span><br><span class="line">Collections.sort(List&lt;T&gt; list);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法二</span></span><br><span class="line">Collections.sort(List&lt;T&gt; list, Comparator&lt;? <span class="keyword">super</span> T&gt; c);</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/11/Java-Comparable与Comparator/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/11/Java-Throw和Throws、检测型异常和非检测型异常/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/11/Java-Throw和Throws、检测型异常和非检测型异常/" itemprop="url">Java-Throw和Throws、检测型异常和非检测型异常</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-11T18:26:20+08:00">
-                2018-05-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="throw-和-throws"><a href="#throw-和-throws" class="headerlink" title="throw 和 throws"></a>throw 和 throws</h1><h2 id="throw"><a href="#throw" class="headerlink" title="throw"></a>throw</h2><ul>
-<li>throw 总是出现在函数体中，用于抛出一个异常，如果没有做相应程序会立即停止运行</li>
-<li>如果 throw 的是一个检测型异常(Exception是一个检测型异常，IO操作也是检测型异常)，必须使用 try-catch 处理或者使用 throws 交给上一层处理</li>
-</ul>
-<h2 id="throws"><a href="#throws" class="headerlink" title="throws"></a>throws</h2><ul>
-<li>总是出现在一个方法头中，表明该方法可能会抛出各种异常。</li>
-<li>如果 throws 的是一个检测型异常，必须在调用这个方法的地方适应 try-catch 处理或者继续向上层抛出异常</li>
-</ul>
-<p>总结：不论是 throw 或者是 throws ，看抛出的是否是检测型异常，如果是检测型异常，就必须要在调用的地方进行 try-catch 处理或者抛出给上一层，这个时候往往编译器也会编译不通过，提示你去处理这些异常。对于非检测型异常，不会提示要进行相应的处理，编译也是可以通过的，只是出现了异常时如果不作处理程序会停止运行。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/11/Java-Throw和Throws、检测型异常和非检测型异常/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/11/Java-String、StringBuffer和StringBuilder/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/11/Java-String、StringBuffer和StringBuilder/" itemprop="url">Java-String、StringBuffer和StringBuilder</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-11T18:17:58+08:00">
-                2018-05-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="String"><a href="#String" class="headerlink" title="String"></a>String</h1><ul>
-<li>一个字符串是一个匿名的 String 类</li>
-<li>可以直接把字符串赋值给一个 String 类的对象，也可以通过 new 的方法，前者可以自动入池，也不产生垃圾空间</li>
-<li>String 类的内容不可改变</li>
-<li>String 不适合频繁的修改</li>
-<li>String 拼接字符串的效率也很低</li>
-</ul>
-<h1 id="String-和-StringBuffer-互相转换"><a href="#String-和-StringBuffer-互相转换" class="headerlink" title="String 和 StringBuffer 互相转换"></a>String 和 StringBuffer 互相转换</h1><h2 id="String-转-StringBuffer"><a href="#String-转-StringBuffer" class="headerlink" title="String 转 StringBuffer"></a>String 转 StringBuffer</h2><p>利用 StringBuffer 的构造器</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer stringBuffer = <span class="keyword">new</span> StringBuffer(String str);</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/11/Java-String、StringBuffer和StringBuilder/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/10/Java-多线程基础知识/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/10/Java-多线程基础知识/" itemprop="url">Java-多线程基础知识</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-10T13:30:28+08:00">
-                2018-05-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="什么是进程、线程"><a href="#什么是进程、线程" class="headerlink" title="什么是进程、线程"></a>什么是进程、线程</h1><p>进程：操作系统上一次程序的运行，例如 Windows 上的 QQ.exe 程序<br>线程：在进程中独立运行的子任务，例如 QQ 程序里面运行的文件下载，音频等子任务，这些任务大多是在后台异步运行</p>
-<h1 id="多线程的优点"><a href="#多线程的优点" class="headerlink" title="多线程的优点"></a>多线程的优点</h1><p>使用多线程可以在同一时间内运行更多的任务，最大限度的利用 CPU 资源处理更多的任务。</p>
-<h1 id="Java-实现多线程"><a href="#Java-实现多线程" class="headerlink" title="Java 实现多线程"></a>Java 实现多线程</h1><ul>
-<li>继承 Thread 类，Thread 实现了 Runnable 接口，缺点是不能多继承</li>
-<li>实现 Runnable 接口</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/10/Java-多线程基础知识/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/10/消息队列-RocketMQ的安装/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/10/消息队列-RocketMQ的安装/" itemprop="url">消息队列-RocketMQ的安装</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-10T11:13:06+08:00">
-                2018-05-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/消息队列/" itemprop="url" rel="index">
-                    <span itemprop="name">消息队列</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>消息队列(Message Queue, 简称 MQ), 消息中间件作为实现分布式消息系统可拓展、可伸缩性的关键组件, 具有高吞吐量、高可用等等优点。RocketMQ 是阿里一款开源的分布式消息系统, 基于高可用分布式集群技术, 提供低延时的、高可靠的消息发布与订阅服务。这篇笔记简单记录了 RocketMQ 的在服务器上的安装和启动方法。</p>
-<h1 id="下载、编译和环境变量的配置"><a href="#下载、编译和环境变量的配置" class="headerlink" title="下载、编译和环境变量的配置"></a>下载、编译和环境变量的配置</h1><h2 id="下载地址"><a href="#下载地址" class="headerlink" title="下载地址"></a>下载地址</h2><p><code>https://github.com/apache/rocketmq</code></p>
-<h2 id="安装-JDK-和-Maven"><a href="#安装-JDK-和-Maven" class="headerlink" title="安装 JDK 和 Maven"></a>安装 JDK 和 Maven</h2><p>Maven 需要安装 JDK 支持, JDK 的安装和环境变量的配置这里就不记录了, 主要看看 Maven 在 Linux 上的安装和环境变量的配置, 首先去官网下载 Maven, 地址是 <code>https://maven.apache.org/download.cgi</code>, 然后解压缩后开始配置环境变量, 注意在 Linux 上的配置文件可以写在用户目录的 .bash_profile 文件里面, 在 Mac 上也有这个文件, 但是由于我安装了 on my zsh 的缘故, 在 Mac 上的 .bash_profile 文件里面配置环境变量没有效果, 需要在 .zshrc 文件里面去配置才会生效。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/10/消息队列-RocketMQ的安装/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/08/SpringBoot-集成MyBatis/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/08/SpringBoot-集成MyBatis/" itemprop="url">SpringBoot-集成MyBatis</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-08T10:03:46+08:00">
-                2018-05-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-22T01:08:25+08:00">
+                2018-06-22
               </time>
             
 
@@ -1148,11 +343,19 @@
 
       
         
-          <h1 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h1><p>在 pom.xml 中添加如下依赖，使用 mybatis 有 xml 方式和使用注解方法式，这里使用配置 xml 文件的方法。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- spring boot mybatis依赖 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- mysql驱动包 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.29<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+          <p>本篇学习笔记仅记录 Bean 的初始之前操作和销毁之前操作的实现方式的基础使用方法。</p>
+<h1 id="PostConstruct-和-PreDestroy"><a href="#PostConstruct-和-PreDestroy" class="headerlink" title="@PostConstruct 和 @PreDestroy"></a>@PostConstruct 和 @PreDestroy</h1><p>JDK 1.5 引入了 @PostConstruct 和 @PreDestroy 这两个作用于 Servlet 生命周期的注解，实现 Bean 初始化之前和销毁之前的自定义操作，这两个注解使用时有以下几个注意的地方。</p>
+<ul>
+<li>只有一个方法可以使用此注释进行注解；</li>
+<li>被注解方法不得有任何参数；</li>
+<li>被注解方法返回值为 void；</li>
+<li>被注解方法不得抛出已检查异常；</li>
+<li>被注解方法需是非静态方法；</li>
+<li>此方法只会被执行一次且在构造方法之后执行。</li>
+</ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/08/SpringBoot-集成MyBatis/#more" rel="contents">
+            <a class="btn" href="/2018/06/22/SpringBoot-Bean的初始之前操作和销毁之前操作/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1213,7 +416,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/08/SpringBoot-配置使用Log4j2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/22/SpringBoot-CommandLineRunner/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1232,7 +435,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/08/SpringBoot-配置使用Log4j2/" itemprop="url">SpringBoot-配置使用Log4j2</a></h1>
+                <a class="post-title-link" href="/2018/06/22/SpringBoot-CommandLineRunner/" itemprop="url">SpringBoot-CommandLineRunner</a></h1>
         
 
         <div class="post-meta">
@@ -1244,8 +447,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-08T09:33:58+08:00">
-                2018-05-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-22T00:35:53+08:00">
+                2018-06-22
               </time>
             
 
@@ -1305,11 +508,13 @@
 
       
         
-          <h1 id="添加相关依赖"><a href="#添加相关依赖" class="headerlink" title="添加相关依赖"></a>添加相关依赖</h1><p>在 pom.xml 中去除 spring-boot 默认的 logback 配置，引入 Log4j2 依赖 (spring-boot 在 1.4 版本后就不支持 log4j)。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- spring boot web --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-logging<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Log4j2 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-log4j2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+          <p>CommandLineRunner 是 SpringBoot 提供的一个接口类，可以在项目服务启动的时候进行初始化操作或者加载其他的一些数据，其定义如下。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CommandLineRunner</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">(String... var1)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="CommandLineRunner-基础使用"><a href="#CommandLineRunner-基础使用" class="headerlink" title="CommandLineRunner 基础使用"></a>CommandLineRunner 基础使用</h1><p>下面的例子直接在 Application 类中实现 CommandLineRunner 接口类，在 SpringBoot 项目启动后在控制台输出输出日志数据。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> <span class="keyword">implements</span> <span class="title">CommandLineRunner</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(String... strings)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"测试"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/08/SpringBoot-配置使用Log4j2/#more" rel="contents">
+            <a class="btn" href="/2018/06/22/SpringBoot-CommandLineRunner/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1370,7 +575,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/07/SpringBoot-创建SpringBoot项目使用jar包方式启动/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/21/SpringBoot-gRPC的使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1389,7 +594,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/07/SpringBoot-创建SpringBoot项目使用jar包方式启动/" itemprop="url">SpringBoot-创建SpringBoot项目使用jar包方式启动</a></h1>
+                <a class="post-title-link" href="/2018/06/21/SpringBoot-gRPC的使用/" itemprop="url">SpringBoot-gRPC的使用</a></h1>
         
 
         <div class="post-meta">
@@ -1401,8 +606,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-07T17:10:53+08:00">
-                2018-05-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-21T23:44:45+08:00">
+                2018-06-21
               </time>
             
 
@@ -1462,11 +667,11 @@
 
       
         
-          <h1 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h1><h2 id="创建一个maven项目"><a href="#创建一个maven项目" class="headerlink" title="创建一个maven项目"></a>创建一个maven项目</h2><p>在pom.xml文件中添加依赖包，如下图所示：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.5.3.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+          <p>上一篇笔记中，使用了 SpringBoot 自动配置的功能在 SpringBoot 项目中自动启动 gRPC 服务和客户端连接到指定的服务，我们要做的仅仅是在 application.properties 为文件中配置服务端的 port 和客户端需要连接的 host 和 port，主要是在 SpringBoot 项目中引入下面的两个依赖，这两个依赖对 gRPC 的 API 进行了封装，在项目启动后自动的完成服务端的启动和客户端的连接等初始化工作。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">spring.boot.grpc.server.version</span>&gt;</span>1.4.0.RELEASE<span class="tag">&lt;/<span class="name">spring.boot.grpc.server.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 客户端 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>net.devh<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>grpc-client-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring.boot.grpc.client.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 服务端 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>net.devh<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>grpc-server-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring.boot.grpc.server.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/07/SpringBoot-创建SpringBoot项目使用jar包方式启动/#more" rel="contents">
+            <a class="btn" href="/2018/06/21/SpringBoot-gRPC的使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1527,7 +732,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/07/SpringBoot-启动错误问题笔记/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/17/SpringBoot-配置使用gRPC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1546,7 +751,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/07/SpringBoot-启动错误问题笔记/" itemprop="url">SpringBoot-启动错误问题笔记</a></h1>
+                <a class="post-title-link" href="/2018/06/17/SpringBoot-配置使用gRPC/" itemprop="url">SpringBoot-配置使用gRPC</a></h1>
         
 
         <div class="post-meta">
@@ -1558,8 +763,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-07T16:43:27+08:00">
-                2018-05-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-17T17:26:12+08:00">
+                2018-06-17
               </time>
             
 
@@ -1619,12 +824,15 @@
 
       
         
-          <p>主要记载使用 SpringBoot 构建的项目时出现的一些问题和解决非方法。</p>
-<h1 id="Your-ApplicationContext-is-unlikely-to-start-due-to-a-ComponentScan-of-the-default-package"><a href="#Your-ApplicationContext-is-unlikely-to-start-due-to-a-ComponentScan-of-the-default-package" class="headerlink" title="Your ApplicationContext is unlikely to start due to a @ComponentScan of the default package"></a>Your ApplicationContext is unlikely to start due to a @ComponentScan of the default package</h1><p>首先 Application.java 文件不能直接放在main/java文件夹下，需要放入包中 (例如 main/java/com/lupw 下)。其次，会默认扫描所有包，需要加上注解 @ComponentScan(“com.lupw”) 对扫描的包进行限制。</p>
-<p>解决方法的相关链接：<br><code>https://stackoverflow.com/questions/35070455/springboot-beandefinitionstoreexception-failed-to-parse-configuration-class</code></p>
+          <p>gRPC 是一 Google 开源的的 RPC 框架，主要面向移动应用开发并基于 HTTP/2 协议标准和 ProtoBuf 序列化协议来设计的，gRPC 需要配合 ProtoBuf 来使用，首先需要先写好 .proto 描述文件定义 RPC 接口，然后使用 protoc 编译工具编译 .proto 文件生成客户端和服务端所需要的接口代码，这篇笔记主要记录下在 SpringBoot 项目中如何使用 gRPC。gPRC 和 ProtoBuf 的一些参考资料如下：</p>
+<ul>
+<li>oschina 上翻译的 gRPC 官方文档：<code>http://doc.oschina.net/grpc?t=60134</code></li>
+<li>gRPC 总结的学习笔记：<code>https://legacy.gitbook.com/book/skyao/learning-grpc/details</code></li>
+<li>PtotoBuf 官方网址： <code>https://developers.google.com/protocol-buffers/</code></li>
+</ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/07/SpringBoot-启动错误问题笔记/#more" rel="contents">
+            <a class="btn" href="/2018/06/17/SpringBoot-配置使用gRPC/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1685,7 +893,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/04/Nginx-Rewrite重写/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/16/IDEA-Git管理项目的相关操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1704,7 +912,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/04/Nginx-Rewrite重写/" itemprop="url">Nginx-Rewrite重写</a></h1>
+                <a class="post-title-link" href="/2018/06/16/IDEA-Git管理项目的相关操作/" itemprop="url">IDEA-Git管理项目的相关操作</a></h1>
         
 
         <div class="post-meta">
@@ -1716,8 +924,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-04T00:17:29+08:00">
-                2018-05-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-16T03:22:30+08:00">
+                2018-06-16
               </time>
             
 
@@ -1739,8 +947,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Nginx/" itemprop="url" rel="index">
-                    <span itemprop="name">Nginx</span>
+                  <a href="/categories/IDEA/" itemprop="url" rel="index">
+                    <span itemprop="name">IDEA</span>
                   </a>
                 </span>
 
@@ -1777,194 +985,809 @@
 
       
         
-          
-            <p>Rewrite 的可以重新定向 (会重写用户的请求地址，但是不会修改问号后面参数) URL 地址，通过在配置文件中重写 URL，可以让网站中的 URL 符合某种条件后跳转到指定的 URL，如重定向到 301，404 等页面，例如因为需求更改了项目的结构，用户之前收藏的链接再去访问就会出现错误，Rewrite 就可以用于解决这种问题。Rewrite 还可以完成防盗链的功能。源码的实现可以查看 ngx_http_rewrite_module 模块，官方地址 <code>https://nginx.org/en/docs/</code>。</p>
-<h1 id="Rewrite-中的指令"><a href="#Rewrite-中的指令" class="headerlink" title="Rewrite 中的指令"></a>Rewrite 中的指令</h1><p>Rewrite 的重写规则既可以放在 server，也可以放在 location 里面。</p>
-<h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><p>if 指令的作用域为 server、location，在使用的时候要注意的是 if 的后面必须要有一个空格。</p>
-<p>if 指令的的条件可以是：</p>
-<table>
-<thead>
-<tr>
-<th>操作符</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>一个变量</td>
-<td>变量不为空或者不为 0 的字符串则条件为真</td>
-</tr>
-<tr>
-<td>==, !=</td>
-<td>比较的一个变量和字符串</td>
-</tr>
-<tr>
-<td>~, ~*</td>
-<td>与正则表达式匹配的变量，如果这个正则表达式中包含 “}”，则整个表达式需要用 “ 或 ‘</td>
-</tr>
-<tr>
-<td>-f, !-f</td>
-<td>检查一个文件是否存在</td>
-</tr>
-<tr>
-<td>-d, !-d</td>
-<td>检查一个目录是否存在</td>
-</tr>
-<tr>
-<td>-e, !-e</td>
-<td>检查一个文件、目录是否存在</td>
-</tr>
-<tr>
-<td>-x, !-x</td>
-<td>检查一个文件是否可执行</td>
-</tr>
-</tbody>
-</table>
-<p>使用实例：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if ($request_method == POST)&#123;</span><br><span class="line">    return 404;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="return"><a href="#return" class="headerlink" title="return"></a>return</h2><p>return 指令的作用域是 server、location 和 if，return 指令可以中断请求，并且返回 一个 HTTP 状态码。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if ($request_method == POST)&#123;</span><br><span class="line">    <span class="comment"># 返回 404 错误码</span></span><br><span class="line">    return 404;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="break"><a href="#break" class="headerlink" title="break"></a>break</h2><p>break 指令的作用域是 server、location 和 if，break 指令可以阻止后面的 rewrite 指令执行。</p>
-<h2 id="set"><a href="#set" class="headerlink" title="set"></a>set</h2><p>set 指令的作用域是 server、location 和 if，set 指令可以初始化或设置一个变量。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">location /test &#123;</span><br><span class="line">    set $foo hello;</span><br><span class="line">    if ($foo == hello) &#123;</span><br><span class="line">        return 404;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="Nginx-内置的全局变量"><a href="#Nginx-内置的全局变量" class="headerlink" title="Nginx 内置的全局变量"></a>Nginx 内置的全局变量</h1><p>网上收集了一些 Ngixn 内置的全局变量，如下表所示：</p>
-<table>
-<thead>
-<tr>
-<th>变量名</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$args</td>
-<td>GET 请求中的参数</td>
-</tr>
-<tr>
-<td>$arg_PARAMETER</td>
-<td>GET 请求中指定变量名参数的值，如 $arg_userName，获取到的是 GET 请求中 userName 参数的值</td>
-</tr>
-<tr>
-<td>$binary_remote_addr</td>
-<td>二进制码形式的客户端地址</td>
-</tr>
-<tr>
-<td>$body_bytes_sent</td>
-<td>传送页面的字节数</td>
-</tr>
-<tr>
-<td>$content_length</td>
-<td>请求头中的Content-length字段</td>
-</tr>
-<tr>
-<td>$content_typ</td>
-<td>请求头中的Content-Type字段</td>
-</tr>
-<tr>
-<td>$cookie_COOKIE</td>
-<td>cookie  中指定的 COOKIE 的值</td>
-</tr>
-<tr>
-<td>$document_root</td>
-<td>当前请求在 root 指令中指定的值</td>
-</tr>
-<tr>
-<td>$uri</td>
-<td>请求中的当前 URI (不带请求参数，参数位于 $args)，不同于浏览器传递的 $request_uri 的值，它可以通过内部重定向，或者使用 index 指令进行修改，不包括协议和主机名</td>
-</tr>
-<tr>
-<td>$document_uri</td>
-<td>和 $url 相同</td>
-</tr>
-<tr>
-<td>$host</td>
-<td>请求中的主机头字段，如果请求中的主机头不可用或者空，则为处理请求的 server 名称 (处理请求的 server 的 server_name 指令的值)，值为小写，不包含端口</td>
-</tr>
-<tr>
-<td>$hostname</td>
-<td>机器名</td>
-</tr>
-<tr>
-<td>$http_HEADER</td>
-<td>HTTP 请求头中的内容，HEADER 为 HTTP 请求中的内容转为小写，<code>-</code> 变为 <code>_</code> ( 破折号变为下划线 )，例如：$http_user_agent，$http_referer</td>
-</tr>
-<tr>
-<td>$sent_http_HEADER</td>
-<td>HTTP响应头中的内容，HEADER为HTTP响应中的内容转为小写，<code>-</code> 变为 <code>_</code> (破折号变为下划线)，例如： $sent_http_cache_control，$sent_http_content_type</td>
-</tr>
-<tr>
-<td>$limit_rate</td>
-<td>连接速率</td>
-</tr>
-<tr>
-<td>$nginx_version</td>
-<td>当前运行的 Nginx 版本号</td>
-</tr>
-<tr>
-<td>$query_string</td>
-<td>与 $args 相同</td>
-</tr>
-<tr>
-<td>$remote_addr</td>
-<td>客户端的 IP 地址</td>
-</tr>
-<tr>
-<td>$remote_port</td>
-<td>客户端的端口</td>
-</tr>
-<tr>
-<td>$remote_user</td>
-<td>已经经过 Auth Basic Module 验证的用户名</td>
-</tr>
-<tr>
-<td>$request_filename</td>
-<td>当前连接请求的文件路径，由 roo t或 alias 指令与 URI 请求生成</td>
-</tr>
-<tr>
-<td>$request_body</td>
-<td>请求体</td>
-</tr>
-<tr>
-<td>$request_body_file</td>
-<td>客户端请求主体信息的临时文件名</td>
-</tr>
-<tr>
-<td>$request_completion</td>
-<td>如果请求成功，设为 “OK”，如果请求未完成或者不是一系列请求中最后一部分则设为空</td>
-</tr>
-<tr>
-<td>$request_method</td>
-<td>GET 或 POST 请求方法</td>
-</tr>
-<tr>
-<td>$request_uri</td>
-<td>包含一些客户端请求参数的原始URI，它无法修改，请查看 $uri 更改或重写 URI</td>
-</tr>
-<tr>
-<td>$scheme</td>
-<td>所用的协议，比如 http 或者是 https</td>
-</tr>
-<tr>
-<td>$server_addr</td>
-<td>服务器地址，在完成一次系统调用后可以确定这个值，如果要绕开系统调用，则必须在 listen 中指定地址并且使用 bind 参数</td>
-</tr>
-<tr>
-<td>$server_name</td>
-<td>服务器名称</td>
-</tr>
-<tr>
-<td>$server_port</td>
-<td>请求到达服务器的端口号</td>
-</tr>
-<tr>
-<td>$server_protocol</td>
-<td>请求使用的协议，通常是HTTP/1.0或HTTP/1.1</td>
-</tr>
-</tbody>
-</table>
-<p>参考资料：<code>http://www.nginx.cn/273.html</code></p>
+          <h1 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h1><p>分别点击菜单栏的 VCS -&gt; Git -&gt; Branches 选项，如下图所示：</p>
+<p><img src="/2018/06/16/IDEA-Git管理项目的相关操作/20180616033851.jpg" width="1020" height="200"></p>
+<p>点击 New Branch 选项，输入分支的名字点击确定即可创建分支，创建完成后一般自动切换到分支工作空间，可以在 IDEA 的状态栏查看当前分支的工作空间，如下图所示：</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/06/16/IDEA-Git管理项目的相关操作/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/07/IDEA-Maven多模块项目/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/07/IDEA-Maven多模块项目/" itemprop="url">IDEA-Maven多模块项目</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-07T14:10:25+08:00">
+                2018-06-07
+              </time>
+            
+
+            
+
+            
+          </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IDEA/" itemprop="url" rel="index">
+                    <span itemprop="name">IDEA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h1><p>参考笔记：<code>Maven 创建 JavaWeb 项目</code>，创建好的项目的目录结构如下：</p>
+<p><img src="/2018/06/07/IDEA-Maven多模块项目/20180607142458.jpg" weight="1000" height="240"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/06/07/IDEA-Maven多模块项目/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/06/Linux-创建和修改用户权限/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/06/Linux-创建和修改用户权限/" itemprop="url">Linux-创建和删修改用户权限</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-06T23:39:14+08:00">
+                2018-06-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>以下操作的服务器是在阿里云服务器上有实际的操作成功。</p>
+<h1 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h1><p>创建用户，并在 home 目录下创建 lupw 目录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -d /home/lupw -m lupw</span><br></pre></td></tr></table></figure>
+<p>配置用户的登录密码，passwd [用户名]。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd lupw</span><br></pre></td></tr></table></figure>
+<h1 id="修改用户权限"><a href="#修改用户权限" class="headerlink" title="修改用户权限"></a>修改用户权限</h1><p>默认新创建的用户是无法使用 sudo 权限的，需要进行配置，没有 sudo 权限时执行 sudo 指令时会提示：[用户名] is not in the sudoers file。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[lupw@iZwz95w6z2icuvzwoxbna3Z ~]$ sudo mkdir jdk</span><br><span class="line">[sudo] password for lupw:</span><br><span class="line">lupw is not in the sudoers file.  This incident will be reported.</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/06/06/Linux-创建和修改用户权限/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/05/Dubbo-Dubbo入门学习笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/05/Dubbo-Dubbo入门学习笔记/" itemprop="url">Dubbo-Dubbo入门学习笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-05T10:35:04+08:00">
+                2018-06-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Dubbo/" itemprop="url" rel="index">
+                    <span itemprop="name">Dubbo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在了解 Dubbo 之前，先了解下 RPC 的概念，RPC (Remote Procedure Call) 即远程过程调用，是一种计算机协议，该协议允许运行于一台计算机的程序调用另一台计算机的子程序。几个例子说明，两台服务器 A、B，分别部署不同的应用 a、b，当 A 服务器想要调用 B 服务器上应用 b 提供的函数或方法的时候，由于不在一个内存空间，不能直接调用，但是通过 RPC 可以完成这种远程服务调用。</p>
+<h1 id="Dubbo"><a href="#Dubbo" class="headerlink" title="Dubbo"></a>Dubbo</h1><p>Dubbo 是一款分布式服务框架，是一个高性能和透明化的 RPC 远程服务调用方案以及SOA服务治理方案。</p>
+<h1 id="Dubbo-架构"><a href="#Dubbo-架构" class="headerlink" title="Dubbo 架构"></a>Dubbo 架构</h1><p><img src="/2018/06/05/Dubbo-Dubbo入门学习笔记/20180605110541.jpg" width="1000" height="550"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/06/05/Dubbo-Dubbo入门学习笔记/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/31/Java-ConcurrentHashMap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/31/Java-ConcurrentHashMap/" itemprop="url">Java-ConcurrentHahsMap实现原理（JDK 1.8）- 未完成</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-31T17:51:32+08:00">
+                2018-05-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>ConcurrentHashMap 是一种线程安全且高效的 HashMap，HashMap 是非线程安全的，在多线程情况下使用 HashMap 的 put 操作 (发生在扩容的时) 可能会引起死循环。HashTable 虽然是线程安全的，但是其效率低下。ConcurrentHashMap 就可以解决上面出现的问题。ConcurrentHashMap 在 JDK 1.8 中相较之前的版本改动较大，使用了全新的 CAS 算法实现，本文我主要看的还是 JDK 1.8 中的源码，和之前版本的区别就简单的了解一下。</p>
+<h1 id="HashTable-效率低原因"><a href="#HashTable-效率低原因" class="headerlink" title="HashTable 效率低原因"></a>HashTable 效率低原因</h1><p>我们先可以看看 HashTable 的源码中对 Map 进行操作的几个方法的定义，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// put 方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> V <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// remove 方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> V <span class="title">remove</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// putAll 方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">putAll</span><span class="params">(Map&lt;? extends K, ? extends V&gt; t)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/31/Java-ConcurrentHashMap/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/31/Java-HashMap（二）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/31/Java-HashMap（二）/" itemprop="url">Java-HashMap（二）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-31T11:02:10+08:00">
+                2018-05-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>HashMap 是 Java 中一种重要的结构，在上一篇笔记中已经了解了什么是哈希表和 Map 接口，HashMap 是基于 Hash 表的设计实现的，也同时实现了 Map 接口，这篇笔记继续深入的了解 HashMap 从源码上具体是如何实现的。</p>
+<h1 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h1><p>HashMap 是 Java 中经常使用的一种数据结构，HashMap 是 Map 的实现类，关于 Map 其常用的实现类和类关系继承图如下 UML 图所示：</p>
+<p><img src="/2018/05/31/Java-HashMap（二）/20180531180921.jpg" width="1000" height="370"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/31/Java-HashMap（二）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2012,7 +1835,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2060,7 +1883,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">94</span>
+                  <span class="site-state-item-count">127</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2071,7 +1894,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

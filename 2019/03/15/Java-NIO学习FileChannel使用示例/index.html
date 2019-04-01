@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Java NIO 中的 FileChannel 是一个连接到文件的通道, 可以通过文件通道读写文件, 下面是学习时的一份测试代码, 里面记录的 FileChannel 的使用方法, 一些说明也写在注释里面了 建立测试文件建立一个测试文件 file_channel_test.txt, 文件里面的初始内容如下: 1Hohoho, Hohoho, Hohoho">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-NIO学习FileChannel使用示例">
+<meta property="og:url" content="http://yoursite.com/2019/03/15/Java-NIO学习FileChannel使用示例/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="Java NIO 中的 FileChannel 是一个连接到文件的通道, 可以通过文件通道读写文件, 下面是学习时的一份测试代码, 里面记录的 FileChannel 的使用方法, 一些说明也写在注释里面了 建立测试文件建立一个测试文件 file_channel_test.txt, 文件里面的初始内容如下: 1Hohoho, Hohoho, Hohoho">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-31T04:31:34.580Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java-NIO学习FileChannel使用示例">
+<meta name="twitter:description" content="Java NIO 中的 FileChannel 是一个连接到文件的通道, 可以通过文件通道读写文件, 下面是学习时的一份测试代码, 里面记录的 FileChannel 的使用方法, 一些说明也写在注释里面了 建立测试文件建立一个测试文件 file_channel_test.txt, 文件里面的初始内容如下: 1Hohoho, Hohoho, Hohoho">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/15/Java-NIO学习FileChannel使用示例/"/>
+
+
+
+
+
+  <title>Java-NIO学习FileChannel使用示例 | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/Java-NIO学习FileChannel使用示例/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java-NIO学习FileChannel使用示例</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-15T22:50:02+08:00">
+                2019-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Java NIO 中的 FileChannel 是一个连接到文件的通道, 可以通过文件通道读写文件, 下面是学习时的一份测试代码, 里面记录的 FileChannel 的使用方法, 一些说明也写在注释里面了</p>
+<h1 id="建立测试文件"><a href="#建立测试文件" class="headerlink" title="建立测试文件"></a>建立测试文件</h1><p>建立一个测试文件 file_channel_test.txt, 文件里面的初始内容如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hohoho, Hohoho, Hohoho</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h1 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h1><p>注: FileChannel 无法设置为非阻塞模式，它总是运行在阻塞模式下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="comment">// 通过使用一个 InputStream、OutputStream 或 RandomAccessFile 来获取一个 FileChannel</span></span><br><span class="line">    RandomAccessFile readRandomAccessFile = <span class="keyword">new</span> RandomAccessFile(<span class="string">"D:\\Work\\hello-grpc\\java-guava\\src\\main\\resources\\md\\file_channel_test.txt"</span>, <span class="string">"rw"</span>);</span><br><span class="line">    <span class="comment">// FileChannel 无法设置为非阻塞模式，它总是运行在阻塞模式下</span></span><br><span class="line">    FileChannel readFileChannel = readRandomAccessFile.getChannel();</span><br><span class="line">    ByteBuffer readByteBuffer = ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line">    <span class="keyword">int</span> len;</span><br><span class="line">    <span class="keyword">while</span> ((len = readFileChannel.read(readByteBuffer)) != -<span class="number">1</span>) &#123;</span><br><span class="line">        log.info(<span class="string">"读取到数据"</span>);</span><br><span class="line">        log.info(<span class="keyword">new</span> String(readByteBuffer.array(), <span class="number">0</span>, len, StandardCharsets.UTF_8));</span><br><span class="line">        <span class="comment">// 重置缓存, 调用该方法缓存的 limit 和 capacity 不变, position = 0, mark = -1</span></span><br><span class="line">        readByteBuffer.rewind();</span><br><span class="line">    &#125;</span><br><span class="line">    log.info(<span class="string">"position = &#123;&#125;"</span>, readFileChannel.position());</span><br><span class="line">    log.info(<span class="string">"size = &#123;&#125;"</span>, readFileChannel.size());</span><br><span class="line">    <span class="comment">// 关闭通道</span></span><br><span class="line">    readFileChannel.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">22:57:33.120 [main] INFO com.lupw.guava.io.FileChannelMain - 读取到数据</span><br><span class="line">22:57:33.124 [main] INFO com.lupw.guava.io.FileChannelMain - Hohoho, Hohoho, Hohoho</span><br></pre></td></tr></table></figure>
+<h1 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h1><p>注: windows 下的文本文件换行符: \r\n, linux/unix下的文本文件换行符: \r, Mac下的文本文件换行符: \n</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    RandomAccessFile writeRandomAccessFile = <span class="keyword">new</span> RandomAccessFile(<span class="string">"/Users/lupengwei/IDEA/hello-grpc/java-guava/src/main/resources/md/file_channel_test.txt"</span>, <span class="string">"rw"</span>);</span><br><span class="line">    FileChannel writeFileChannel = writeRandomAccessFile.getChannel();</span><br><span class="line">    String baseWriteContent = <span class="string">"写入测试数据"</span>;</span><br><span class="line">    ByteBuffer writeByteBuffer = ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">        String writeContent = baseWriteContent + DateTime.now().toString(<span class="string">"yyyy-MM-dd HH:mm:ss:SSS"</span>) + System.lineSeparator();</span><br><span class="line">        <span class="comment">// 缓存中添加数据</span></span><br><span class="line">        writeByteBuffer.put(writeContent.getBytes(StandardCharsets.UTF_8), <span class="number">0</span>, writeContent.getBytes().length);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 反转缓存区, limit = position, position = 0, capacity = -1</span></span><br><span class="line">        <span class="comment">// 这样就不会将 buf 其他为 0 的写入进去, 出现空写</span></span><br><span class="line">        writeByteBuffer.flip();</span><br><span class="line">        <span class="comment">// 将缓存中的数据写入通道</span></span><br><span class="line">        writeFileChannel.write(writeByteBuffer);</span><br><span class="line">        <span class="comment">// 将通道里尚未写入磁盘的数据强制写到磁盘上</span></span><br><span class="line">        <span class="comment">// 出于性能方面的考虑, 操作系统会将数据缓存在内存中, 只有缓存满时才会写到磁盘上</span></span><br><span class="line">        <span class="comment">// 如果需要即时的将数据写入到磁盘里面, 每次 write 后调用 force 方法即可, force 方法的参数表示是否将文件元数据 (如权限信息等) 写到磁盘上</span></span><br><span class="line">        writeFileChannel.force(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 重置缓存区状态, limit = capacity, position = 0, mark = -1</span></span><br><span class="line">        <span class="comment">// 因为之前调用了 flip() 方法, 导致 limit 的值变化了, 为了下次循环缓存还能放入最多 1024 个字节从头开始写入数据, 调用 clear() 方法重置</span></span><br><span class="line">        writeByteBuffer.clear();</span><br><span class="line"></span><br><span class="line">        log.info(<span class="string">"position = &#123;&#125;"</span>, writeFileChannel.position());</span><br><span class="line">        log.info(<span class="string">"size = &#123;&#125;"</span>, writeFileChannel.size());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 关闭通道</span></span><br><span class="line">    writeFileChannel.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">22:57:33.126 [main] INFO com.lupw.guava.io.FileChannelMain - position = 23</span><br><span class="line">22:57:33.129 [main] INFO com.lupw.guava.io.FileChannelMain - size = 23</span><br><span class="line">22:57:33.207 [main] INFO com.lupw.guava.io.FileChannelMain - position = 42</span><br><span class="line">22:57:33.207 [main] INFO com.lupw.guava.io.FileChannelMain - size = 42</span><br><span class="line">22:57:33.207 [main] INFO com.lupw.guava.io.FileChannelMain - position = 84</span><br><span class="line">22:57:33.207 [main] INFO com.lupw.guava.io.FileChannelMain - size = 84</span><br><span class="line">22:57:33.207 [main] INFO com.lupw.guava.io.FileChannelMain - position = 126</span><br><span class="line">22:57:33.207 [main] INFO com.lupw.guava.io.FileChannelMain - size = 126</span><br><span class="line">22:57:33.207 [main] INFO com.lupw.guava.io.FileChannelMain - position = 168</span><br><span class="line">22:57:33.207 [main] INFO com.lupw.guava.io.FileChannelMain - size = 168</span><br><span class="line">22:57:33.208 [main] INFO com.lupw.guava.io.FileChannelMain - position = 210</span><br><span class="line">22:57:33.208 [main] INFO com.lupw.guava.io.FileChannelMain - size = 210</span><br></pre></td></tr></table></figure>
+<p>写入新的数据后文件内容如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">写入测试数据2019-03-15 22:57:33:142</span><br><span class="line">写入测试数据2019-03-15 22:57:33:207</span><br><span class="line">写入测试数据2019-03-15 22:57:33:207</span><br><span class="line">写入测试数据2019-03-15 22:57:33:207</span><br><span class="line">写入测试数据2019-03-15 22:57:33:207</span><br></pre></td></tr></table></figure>
+<h1 id="其他的一些-API"><a href="#其他的一些-API" class="headerlink" title="其他的一些 API"></a>其他的一些 API</h1><ul>
+<li>FileChannel.size() 方法返回 Channel 所关联文件的大小</li>
+<li>FileChannel.truncate() 方法截取一个文件, 指定长度外面的部分将被删除</li>
+<li>FileChannel.position() 方法获取或者设置当前读写文件的位置, 新打开 Channel, 如果写文件不是 append 模式, position 是 0, 新写入的会覆盖原内容</li>
+</ul>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://blog.csdn.net/zrh_lawliet/article/details/81166028" target="_blank" rel="noopener">Java NIO (一) FileChannel 详解</a></li>
+<li><a href="http://xintq.net/2017/06/12/everything-about-java-nio/" target="_blank" rel="noopener">Java NIO</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Java-NIO学习FileChannel使用示例
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2019/03/15/Java-NIO学习FileChannel使用示例/" title="Java-NIO学习FileChannel使用示例">2019/03/15/Java-NIO学习FileChannel使用示例/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/12/Java-Socket网络编程-UDP/" rel="next" title="Java-Socket网络编程-UDP">
+                <i class="fa fa-chevron-left"></i> Java-Socket网络编程-UDP
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/15/Java-NIO学习DatagramChannel使用示例/" rel="prev" title="Java-NIO学习DatagramChannel使用示例">
+                Java-NIO学习DatagramChannel使用示例 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#建立测试文件"><span class="nav-number">1.</span> <span class="nav-text">建立测试文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#读取文件"><span class="nav-number">2.</span> <span class="nav-text">读取文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写入文件"><span class="nav-number">3.</span> <span class="nav-text">写入文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他的一些-API"><span class="nav-number">4.</span> <span class="nav-text">其他的一些 API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

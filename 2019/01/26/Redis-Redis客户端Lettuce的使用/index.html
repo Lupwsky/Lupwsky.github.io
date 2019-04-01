@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Redis 客户端 Lettuce 的使用Lettuce 是一个 Java 实现的 Redis 客户端, Lettuce 相对于 Jedis, 除了和 Jedis 一样提供了对 Redis 基础的操作外, 在多线程下也是实例安全, 并且提供了同步, 异步和响应式的调用, 同时许多接口都支持 Stream API, 对大的大的数据集合的处理可以减少内存的消耗,非常方便等的, Lettuce 具备了更">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis-Redis客户端Lettuce的使用">
+<meta property="og:url" content="http://yoursite.com/2019/01/26/Redis-Redis客户端Lettuce的使用/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="Redis 客户端 Lettuce 的使用Lettuce 是一个 Java 实现的 Redis 客户端, Lettuce 相对于 Jedis, 除了和 Jedis 一样提供了对 Redis 基础的操作外, 在多线程下也是实例安全, 并且提供了同步, 异步和响应式的调用, 同时许多接口都支持 Stream API, 对大的大的数据集合的处理可以减少内存的消耗,非常方便等的, Lettuce 具备了更">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-31T04:31:34.612Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis-Redis客户端Lettuce的使用">
+<meta name="twitter:description" content="Redis 客户端 Lettuce 的使用Lettuce 是一个 Java 实现的 Redis 客户端, Lettuce 相对于 Jedis, 除了和 Jedis 一样提供了对 Redis 基础的操作外, 在多线程下也是实例安全, 并且提供了同步, 异步和响应式的调用, 同时许多接口都支持 Stream API, 对大的大的数据集合的处理可以减少内存的消耗,非常方便等的, Lettuce 具备了更">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/26/Redis-Redis客户端Lettuce的使用/"/>
+
+
+
+
+
+  <title>Redis-Redis客户端Lettuce的使用 | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/Redis-Redis客户端Lettuce的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Redis-Redis客户端Lettuce的使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T23:03:57+08:00">
+                2019-01-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Redis-客户端-Lettuce-的使用"><a href="#Redis-客户端-Lettuce-的使用" class="headerlink" title="Redis 客户端 Lettuce 的使用"></a>Redis 客户端 Lettuce 的使用</h1><p>Lettuce 是一个 Java 实现的 Redis 客户端, Lettuce 相对于 Jedis, 除了和 Jedis 一样提供了对 Redis 基础的操作外, 在多线程下也是实例安全, 并且提供了同步, 异步和响应式的调用, 同时许多接口都支持 Stream API, 对大的大的数据集合的处理可以减少内存的消耗,非常方便等的, Lettuce 具备了更加优秀的特性</p>
+<h2 id="项目中引入依赖"><a href="#项目中引入依赖" class="headerlink" title="项目中引入依赖"></a>项目中引入依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.lettuce<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lettuce-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.3.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="建立链接"><a href="#建立链接" class="headerlink" title="建立链接"></a>建立链接</h2><p>使用 Lettuce 客户端连接 Redis 创建 RedisClient 实例对象, 主要需要使用 RedisURL 这个类, 支持单节点 (Redis Standalone), 单节点 SSL ( Redis Standalone SSL), 独立的 UNIX 域套接字 (Redis Standalone Unix Domain Socket) 和哨兵模式连接 (Redis Sentinel), 一个单节点的连接模式的使用示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// RedisURL 也提供了建造者模式来创建实例</span></span><br><span class="line"><span class="comment">// RedisURI.create("10.98.164.156", 6380).withPassword("lupengwei.4585").build();</span></span><br><span class="line">RedisURI redisURI = RedisURI.create(<span class="string">"10.98.164.156"</span>, <span class="number">6380</span>);</span><br><span class="line">redisURI.setPassword(<span class="string">"lupengwei.4585"</span>);</span><br><span class="line">redisURI.setTimeout(Duration.ofSeconds(<span class="number">10</span>));</span><br><span class="line">redisURI.setDatabase(<span class="number">0</span>);</span><br><span class="line">RedisClient redisClient = RedisClient.create(redisURI);</span><br><span class="line"></span><br><span class="line">StatefulRedisConnection&lt;String, String&gt; connection = redisClient.connect();</span><br><span class="line">RedisCommands&lt;String, String&gt; syncCommands = connection.sync();</span><br><span class="line">syncCommands.set(<span class="string">"username"</span>, <span class="string">"lpw"</span>);</span><br><span class="line">String value = syncCommands.get(<span class="string">"username"</span>);</span><br><span class="line">connection.close();</span><br><span class="line">redisClient.shutdown();</span><br></pre></td></tr></table></figure>
+<p>除了使用 RedisURL 类外, 还可以使用符合 URL 格式的字符串, 然后调用 RedisClient.create(String url) 连接 Redis 创建 RedisClient 实例对象, 各模式连接 URL 格式分别如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis://[:password@] host [:port] [/database] [?[timeout=timeout[d|h|m|s|ms|us|ns]] [&amp;_database=database_]]</span><br><span class="line">rediss://[:password@] host [:port] [/database] [?[timeout=timeout[d|h|m|s|ms|us|ns]] [&amp;_database=database_]]</span><br><span class="line">redis-socket:// path [?[timeout=timeout[d|h|m|s|ms|us|ns]] [&amp;_database=database_]]</span><br><span class="line">redis-sentinel://[: password@] host1 [:port1] [,host2[:port2]] [,hostN[:portN]] [/database] [?[timeout=timeout[d|h|m|s|ms|us|ns]] [&amp;_sentinelMasterId=sentinelMasterId_] [&amp;_database=database_]]</span><br></pre></td></tr></table></figure>
+<p>其中的 <code>[d|h|m|s|ms|us|ns]</code> 部分时超时时间单位可选值, 分别对应 <code>[天|时|分|秒|毫秒|微妙|纳秒]</code>, 下面是一个简单的使用示例:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RedisClient redisClient = RedisClient.create(<span class="string">"redis://lupengwei.4585@10.98.164.156:6380/0?timeout=10s"</span>);</span><br><span class="line">StatefulRedisConnection&lt;String, String&gt; connection = redisClient.connect();</span><br><span class="line">RedisCommands&lt;String, String&gt; syncCommands = connection.sync();</span><br><span class="line">syncCommands.set(<span class="string">"username"</span>, <span class="string">"lpw"</span>);</span><br></pre></td></tr></table></figure>
+<p>更加详细信息可参考官方文档: <code>https://github.com/lettuce-io/lettuce-core/wiki/Redis-URI-and-connection-details</code></p>
+<h2 id="同步调用"><a href="#同步调用" class="headerlink" title="同步调用"></a>同步调用</h2><p>同步的调用很简单, 在上面的例子中已经有过调用, 在获取到 连接后, 调用 connection.sync() 方法就可以获取到 RedisCommands 对象实例, 然后就可以像 Redis 一样进行各种基础操作了, 使用示例如下, 可以看到其调用方法是和 Redis 指令操作是类似的:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">RedisCommands&lt;String, String&gt; syncCommands = connection.sync();</span><br><span class="line">syncCommands.set(<span class="string">"username"</span>, <span class="string">"lpw"</span>);</span><br><span class="line"><span class="comment">// 设置超时时间</span></span><br><span class="line">syncCommands.expire(<span class="string">"username"</span>, <span class="number">3000</span>);</span><br><span class="line"><span class="comment">// 获取超时时间</span></span><br><span class="line"><span class="keyword">long</span> timeout = syncCommands.ttl(<span class="string">"username"</span>);</span><br><span class="line">String value = syncCommands.get(<span class="string">"username"</span>);</span><br></pre></td></tr></table></figure>
+<p>一般在 Spring 项目中配置成对应的 Bean, 代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RedisClient <span class="title">getRedisClient</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> RedisClient.create(<span class="string">"redis://lupengwei.4585@10.98.164.156:6380/0?timeout=10s"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">RedisCommands&lt;String, String&gt; <span class="title">getStringSyncRedisCommands</span><span class="params">(RedisClient redisClient)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> redisClient.connect().sync();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisServiceImpl</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> RedisCommands&lt;String, String&gt; stringSyncRedisCommands;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RedisServiceImpl</span><span class="params">(RedisCommands&lt;String, String&gt; stringSyncRedisCommands)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.stringSyncRedisCommands = stringSyncRedisCommands;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">lettuceRedisTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        stringSyncRedisCommands.set(<span class="string">"username"</span>, <span class="string">"lpw"</span>);</span><br><span class="line">        stringSyncRedisCommands.expire(<span class="string">"username"</span>, <span class="number">3000</span>);</span><br><span class="line">        <span class="keyword">long</span> timeout = stringSyncRedisCommands.ttl(<span class="string">"username"</span>);</span><br><span class="line">        String value = stringSyncRedisCommands.get(<span class="string">"username"</span>);</span><br><span class="line">        log.info(<span class="string">"[Lettuce Redis] timeout = &#123;&#125;, value = &#123;&#125;"</span>, timeout, value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="异步调用"><a href="#异步调用" class="headerlink" title="异步调用"></a>异步调用</h2><p>在使用 Jedis 的时候, 需要异步调用时需要借助 Future 或者 JDK 1.8 中的 CompleteableFuture 类来实现, Lettuce 对此进行封装, 对于异步调用非常方便</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">RedisAsyncCommands&lt;String, String&gt; asyncCommands = connection.async();</span><br><span class="line">RedisFuture&lt;String&gt; future = asyncCommands.get(<span class="string">"username"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// TODO 其他耗时任务</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    String username = future.get();</span><br><span class="line">&#125; <span class="keyword">catch</span> (InterruptedException | ExecutionException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等待多个 RedisFuture 执行完成</span></span><br><span class="line">List&lt;RedisFuture&lt;String&gt;&gt; futures = <span class="keyword">new</span> ArrayList&lt;RedisFuture&lt;String&gt;&gt;();</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">    futures.add(asyncCommands.get(<span class="string">"username"</span> + i, <span class="string">""</span>));</span><br><span class="line">&#125;</span><br><span class="line">LettuceFutures.awaitAll(<span class="number">1</span>, TimeUnit.MINUTES, futures.toArray(<span class="keyword">new</span> RedisFuture[futures.size()]));</span><br></pre></td></tr></table></figure>
+<p>RedisFuture 的使用和 JDK 1.8 中的 CompleteableFuture 使用类似, 支持 JDK 1.8 中各种新特性, 更加详细的使用方法可以参考官方资料: <code>https://github.com/lettuce-io/lettuce-core/wiki/Asynchronous-API</code></p>
+<h2 id="发布订阅功能-观察者模式"><a href="#发布订阅功能-观察者模式" class="headerlink" title="发布订阅功能 (观察者模式)"></a>发布订阅功能 (观察者模式)</h2><p>熟悉 Redis 的应该知道 Redis 支持发布订阅功能, 使用 SUBSCRIBE 和 PUBLISH 指令就可以实现, Lettuce 也提供了发布订阅功能相关 API, 使用起来也很方便, Jedis 也有提供相关 API, 参考资料 <a href="https://blog.csdn.net/lihao21/article/details/48370687" target="_blank" rel="noopener">Jedis 实现 Publish/Subscribe 功能</a>, <a href="https://zhuanlan.zhihu.com/p/52734627" target="_blank" rel="noopener">Redis 用作消息队列和发布订阅模式</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 同步方式</span></span><br><span class="line">StatefulRedisPubSubConnection&lt;String, String&gt; connection = redisClient.connectPubSub();</span><br><span class="line">connection.addListener(<span class="keyword">new</span> RedisPubSubListener&lt;String, String&gt;() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">        * 接收到消息时的回调方法</span></span><br><span class="line"><span class="comment">        *</span></span><br><span class="line"><span class="comment">        * <span class="doctag">@param</span> s  channel</span></span><br><span class="line"><span class="comment">        * <span class="doctag">@param</span> s2 接收到的消息</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">message</span><span class="params">(String s, String s2)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"message, channel = &#123;&#125;, message = &#123;&#125;"</span>, s, s2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">        * 接收到消息时的回调方法</span></span><br><span class="line"><span class="comment">        *</span></span><br><span class="line"><span class="comment">        * <span class="doctag">@param</span> s  Pattern</span></span><br><span class="line"><span class="comment">        * <span class="doctag">@param</span> k1 channel</span></span><br><span class="line"><span class="comment">        * <span class="doctag">@param</span> s2 接收到的消息</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">message</span><span class="params">(String s, String k1, String s2)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"message, pattern = &#123;&#125;, channel = &#123;&#125;, message = &#123;&#125;"</span>, s, k1, s2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">        * 订阅 channel 时的监听方法</span></span><br><span class="line"><span class="comment">        *</span></span><br><span class="line"><span class="comment">        * <span class="doctag">@param</span> s channel</span></span><br><span class="line"><span class="comment">        * <span class="doctag">@param</span> l 当前 channel 的数量</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">subscribed</span><span class="params">(String s, <span class="keyword">long</span> l)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"subscribed, channel = &#123;&#125;, currentChannelCount = &#123;&#125;"</span>, s, l);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">        * 批量订阅 channel 时的监听方法, 根据这里订阅的 channel 数量被多次调用</span></span><br><span class="line"><span class="comment">        *</span></span><br><span class="line"><span class="comment">        * <span class="doctag">@param</span> s channel</span></span><br><span class="line"><span class="comment">        * <span class="doctag">@param</span> l 当前 channel 的数量</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">psubscribed</span><span class="params">(String s, <span class="keyword">long</span> l)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"psubscribed, channel = &#123;&#125;, currentChannelCount = &#123;&#125;"</span>, s, l);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">        * 取消订阅 channel 时的监听方法</span></span><br><span class="line"><span class="comment">        *</span></span><br><span class="line"><span class="comment">        * <span class="doctag">@param</span> s channel</span></span><br><span class="line"><span class="comment">        * <span class="doctag">@param</span> l 当前 channel 的数量</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unsubscribed</span><span class="params">(String s, <span class="keyword">long</span> l)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"unsubscribed, channel = &#123;&#125;, currentChannelCount = &#123;&#125;"</span>, s, l);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">        * 批量取消订阅 channel 时的监听方法, 根据这里取消订阅的 channel 数量被多次调用</span></span><br><span class="line"><span class="comment">        *</span></span><br><span class="line"><span class="comment">        * <span class="doctag">@param</span> s channel</span></span><br><span class="line"><span class="comment">        * <span class="doctag">@param</span> l 当前 channel 的数量</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">punsubscribed</span><span class="params">(String s, <span class="keyword">long</span> l)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"punsubscribed, channel = &#123;&#125;, currentChannelCount = &#123;&#125;"</span>, s, l);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">RedisPubSubCommands&lt;String, String&gt; sync = connection.sync();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 订阅单个 channel, RedisPubSubListener 方法的 subscribed 会被调用</span></span><br><span class="line">sync.subscribe(<span class="string">"username"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 订阅多个 channel, RedisPubSubListener 方法的 psubscribed 会根据这里订阅的 channel 数量被多次调用</span></span><br><span class="line">sync.psubscribe(<span class="string">"username1"</span>, <span class="string">"username2"</span>);</span><br><span class="line"></span><br><span class="line">RedisCommands&lt;String, String&gt; commands = redisClient.connect().sync();</span><br><span class="line">commands.publish(<span class="string">"username"</span>, <span class="string">"lpw"</span>);</span><br></pre></td></tr></table></figure>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://zhuanlan.zhihu.com/p/32348602" target="_blank" rel="noopener">Redis4.0 到来, Jedis不能用了咋整</a></li>
+<li><a href="https://juejin.im/post/5bc6d5d2e51d450e7a2541e8" target="_blank" rel="noopener">Lettuce 和Jedis的基准测试</a></li>
+<li><a href="https://cloud.tencent.com/developer/article/1142355" target="_blank" rel="noopener">高级的 Redis Java客户端 - Lettuce</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Redis-Redis客户端Lettuce的使用
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2019/01/26/Redis-Redis客户端Lettuce的使用/" title="Redis-Redis客户端Lettuce的使用">2019/01/26/Redis-Redis客户端Lettuce的使用/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/26/Java-注解和注解在SpringAOP中的使用示例/" rel="next" title="Java-注解和注解在SpringAOP中的使用示例">
+                <i class="fa fa-chevron-left"></i> Java-注解和注解在SpringAOP中的使用示例
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/16/Redis-Redis字符串/" rel="prev" title="Redis-Redis字符串">
+                Redis-Redis字符串 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis-客户端-Lettuce-的使用"><span class="nav-number">1.</span> <span class="nav-text">Redis 客户端 Lettuce 的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目中引入依赖"><span class="nav-number">1.1.</span> <span class="nav-text">项目中引入依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建立链接"><span class="nav-number">1.2.</span> <span class="nav-text">建立链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步调用"><span class="nav-number">1.3.</span> <span class="nav-text">同步调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步调用"><span class="nav-number">1.4.</span> <span class="nav-text">异步调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发布订阅功能-观察者模式"><span class="nav-number">1.5.</span> <span class="nav-text">发布订阅功能 (观察者模式)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">2.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="NIO 使用 ServerSocketChannel 和 SocketChannel 可以实现基于 TCP 协议的 Socket 通信, 但是如果没有将通道和选择器结合起来使用, 实现的 Scoket 通信和 BIO 实现的方式是一样的模式, 没有实现多路复用, 这里记录下结合 Selector 实现 Socket 通信多路复用的功能, 一些知识点和注意的地方就直接写在注释里面了, 不想整理了~~">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-NIO学习Selector使用示例">
+<meta property="og:url" content="http://yoursite.com/2019/03/15/Java-NIO学习Selector使用示例/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="NIO 使用 ServerSocketChannel 和 SocketChannel 可以实现基于 TCP 协议的 Socket 通信, 但是如果没有将通道和选择器结合起来使用, 实现的 Scoket 通信和 BIO 实现的方式是一样的模式, 没有实现多路复用, 这里记录下结合 Selector 实现 Socket 通信多路复用的功能, 一些知识点和注意的地方就直接写在注释里面了, 不想整理了~~">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-31T04:31:34.580Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java-NIO学习Selector使用示例">
+<meta name="twitter:description" content="NIO 使用 ServerSocketChannel 和 SocketChannel 可以实现基于 TCP 协议的 Socket 通信, 但是如果没有将通道和选择器结合起来使用, 实现的 Scoket 通信和 BIO 实现的方式是一样的模式, 没有实现多路复用, 这里记录下结合 Selector 实现 Socket 通信多路复用的功能, 一些知识点和注意的地方就直接写在注释里面了, 不想整理了~~">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/15/Java-NIO学习Selector使用示例/"/>
+
+
+
+
+
+  <title>Java-NIO学习Selector使用示例 | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/Java-NIO学习Selector使用示例/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java-NIO学习Selector使用示例</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-15T23:18:44+08:00">
+                2019-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>NIO 使用 ServerSocketChannel 和 SocketChannel 可以实现基于 TCP 协议的 Socket 通信, 但是如果没有将通道和选择器结合起来使用, 实现的 Scoket 通信和 BIO 实现的方式是一样的模式, 没有实现多路复用, 这里记录下结合 Selector 实现 Socket 通信多路复用的功能, 一些知识点和注意的地方就直接写在注释里面了, 不想整理了~~</p>
+<h1 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Channel 与 Selector 一起使用实现 I/0 多路复用，Channel 必须处于非阻塞模式下</span></span><br><span class="line">    serverSocketChannel.configureBlocking(<span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 绑定端口号</span></span><br><span class="line">    ServerSocket serverSocket = serverSocketChannel.socket();</span><br><span class="line">    serverSocket.bind(<span class="keyword">new</span> InetSocketAddress(<span class="number">9000</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将 Channel 注册到选择器上, 第二个参数表示需要监听的 Channel 操作事件, 多个监听操作事件使用位或操作实现, 监听事操作件的类型如下</span></span><br><span class="line">    <span class="comment">// SelectionKey.OP_ACCEPT, 表示服务器接受客户端连接的监听事件</span></span><br><span class="line">    <span class="comment">// SelectionKey.OP_CONNECT, 表示客户端连接到服务器的监听事件</span></span><br><span class="line">    <span class="comment">// SelectionKey.OP_READ, 表示服务器准备从通道中读取数据的监听事件</span></span><br><span class="line">    <span class="comment">// SelectionKey.OP_WRITE, 表示服务器准备写入数据到通道的监听事件</span></span><br><span class="line">    <span class="comment">// 另外要注意的是这些事件只有一次是有效的</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建选择器实例, 将服务端注册到选择器, 监听 OP_ACCEPT 事件</span></span><br><span class="line">    <span class="comment">// SelectionKey 代表了注册到该 Selector 的 Channel, 可以从这里面获取到对应的 Channel 信息和绑定的 Selector 信息, 如监听了哪些事件</span></span><br><span class="line">    <span class="comment">// 服务端只能支持 OP_ACCEPT 监听事件, 使用 ServerSocketChannel.validOps() 可以知道对应的 Channel 支持的监听事件</span></span><br><span class="line">    Selector selector = Selector.open();</span><br><span class="line">    SelectionKey selectionKey = serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 调用 Selector.select() 方法, 返回发生对应监听事件的那些 Channel, 返回 int 表示有多少个 Channel 就绪了</span></span><br><span class="line">    <span class="comment">// select() 阻塞到至少有一个通道在你注册的事件上就绪了</span></span><br><span class="line">    <span class="comment">// select(long timeout) 阻塞到至少有一个通道在你注册的事件上就绪了, 设置最大阻塞时间</span></span><br><span class="line">    <span class="comment">// selectNow() 不阻塞, 如果没有 Channel 就绪, 返回 0, 这种方式需要不停循环检测</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (selector.selectNow() == <span class="number">0</span>) &#123;</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取已经准备就绪的 SelectionKey, 里面带有 Channel 信息和是那种操作事件已经就绪</span></span><br><span class="line">        Iterator&lt;SelectionKey&gt; keyIterator = selector.selectedKeys().iterator();</span><br><span class="line">        <span class="keyword">while</span> (keyIterator.hasNext()) &#123;</span><br><span class="line">            SelectionKey tempSelectionKey = keyIterator.next();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 表示有客户端连接上来, 可以从 SelectionKey 取到客户端的 SeverSocketChannel 实例, 并注册到选择器</span></span><br><span class="line">            <span class="comment">// 通过 SeverSocketChannel.accept() 获取到客户端的 SocketChannel 后注册到选择器, 并将</span></span><br><span class="line">            <span class="keyword">if</span> (tempSelectionKey.isAcceptable()) &#123;</span><br><span class="line">                log.info(<span class="string">"有客户端连接上来了, 开始接收数据"</span>);</span><br><span class="line">                SocketChannel socketChannel = ((ServerSocketChannel) tempSelectionKey.channel()).accept();</span><br><span class="line">                socketChannel.configureBlocking(<span class="keyword">false</span>);</span><br><span class="line">                socketChannel.register(tempSelectionKey.selector(), SelectionKey.OP_READ | SelectionKey.OP_WRITE);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 客户端发送数据过来时, 可以开始读取客户端发送的数据了</span></span><br><span class="line">            <span class="keyword">if</span> (tempSelectionKey.isValid() &amp;&amp; tempSelectionKey.isReadable()) &#123;</span><br><span class="line">                SocketChannel socketChannel = (SocketChannel) tempSelectionKey.channel();</span><br><span class="line">                log.info(receiveMsg(socketChannel));</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 发送消息到客户端</span></span><br><span class="line">                String content = <span class="string">"这是服务端发送的数据"</span>;</span><br><span class="line">                log.info(<span class="string">"服务端发送消息 = &#123;&#125;"</span>, content);</span><br><span class="line">                sendMsg(socketChannel, content);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// SelectionKey.isWritable() 是表示 SocketChannel 可写, 网络不出现阻塞情况下, 一直是可以写的, 所认一直为 true, 一般我们不注册 OP_WRITE</span></span><br><span class="line">            <span class="comment">// 如果上面 socketChannel.register(tempSelectionKey.selector(), SelectionKey.OP_READ | SelectionKey.OP_WRITE);</span></span><br><span class="line">            <span class="comment">// 这里会不停的打印 "SocketChannel 可以写入数据了", 实际项目开发中这样会造成 CPU 极大的浪费</span></span><br><span class="line">            <span class="keyword">if</span> (tempSelectionKey.isValid() &amp;&amp; tempSelectionKey.isWritable()) &#123;</span><br><span class="line">                log.info(<span class="string">"SocketChannel 可以写入数据了"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Selector 不会自己从已选择键集中移除 SelectionKey 实例, 必须在处理完通道时自己移除</span></span><br><span class="line">            <span class="comment">// 下次该通道变成就绪时, Selector 会再次将其放入集合中</span></span><br><span class="line">            keyIterator.remove();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>服务端发送数据和接收数据示例代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 发送数据</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sendMsg</span><span class="params">(SocketChannel socketChannel, String msg)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        socketChannel.write(ByteBuffer.wrap(msg.getBytes()));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        log.info(<span class="string">"服务端发送消息失败, error = &#123;&#125;"</span>, e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 接收数据</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">receiveMsg</span><span class="params">(SocketChannel socketChannel)</span> </span>&#123;</span><br><span class="line">    StringBuilder contentBuffer = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        ByteBuffer buffer = ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line">        <span class="keyword">int</span> count;</span><br><span class="line">        <span class="keyword">while</span>((count = socketChannel.read(buffer)) &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            contentBuffer.append(<span class="keyword">new</span> String(buffer.array(), <span class="number">0</span>, count));</span><br><span class="line">            buffer.rewind();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        log.info(<span class="string">"服务器接收消息失败 = &#123;&#125;, error = &#123;&#125;"</span>, e);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            socketChannel.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e1) &#123;</span><br><span class="line">            e1.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> contentBuffer.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>服务端输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">23:26:35.207 [main] INFO com.lupw.guava.io.NioServerSelector - 有客户端连接上来了, 开始接收数据</span><br><span class="line">23:26:38.230 [main] INFO com.lupw.guava.io.NioServerSelector - 你好, 服务器2019-03-15 23:26:37</span><br><span class="line">23:26:38.230 [main] INFO com.lupw.guava.io.NioServerSelector - 服务端发送消息 = 这是服务端发送的数据</span><br><span class="line">23:26:41.244 [main] INFO com.lupw.guava.io.NioServerSelector - 你好, 服务器2019-03-15 23:26:40</span><br><span class="line">23:26:41.244 [main] INFO com.lupw.guava.io.NioServerSelector - 服务端发送消息 = 这是服务端发送的数据</span><br><span class="line">23:26:44.257 [main] INFO com.lupw.guava.io.NioServerSelector - 你好, 服务器2019-03-15 23:26:43</span><br><span class="line">23:26:44.257 [main] INFO com.lupw.guava.io.NioServerSelector - 服务端发送消息 = 这是服务端发送的数据</span><br></pre></td></tr></table></figure>
+<h1 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    SocketChannel socketChannel = SocketChannel.open();</span><br><span class="line">    socketChannel.connect(<span class="keyword">new</span> InetSocketAddress(<span class="string">"127.0.0.1"</span>, <span class="number">9000</span>));</span><br><span class="line">    socketChannel.configureBlocking(<span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            String content = <span class="string">"你好, 服务器"</span> + DateTime.now().toString(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>);</span><br><span class="line">            log.info(<span class="string">"客户端发送消息 = &#123;&#125;"</span>, content);</span><br><span class="line">            sendMsg(socketChannel, content);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;).start();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            log.info(<span class="string">"客户端收到消息"</span> + receiveMsg(socketChannel));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ).start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>客户端发送数据和接收数据示例代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 发送数据</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sendMsg</span><span class="params">(SocketChannel socketChannel, String msg)</span></span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        socketChannel.write(ByteBuffer.wrap(msg.getBytes()));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        log.info(<span class="string">"客户端发送消息失败, error = &#123;&#125;"</span>, e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 接收数据</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">receiveMsg</span><span class="params">(SocketChannel socketChannel)</span></span>&#123;</span><br><span class="line">    StringBuilder contentBuffer = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        ByteBuffer buffer = ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line">        <span class="keyword">int</span> count;</span><br><span class="line">        <span class="keyword">while</span>((count = socketChannel.read(buffer)) &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            contentBuffer.append(<span class="keyword">new</span> String(buffer.array(), <span class="number">0</span>, count));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        log.info(<span class="string">"客户端接收消息失败 = &#123;&#125;, error = &#123;&#125;"</span>, e);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            socketChannel.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e1) &#123;</span><br><span class="line">            e1.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> contentBuffer.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>客户端输出结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">23:26:37.637 [Thread-1] INFO com.lupw.guava.io.NioClientSelector - 客户端收到消息</span><br><span class="line">23:26:37.694 [Thread-0] INFO com.lupw.guava.io.NioClientSelector - 客户端发送消息 = 你好, 服务器2019-03-15 23:26:37</span><br><span class="line">23:26:40.644 [Thread-1] INFO com.lupw.guava.io.NioClientSelector - 客户端收到消息这是服务端发送的数据</span><br><span class="line">23:26:40.701 [Thread-0] INFO com.lupw.guava.io.NioClientSelector - 客户端发送消息 = 你好, 服务器2019-03-15 23:26:40</span><br><span class="line">23:26:43.645 [Thread-1] INFO com.lupw.guava.io.NioClientSelector - 客户端收到消息这是服务端发送的数据</span><br><span class="line">23:26:43.702 [Thread-0] INFO com.lupw.guava.io.NioClientSelector - 客户端发送消息 = 你好, 服务器2019-03-15 23:26:43</span><br></pre></td></tr></table></figure>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://segmentfault.com/a/1190000006824196" target="_blank" rel="noopener">NIO Selector 详解</a></li>
+<li><a href="https://blog.csdn.net/jeffleo/article/details/54695959" target="_blank" rel="noopener">Java NIO Selector详解 (含多人聊天室实例)</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Java-NIO学习Selector使用示例
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2019/03/15/Java-NIO学习Selector使用示例/" title="Java-NIO学习Selector使用示例">2019/03/15/Java-NIO学习Selector使用示例/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/15/Java-NIO学习ServerSocketChannel和ScoketChannel使用实例/" rel="next" title="Java-NIO学习ServerSocketChannel和ScoketChannel使用实例">
+                <i class="fa fa-chevron-left"></i> Java-NIO学习ServerSocketChannel和ScoketChannel使用实例
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/25/Spring-源码阅读ClassPathXmlApplicationContext之prepareRefresh方法/" rel="prev" title="Spring-源码阅读ClassPathXmlApplicationContext之prepareRefresh方法">
+                Spring-源码阅读ClassPathXmlApplicationContext之prepareRefresh方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#服务端"><span class="nav-number">1.</span> <span class="nav-text">服务端</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#客户端"><span class="nav-number">2.</span> <span class="nav-text">客户端</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
