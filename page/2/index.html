@@ -251,7 +251,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/11/Java-NIO学习NetworkInterface类/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/19/算法-排序算法之插入排序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -270,7 +270,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/11/Java-NIO学习NetworkInterface类/" itemprop="url">Java-NIO学习NetworkInterface类</a></h1>
+                <a class="post-title-link" href="/2019/04/19/算法-排序算法之插入排序/" itemprop="url">算法-排序算法之插入排序</a></h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-11T23:01:26+08:00">
-                2019-03-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-19T23:10:04+08:00">
+                2019-04-19
               </time>
             
 
@@ -305,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -343,13 +343,12 @@
 
       
         
-          <p>NetworkInterface 类是 1.4 加入的类, 此类表示一个由名称和分配给此接口的 IP 地址列表组成的网络接口, 包含了网络接口名称和IP地址等信息</p>
-<h1 id="NetworkInterface-类提供的方法"><a href="#NetworkInterface-类提供的方法" class="headerlink" title="NetworkInterface 类提供的方法"></a>NetworkInterface 类提供的方法</h1><p>NetworkInterface 类提供的方法可以参考文档: <a href="http://doc.codingdict.com/java_api/java/net/NetworkInterface.html" target="_blank" rel="noopener">NetworkInterface 类</a></p>
-<h1 id="获取-NetworkInterface-类实例"><a href="#获取-NetworkInterface-类实例" class="headerlink" title="获取 NetworkInterface 类实例"></a>获取 NetworkInterface 类实例</h1><p>获取 NetworkInterface 类实例只能通过 NetworkInterface 的静态方法获取, 一共有四个, 如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过网络设备在当前操作系统中的 IP 获取 NetworkInterface 类实例</span></span><br><span class="line">NetworkInterface.getByInetAddress(InetAddress inetAddress);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过网络设备在当前操作系统中的名称获取 NetworkInterface 类实例</span></span><br><span class="line">NetworkInterface.getByName(String name);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过网络设备在当前操作系统中的网络索引值获取 NetworkInterface 类实例</span></span><br><span class="line">NetworkInterface.getByIndex(<span class="keyword">int</span> index);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取当前操作系统的所有网络设备的网络接口</span></span><br><span class="line">Enumeration&lt;NetworkInterface&gt; networkInterface = NetworkInterface.getNetworkInterfaces();</span><br></pre></td></tr></table></figure>
+          <p>文章仅用于学习使用</p>
+<h1 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h1><p>要排序的元素和前面已经排序的元素比较, 根据比较的情况插入到合适的位置, 并将插入位置后面的元素右移, 如下下图 (图片来源 <a href="">算法技术手册</a> 一书) 所示:</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/jpeg/259000/1555297767674-33c39102-2f2e-41ad-bde3-0c54494960e2.jpeg#align=left&amp;display=inline&amp;height=525&amp;originHeight=1080&amp;originWidth=1534&amp;status=done&amp;width=746" alt=""></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/11/Java-NIO学习NetworkInterface类/#more" rel="contents">
+            <a class="btn" href="/2019/04/19/算法-排序算法之插入排序/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -410,7 +409,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/11/Spring-SpringRetry重试实现机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/19/算法-排序算法之冒泡排序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -429,7 +428,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/11/Spring-SpringRetry重试实现机制/" itemprop="url">Spring-SpringRetry重试实现机制</a></h1>
+                <a class="post-title-link" href="/2019/04/19/算法-排序算法之冒泡排序/" itemprop="url">算法-排序算法之冒泡排序</a></h1>
         
 
         <div class="post-meta">
@@ -441,8 +440,165 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-11T22:44:41+08:00">
-                2019-03-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-19T23:01:00+08:00">
+                2019-04-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h1><p>循环遍历, 依次比较两个两个相邻的元素, 将值大的交换至右端</p>
+<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>只需循环一次即可, 正序时为 O(n^2), 逆序时为 O(n^2), 平均时间复杂度为 O(n^2)</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/04/19/算法-排序算法之冒泡排序/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/14/Spring-源码阅读BeanDefinitionParserDelegate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/14/Spring-源码阅读BeanDefinitionParserDelegate/" itemprop="url">Spring-源码阅读BeanDefinitionParserDelegate</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T21:24:35+08:00">
+                2019-04-14
               </time>
             
 
@@ -502,11 +658,11 @@
 
       
         
-          <p>之前项目中有一个同步数据的定时任务, 在每天的 01:00 开始执行, 需要调用其他公司提供的 HTTP 接口来同步数据, 由于使用的 HTTP 获取数据, 为了防止网络波动造成有些请求失败, 需要添加重试机制, 要求为失败的话 2 秒后再次发起请求, 最多请求三次, 于是我写下如下逻辑代码, 这里贴出伪代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 该方法在子线程里面执行的</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">failureRetry</span><span class="params">(String traceId)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> tryCount = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">        tryCount = i + <span class="number">1</span>;</span><br><span class="line">        log.info(<span class="string">"[同步服务小结重试] 重新发起请求, traceId = &#123;&#125;, 此次同步重试次数 = &#123;&#125;"</span>, traceId, tryCount);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            log.info(<span class="string">"[同步服务小结重试] 线程异常, traceId = &#123;&#125;, error = &#123;&#125;"</span>, traceId, e);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 模拟逻辑处理的方法, 获取请求返回码</span></span><br><span class="line">        <span class="keyword">int</span> code = getData();</span><br><span class="line">        <span class="keyword">if</span> (code == <span class="number">200</span>) &#123;</span><br><span class="line">            <span class="comment">// 成功的处理逻辑</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 失败的处理逻辑</span></span><br><span class="line">            log.info(<span class="string">"[同步服务小结重试] 失败, traceId = &#123;&#125;, 此次同步重试次数 = &#123;&#125;"</span>, traceId, tryCount);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <h1 id="BeanDefinitionParserDelegate"><a href="#BeanDefinitionParserDelegate" class="headerlink" title="BeanDefinitionParserDelegate"></a>BeanDefinitionParserDelegate</h1><p>BeanDefinitionParserDelegate 是用于将定义了 bean 的 XML 文件解析成 BeanDefinition  类的委托类, 在看 XmlBeanFactory 源码时, 需要将 XML 配置的 bena 进行解析, 主要调用的是 BeanDefinitionDocumentReader 的 registerBeanDefinitions 方法, 如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">registerBeanDefinitions</span><span class="params">(Document doc, Resource resource)</span> </span></span><br><span class="line"><span class="function">    <span class="keyword">throws</span> BeanDefinitionStoreException </span>&#123;</span><br><span class="line">    BeanDefinitionDocumentReader documentReader = createBeanDefinitionDocumentReader();</span><br><span class="line">    <span class="keyword">int</span> countBefore = getRegistry().getBeanDefinitionCount();</span><br><span class="line">    documentReader.registerBeanDefinitions(doc, createReaderContext(resource));</span><br><span class="line">    <span class="keyword">return</span> getRegistry().getBeanDefinitionCount() - countBefore;</span><br><span class="line">&#125;=</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/11/Spring-SpringRetry重试实现机制/#more" rel="contents">
+            <a class="btn" href="/2019/04/14/Spring-源码阅读BeanDefinitionParserDelegate/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -567,7 +723,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/Redis-Redis简单限流/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/14/Spring-源码阅读SimpleAliasRegistry/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -586,7 +742,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/10/Redis-Redis简单限流/" itemprop="url">Redis-Redis简单限流</a></h1>
+                <a class="post-title-link" href="/2019/04/14/Spring-源码阅读SimpleAliasRegistry/" itemprop="url">Spring-源码阅读SimpleAliasRegistry</a></h1>
         
 
         <div class="post-meta">
@@ -598,325 +754,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-10T23:16:50+08:00">
-                2019-03-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="为什么需要限流"><a href="#为什么需要限流" class="headerlink" title="为什么需要限流"></a>为什么需要限流</h1><p>在大数据量高并发访问时, 经常会出现服务或接口面对大量请求而不可用的情况, 甚至引发连锁反映导致整个系统崩溃, 限流的技术手段可以很好的应对这种情况, 当请求达到一定的并发数或速率, 就进行等待, 排队, 降级, 拒绝服务等策略, 虽然会影响到用户的体验, 但是可以有效的保证系统不崩溃, 限流常见算法: 令牌桶, 漏斗, 计数器算法和时间窗口</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/10/Redis-Redis简单限流/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/Java-NIO学习缓存API的使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/10/Java-NIO学习缓存API的使用/" itemprop="url">Java-NIO学习缓存API的使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-10T22:48:01+08:00">
-                2019-03-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>最近开始在看 <code>NIO于Scoket编程技术指南</code> 一书, 记录下学习笔记</p>
-<h1 id="NIO-中的缓存类-API-使用"><a href="#NIO-中的缓存类-API-使用" class="headerlink" title="NIO 中的缓存类 API 使用"></a>NIO 中的缓存类 API 使用</h1><p>和传统 I/O 只能在处理 byte 和 char 型数据, NIO 支持多种类型的数据 (底层还是 byte 字节来处理), NIO 使用 Buffer 类处理不同的的数据类型, Buffer 是一个抽象类, 有 7 个直接的之类: ByteBuffer, CharBuffer, DoubleBuffer, FloatBuffer, IntBuffer, LongBuffer, ShortBuffer, 注意这 7 个类也是抽象类, 不能直接实例化, 但是这些类都提供了一个 wrap 方法将数据放入缓存中, 并获取实例:</p>
-<ul>
-<li>实例化方法一, 使用已经存在的数组: ByteBuffer byteBuffer = ByteBuffer.wrap(new byte[]{‘1’, ‘2’, ‘3’, ‘4’, ‘5’});</li>
-<li>实例化方法二, 使用 allocate 方法: ByteBuffer byteBuffer = ByteBuffer.allocate(10);</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/10/Java-NIO学习缓存API的使用/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/SpringBoot-加载JAR包外面的页面和静态资源文件/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/10/SpringBoot-加载JAR包外面的页面和静态资源文件/" itemprop="url">SpringBoot-加载JAR包外面的页面和静态资源文件</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-10T22:25:33+08:00">
-                2019-03-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T21:20:45+08:00">
+                2019-04-14
               </time>
             
 
@@ -976,12 +815,10 @@
 
       
         
-          <p>Spring Boot 将项目默认打包成 JAR 包后使用 java -jar xxx.jar 的方式就可以启动项目, 如果项目中有 HTML 页面以及静态资源文件, 也一并会打包到 JAR 包里面, 如果需要更改 HTML 页面和静态资源文件, 在更改后又需要将打包整个项目, 然后上传到服务器运行,  Spring Boot 支持将这些资源文件放到 jar 包外面并访问, 这样的又需要更改 HTML 页面和静态资源文件时只需要将更改后的资源文件上传到服务器, 然后将项目重启即可, 免去了整个项目打包和上传的过程</p>
-<h1 id="集成-Thymeleaf"><a href="#集成-Thymeleaf" class="headerlink" title="集成 Thymeleaf"></a>集成 Thymeleaf</h1><p>为了后续方便测试, 在 Spring Boot 项目中集成 Thymeleaf, 添加如下依赖:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-thymeleaf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+          <p><img src="https://cdn.nlark.com/yuque/0/2019/png/259000/1554948615958-78e34256-49aa-491c-a8f8-de0cc4fb48a1.png#align=left&amp;display=inline&amp;height=350&amp;name=xmlbeanfactory.png&amp;originHeight=652&amp;originWidth=1388&amp;size=42765&amp;status=done&amp;width=746" alt="xmlbeanfactory.png"></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/10/SpringBoot-加载JAR包外面的页面和静态资源文件/#more" rel="contents">
+            <a class="btn" href="/2019/04/14/Spring-源码阅读SimpleAliasRegistry/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1042,7 +879,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/02/Java-多线程之synchronized关键字/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/14/Spring-源码阅读AliasRegistry/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1061,7 +898,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/02/Java-多线程之synchronized关键字/" itemprop="url">Java-多线程之synchronized关键字</a></h1>
+                <a class="post-title-link" href="/2019/04/14/Spring-源码阅读AliasRegistry/" itemprop="url">Spring-源码阅读AliasRegistry</a></h1>
         
 
         <div class="post-meta">
@@ -1073,8 +910,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-02T17:17:30+08:00">
-                2019-03-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T21:16:07+08:00">
+                2019-04-14
               </time>
             
 
@@ -1096,8 +933,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
                   </a>
                 </span>
 
@@ -1134,11 +971,10 @@
 
       
         
-          <h1 id="非数据共享"><a href="#非数据共享" class="headerlink" title="非数据共享"></a>非数据共享</h1><p>线程都有自己的独立的成员变量或者这些需要处理的变量属于方法的私有变量, 就不会有数据共享的情况, 如下例子, 需要处理的数据是方法的私有变量, num为addNum的私有变量, 虽然线程使用的是同一个 HasSelfPrivateNum 实例对象, 但是不会有线程安全问题, 示例代码如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HasSelfPrivateNum</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">addNum</span><span class="params">(String username)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> num = username.equals(<span class="string">"a"</span>) ? <span class="number">100</span> : <span class="number">200</span>;</span><br><span class="line">        System.out.println(<span class="string">"num = "</span> + num);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p><img src="https://cdn.nlark.com/yuque/0/2019/png/259000/1554948615958-78e34256-49aa-491c-a8f8-de0cc4fb48a1.png#align=left&amp;display=inline&amp;height=350&amp;name=xmlbeanfactory.png&amp;originHeight=652&amp;originWidth=1388&amp;size=42765&amp;status=done&amp;width=746" alt="xmlbeanfactory.png"></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/02/Java-多线程之synchronized关键字/#more" rel="contents">
+            <a class="btn" href="/2019/04/14/Spring-源码阅读AliasRegistry/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1199,7 +1035,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/02/Java-多线程之守护线程/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/14/Spring-源码阅读AutowireCapableBeanFactory/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1218,7 +1054,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/02/Java-多线程之守护线程/" itemprop="url">Java-多线程之守护线程</a></h1>
+                <a class="post-title-link" href="/2019/04/14/Spring-源码阅读AutowireCapableBeanFactory/" itemprop="url">Spring-源码阅读AutowireCapableBeanFactory</a></h1>
         
 
         <div class="post-meta">
@@ -1230,8 +1066,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-02T17:08:31+08:00">
-                2019-03-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T21:13:17+08:00">
+                2019-04-14
               </time>
             
 
@@ -1253,8 +1089,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
                   </a>
                 </span>
 
@@ -1291,12 +1127,10 @@
 
       
         
-          <h1 id="守护线程"><a href="#守护线程" class="headerlink" title="守护线程"></a>守护线程</h1><p>守护线程是一种特殊的线程, 当进程中不存在非守护线程了, 则守护线程自动销毁, 典型的线程就是垃圾回收线程, 当进行中所有的非守护线程不存在了 (程序就会结束), 垃圾回收线程也就没有必要存在了</p>
-<h1 id="非守护线程实例"><a href="#非守护线程实例" class="headerlink" title="非守护线程实例"></a>非守护线程实例</h1><p>创建一个线程, 示例代码如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">synchronized</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.run();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">                sleep(<span class="number">1000</span>);</span><br><span class="line">                <span class="keyword">if</span> (interrupted()) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> InterruptedException();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">"由线程"</span> + currentThread().getName() + <span class="string">"执行"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">"线程"</span> + currentThread().getName() + <span class="string">"中断了"</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"由线程"</span> + currentThread().getName() + <span class="string">"执行，这个操作在循环体的外面"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p><img src="https://cdn.nlark.com/yuque/0/2019/png/259000/1554948615958-78e34256-49aa-491c-a8f8-de0cc4fb48a1.png#align=left&amp;display=inline&amp;height=350&amp;name=xmlbeanfactory.png&amp;originHeight=652&amp;originWidth=1388&amp;size=42765&amp;status=done&amp;width=746" alt="xmlbeanfactory.png"></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/02/Java-多线程之守护线程/#more" rel="contents">
+            <a class="btn" href="/2019/04/14/Spring-源码阅读AutowireCapableBeanFactory/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1357,7 +1191,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/Java-DelayQueue延时队列/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/14/Spring-源码阅读SingletonBeanRegistry/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1376,7 +1210,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/28/Java-DelayQueue延时队列/" itemprop="url">Java-DelayQueue延时队列</a></h1>
+                <a class="post-title-link" href="/2019/04/14/Spring-源码阅读SingletonBeanRegistry/" itemprop="url">Spring-源码阅读SingletonBeanRegistry</a></h1>
         
 
         <div class="post-meta">
@@ -1388,8 +1222,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-28T22:17:12+08:00">
-                2019-02-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T21:11:24+08:00">
+                2019-04-14
               </time>
             
 
@@ -1411,8 +1245,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
                   </a>
                 </span>
 
@@ -1449,16 +1283,10 @@
 
       
         
-          <h1 id="DelayQueue"><a href="#DelayQueue" class="headerlink" title="DelayQueue"></a>DelayQueue</h1><ul>
-<li>DelayQueue 内部使用的是 PriorityQueue 实现的, 同时实现了 BlockingQueue, BlockingQueue 是一个读写都是线程安全的队列</li>
-<li>是一个先进先出的无界阻塞队列 (无界也不是完全的没有大小, 最大为 int 的最大值, 21 亿左右)</li>
-<li>只有在延迟期满的时候才能从中获取到元素, 放在队列头部的是延迟期满后保存时间最长的 Delayed 元素</li>
-<li>如果延迟都还没有期满, 则队列没有头部, poll 将返回 null</li>
-</ul>
-<h1 id="DelayQueue-使用场景"><a href="#DelayQueue-使用场景" class="headerlink" title="DelayQueue 使用场景"></a>DelayQueue 使用场景</h1><p>DelayQueue 可以用来实现延迟消息, 生产/消费队列, 如果不考虑分布式系统, 队列中的数据持久化问题和消息可靠性问题 (虽然可以自己实现重试机制解决一定的问题,但是如果正在处理某条消息时客户端崩溃还是导致这条消息丢失), DelayQueue 就可以满足要求</p>
+          <p><img src="https://cdn.nlark.com/yuque/0/2019/png/259000/1554948615958-78e34256-49aa-491c-a8f8-de0cc4fb48a1.png#align=left&amp;display=inline&amp;height=350&amp;name=xmlbeanfactory.png&amp;originHeight=652&amp;originWidth=1388&amp;size=42765&amp;status=done&amp;width=746" alt="xmlbeanfactory.png"></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/28/Java-DelayQueue延时队列/#more" rel="contents">
+            <a class="btn" href="/2019/04/14/Spring-源码阅读SingletonBeanRegistry/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1519,7 +1347,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/Redis-Redis分布式延时队列/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/14/Spring-源码阅读ConfigurableBeanFactory/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1538,7 +1366,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/28/Redis-Redis分布式延时队列/" itemprop="url">Redis-Redis分布式延时队列</a></h1>
+                <a class="post-title-link" href="/2019/04/14/Spring-源码阅读ConfigurableBeanFactory/" itemprop="url">Spring-源码阅读ConfigurableBeanFactory</a></h1>
         
 
         <div class="post-meta">
@@ -1550,8 +1378,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-28T22:15:34+08:00">
-                2019-02-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T21:07:29+08:00">
+                2019-04-14
               </time>
             
 
@@ -1573,8 +1401,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
                   </a>
                 </span>
 
@@ -1611,12 +1439,10 @@
 
       
         
-          <p>DelayQueue 可以用来实现延迟消息, 如果不是在分布式系统中, 一个简单的延时消息队列可以使用 DelayQueue 来实现, 在分布式系统下, 就需要其他的方法来实现了, 在分布式系统种目前使用的多的就是 MQ 和 Redis 来实现了, 这里记录 Redis 的实现</p>
-<h1 id="Redis-延时队列的实现"><a href="#Redis-延时队列的实现" class="headerlink" title="Redis 延时队列的实现"></a>Redis 延时队列的实现</h1><p>延时队列可以通过 Redis 的有序结合来实现, score 为消息的过期时间, value 为序列化成字符串的消息, 消息添加到队列后, 使用 zrangebyscore 获取数据判断是否有数据有过期, 有数据说明有消息过期了, 然后调用 zrem 删除该消息并对该消息进行处理, 实现如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">redisDelayQueueTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    StatefulRedisConnection&lt;String, String&gt; connection = redisClient.connect();</span><br><span class="line">    RedisCommands&lt;String, String&gt; redisCommands = connection.sync();</span><br><span class="line"></span><br><span class="line">    String key = <span class="string">"delay_queue"</span>;</span><br><span class="line">    <span class="comment">// 实际开发建议使用业务 ID 和随机生成的唯一 ID 作为 value, 随机生成的唯一 ID 可以保证消息的唯一性, 业务 ID 可以避免 value 携带的信息过多</span></span><br><span class="line">    String value1 = JSONObject.toJSONString(UserInfo.builder().username(<span class="string">"lpw1"</span>).password(<span class="string">"123"</span>).build());</span><br><span class="line">    String value2 = JSONObject.toJSONString(UserInfo.builder().username(<span class="string">"lpw2"</span>).password(<span class="string">"123"</span>).build());</span><br><span class="line">    String value3 = JSONObject.toJSONString(UserInfo.builder().username(<span class="string">"lpw3"</span>).password(<span class="string">"123"</span>).build());</span><br><span class="line">    redisCommands.zadd(key, ScoredValue.from(DateTime.now().getMillis() + <span class="number">1000</span> * <span class="number">10</span>, Optional.ofNullable(value1)));</span><br><span class="line">    redisCommands.zadd(key, ScoredValue.from(DateTime.now().getMillis() + <span class="number">1000</span> * <span class="number">15</span>, Optional.ofNullable(value2)));</span><br><span class="line">    redisCommands.zadd(key, ScoredValue.from(DateTime.now().getMillis() + <span class="number">1000</span> * <span class="number">20</span>, Optional.ofNullable(value3)));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">new</span> Thread() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                List&lt;String&gt; resultList;</span><br><span class="line">                <span class="comment">// 只获取第一条数据, 只获取不会移除数据</span></span><br><span class="line">                resultList = redisCommands.zrangebyscore(key, Range.create(<span class="number">0</span>, DateTime.now().getMillis()), Limit.create(<span class="number">0</span>, <span class="number">1</span>));</span><br><span class="line">                <span class="keyword">if</span> (resultList.size() == <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// 移除数据获取到的数据</span></span><br><span class="line">                    <span class="keyword">if</span> (redisCommands.zrem(key, resultList.get(<span class="number">0</span>)) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                        log.info(<span class="string">"userInfo = &#123;&#125;"</span>, resultList.get(<span class="number">0</span>));</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p><img src="https://cdn.nlark.com/yuque/0/2019/png/259000/1554948615958-78e34256-49aa-491c-a8f8-de0cc4fb48a1.png#align=left&amp;display=inline&amp;height=350&amp;name=xmlbeanfactory.png&amp;originHeight=652&amp;originWidth=1388&amp;size=42765&amp;status=done&amp;width=746" alt="xmlbeanfactory.png"></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/28/Redis-Redis分布式延时队列/#more" rel="contents">
+            <a class="btn" href="/2019/04/14/Spring-源码阅读ConfigurableBeanFactory/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1677,7 +1503,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/26/Redis-Redis分布式锁相关/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/14/Spring-源码阅读HierarchicalBeanFactory/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1696,7 +1522,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/26/Redis-Redis分布式锁相关/" itemprop="url">Redis-Redis分布式锁相关</a></h1>
+                <a class="post-title-link" href="/2019/04/14/Spring-源码阅读HierarchicalBeanFactory/" itemprop="url">Spring-源码阅读HierarchicalBeanFactory</a></h1>
         
 
         <div class="post-meta">
@@ -1708,8 +1534,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-26T23:02:42+08:00">
-                2019-02-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T21:05:52+08:00">
+                2019-04-14
               </time>
             
 
@@ -1731,8 +1557,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
                   </a>
                 </span>
 
@@ -1769,17 +1595,166 @@
 
       
         
-          <h1 id="分布式锁可用的四个条件"><a href="#分布式锁可用的四个条件" class="headerlink" title="分布式锁可用的四个条件"></a>分布式锁可用的四个条件</h1><ul>
-<li>互斥性, 同一时间只有一个客户端持有锁</li>
-<li>无死锁, 即使有一个客户端在持有锁的期间崩溃而没有主动解锁, 也能保证后续其他客户端能加锁</li>
-<li>容错性, 只要大部分节点正常运行, 客户端就可以自己加锁和解锁</li>
-<li>标识性, 锁需要具备拥有者标识, 加锁和解锁必须是同一个客户端, 客户端不能解锁另一个客户端的锁</li>
-</ul>
-<h1 id="使用-setnx-和-expire-组合实现"><a href="#使用-setnx-和-expire-组合实现" class="headerlink" title="使用 setnx 和 expire 组合实现"></a>使用 setnx 和 expire 组合实现</h1><p>使用 setnx 和 expire 组合实现加锁, 这是老版本的 Redis 时的方案, 问题: 在执行 setnx 后设置过期时间时客户端突然崩溃 (不是出现异常), 此时锁过期时间为永久有效, 其他客户端一直不能获取到锁, 就会出现死锁, 生产环境不要使用这种方式, 出现死锁肯定是不行, 同时锁没有标识, 其他的客户端可以解锁</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">lock1</span><span class="params">(String lockKey, String lockValue, <span class="keyword">int</span> lockTimeout)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        StatefulRedisConnection&lt;String, String&gt; connection = redisClient.connect();</span><br><span class="line">        RedisCommands&lt;String, String&gt; redisCommands = connection.sync();</span><br><span class="line">        <span class="comment">// 判断锁是否已被其他的客户端持有, 如果其他客户端有持有, 获取锁失败</span></span><br><span class="line">        String lock = redisCommands.get(lockKey);</span><br><span class="line">        <span class="keyword">if</span> (lock != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> Boolean.FALSE;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">             <span class="comment">// 在 String lock = redisCommands.get(lockKey) 在并发情况下可能获取到的值都是 null</span></span><br><span class="line">             <span class="comment">// 多个客户端会进入这里的加锁逻辑, 在这里再加一层判断</span></span><br><span class="line">            <span class="keyword">if</span> (!redisCommands.setnx(lockKey, lockValue)) &#123;</span><br><span class="line">                <span class="keyword">return</span> Boolean.FALSE;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 客户端在这里崩溃, 导致锁的过期时间为永久有效而出现死锁</span></span><br><span class="line">                redisCommands.expire(lockKey, lockTimeout);</span><br><span class="line">                <span class="keyword">return</span> Boolean.TRUE;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        log.error(<span class="string">"获取锁错误, error = &#123;&#125;"</span>, e);</span><br><span class="line">        <span class="keyword">return</span> Boolean.FALSE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p><img src="https://cdn.nlark.com/yuque/0/2019/png/259000/1554948615958-78e34256-49aa-491c-a8f8-de0cc4fb48a1.png#align=left&amp;display=inline&amp;height=350&amp;name=xmlbeanfactory.png&amp;originHeight=652&amp;originWidth=1388&amp;size=42765&amp;status=done&amp;width=746" alt="xmlbeanfactory.png"></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/26/Redis-Redis分布式锁相关/#more" rel="contents">
+            <a class="btn" href="/2019/04/14/Spring-源码阅读HierarchicalBeanFactory/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/14/Spring-源码阅读ListableBeanFactory/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/14/Spring-源码阅读ListableBeanFactory/" itemprop="url">Spring-源码阅读ListableBeanFactory</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T20:57:25+08:00">
+                2019-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><img src="https://cdn.nlark.com/yuque/0/2019/png/259000/1554948615958-78e34256-49aa-491c-a8f8-de0cc4fb48a1.png#align=left&amp;display=inline&amp;height=350&amp;name=xmlbeanfactory.png&amp;originHeight=652&amp;originWidth=1388&amp;size=42765&amp;status=done&amp;width=746" alt="xmlbeanfactory.png"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/04/14/Spring-源码阅读ListableBeanFactory/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1831,7 +1806,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1879,7 +1854,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-count">150</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1890,7 +1865,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

@@ -251,7 +251,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/28/Docker-使用Docker部署SpringBoot项目/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/Java-DelayQueue延时队列/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -270,7 +270,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/28/Docker-使用Docker部署SpringBoot项目/" itemprop="url">Docker-使用Docker部署SpringBoot项目</a></h1>
+                <a class="post-title-link" href="/2019/02/28/Java-DelayQueue延时队列/" itemprop="url">Java-DelayQueue延时队列</a></h1>
         
 
         <div class="post-meta">
@@ -282,305 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-28T23:08:05+08:00">
-                2018-12-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>前两天使用 docker-maven-plugin 插件制作了一个 SpringBoot 项目的 docker 镜像文件, 并进行了部署, 做一下笔记, 我的环境是在 windows 系统上使用虚拟机创建了 centerOS 系统, 然后在  centerOS 上安装 Docker, 设置并开放了 Docker 远程 API 调用的 IP 和端口号, 在 windows 上使用 docker-maven-plugin 插件制作镜像并远程部署到 Docker 上, maven docker 的插件有多种, 在此是用的是  docker-maven-plugin, 一个开源的插件, 代码和使用说明都托管在 github 上, <a href="https://github.com/spotify/docker-maven-plugin" target="_blank" rel="noopener">https://github.com/spotify/docker-maven-plugin</a></p>
-<h1 id="Docker-远程连接设置"><a href="#Docker-远程连接设置" class="headerlink" title="Docker 远程连接设置"></a>Docker 远程连接设置</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 找到 docker.service 文件进行编辑</span><br><span class="line">sudo vim /usr/lib/systemd/system/docker.service</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 找到如下内容并更改如下</span><br><span class="line"><span class="meta">#</span> ExecStart=/usr/bin/dockerd -H unix://</span><br><span class="line">ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix://var/run/docker.sock  </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 重新加载配置文件并重启 Docker</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 记得防火墙开放 2375 端口</span><br><span class="line">sudo firewall-cmd --zone=public --add-port=2375/tcp --permanent</span><br><span class="line">sudo firewall-cmd --reload</span><br></pre></td></tr></table></figure>
-<p>如果是 windows, 如下步骤进行端口暴露 <code>Setting -&gt; General -&gt; 勾选 Expose daemon on tcp://localhost:2375 without TLS</code></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/28/Docker-使用Docker部署SpringBoot项目/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/18/Spring-XML方式配置Bean/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/18/Spring-XML方式配置Bean/" itemprop="url">Spring-XML方式配置Bean的</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-18T22:51:49+08:00">
-                2018-12-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>最近开始复习 Spring 的相关知识, 为看 Spring 的源码做好准备, 熟悉 Spring 的人都知道 Spring 有三种方式可以配置 Bean, 如下:</p>
-<ul>
-<li>基于 XML 的配置方式</li>
-<li>基于注解的配置方式</li>
-<li>基于 Java 类的配置方式</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/18/Spring-XML方式配置Bean/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/11/Java-静态代理和动态代理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/11/Java-静态代理和动态代理/" itemprop="url">Java-静态代理和动态代理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-11T23:03:55+08:00">
-                2018-12-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-28T22:17:12+08:00">
+                2019-02-28
               </time>
             
 
@@ -640,17 +343,16 @@
 
       
         
-          <h1 id="代理模式简介"><a href="#代理模式简介" class="headerlink" title="代理模式简介"></a>代理模式简介</h1><p>代理模式使设计模式的一种, 为其他对象提供一种代理以控制对这个对象的访问, 这样可以在不修改原目标对象的前提下, 提供额外的功能操作, 扩展目标对象的功能, 代理模式有以下四个角色:</p>
-<ul>
-<li>Subject: 定义代理类和真实主题的公共对外方法, 委托类合代理类都需要实现这个接口</li>
-<li>RealSubject: 真正实现业务逻辑的类, 称之为委托类</li>
-<li>Proxy: 用来封装真实主题的类 (持有委托类的引用, 并加入其他的业务处理), 称之为代理类</li>
-<li>Client: 调用代理类完成业务操作的类</li>
+          <h1 id="DelayQueue"><a href="#DelayQueue" class="headerlink" title="DelayQueue"></a>DelayQueue</h1><ul>
+<li>DelayQueue 内部使用的是 PriorityQueue 实现的, 同时实现了 BlockingQueue, BlockingQueue 是一个读写都是线程安全的队列</li>
+<li>是一个先进先出的无界阻塞队列 (无界也不是完全的没有大小, 最大为 int 的最大值, 21 亿左右)</li>
+<li>只有在延迟期满的时候才能从中获取到元素, 放在队列头部的是延迟期满后保存时间最长的 Delayed 元素</li>
+<li>如果延迟都还没有期满, 则队列没有头部, poll 将返回 null</li>
 </ul>
-<p>四个角色对应的 UML 关系图如下:</p>
+<h1 id="DelayQueue-使用场景"><a href="#DelayQueue-使用场景" class="headerlink" title="DelayQueue 使用场景"></a>DelayQueue 使用场景</h1><p>DelayQueue 可以用来实现延迟消息, 生产/消费队列, 如果不考虑分布式系统, 队列中的数据持久化问题和消息可靠性问题 (虽然可以自己实现重试机制解决一定的问题,但是如果正在处理某条消息时客户端崩溃还是导致这条消息丢失), DelayQueue 就可以满足要求</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/11/Java-静态代理和动态代理/#more" rel="contents">
+            <a class="btn" href="/2019/02/28/Java-DelayQueue延时队列/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -711,7 +413,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/Spring-源码阅读之XML验证模式和XmlValidationModeDetector类/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/Redis-Redis分布式延时队列/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -730,7 +432,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/19/Spring-源码阅读之XML验证模式和XmlValidationModeDetector类/" itemprop="url">Spring-源码阅读之XML验证模式和XmlValidationModeDetector类</a></h1>
+                <a class="post-title-link" href="/2019/02/28/Redis-Redis分布式延时队列/" itemprop="url">Redis-Redis分布式延时队列</a></h1>
         
 
         <div class="post-meta">
@@ -742,8 +444,816 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-19T22:18:59+08:00">
-                2018-11-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-28T22:15:34+08:00">
+                2019-02-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>DelayQueue 可以用来实现延迟消息, 如果不是在分布式系统中, 一个简单的延时消息队列可以使用 DelayQueue 来实现, 在分布式系统下, 就需要其他的方法来实现了, 在分布式系统种目前使用的多的就是 MQ 和 Redis 来实现了, 这里记录 Redis 的实现</p>
+<h1 id="Redis-延时队列的实现"><a href="#Redis-延时队列的实现" class="headerlink" title="Redis 延时队列的实现"></a>Redis 延时队列的实现</h1><p>延时队列可以通过 Redis 的有序结合来实现, score 为消息的过期时间, value 为序列化成字符串的消息, 消息添加到队列后, 使用 zrangebyscore 获取数据判断是否有数据有过期, 有数据说明有消息过期了, 然后调用 zrem 删除该消息并对该消息进行处理, 实现如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">redisDelayQueueTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    StatefulRedisConnection&lt;String, String&gt; connection = redisClient.connect();</span><br><span class="line">    RedisCommands&lt;String, String&gt; redisCommands = connection.sync();</span><br><span class="line"></span><br><span class="line">    String key = <span class="string">"delay_queue"</span>;</span><br><span class="line">    <span class="comment">// 实际开发建议使用业务 ID 和随机生成的唯一 ID 作为 value, 随机生成的唯一 ID 可以保证消息的唯一性, 业务 ID 可以避免 value 携带的信息过多</span></span><br><span class="line">    String value1 = JSONObject.toJSONString(UserInfo.builder().username(<span class="string">"lpw1"</span>).password(<span class="string">"123"</span>).build());</span><br><span class="line">    String value2 = JSONObject.toJSONString(UserInfo.builder().username(<span class="string">"lpw2"</span>).password(<span class="string">"123"</span>).build());</span><br><span class="line">    String value3 = JSONObject.toJSONString(UserInfo.builder().username(<span class="string">"lpw3"</span>).password(<span class="string">"123"</span>).build());</span><br><span class="line">    redisCommands.zadd(key, ScoredValue.from(DateTime.now().getMillis() + <span class="number">1000</span> * <span class="number">10</span>, Optional.ofNullable(value1)));</span><br><span class="line">    redisCommands.zadd(key, ScoredValue.from(DateTime.now().getMillis() + <span class="number">1000</span> * <span class="number">15</span>, Optional.ofNullable(value2)));</span><br><span class="line">    redisCommands.zadd(key, ScoredValue.from(DateTime.now().getMillis() + <span class="number">1000</span> * <span class="number">20</span>, Optional.ofNullable(value3)));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">new</span> Thread() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                List&lt;String&gt; resultList;</span><br><span class="line">                <span class="comment">// 只获取第一条数据, 只获取不会移除数据</span></span><br><span class="line">                resultList = redisCommands.zrangebyscore(key, Range.create(<span class="number">0</span>, DateTime.now().getMillis()), Limit.create(<span class="number">0</span>, <span class="number">1</span>));</span><br><span class="line">                <span class="keyword">if</span> (resultList.size() == <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// 移除数据获取到的数据</span></span><br><span class="line">                    <span class="keyword">if</span> (redisCommands.zrem(key, resultList.get(<span class="number">0</span>)) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                        log.info(<span class="string">"userInfo = &#123;&#125;"</span>, resultList.get(<span class="number">0</span>));</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/28/Redis-Redis分布式延时队列/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/26/Redis-Redis分布式锁相关/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/26/Redis-Redis分布式锁相关/" itemprop="url">Redis-Redis分布式锁相关</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-26T23:02:42+08:00">
+                2019-02-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="分布式锁可用的四个条件"><a href="#分布式锁可用的四个条件" class="headerlink" title="分布式锁可用的四个条件"></a>分布式锁可用的四个条件</h1><ul>
+<li>互斥性, 同一时间只有一个客户端持有锁</li>
+<li>无死锁, 即使有一个客户端在持有锁的期间崩溃而没有主动解锁, 也能保证后续其他客户端能加锁</li>
+<li>容错性, 只要大部分节点正常运行, 客户端就可以自己加锁和解锁</li>
+<li>标识性, 锁需要具备拥有者标识, 加锁和解锁必须是同一个客户端, 客户端不能解锁另一个客户端的锁</li>
+</ul>
+<h1 id="使用-setnx-和-expire-组合实现"><a href="#使用-setnx-和-expire-组合实现" class="headerlink" title="使用 setnx 和 expire 组合实现"></a>使用 setnx 和 expire 组合实现</h1><p>使用 setnx 和 expire 组合实现加锁, 这是老版本的 Redis 时的方案, 问题: 在执行 setnx 后设置过期时间时客户端突然崩溃 (不是出现异常), 此时锁过期时间为永久有效, 其他客户端一直不能获取到锁, 就会出现死锁, 生产环境不要使用这种方式, 出现死锁肯定是不行, 同时锁没有标识, 其他的客户端可以解锁</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">lock1</span><span class="params">(String lockKey, String lockValue, <span class="keyword">int</span> lockTimeout)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        StatefulRedisConnection&lt;String, String&gt; connection = redisClient.connect();</span><br><span class="line">        RedisCommands&lt;String, String&gt; redisCommands = connection.sync();</span><br><span class="line">        <span class="comment">// 判断锁是否已被其他的客户端持有, 如果其他客户端有持有, 获取锁失败</span></span><br><span class="line">        String lock = redisCommands.get(lockKey);</span><br><span class="line">        <span class="keyword">if</span> (lock != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> Boolean.FALSE;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">             <span class="comment">// 在 String lock = redisCommands.get(lockKey) 在并发情况下可能获取到的值都是 null</span></span><br><span class="line">             <span class="comment">// 多个客户端会进入这里的加锁逻辑, 在这里再加一层判断</span></span><br><span class="line">            <span class="keyword">if</span> (!redisCommands.setnx(lockKey, lockValue)) &#123;</span><br><span class="line">                <span class="keyword">return</span> Boolean.FALSE;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 客户端在这里崩溃, 导致锁的过期时间为永久有效而出现死锁</span></span><br><span class="line">                redisCommands.expire(lockKey, lockTimeout);</span><br><span class="line">                <span class="keyword">return</span> Boolean.TRUE;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        log.error(<span class="string">"获取锁错误, error = &#123;&#125;"</span>, e);</span><br><span class="line">        <span class="keyword">return</span> Boolean.FALSE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/26/Redis-Redis分布式锁相关/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/25/Go-基础知识整理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/25/Go-基础知识整理/" itemprop="url">Go-基础知识整理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-25T22:35:47+08:00">
+                2019-02-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go/" itemprop="url" rel="index">
+                    <span itemprop="name">Go</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>整理下 Go 语言的基础知识和 Java 中的异同点, 主要参考: <a href="https://github.com/astaxie/build-web-application-with-golang" target="_blank" rel="noopener">https://github.com/astaxie/build-web-application-with-golang</a></p>
+<h1 id="语言特性"><a href="#语言特性" class="headerlink" title="语言特性"></a>语言特性</h1><ul>
+<li>自动垃圾回收机制</li>
+<li>函数多返回值</li>
+<li>高并发</li>
+<li>反射</li>
+<li>更加丰富的内置类型</li>
+<li>错误异常处理</li>
+</ul>
+<h1 id="行分隔符"><a href="#行分隔符" class="headerlink" title="行分隔符"></a>行分隔符</h1><p>Go 语言中一行代表一个语句, 和 Java 不同, 不需要在末尾添加分号, 如果想在一行写多哥语句, 则需要使用分号分隔</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/25/Go-基础知识整理/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/23/Java-Zookeeper知识和资料整理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/23/Java-Zookeeper知识和资料整理/" itemprop="url">Java-Zookeeper知识和资料整理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-23T10:36:08+08:00">
+                2019-02-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>关于 Zookeeper 的相关知识和学习资料的整理, 方便日后查阅</p>
+<h1 id="Zookeeper-是什么"><a href="#Zookeeper-是什么" class="headerlink" title="Zookeeper 是什么"></a>Zookeeper 是什么</h1><p>Zookeeper 是一个开源的分布式协调服务, 应用程序可以基于 Zookeeper 实现 <code>数据发布/订阅</code>, <code>负载均衡</code>, <code>命名服务</code>, <code>服务注册和发现</code>, <code>集群管理</code>, <code>选举</code>, <code>分布式锁</code> 和 <code>分布式队列</code> 等功能</p>
+<h1 id="Zookeeper-的数据结构"><a href="#Zookeeper-的数据结构" class="headerlink" title="Zookeeper 的数据结构"></a>Zookeeper 的数据结构</h1><p>Zookeeper 的数据结构是一个逻辑上的树形层次结构, 和 Linux 的文件系统类似, 可以理解为带有数据的目录结构, 在 Zookeeper 种称这种层次结构为 Znode 节点, 每一个层次结构的路径都对应一个 Znode, 最底层的 Znode 路径为 <code>/</code>, 由于 Zookeeper 并不是被设计为存储数据的, 因此 Znode 的数据最大只能存储 1M 的数据量</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/23/Java-Zookeeper知识和资料整理/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/20/Java-关于集群下的Session共享/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/20/Java-关于集群下的Session共享/" itemprop="url">Java-关于集群下的Session共享</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-20T23:36:37+08:00">
+                2019-02-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Seesion 实现共享的方案有很多, 主要分为客户端实现和服务器端实现两种, 客户端实现主要是利用 Cookie 保存 Session 数据到客户端, 服务器端的实现有诸如利用 Tomcat 提供的 Session 共享功能, 将 Session 保存到数据库, 或者使用 Redis 等来实现 Session 的共享, 这里记录一些了解到的常见方案</p>
+<h1 id="客户端-Cookie-保存方式实现-Session-共享"><a href="#客户端-Cookie-保存方式实现-Session-共享" class="headerlink" title="客户端 Cookie 保存方式实现 Session 共享"></a>客户端 Cookie 保存方式实现 Session 共享</h1><p>客户端 Cookie 保存实现, 即在服务器端将保存在保存在服务器中 Session 中的数据写入到 Cookie 后保存到客户端 (通常为浏览器) 中, 由于 Session 数据保存在客户端中吗, 所以每次请求都会带上这些 Session 数据, 因此即使两次请求在不同的服务器上也可以获取到 Session 数据, 以此达到 Session 共享, 使用这种方法有以下优缺点:</p>
+<ul>
+<li>优点一: 可以大大减轻的服务器的压力, 服务器架构也相应变得简单</li>
+<li>缺点一: Cookie 数据长度和 Cookie 保存的数量有限制</li>
+<li>缺点二: 每次请求需要带额外的 Cookie 信息, 增加网络带宽</li>
+<li>缺点三: 客户端 (如浏览器) 可能会禁用 Cookie 功能或者认为的更改 Cookie 的值, 由此带来功能上的问题</li>
+<li>缺点四: 信息保存在客户端会带来安全问题, 信息的加密和解密, 会带来额外开发和性能开销</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/20/Java-关于集群下的Session共享/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/20/Spring-多数据源之间的切换和动态加载数据源/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/20/Spring-多数据源之间的切换和动态加载数据源/" itemprop="url">Spring-多数据源之间的切换和动态加载数据源</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-20T23:33:58+08:00">
+                2019-02-20
               </time>
             
 
@@ -803,12 +1313,11 @@
 
       
         
-          <h1 id="XML-的两种验证模式-DTD-和-XSD"><a href="#XML-的两种验证模式-DTD-和-XSD" class="headerlink" title="XML 的两种验证模式 DTD 和 XSD"></a>XML 的两种验证模式 DTD 和 XSD</h1><p>XML 文件的验证模式保证了 XML 文件的正确性, 而比较常用的验证模式有两种: DTD 和 XSD, 这里先简单了解下</p>
-<h2 id="DTD"><a href="#DTD" class="headerlink" title="DTD"></a>DTD</h2><p>DTD (Document Type Definition) 即文档类型定义, 是一种XML约束模式语言, 是XML文件的验证机制, 属于XML文件组成的一部分, DTD 是一种保证 XML 文档格式正确的有效方法, 可以通过比较 XML 文档和 DTD 文件来看文档是否符合规范, 元素和标签使用是否正确, 要使用 DTD 验证模式的时候需要在 XML 文件的头部声明类似如下, 宏观特点带有一个 DOCTYPE 字符串, Spring 也是判断是否包含 DOCTYPE 字符串来判断是否使用 DTD 验证的:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="meta">&lt;!DOCTYPE note [</span></span><br><span class="line"><span class="meta">  &lt;!ELEMENT note (to,from,heading,body)&gt;</span></span><br><span class="line"><span class="meta">  &lt;!ELEMENT to      (#PCDATA)&gt;</span></span><br><span class="line"><span class="meta">  &lt;!ELEMENT from    (#PCDATA)&gt;</span></span><br><span class="line"><span class="meta">  &lt;!ELEMENT heading (#PCDATA)&gt;</span></span><br><span class="line"><span class="meta">  &lt;!ELEMENT body    (#PCDATA)&gt;</span></span><br><span class="line"><span class="meta">]&gt;</span></span><br></pre></td></tr></table></figure>
+          <p>实现了多数据源配置后, 在实际使用的时候会有一些问题, 一个是数据源的事物, 例如在一个方法里面, 只对其中一个库进行更改, 在方法上添加 @Transactional 注解并指定事物管理器, 可以使用正常使用相应数据源的事物, 但是如果需要在同一个方法里面修改多个库中的表,  @Transactional 注解就会出现问题了, 另外多个数据源只是分库, 就像上一篇笔记例子里面的只是库名不同, 表结构相同时, 如果也像上一篇笔记例子里面这样去使用也是比较繁琐的, 需要一种更加灵活的方式来实现, Spring 提供的 AbstractRoutingDataSource 就实现动态数据源切换, 它可以充当 DataSource 的路由中介, 能有在运行时, 根据某种 key 值来动态切换到真正的 DataSource 上</p>
+<h1 id="保存线程当前数据源的-KEY"><a href="#保存线程当前数据源的-KEY" class="headerlink" title="保存线程当前数据源的 KEY"></a>保存线程当前数据源的 KEY</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MultiRoutingDataSourceContext</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> ThreadLocal&lt;String&gt; DB_KEY = <span class="keyword">new</span> ThreadLocal&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">MultiRoutingDataSourceContext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getCurrentDbKey</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> DB_KEY.get();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">setCurrentDbKey</span><span class="params">(String tenant)</span> </span>&#123;</span><br><span class="line">        DB_KEY.set(tenant);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        DB_KEY.remove();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/19/Spring-源码阅读之XML验证模式和XmlValidationModeDetector类/#more" rel="contents">
+            <a class="btn" href="/2019/02/20/Spring-多数据源之间的切换和动态加载数据源/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -869,7 +1378,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/18/Java-getProperties方法和getEnv方法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/20/Spring-基于配置类实现多数据源/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -888,7 +1397,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/18/Java-getProperties方法和getEnv方法/" itemprop="url">Java-getProperties方法和getEnv方法</a></h1>
+                <a class="post-title-link" href="/2019/02/20/Spring-基于配置类实现多数据源/" itemprop="url">Spring-基于配置类实现多数据源</a></h1>
         
 
         <div class="post-meta">
@@ -900,165 +1409,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-18T22:19:51+08:00">
-                2018-11-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="getProperties-方法"><a href="#getProperties-方法" class="headerlink" title="getProperties 方法"></a>getProperties 方法</h1><p>getProperties 方法可以获取系统相关属性, 比如: Java版本, 操作系统信息, 用户名等, 这个系统获取的相关属性的值可以在 JVM 启动的时候使用 <code>-D</code> 参数添加自定义的属性值, 也可以在项目中 (如 static 代码块中) 使用 System.setProperty 方法添加自定义的属性, 方便在其他的地方取用</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Properties 类继承于 HashTable</span></span><br><span class="line">Properties properties = System.getProperties();</span><br><span class="line">properties.forEach((key, value) -&gt; log.info(<span class="string">"key = &#123;&#125;, value = &#123;&#125;"</span>, key, value));</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/18/Java-getProperties方法和getEnv方法/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/18/Spring-源码阅读之Constant类/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/18/Spring-源码阅读之Constant类/" itemprop="url">Spring-源码阅读之Constant类</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-18T22:17:17+08:00">
-                2018-11-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-20T23:07:43+08:00">
+                2019-02-20
               </time>
             
 
@@ -1118,10 +1470,12 @@
 
       
         
-          <h1 id="Constant-类"><a href="#Constant-类" class="headerlink" title="Constant 类"></a>Constant 类</h1><p>Constant 类位于 <code>org.springframework.core</code> 包下, 这个类可以将指定类的 public static final 的常量通过反射的方式添加到一个 map 中, 并提供了一些便捷性的方法获取这些常量值, 其源码如下:</p>
+          <p>这篇笔记记录如何配置多数据源</p>
+<h1 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h1><p>使用 alibaba 的 druid 来管理数据库连接池</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- mysql-connector --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.11<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- alibaba druid --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>druid<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- mybatis --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/18/Spring-源码阅读之Constant类/#more" rel="contents">
+            <a class="btn" href="/2019/02/20/Spring-基于配置类实现多数据源/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1182,7 +1536,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/29/Java-Java8中的Future类/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/16/Redis-Redis哈希表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1201,7 +1555,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/29/Java-Java8中的Future类/" itemprop="url">Java-Java8中的Future类</a></h1>
+                <a class="post-title-link" href="/2019/02/16/Redis-Redis哈希表/" itemprop="url">Redis-Redis哈希表</a></h1>
         
 
         <div class="post-meta">
@@ -1213,8 +1567,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-29T22:20:19+08:00">
-                2018-10-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-16T21:38:06+08:00">
+                2019-02-16
               </time>
             
 
@@ -1236,8 +1590,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -1274,12 +1628,20 @@
 
       
         
-          <p>创建线程的 2 种方式, 一种是直接继承 Thread, 另外一种就是实现 Runnable 接口, 这两种方式在执行完任务之后无法获取执行结果, 从 Java 1.5 开始，就提供了 Callable 和 Future 两个类, 通过它们可以在任务执行完毕之后得到任务执行结果, Future 可以监视目标线程调用 call 的情况, 当你调用 Future 的 get 方法以获获取结果时, 当前线程就开始阻塞, 直到 call 方法结束返回结果</p>
-<h1 id="Future-的使用示例"><a href="#Future-的使用示例" class="headerlink" title="Future 的使用示例"></a>Future 的使用示例</h1><p>Future 的一个优点是比底层的 Thread 更加容易使用, 使用 Future, 只需要将耗时的操作封装到 Callable, 再提交到 ExecutorService 就可以了, Java 8 之前的 Future 使用, 使用示例如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FutureMain</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">DelayTask</span> <span class="keyword">implements</span> <span class="title">Callable</span>&lt;<span class="title">String</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            <span class="keyword">return</span> Thread.currentThread().getName();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        List&lt;Future&lt;String&gt;&gt; futureList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// public static ExecutorService newCachedThreadPool() &#123;</span></span><br><span class="line">        <span class="comment">//    return new ThreadPoolExecutor(0,                 // 0 个核心线程</span></span><br><span class="line">        <span class="comment">//                                  Integer.MAX_VALUE, // 2147483647 个非核心线程</span></span><br><span class="line">        <span class="comment">//                                  60L,               // 非核心线程空闲超过 60s 销毁</span></span><br><span class="line">        <span class="comment">//                                  TimeUnit.SECONDS,</span></span><br><span class="line">        <span class="comment">//                                  new SynchronousQueue&lt;Runnable&gt;());</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">        DateTime startTime = DateTime.now();</span><br><span class="line">        ExecutorService executorService = Executors.newCachedThreadPool();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++) &#123;</span><br><span class="line">            futureList.add(executorService.submit(<span class="keyword">new</span> DelayTask()));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        futureList.forEach(future -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// get 方法会一直阻塞, future 提供了一个 get(int time, TimeUnit) 方法, 在阻塞指定时间后, 如果没有获取到结果, 就退出</span></span><br><span class="line">                String threadName = future.get();</span><br><span class="line">                log.info(<span class="string">"[Future 测试] threadName = &#123;&#125;"</span>, threadName);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException | ExecutionException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        DateTime endTime = DateTime.now();</span><br><span class="line">        log.info(<span class="string">"[Future 测试] 总耗时 = &#123;&#125;ms"</span>, endTime.getMillis() - startTime.getMillis());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!executorService.isShutdown()) &#123;</span><br><span class="line">            executorService.shutdown();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <h1 id="HSET-设置值"><a href="#HSET-设置值" class="headerlink" title="HSET 设置值"></a>HSET 设置值</h1><ul>
+<li>HSET key field value</li>
+<li>成功设置返回 1, 已经存在并且覆盖旧值返回0, 失败返回错误</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">redisCommands.hset(<span class="string">"user:TF001"</span>, <span class="string">"name"</span>, <span class="string">"lpw"</span>);</span><br><span class="line">redisCommands.hset(<span class="string">"user:TF001"</span>, <span class="string">"age"</span>, <span class="string">"18"</span>);</span><br><span class="line">redisCommands.hset(<span class="string">"user:TF001"</span>, <span class="string">"sex"</span>, <span class="string">"男"</span>);</span><br></pre></td></tr></table></figure>
+<h1 id="HSETNX-设置值"><a href="#HSETNX-设置值" class="headerlink" title="HSETNX 设置值"></a>HSETNX 设置值</h1><ul>
+<li>HSETNX key field value</li>
+<li>当 key 对应的 Hash 表不存在 field 时, 设置这个值, 如果存在则不做任何操作</li>
+<li>成功时返回 1, 失败或者放弃操作返回 0</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> hsetnxResult = redisCommands.hsetnx(<span class="string">"user:TF001"</span>, <span class="string">"name"</span>, <span class="string">"LPW"</span>);</span><br><span class="line">log.info(<span class="string">"hsetnxResult = &#123;&#125;"</span>, hsetnxResult);</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/10/29/Java-Java8中的Future类/#more" rel="contents">
+            <a class="btn" href="/2019/02/16/Redis-Redis哈希表/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1340,7 +1702,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/29/Java-Java8中的Optional类/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/16/Redis-Redis有序集合/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1359,7 +1721,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/29/Java-Java8中的Optional类/" itemprop="url">Java-Java8中的Optional类</a></h1>
+                <a class="post-title-link" href="/2019/02/16/Redis-Redis有序集合/" itemprop="url">Redis-Redis有序集合</a></h1>
         
 
         <div class="post-meta">
@@ -1371,8 +1733,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-29T22:19:00+08:00">
-                2018-10-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-16T21:26:51+08:00">
+                2019-02-16
               </time>
             
 
@@ -1394,8 +1756,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -1432,326 +1794,21 @@
 
       
         
-          <p>Optional 是个容, 它可以保存类型 T 的值，或者仅仅保存 null, Optional提供很多有用的方法，这样我们就不用显式进行空值检测, Optional 类的引入很好的解决空指针异常</p>
-<h1 id="isPresent-方法"><a href="#isPresent-方法" class="headerlink" title="isPresent 方法"></a>isPresent 方法</h1><p>isPresent 用于判断对象的实例是否存在, true 表示存在, false 表示不存在, 即值为 null, 使用示例如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;DataNode&gt; dataNodeOptional = Optional.empty();</span><br><span class="line"><span class="keyword">if</span> (dataNodeOptional.isPresent()) &#123;</span><br><span class="line">    log.info(<span class="string">"[Optional isPresent 方法] dataNode = &#123;&#125;"</span>, dataNodeOptional.get().toString());</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    log.info(<span class="string">"[Optional isPresent 方法] dataNode 的值为 null"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>Redis 有序集合和集合一样不会出现重复的元素, 和集合不同的是, 有序集合需要额外设置一个 score 值, 这个 score 值被用作于排序</p>
+<h1 id="ZADD-添加元素"><a href="#ZADD-添加元素" class="headerlink" title="ZADD 添加元素"></a>ZADD 添加元素</h1><ul>
+<li>ZADD key score member [score member …]</li>
+<li>有序集合添加元素, 在 2.4 之前的版本只允许添加单个元素</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">redisCommands.zadd(<span class="string">"zset"</span>, <span class="number">3.0</span>, <span class="string">"C"</span>, <span class="number">1.0</span>, <span class="string">"A"</span>, <span class="number">2.0</span>, <span class="string">"B"</span>);</span><br><span class="line">log.info(<span class="string">"zset = &#123;&#125;"</span>, redisCommands.zrange(<span class="string">"zset"</span>, <span class="number">0</span>, -<span class="number">1</span>).toString());</span><br><span class="line">redisCommands.del(<span class="string">"zset"</span>);</span><br></pre></td></tr></table></figure>
+<h1 id="ZRANGE-ZREVRANGE-获取集合"><a href="#ZRANGE-ZREVRANGE-获取集合" class="headerlink" title="ZRANGE, ZREVRANGE 获取集合"></a>ZRANGE, ZREVRANGE 获取集合</h1><ul>
+<li>ZRANGE key start stop [WITHSCORES] - 递增获取</li>
+<li>ZREVRANGE key start stop [WITHSCORES] - 递减获取</li>
+<li>时间复杂度 O(log(N)+M), N 为有序集合包含的元素数量, M 为结果集的元素数量</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> addSize = redisCommands.zadd(<span class="string">"zset"</span>, ScoredValue.from(<span class="number">1</span>, Optional.of(<span class="string">"A"</span>)),</span><br><span class="line">        ScoredValue.from(<span class="number">2</span>, Optional.of(<span class="string">"B"</span>)),</span><br><span class="line">        ScoredValue.from(<span class="number">3</span>, Optional.of(<span class="string">"C"</span>)),</span><br><span class="line">        ScoredValue.from(<span class="number">4</span>, Optional.of(<span class="string">"C"</span>)),</span><br><span class="line">        ScoredValue.from(<span class="number">5</span>, Optional.of(<span class="string">"D"</span>)));</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/10/29/Java-Java8中的Optional类/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/22/Java-Java8中Map的新方法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/22/Java-Java8中Map的新方法/" itemprop="url">Java-Java8中Map的新方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-22T22:55:06+08:00">
-                2018-10-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Java-8-中-Map-的方法"><a href="#Java-8-中-Map-的方法" class="headerlink" title="Java 8 中 Map 的方法"></a>Java 8 中 Map 的方法</h1><p>今天使用 HashMap 的时候发现在 Java 8 中多了一些方法, 于是查找资料了解下这些方法的使用方式, 首先看看在 Java 8 中 HashMap 有哪些方法, 再来了解这些方法是如何使用的, 截图如下:</p>
-<p><img src="/2018/10/22/Java-Java8中Map的新方法/2018102222540.png" alt="IMAGE"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/22/Java-Java8中Map的新方法/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/22/Docker-Docker部署官方的Tomcat/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/22/Docker-Docker部署官方的Tomcat/" itemprop="url">Docker-Docker部署官方的Tomcat</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-22T00:01:55+08:00">
-                2018-10-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="在-Docker-Hub-中搜索-Tomcat-镜像"><a href="#在-Docker-Hub-中搜索-Tomcat-镜像" class="headerlink" title="在 Docker Hub 中搜索 Tomcat 镜像"></a>在 Docker Hub 中搜索 Tomcat 镜像</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search tomcat</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/10/22/Docker-Docker部署官方的Tomcat/78FCDB13487FE3F52AB6951F4448660E.jpg" alt="IMAGE"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/22/Docker-Docker部署官方的Tomcat/#more" rel="contents">
+            <a class="btn" href="/2019/02/16/Redis-Redis有序集合/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1803,7 +1860,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1851,7 +1908,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-count">150</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1862,7 +1919,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

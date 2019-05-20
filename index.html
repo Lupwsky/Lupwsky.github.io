@@ -251,7 +251,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/01/Java-Java8中实现List交集-并集和差集操作/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/20/Java-JVM知识整理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -270,7 +270,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/01/Java-Java8中实现List交集-并集和差集操作/" itemprop="url">Java-Java8中实现List交集,并集和差集操作</a></h1>
+                <a class="post-title-link" href="/2019/05/20/Java-JVM知识整理/" itemprop="url">Java-JVM知识整理</a></h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-01T21:44:55+08:00">
-                2019-04-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-20T22:57:45+08:00">
+                2019-05-20
               </time>
             
 
@@ -343,11 +343,29 @@
 
       
         
-          <h1 id="Java8-之前实现-Lsit-交集-并集和差集操作"><a href="#Java8-之前实现-Lsit-交集-并集和差集操作" class="headerlink" title="Java8 之前实现 Lsit 交集, 并集和差集操作"></a>Java8 之前实现 Lsit 交集, 并集和差集操作</h1><p>在 Java 8 之前求 List 的交集, 并集和差集操作, 如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 求交集</span></span><br><span class="line">List&lt;String&gt; aList = Lists.newArrayList(<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>);</span><br><span class="line">List&lt;String&gt; bList = Lists.newArrayList(<span class="string">"B"</span>, <span class="string">"C"</span>, <span class="string">"D"</span>);</span><br><span class="line">aList.retainAll(bList);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 求并集, 有重复值</span></span><br><span class="line">List&lt;String&gt; aList = Lists.newArrayList(<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>);</span><br><span class="line">List&lt;String&gt; bList = Lists.newArrayList(<span class="string">"B"</span>, <span class="string">"C"</span>, <span class="string">"D"</span>);</span><br><span class="line">aList.addAll(bList);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 求并集, 无重复值</span></span><br><span class="line">List&lt;String&gt; aList = Lists.newArrayList(<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>);</span><br><span class="line">List&lt;String&gt; bList = Lists.newArrayList(<span class="string">"B"</span>, <span class="string">"C"</span>, <span class="string">"D"</span>);</span><br><span class="line">bList.removeAll(aList);</span><br><span class="line">aList.addAll(bList);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 求差集</span></span><br><span class="line">List&lt;String&gt; aList = Lists.newArrayList(<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>);</span><br><span class="line">List&lt;String&gt; bList = Lists.newArrayList(<span class="string">"B"</span>, <span class="string">"C"</span>, <span class="string">"D"</span>);</span><br><span class="line">aList.removeAll(bList);</span><br></pre></td></tr></table></figure>
+          <h1 id="JVM-运行时分区"><a href="#JVM-运行时分区" class="headerlink" title="JVM 运行时分区"></a>JVM 运行时分区</h1><ul>
+<li>程序计数器</li>
+<li>方法区</li>
+<li>堆区</li>
+<li>栈</li>
+<li>本地方法栈</li>
+</ul>
+<h1 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h1><p>当前线程执行的字节码指令的地址, 如果执行的是原生的 (Native) 方法, 计数器的值为空, 每个线程都有一个程序计数器, 也是唯一一个没有定义 OutMemoryException 异常的区域</p>
+<h1 id="堆区"><a href="#堆区" class="headerlink" title="堆区"></a>堆区</h1><p>所有线程共享, 所有对象和数组都在堆区分配, 初始堆区为物理机内存的 1/64, 最大堆区为物理机内存的 1/4, 可通过 -Xmx, -Xms 调整, 此区域会出现 OutMemoryException 异常</p>
+<ul>
+<li>堆区又分为新生代, 老年代和持久代</li>
+<li>新生代可以使用 -Xmn 来调整, 或者使用 -XX:NewSize, 最大值使用 -XX:MaxNewSize 来调整</li>
+<li>持久代可以通过 -XX:PermSize 设置, 最大值可以通过 -XX:MaxPermSize 设置</li>
+<li><p>老年代没有可设置的参数, 可以通过设置新生代和持久代的大小来设置</p>
+</li>
+<li><p>新生代和老年代还可以通过 -XX:NewRatio 来设置比例, 例如 -XX:NewRatio = 4, 表示新生代和老年代的比例为 1:4</p>
+</li>
+<li><p>新生代由 Eden Space, Survivor 0 Space, Survivor 1 Space 三个区域组成, 这三个区域默认占比为 8:1:1, 可以通过 -XX:SurvivorRatio 来设置比例, 例如 -XX:SurvivorRatio = 8, 表示两个 Survivor Space : Eden Space = 2 : 8</p>
+</li>
+</ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/01/Java-Java8中实现List交集-并集和差集操作/#more" rel="contents">
+            <a class="btn" href="/2019/05/20/Java-JVM知识整理/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -408,7 +426,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/Spring-源码阅读ClassPathXmlApplicationContext之prepareBeanFactory方法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/20/Spring-SpringCloud之Ribbon和Feign实现负载均衡/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -427,7 +445,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/31/Spring-源码阅读ClassPathXmlApplicationContext之prepareBeanFactory方法/" itemprop="url">Spring-源码阅读ClassPathXmlApplicationContext之prepareBeanFactory方法</a></h1>
+                <a class="post-title-link" href="/2019/05/20/Spring-SpringCloud之Ribbon和Feign实现负载均衡/" itemprop="url">Spring-SpringCloud之Ribbon和Feign实现负载均衡</a></h1>
         
 
         <div class="post-meta">
@@ -439,8 +457,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-31T12:40:49+08:00">
-                2019-03-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-20T22:56:47+08:00">
+                2019-05-20
               </time>
             
 
@@ -500,11 +518,11 @@
 
       
         
-          <p>prepareBeanFactory 方法是 ClassPathXmlApplicationContext 初始化时调用 refresh 方法里面调用的第三个方法, refresh 方法部分源码如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">refresh</span><span class="params">()</span> <span class="keyword">throws</span> BeansException, IllegalStateException </span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (<span class="keyword">this</span>.startupShutdownMonitor) &#123;</span><br><span class="line">        prepareRefresh();</span><br><span class="line">        ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();</span><br><span class="line">        prepareBeanFactory(beanFactory);</span><br><span class="line">        <span class="comment">// ......</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>在 [SpringCloud-Eureka服务注册与发现]<a href="http://antsnote.club/2018/09/05/SpringCloud-Eureka%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/" target="_blank" rel="noopener">http://antsnote.club/2018/09/05/SpringCloud-Eureka%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/</a> 一节中, 使用 Euraka 实现了服务注册于发现后, 下一步就需要服务消费者去调用服务提供者提供的接口了, Spring Cloud 的微服务之间是使用 HTTP 调用的方式实现的, 一个服务调用另一个服务的 HTTP 接口示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> RestTemplate restTemplate;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 服务消费者 (IP = 192.168.10.156) 调用服务提供者 (IP = 192.168.10.157) 的 URL</span></span><br><span class="line">String url = <span class="string">"http://192.168.10.157:9020/get/username"</span>;</span><br><span class="line">String username = restTemplate.getForObject(url, String.class);</span><br><span class="line">log.info(<span class="string">"username = &#123;&#125;"</span>, username);</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/31/Spring-源码阅读ClassPathXmlApplicationContext之prepareBeanFactory方法/#more" rel="contents">
+            <a class="btn" href="/2019/05/20/Spring-SpringCloud之Ribbon和Feign实现负载均衡/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -565,7 +583,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/25/Spring-源码阅读ClassPathXmlApplicationContext之prepareRefresh方法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/20/Spring-SpringCloud之GateWay自定义过滤器使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -584,7 +602,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/25/Spring-源码阅读ClassPathXmlApplicationContext之prepareRefresh方法/" itemprop="url">Spring-源码阅读ClassPathXmlApplicationContext之prepareRefresh方法</a></h1>
+                <a class="post-title-link" href="/2019/05/20/Spring-SpringCloud之GateWay自定义过滤器使用/" itemprop="url">Spring-SpringCloud之GateWay自定义过滤器使用</a></h1>
         
 
         <div class="post-meta">
@@ -596,8 +614,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-25T22:36:03+08:00">
-                2019-03-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-20T22:55:39+08:00">
+                2019-05-20
               </time>
             
 
@@ -657,10 +675,12 @@
 
       
         
-          <h1 id="ClassPathXmlApplicationContext-的简单用法"><a href="#ClassPathXmlApplicationContext-的简单用法" class="headerlink" title="ClassPathXmlApplicationContext 的简单用法"></a>ClassPathXmlApplicationContext 的简单用法</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext applicationContext = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"beans/UserBeans.xml"</span>);</span><br><span class="line">UserInfo userInfo = applicationContext.getBean(<span class="string">"userInfo"</span>, UserInfo.class);</span><br><span class="line">log.info(<span class="string">"name = &#123;&#125;, email = &#123;&#125;"</span>, userInfo.getName(), userInfo.getEmail());</span><br></pre></td></tr></table></figure>
+          <p>GateWay 虽然自带了多种类型的过滤器, 但是在实际的开发中很多功能需求中这些过滤器仍然不能满足需求, 例如实现自定的限流功能, 对请求日志相关信息进行输出等, 这个时候需要自定义过滤器实现</p>
+<h1 id="自定义网关过滤器"><a href="#自定义网关过滤器" class="headerlink" title="自定义网关过滤器"></a>自定义网关过滤器</h1><p>自定义网关过滤器需要实现 GatewayFilter 和 Ordered 两个类中的方法, 分别实现  filter() 方法和 getOrder() 方法, filter() 方法用于实现自定义逻辑, getOrder() 方法表示过滤器默认的优先级</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyGateWayFilter</span> <span class="keyword">implements</span> <span class="title">GatewayFilter</span>, <span class="title">Ordered</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Mono&lt;Void&gt; <span class="title">filter</span><span class="params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// pre</span></span><br><span class="line">        InetSocketAddress remoteAddress = exchange.getRequest().getRemoteAddress();</span><br><span class="line">        String hostName = Optional.ofNullable(remoteAddress)</span><br><span class="line">                .orElse(<span class="keyword">new</span> InetSocketAddress(<span class="string">"000.000.000.000"</span>, <span class="number">0</span>))</span><br><span class="line">                .getHostName();</span><br><span class="line">        log.info(<span class="string">"remote address = &#123;&#125;"</span>, hostName);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// post</span></span><br><span class="line">        <span class="keyword">return</span> chain.filter(exchange).then(Mono.fromRunnable(() -&gt; &#123;</span><br><span class="line">            exchange.getFormData().hasElement().subscribe(value -&gt; log.info(<span class="string">"has element = &#123;&#125;"</span>, value));</span><br><span class="line">        &#125;));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getOrder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Ordered.LOWEST_PRECEDENCE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/25/Spring-源码阅读ClassPathXmlApplicationContext之prepareRefresh方法/#more" rel="contents">
+            <a class="btn" href="/2019/05/20/Spring-SpringCloud之GateWay自定义过滤器使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -721,7 +741,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/Java-NIO学习Selector使用示例/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/20/Spring-SpringCloud之GateWay内置过滤器使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -740,7 +760,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/15/Java-NIO学习Selector使用示例/" itemprop="url">Java-NIO学习Selector使用示例</a></h1>
+                <a class="post-title-link" href="/2019/05/20/Spring-SpringCloud之GateWay内置过滤器使用/" itemprop="url">Spring-SpringCloud之GateWay内置过滤器使用</a></h1>
         
 
         <div class="post-meta">
@@ -752,8 +772,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-15T23:18:44+08:00">
-                2019-03-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-20T22:53:04+08:00">
+                2019-05-20
               </time>
             
 
@@ -775,8 +795,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
                   </a>
                 </span>
 
@@ -813,11 +833,12 @@
 
       
         
-          <p>NIO 使用 ServerSocketChannel 和 SocketChannel 可以实现基于 TCP 协议的 Socket 通信, 但是如果没有将通道和选择器结合起来使用, 实现的 Scoket 通信和 BIO 实现的方式是一样的模式, 没有实现多路复用, 这里记录下结合 Selector 实现 Socket 通信多路复用的功能, 一些知识点和注意的地方就直接写在注释里面了, 不想整理了~~</p>
-<h1 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Channel 与 Selector 一起使用实现 I/0 多路复用，Channel 必须处于非阻塞模式下</span></span><br><span class="line">    serverSocketChannel.configureBlocking(<span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 绑定端口号</span></span><br><span class="line">    ServerSocket serverSocket = serverSocketChannel.socket();</span><br><span class="line">    serverSocket.bind(<span class="keyword">new</span> InetSocketAddress(<span class="number">9000</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将 Channel 注册到选择器上, 第二个参数表示需要监听的 Channel 操作事件, 多个监听操作事件使用位或操作实现, 监听事操作件的类型如下</span></span><br><span class="line">    <span class="comment">// SelectionKey.OP_ACCEPT, 表示服务器接受客户端连接的监听事件</span></span><br><span class="line">    <span class="comment">// SelectionKey.OP_CONNECT, 表示客户端连接到服务器的监听事件</span></span><br><span class="line">    <span class="comment">// SelectionKey.OP_READ, 表示服务器准备从通道中读取数据的监听事件</span></span><br><span class="line">    <span class="comment">// SelectionKey.OP_WRITE, 表示服务器准备写入数据到通道的监听事件</span></span><br><span class="line">    <span class="comment">// 另外要注意的是这些事件只有一次是有效的</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建选择器实例, 将服务端注册到选择器, 监听 OP_ACCEPT 事件</span></span><br><span class="line">    <span class="comment">// SelectionKey 代表了注册到该 Selector 的 Channel, 可以从这里面获取到对应的 Channel 信息和绑定的 Selector 信息, 如监听了哪些事件</span></span><br><span class="line">    <span class="comment">// 服务端只能支持 OP_ACCEPT 监听事件, 使用 ServerSocketChannel.validOps() 可以知道对应的 Channel 支持的监听事件</span></span><br><span class="line">    Selector selector = Selector.open();</span><br><span class="line">    SelectionKey selectionKey = serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 调用 Selector.select() 方法, 返回发生对应监听事件的那些 Channel, 返回 int 表示有多少个 Channel 就绪了</span></span><br><span class="line">    <span class="comment">// select() 阻塞到至少有一个通道在你注册的事件上就绪了</span></span><br><span class="line">    <span class="comment">// select(long timeout) 阻塞到至少有一个通道在你注册的事件上就绪了, 设置最大阻塞时间</span></span><br><span class="line">    <span class="comment">// selectNow() 不阻塞, 如果没有 Channel 就绪, 返回 0, 这种方式需要不停循环检测</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (selector.selectNow() == <span class="number">0</span>) &#123;</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取已经准备就绪的 SelectionKey, 里面带有 Channel 信息和是那种操作事件已经就绪</span></span><br><span class="line">        Iterator&lt;SelectionKey&gt; keyIterator = selector.selectedKeys().iterator();</span><br><span class="line">        <span class="keyword">while</span> (keyIterator.hasNext()) &#123;</span><br><span class="line">            SelectionKey tempSelectionKey = keyIterator.next();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 表示有客户端连接上来, 可以从 SelectionKey 取到客户端的 SeverSocketChannel 实例, 并注册到选择器</span></span><br><span class="line">            <span class="comment">// 通过 SeverSocketChannel.accept() 获取到客户端的 SocketChannel 后注册到选择器, 并将</span></span><br><span class="line">            <span class="keyword">if</span> (tempSelectionKey.isAcceptable()) &#123;</span><br><span class="line">                log.info(<span class="string">"有客户端连接上来了, 开始接收数据"</span>);</span><br><span class="line">                SocketChannel socketChannel = ((ServerSocketChannel) tempSelectionKey.channel()).accept();</span><br><span class="line">                socketChannel.configureBlocking(<span class="keyword">false</span>);</span><br><span class="line">                socketChannel.register(tempSelectionKey.selector(), SelectionKey.OP_READ | SelectionKey.OP_WRITE);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 客户端发送数据过来时, 可以开始读取客户端发送的数据了</span></span><br><span class="line">            <span class="keyword">if</span> (tempSelectionKey.isValid() &amp;&amp; tempSelectionKey.isReadable()) &#123;</span><br><span class="line">                SocketChannel socketChannel = (SocketChannel) tempSelectionKey.channel();</span><br><span class="line">                log.info(receiveMsg(socketChannel));</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 发送消息到客户端</span></span><br><span class="line">                String content = <span class="string">"这是服务端发送的数据"</span>;</span><br><span class="line">                log.info(<span class="string">"服务端发送消息 = &#123;&#125;"</span>, content);</span><br><span class="line">                sendMsg(socketChannel, content);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// SelectionKey.isWritable() 是表示 SocketChannel 可写, 网络不出现阻塞情况下, 一直是可以写的, 所认一直为 true, 一般我们不注册 OP_WRITE</span></span><br><span class="line">            <span class="comment">// 如果上面 socketChannel.register(tempSelectionKey.selector(), SelectionKey.OP_READ | SelectionKey.OP_WRITE);</span></span><br><span class="line">            <span class="comment">// 这里会不停的打印 "SocketChannel 可以写入数据了", 实际项目开发中这样会造成 CPU 极大的浪费</span></span><br><span class="line">            <span class="keyword">if</span> (tempSelectionKey.isValid() &amp;&amp; tempSelectionKey.isWritable()) &#123;</span><br><span class="line">                log.info(<span class="string">"SocketChannel 可以写入数据了"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Selector 不会自己从已选择键集中移除 SelectionKey 实例, 必须在处理完通道时自己移除</span></span><br><span class="line">            <span class="comment">// 下次该通道变成就绪时, Selector 会再次将其放入集合中</span></span><br><span class="line">            keyIterator.remove();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>GateWay 中的核心 Route (路由) 由 Predicate (断言) 和 Filter (过滤器) 两部分组成, 可以通过过滤器实现对 HTTP 请求输入和输出的更改, 如更改 Header 和 Parameter 等, 通常在项目中使用过滤器来完成用户权限验证和非业务性质的校验等工作, GateWay 默认提供了一些默认的过滤器</p>
+<h1 id="AddRequestHeader-GatewayFilter-和-AddRequestParameter-GatewayFilter"><a href="#AddRequestHeader-GatewayFilter-和-AddRequestParameter-GatewayFilter" class="headerlink" title="AddRequestHeader GatewayFilter 和 AddRequestParameter GatewayFilter"></a>AddRequestHeader GatewayFilter 和 AddRequestParameter GatewayFilter</h1><p>这两个过滤器用于添加和修改 HTTP 请求的 Header 和 Paramter, 使用示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> builder.routes()</span><br><span class="line">            .route(r -&gt; r.path(<span class="string">"/get/username/from/9020"</span>)</span><br><span class="line">                    .filters(gatewayFilterSpec -&gt; gatewayFilterSpec.stripPrefix(<span class="number">1</span>)</span><br><span class="line">                            .addRequestHeader(<span class="string">"MY_HEADER"</span>, <span class="string">"lpw"</span>)</span><br><span class="line">                            .addRequestParameter(<span class="string">"MY_PARAM"</span>, <span class="string">"test"</span>))</span><br><span class="line">                    .uri(<span class="string">"http://localhost:9020"</span>))</span><br><span class="line">            .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/15/Java-NIO学习Selector使用示例/#more" rel="contents">
+            <a class="btn" href="/2019/05/20/Spring-SpringCloud之GateWay内置过滤器使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -878,7 +899,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/Java-NIO学习ServerSocketChannel和ScoketChannel使用实例/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/20/Spring-SpringCloud之GateWay入门和Predicate/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -897,7 +918,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/15/Java-NIO学习ServerSocketChannel和ScoketChannel使用实例/" itemprop="url">Java-NIO学习ServerSocketChannel和ScoketChannel使用实例</a></h1>
+                <a class="post-title-link" href="/2019/05/20/Spring-SpringCloud之GateWay入门和Predicate/" itemprop="url">Spring-SpringCloud之GateWay入门和Predicate</a></h1>
         
 
         <div class="post-meta">
@@ -909,8 +930,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-15T23:10:25+08:00">
-                2019-03-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-20T22:51:01+08:00">
+                2019-05-20
               </time>
             
 
@@ -932,8 +953,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
                   </a>
                 </span>
 
@@ -970,11 +991,14 @@
 
       
         
-          <p>在 NIO 中 提供了 ServerSocketChannel 和 ScoketChannel 两个类实现基于 TCP 协议的 Socket 通信, 使用示例记录如下</p>
-<h1 id="服务端实现"><a href="#服务端实现" class="headerlink" title="服务端实现"></a>服务端实现</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">serverSocketChannel</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    <span class="comment">// 创建 ServerSocketChannel 实例</span></span><br><span class="line">    ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// I/O 处理设置阻塞, 默认的方式也是阻塞, 多路复用中必须设置为 false</span></span><br><span class="line">    serverSocketChannel.configureBlocking(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建 ServerSocket  实例</span></span><br><span class="line">    ServerSocket serverSocket = serverSocketChannel.socket();</span><br><span class="line">    serverSocket.bind(<span class="keyword">new</span> InetSocketAddress(<span class="number">9000</span>));</span><br><span class="line"></span><br><span class="line">    log.info(<span class="string">"服务端等待客户端连接..."</span>);</span><br><span class="line">    SocketChannel socketChannel = serverSocketChannel.accept();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (socketChannel != <span class="keyword">null</span>) &#123;</span><br><span class="line">        log.info(<span class="string">"连接成功, 开始读取数据..."</span>);</span><br><span class="line">        ByteBuffer readByteBuffer = ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line">        <span class="keyword">int</span> len;</span><br><span class="line">        <span class="keyword">while</span> ((len = socketChannel.read(readByteBuffer)) != -<span class="number">1</span>) &#123;</span><br><span class="line">            log.info(<span class="string">"服务端收到到数据 = &#123;&#125;"</span>, <span class="keyword">new</span> String(readByteBuffer.array(), <span class="number">0</span>, len));</span><br><span class="line">            readByteBuffer.rewind();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        log.info(<span class="string">"服务端等待客户端连接失败"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// TODO 关闭资源</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <h1 id="Spring-Cloud-Gateway-和-Zuul-的性能比较"><a href="#Spring-Cloud-Gateway-和-Zuul-的性能比较" class="headerlink" title="Spring Cloud Gateway 和 Zuul 的性能比较"></a>Spring Cloud Gateway 和 Zuul 的性能比较</h1><ul>
+<li><a href="https://blog.csdn.net/j3T9Z7H/article/details/79295104" target="_blank" rel="noopener">Spring Cloud Gateway 真的有那么差吗？</a></li>
+</ul>
+<h1 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h1><h2 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h2><p>在端口号为 9030 的项目中引入如下依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-gateway<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/15/Java-NIO学习ServerSocketChannel和ScoketChannel使用实例/#more" rel="contents">
+            <a class="btn" href="/2019/05/20/Spring-SpringCloud之GateWay入门和Predicate/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1035,7 +1059,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/Java-NIO学习DatagramChannel使用示例/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/20/Spring-MyBatisPlus多数据源配置和基础使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1054,7 +1078,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/15/Java-NIO学习DatagramChannel使用示例/" itemprop="url">Java-NIO学习DatagramChannel使用示例</a></h1>
+                <a class="post-title-link" href="/2019/05/20/Spring-MyBatisPlus多数据源配置和基础使用/" itemprop="url">Spring-MyBatisPlus多数据源配置和基础使用</a></h1>
         
 
         <div class="post-meta">
@@ -1066,8 +1090,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-15T23:04:31+08:00">
-                2019-03-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-20T22:46:17+08:00">
+                2019-05-20
               </time>
             
 
@@ -1089,8 +1113,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
                   </a>
                 </span>
 
@@ -1127,11 +1151,12 @@
 
       
         
-          <p>在 NIO 中 DatagramChannel 通道可实现 UDP 协议的 Socket 通信, 记录下学习时的测试代码, 如下</p>
-<h1 id="服务器-A-发送和接收报文示例"><a href="#服务器-A-发送和接收报文示例" class="headerlink" title="服务器 A 发送和接收报文示例"></a>服务器 A 发送和接收报文示例</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">nioDatagramChannelA</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    DatagramChannel datagramChannel = DatagramChannel.open();</span><br><span class="line">    datagramChannel.configureBlocking(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 监听来自 9000 端口的数据</span></span><br><span class="line">    DatagramSocket datagramSocket = datagramChannel.socket();</span><br><span class="line">    datagramSocket.bind(<span class="keyword">new</span> InetSocketAddress(<span class="number">9000</span>));</span><br><span class="line"></span><br><span class="line">    log.info(<span class="string">"A 等待 B 发送的消息..."</span>);</span><br><span class="line">    ByteBuffer readByteBuffer = ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line">    datagramChannel.receive(readByteBuffer);</span><br><span class="line">    readByteBuffer.flip();</span><br><span class="line">    log.info(<span class="string">"A 收到 B 发送的消息 = &#123;&#125;"</span>, <span class="keyword">new</span> String(readByteBuffer.array()));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 向 9001 端口发送数据</span></span><br><span class="line">    String content = <span class="string">"A 发来的消息"</span>;</span><br><span class="line">    ByteBuffer writeByteBuffer = ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line">    writeByteBuffer.put(content.getBytes());</span><br><span class="line">    writeByteBuffer.flip();</span><br><span class="line">    datagramChannel.send(writeByteBuffer, <span class="keyword">new</span> InetSocketAddress(<span class="string">"127.0.0.1"</span>, <span class="number">9001</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>MyBatis Plus 的使用方法, 基础就不取解释和记录了, 官方文档已经写得很详细了, 这些可以去参考<a href="https://baomidou.gitee.io/mybatis-plus-doc/#/page-plugin" target="_blank" rel="noopener">官方文档</a></p>
+<h1 id="配置数据源"><a href="#配置数据源" class="headerlink" title="配置数据源"></a>配置数据源</h1><p>使用 Mybatis Plus 时配置数据源和使用 MyBatis 配置数据源基本上是一样的, 不同的是要将 MyBatis 的 SqlSessionFactory 替换成 MyBatisPlus 的 SqlSessionFactory, MyBatis 多数据源的详细配置可以参考配置之前多数据源这一节笔记, 使用 Mybatis Plus 时配置数据源配置类如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties</span>(&#123;Db0DataSourceProperties.class, Db1DataSourceProperties.class, Db2DataSourceProperties.class&#125;)</span><br><span class="line"><span class="meta">@MapperScan</span>(basePackages = <span class="string">"com.lupw.guava.datasource.db.mapper"</span>, sqlSessionFactoryRef = <span class="string">"dbFactory"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MultiDataSourceConfig</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 其他数据源的配置...</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span>(name = <span class="string">"dbFactory"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> SqlSessionFactory <span class="title">getDataSourceFactory</span><span class="params">(PaginationInterceptor paginationInterceptor)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();</span></span><br><span class="line">        <span class="comment">// sessionFactoryBean.setDataSource(getMultiRoutingDataSource());</span></span><br><span class="line">        <span class="comment">// sessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*/*.xml"));</span></span><br><span class="line">        <span class="comment">// return sessionFactoryBean.getObject();</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// MyBatis 的 SqlSessionFactory 替换成 MyBatisPlus 的 SqlSessionFactory</span></span><br><span class="line">        MybatisSqlSessionFactoryBean sqlSessionFactoryBean =  <span class="keyword">new</span> MybatisSqlSessionFactoryBean();</span><br><span class="line">        sqlSessionFactoryBean.setDataSource(getMultiRoutingDataSource());</span><br><span class="line">        sqlSessionFactoryBean.setMapperLocations(<span class="keyword">new</span> PathMatchingResourcePatternResolver().getResources(<span class="string">"classpath:mapper/*/*.xml"</span>));</span><br><span class="line">        <span class="keyword">return</span> sqlSessionFactoryBean.getObject();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/15/Java-NIO学习DatagramChannel使用示例/#more" rel="contents">
+            <a class="btn" href="/2019/05/20/Spring-MyBatisPlus多数据源配置和基础使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1192,7 +1217,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/Java-NIO学习FileChannel使用示例/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/26/java-ElasticSearch客户端使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1211,7 +1236,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/15/Java-NIO学习FileChannel使用示例/" itemprop="url">Java-NIO学习FileChannel使用示例</a></h1>
+                <a class="post-title-link" href="/2019/04/26/java-ElasticSearch客户端使用/" itemprop="url">java-ElasticSearch客户端使用</a></h1>
         
 
         <div class="post-meta">
@@ -1223,8 +1248,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-15T22:50:02+08:00">
-                2019-03-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-26T21:59:40+08:00">
+                2019-04-26
               </time>
             
 
@@ -1284,12 +1309,11 @@
 
       
         
-          <p>Java NIO 中的 FileChannel 是一个连接到文件的通道, 可以通过文件通道读写文件, 下面是学习时的一份测试代码, 里面记录的 FileChannel 的使用方法, 一些说明也写在注释里面了</p>
-<h1 id="建立测试文件"><a href="#建立测试文件" class="headerlink" title="建立测试文件"></a>建立测试文件</h1><p>建立一个测试文件 file_channel_test.txt, 文件里面的初始内容如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hohoho, Hohoho, Hohoho</span><br></pre></td></tr></table></figure>
+          <p>ElasticSearch Java 客户端在 SpringBoot 项目中的基础使用使用, 参考资料: <a href="">官方文档</a>, <a href="https://es.quanke.name/" target="_blank" rel="noopener">ElasticSearch Java API</a> </p>
+<h1 id="创建客户端"><a href="#创建客户端" class="headerlink" title="创建客户端"></a>创建客户端</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configurable</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ElasticSearchConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RestHighLevelClient <span class="title">elasticSearchClient</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> RestHighLevelClient(RestClient.builder(</span><br><span class="line">                        <span class="keyword">new</span> HttpHost(<span class="string">"localhost"</span>, <span class="number">9200</span>, <span class="string">"http"</span>)));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/15/Java-NIO学习FileChannel使用示例/#more" rel="contents">
+            <a class="btn" href="/2019/04/26/java-ElasticSearch客户端使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1350,7 +1374,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/12/Java-Socket网络编程-UDP/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/19/Spring-Spring项目中加载数据库Groovy脚本/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1369,7 +1393,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/12/Java-Socket网络编程-UDP/" itemprop="url">Java-Socket网络编程-UDP</a></h1>
+                <a class="post-title-link" href="/2019/04/19/Spring-Spring项目中加载数据库Groovy脚本/" itemprop="url">Spring-Spring项目中加载数据库Groovy脚本</a></h1>
         
 
         <div class="post-meta">
@@ -1381,8 +1405,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-12T22:11:58+08:00">
-                2019-03-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-19T23:16:56+08:00">
+                2019-04-19
               </time>
             
 
@@ -1404,8 +1428,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
                   </a>
                 </span>
 
@@ -1442,12 +1466,11 @@
 
       
         
-          <p>UDP (用户数据保协议), 是一种面向无连接的传输层协议, 和 TCP 不同的是, UDP 是不可靠的 (是指该协议在网络环境不好的情况下, 会丢失数据包), 也不能像 TCP 那样对数据包进行分组, 组装, 排序和重传, 使用 UDP 也不能知道发送的数据包时候安全完整的传输到目的地, 因为它是无连接型协议, 因而具有资源消耗小, 处理速度快的优点, 通常音频, 视频和普通数据在传送时使用 UDP 较多, 因为它们即使偶尔丢失一两个数据包, 也不会对接收结果产生太大影响, 如视频聊天时, 丢失某些帧对聊天效果影响不大, 同时由于排除了信息可靠传递机制, 将安全和排序等功能移交给上层应用来完成, 因此极大地减少了执行时间, 使速度得到了保证</p>
-<h1 id="服务端简单示例"><a href="#服务端简单示例" class="headerlink" title="服务端简单示例"></a>服务端简单示例</h1><p>Java 提供了 DatagramSocket 类来实现 UDP 的通信, 传输的数据需要封装在 DatagramPacket 类中, UDP 中没有明确的服务端和客户端的划分, 是一个相对的, 要看是接收数据还是发送数据, 先来看看如何使用的, 让服务端监听端口 9000, 不停的接收来自客户端的数据, 示例代码如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="comment">// 监听 9000 端口, 接收发送到 9000 端口的数据</span></span><br><span class="line">    DatagramSocket datagramSocket = <span class="keyword">new</span> DatagramSocket(<span class="number">9000</span>);</span><br><span class="line">    log.info(<span class="string">"服务端绑定端口号 9000 成功"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 接收数据, DatagramPacket 的 length 参数要和客户端的一样</span></span><br><span class="line">    <span class="keyword">byte</span>[] byteArray = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">        log.info(<span class="string">"服务端正在接收数据"</span>);</span><br><span class="line">        DatagramPacket datagramPacket = <span class="keyword">new</span> DatagramPacket(byteArray, <span class="number">1024</span>);</span><br><span class="line">        datagramSocket.receive(datagramPacket);</span><br><span class="line">        String content = <span class="keyword">new</span> String(datagramPacket.getData(), <span class="number">0</span>, datagramPacket.getLength());</span><br><span class="line">        log.info(<span class="string">"收到客户端的消息 = &#123;&#125;"</span>, content);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// TODO 关闭资源</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>项目中需要报表统计功能, 由于公司发版管理严格, 发布版本需要走申请流程, 报表的统计有时需要根据条业务进行一些逻辑的更改, 为了不需要更改一点点逻辑就要去申请发版流程, 决定将 Groovy 脚本的内容保存在数据库中, 每次更新后从数据库中加载最新 Groovy 脚本, 再热加载到 JVM 中, 由于是基于 SpringBoot 的项目, 在加载后手动将生成的 bean 加入容器中进行管理, 实现步骤简单记录如下 (主要是自己笔记, 大概寄一个思路, 不是记录得很详细)</p>
+<h1 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.codehaus.groovy<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>groovy-all<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4.13<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/12/Java-Socket网络编程-UDP/#more" rel="contents">
+            <a class="btn" href="/2019/04/19/Spring-Spring项目中加载数据库Groovy脚本/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1508,7 +1531,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/12/Java-Socket网络编程-TCP/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/19/Spring-源码阅读DefaultSingletonBeanRegistry/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1527,7 +1550,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/12/Java-Socket网络编程-TCP/" itemprop="url">Java-Socket网络编程-TCP</a></h1>
+                <a class="post-title-link" href="/2019/04/19/Spring-源码阅读DefaultSingletonBeanRegistry/" itemprop="url">Spring-源码阅读DefaultSingletonBeanRegistry</a></h1>
         
 
         <div class="post-meta">
@@ -1539,8 +1562,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-12T22:11:49+08:00">
-                2019-03-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-19T23:14:59+08:00">
+                2019-04-19
               </time>
             
 
@@ -1562,8 +1585,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
                   </a>
                 </span>
 
@@ -1600,11 +1623,10 @@
 
       
         
-          <p>TCP 是专门设计用于在不可靠的英特网上提供可靠的端到端的字节流通信的协议, 是一个面向连接的协议, Java 为 TCP 协议提供了两个 Socket 类: ServerSocket 和 Socket, ServerSocket 代表 TCP 协议中的一个服务器端, Socket 代表 TCP 中的一个客户端, 这两个 Socket 类用于实现服务器端和客户端的数据通信 (使用 TCP 或者 UDP), 一个完整的 Socket 编程流程图如下 (图片来源: NIO 与 Socket 编程技术指南):</p>
-<p><img src="/2019/03/12/Java-Socket网络编程-TCP/WechatIMG219.png" width="500" height="700"></p>
+          <p><img src="https://cdn.nlark.com/yuque/0/2019/png/259000/1554948615958-78e34256-49aa-491c-a8f8-de0cc4fb48a1.png#align=left&amp;display=inline&amp;height=350&amp;name=xmlbeanfactory.png&amp;originHeight=652&amp;originWidth=1388&amp;size=42765&amp;status=done&amp;width=746" alt="xmlbeanfactory.png"></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/12/Java-Socket网络编程-TCP/#more" rel="contents">
+            <a class="btn" href="/2019/04/19/Spring-源码阅读DefaultSingletonBeanRegistry/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1665,7 +1687,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/12/Java-IO和IO流/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/19/算法-排序算法之选择排序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1684,7 +1706,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/12/Java-IO和IO流/" itemprop="url">Java-IO和IO流</a></h1>
+                <a class="post-title-link" href="/2019/04/19/算法-排序算法之选择排序/" itemprop="url">算法-排序算法之选择排序</a></h1>
         
 
         <div class="post-meta">
@@ -1696,8 +1718,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-12T21:57:06+08:00">
-                2019-03-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-19T23:12:31+08:00">
+                2019-04-19
               </time>
             
 
@@ -1719,8 +1741,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -1757,11 +1779,11 @@
 
       
         
-          <h1 id="I-O"><a href="#I-O" class="headerlink" title="I/O"></a>I/O</h1><p>I/O, 即输入和输出, 通常指数据在内部存储器和外部存储器或其他周边设备之间的输入和输出, 几乎任何涉及到计算机与其他设备之间的数据交换的都可称之为 I/O, 如内存和磁盘, 计算机之间网络数据交换等, 一个完整的 IO 操作指的是 I/O 的调用和 I/O 的执行两个部分, 首先由应用程序调用操作系统的 I/O 接口进行 I/O 操作, 随即操作系统底层执行相关的 I/O 的操作</p>
-<h1 id="I-O-流"><a href="#I-O-流" class="headerlink" title="I/O 流"></a>I/O 流</h1><p>I/O 操作中, 一个重要的知识点是数据的交换, 这个数据交换的过程就是数据的输入和数据的输出, 在 Java 的 I/O 操作中, 对数据的输入输出操作都是以 “流” 的方式进行的, 即 I/O 流, 通常也称之为数据流, “流” 是一个抽象的概念，它是对输入输出设备的一种抽象理解, 表示数据从源对象 (如文件, 内存, 网络) 按顺序流向目标对象的一种流动形式, 例如在 Java 中应用程序需要向文件中写数据的时候, 就需要开启一个输出流, 然后往输出流中写入数据, 反之则需要开启一个输入流, 然后从输入流中接收数据</p>
+          <h1 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h1><p>首先在未排序序列中找到最小 (大) 元素, 存放到排序序列的起始位置, 然后, 再从剩余未排序元素中继续寻找最小 (大) 元素, 然后放到已排序序列的末尾, 以此类推, 直到所有元素均排序完毕</p>
+<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>最优 O(n^2), 最差 O(n^2), 平均 O(n^2)</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/12/Java-IO和IO流/#more" rel="contents">
+            <a class="btn" href="/2019/04/19/算法-排序算法之选择排序/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1813,7 +1835,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1861,7 +1883,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-count">150</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1872,7 +1894,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

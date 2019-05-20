@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Spring Cloud Gateway 和 Zuul 的性能比较 Spring Cloud Gateway 真的有那么差吗？  基础使用引入依赖在端口号为 9030 的项目中引入如下依赖 1234&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.springframework.cloud&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId&amp;gt;s">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring-SpringCloud之GateWay入门和Predicate">
+<meta property="og:url" content="http://yoursite.com/2019/05/20/Spring-SpringCloud之GateWay入门和Predicate/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="Spring Cloud Gateway 和 Zuul 的性能比较 Spring Cloud Gateway 真的有那么差吗？  基础使用引入依赖在端口号为 9030 的项目中引入如下依赖 1234&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.springframework.cloud&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId&amp;gt;s">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-20T14:54:58.202Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring-SpringCloud之GateWay入门和Predicate">
+<meta name="twitter:description" content="Spring Cloud Gateway 和 Zuul 的性能比较 Spring Cloud Gateway 真的有那么差吗？  基础使用引入依赖在端口号为 9030 的项目中引入如下依赖 1234&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.springframework.cloud&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId&amp;gt;s">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/20/Spring-SpringCloud之GateWay入门和Predicate/"/>
+
+
+
+
+
+  <title>Spring-SpringCloud之GateWay入门和Predicate | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/20/Spring-SpringCloud之GateWay入门和Predicate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring-SpringCloud之GateWay入门和Predicate</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-20T22:51:01+08:00">
+                2019-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Spring-Cloud-Gateway-和-Zuul-的性能比较"><a href="#Spring-Cloud-Gateway-和-Zuul-的性能比较" class="headerlink" title="Spring Cloud Gateway 和 Zuul 的性能比较"></a>Spring Cloud Gateway 和 Zuul 的性能比较</h1><ul>
+<li><a href="https://blog.csdn.net/j3T9Z7H/article/details/79295104" target="_blank" rel="noopener">Spring Cloud Gateway 真的有那么差吗？</a></li>
+</ul>
+<h1 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h1><h2 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h2><p>在端口号为 9030 的项目中引入如下依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-gateway<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="启动项目-端口号为-9020"><a href="#启动项目-端口号为-9020" class="headerlink" title="启动项目, 端口号为 9020"></a>启动项目, 端口号为 9020</h2><p>项目里面定义了 URL = /get/username/from/9010</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/get/username/from/9020"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getUsernameFrom9020</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"username-from-9020"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="启动项目-端口号-9021"><a href="#启动项目-端口号-9021" class="headerlink" title="启动项目, 端口号 9021"></a>启动项目, 端口号 9021</h2><p>项目里面定义了 URL = /get/username/from/9021</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/get/username/from/9021"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getUsernameFrom9021</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"username-from-9021"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="在-9030-的项目中设置路由规则"><a href="#在-9030-的项目中设置路由规则" class="headerlink" title="在 9030 的项目中设置路由规则"></a>在 9030 的项目中设置路由规则</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RouteLocatorConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> builder.routes()</span><br><span class="line">                .route(r -&gt; r.path(<span class="string">"/get/username/from/9020"</span>).uri(<span class="string">"http://localhost:9020"</span>))</span><br><span class="line">                .route(r -&gt; r.path(<span class="string">"/get/username/from/9021"</span>).uri(<span class="string">"http://localhost:9021"</span>))</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>经过上面的配置完成后, 当我们访问 <code>http://localhost:9030/get/username/from/9020</code> 时就会转发到 <code>http://localhost:9020/get/username/from/9020</code>, 而访问 <code>http://localhost:9030/get/username/from/9021</code> 时就会转发到 <code>http://localhost:9021/get/username/from/9021</code> 上</p>
+<h2 id="开始测试"><a href="#开始测试" class="headerlink" title="开始测试"></a>开始测试</h2><p>启动端口号为 9030 项目提示出现如下错误:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Spring MVC found on classpath, which is incompatible with Spring Cloud Gateway at this time.</span><br><span class="line">Please remove spring-boot-starter-web dependency.</span><br><span class="line"></span><br><span class="line">Parameter 0 of method modifyRequestBodyGatewayFilterFactory </span><br><span class="line">in org.springframework.cloud.gateway.config.GatewayAutoConfiguration </span><br><span class="line">required a bean of type &apos;org.springframework.http.codec.ServerCodecConfigurer&apos; </span><br><span class="line">that could not be found</span><br></pre></td></tr></table></figure>
+<p>由于 9030 的项目中之前引入了 spring-boot-starter-web, 产生了冲突, 将 spring-boot-starter-web 依赖去掉即可, 启动后测试正常, 调用 <code>http://localhost:9030/get/username/from/9020</code> 接口时, 返回 <code>username-from-9020</code>, 调用 <code>http://localhost:9030/get/username/from/9021</code> 接口时, 返回 <code>username-from-9021</code></p>
+<h1 id="断言-Predicate"><a href="#断言-Predicate" class="headerlink" title="断言 (Predicate)"></a>断言 (Predicate)</h1><p>GateWay 中的核心 Route (路由) 由 Predicate (断言) 和 Filter (过滤器) 两部分组成, 一个请求能不能匹配路由规则主要由断言决定, 断言成功则路由匹配, GateWay 默认提供了一些断言规则, 如下</p>
+<h2 id="After-Route-Predicate"><a href="#After-Route-Predicate" class="headerlink" title="After Route Predicate"></a>After Route Predicate</h2><p>在指定时间之后访问时路由才会匹配请求</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> builder.routes()</span><br><span class="line">            .route(r -&gt; r.path(<span class="string">"/get/username/from/9020"</span>)</span><br><span class="line">                    .and()</span><br><span class="line">                    .after(ZonedDateTime.of(LocalDateTime.of(<span class="number">2019</span>, <span class="number">5</span>, <span class="number">14</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>), ZoneId.systemDefault()))</span><br><span class="line">                    .uri(<span class="string">"http://localhost:9020"</span>))</span><br><span class="line">            .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 2019-05-14 00:00:00 之后访问才有效, 例如在 2019-05-13 00:00:00 时去访问, 在 PostMan 则会出现如下 404 错误提示:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"timestamp"</span>: <span class="string">"2019-05-13T08:38:59.018+0000"</span>,</span><br><span class="line">    <span class="attr">"path"</span>: <span class="string">"/get/username/from/9020"</span>,</span><br><span class="line">    <span class="attr">"status"</span>: <span class="number">404</span>,</span><br><span class="line">    <span class="attr">"error"</span>: <span class="string">"Not Found"</span>,</span><br><span class="line">    <span class="attr">"message"</span>: <span class="literal">null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Before-Route-Predicate"><a href="#Before-Route-Predicate" class="headerlink" title="Before Route Predicate"></a>Before Route Predicate</h2><p>在指定时间之前访问时路由才会匹配请求</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> builder.routes()</span><br><span class="line">            .route(r -&gt; r.path(<span class="string">"/get/username/from/9020"</span>)</span><br><span class="line">                    .and()</span><br><span class="line">                    .before(ZonedDateTime.of(LocalDateTime.of(<span class="number">2019</span>, <span class="number">5</span>, <span class="number">14</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>), ZoneId.systemDefault()))</span><br><span class="line">                    .uri(<span class="string">"http://localhost:9020"</span>))</span><br><span class="line">            .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Between-Route-Predicate"><a href="#Between-Route-Predicate" class="headerlink" title="Between Route Predicate"></a>Between Route Predicate</h2><p>在两个时间之间访问时路由才会匹配请求</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> builder.routes()</span><br><span class="line">            .route(r -&gt; r.path(<span class="string">"/get/username/from/9020"</span>)</span><br><span class="line">                    .and()</span><br><span class="line">                    .between(ZonedDateTime.of(LocalDateTime.of(<span class="number">2019</span>, <span class="number">5</span>, <span class="number">14</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>), ZoneId.systemDefault()),</span><br><span class="line">                             ZonedDateTime.of(LocalDateTime.of(<span class="number">2019</span>, <span class="number">5</span>, <span class="number">20</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>), ZoneId.systemDefault()))</span><br><span class="line">                    .uri(<span class="string">"http://localhost:9020"</span>))</span><br><span class="line">            .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Cookie-Route-Predicate"><a href="#Cookie-Route-Predicate" class="headerlink" title="Cookie Route Predicate"></a>Cookie Route Predicate</h2><p>请求中需要携带指定的 cookie, 并且 cookie 的值匹配正则表达式才能匹配到路由</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 这个例子要求 cookie 的名为 username, 并且值为 lpw 才能匹配</span></span><br><span class="line">    <span class="keyword">return</span> builder.routes()</span><br><span class="line">            .route(r -&gt; r.path(<span class="string">"/get/username/from/9020"</span>)</span><br><span class="line">                    .and()</span><br><span class="line">                    .cookie(<span class="string">"username"</span>, <span class="string">"lpw"</span>)</span><br><span class="line">                    .uri(<span class="string">"http://localhost:9020"</span>))</span><br><span class="line">            .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Header-Route-Predicate"><a href="#Header-Route-Predicate" class="headerlink" title="Header Route Predicate"></a>Header Route Predicate</h2><p>和 Cookie Route Predicate 类似, 需要请求头携带指定的头部信息, 如果带有值, 则值匹配正则表达式才能匹配到路由</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> builder.routes()</span><br><span class="line">            .route(r -&gt; r.path(<span class="string">"/get/username/from/9020"</span>)</span><br><span class="line">                    .and()</span><br><span class="line">                    .header(<span class="string">"username"</span>, <span class="string">"lpw"</span>)</span><br><span class="line">                    .uri(<span class="string">"http://localhost:9020"</span>))</span><br><span class="line">            .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Host-Route-Predicate"><a href="#Host-Route-Predicate" class="headerlink" title="Host Route Predicate"></a>Host Route Predicate</h2><p>符合域名匹配规则要求的才能匹配路由, 如下例中只要是 <code>www.smc-system.</code> 开头的域名都能匹配成功</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> builder.routes()</span><br><span class="line">            .route(r -&gt; r.path(<span class="string">"/get/username/from/9020"</span>)</span><br><span class="line">                    .and()</span><br><span class="line">                    .host(<span class="string">"www.smc-system.**"</span>)</span><br><span class="line">                    .uri(<span class="string">"http://localhost:9020"</span>))</span><br><span class="line">            .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Method-Route-Predicate"><a href="#Method-Route-Predicate" class="headerlink" title="Method Route Predicate"></a>Method Route Predicate</h2><p>通过 HTTP 请求的 method 来匹配, 如下例只匹配 GET 请求或者 POST 请求等等</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> builder.routes()</span><br><span class="line">            .route(r -&gt; r.path(<span class="string">"/get/username/from/9020"</span>)</span><br><span class="line">                    .and()</span><br><span class="line">                    .method(HttpMethod.GET)</span><br><span class="line">                    .or()</span><br><span class="line">                    .method(HttpMethod.POST)</span><br><span class="line">                    .uri(<span class="string">"http://localhost:9020"</span>))</span><br><span class="line">            .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Path-Route-Predicate"><a href="#Path-Route-Predicate" class="headerlink" title="Path Route Predicate"></a>Path Route Predicate</h2><p>通过 path 来匹配, 例如下面的例子, 所有以路径 <code>/get/username/</code> 开头的 (包括 /get/username/) 请求都可以匹配</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> builder.routes()</span><br><span class="line">            .route(r -&gt; r.path(<span class="string">"/get/username/from/9020"</span>)</span><br><span class="line">                    .and()</span><br><span class="line">                    .path(<span class="string">"/get/username/**"</span>)</span><br><span class="line">                    .uri(<span class="string">"http://localhost:9020"</span>))</span><br><span class="line">            .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>path 匹配使用的是 PathMatcher 实现的, 参考资料: <a href="https://blog.csdn.net/qq_21251983/article/details/53034425" target="_blank" rel="noopener">SpringMVC 路径匹配规则 AntPathMatcher</a></p>
+<h1 id="Query-Route-Predicate"><a href="#Query-Route-Predicate" class="headerlink" title="Query Route Predicate"></a>Query Route Predicate</h1><p>通过请求携带的参数俩匹配路由</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> builder.routes()</span><br><span class="line">            .route(r -&gt; r.path(<span class="string">"/get/username/from/9020"</span>)</span><br><span class="line">                    .and()</span><br><span class="line">                    .query(<span class="string">"username"</span>, <span class="string">"lpw"</span>)</span><br><span class="line">                    .uri(<span class="string">"http://localhost:9020"</span>))</span><br><span class="line">            .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="RemoteAddr-Route-Predicate"><a href="#RemoteAddr-Route-Predicate" class="headerlink" title="RemoteAddr Route Predicate"></a>RemoteAddr Route Predicate</h1><p>通过访问的 IP 来匹配</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> builder.routes()</span><br><span class="line">            .route(r -&gt; r.path(<span class="string">"/**"</span>)</span><br><span class="line">                    .and()</span><br><span class="line">                    .remoteAddr(<span class="string">"10.98.164.127"</span>)</span><br><span class="line">                    .uri(<span class="string">"http://localhost:9020"</span>))</span><br><span class="line">            .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>本机 IP = 10.98.164.127, 当使用远程地址断言的时候, 只有 <code>http://10.98.164.127:9030</code> 的才能匹配, 而 <code>http://localhost:9030</code> 或者 <code>http://127.0.0.1:9030</code> 都是匹配不上的</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Spring-SpringCloud之GateWay入门和Predicate
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2019/05/20/Spring-SpringCloud之GateWay入门和Predicate/" title="Spring-SpringCloud之GateWay入门和Predicate">2019/05/20/Spring-SpringCloud之GateWay入门和Predicate/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/20/Spring-MyBatisPlus多数据源配置和基础使用/" rel="next" title="Spring-MyBatisPlus多数据源配置和基础使用">
+                <i class="fa fa-chevron-left"></i> Spring-MyBatisPlus多数据源配置和基础使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/20/Spring-SpringCloud之GateWay内置过滤器使用/" rel="prev" title="Spring-SpringCloud之GateWay内置过滤器使用">
+                Spring-SpringCloud之GateWay内置过滤器使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">150</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-Cloud-Gateway-和-Zuul-的性能比较"><span class="nav-number">1.</span> <span class="nav-text">Spring Cloud Gateway 和 Zuul 的性能比较</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基础使用"><span class="nav-number">2.</span> <span class="nav-text">基础使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引入依赖"><span class="nav-number">2.1.</span> <span class="nav-text">引入依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动项目-端口号为-9020"><span class="nav-number">2.2.</span> <span class="nav-text">启动项目, 端口号为 9020</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动项目-端口号-9021"><span class="nav-number">2.3.</span> <span class="nav-text">启动项目, 端口号 9021</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在-9030-的项目中设置路由规则"><span class="nav-number">2.4.</span> <span class="nav-text">在 9030 的项目中设置路由规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始测试"><span class="nav-number">2.5.</span> <span class="nav-text">开始测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#断言-Predicate"><span class="nav-number">3.</span> <span class="nav-text">断言 (Predicate)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#After-Route-Predicate"><span class="nav-number">3.1.</span> <span class="nav-text">After Route Predicate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Before-Route-Predicate"><span class="nav-number">3.2.</span> <span class="nav-text">Before Route Predicate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Between-Route-Predicate"><span class="nav-number">3.3.</span> <span class="nav-text">Between Route Predicate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie-Route-Predicate"><span class="nav-number">3.4.</span> <span class="nav-text">Cookie Route Predicate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Header-Route-Predicate"><span class="nav-number">3.5.</span> <span class="nav-text">Header Route Predicate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Host-Route-Predicate"><span class="nav-number">3.6.</span> <span class="nav-text">Host Route Predicate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Method-Route-Predicate"><span class="nav-number">3.7.</span> <span class="nav-text">Method Route Predicate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Path-Route-Predicate"><span class="nav-number">3.8.</span> <span class="nav-text">Path Route Predicate</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Query-Route-Predicate"><span class="nav-number">4.</span> <span class="nav-text">Query Route Predicate</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RemoteAddr-Route-Predicate"><span class="nav-number">5.</span> <span class="nav-text">RemoteAddr Route Predicate</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

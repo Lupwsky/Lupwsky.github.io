@@ -251,7 +251,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/07/SpringBoot-创建SpringBoot项目使用jar包方式启动/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/21/Android-String资源/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -270,7 +270,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/07/SpringBoot-创建SpringBoot项目使用jar包方式启动/" itemprop="url">SpringBoot-创建SpringBoot项目使用jar包方式启动</a></h1>
+                <a class="post-title-link" href="/2018/05/21/Android-String资源/" itemprop="url">Android-String资源</a></h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-07T17:10:53+08:00">
-                2018-05-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-21T15:51:12+08:00">
+                2018-05-21
               </time>
             
 
@@ -305,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
                   </a>
                 </span>
 
@@ -343,11 +343,10 @@
 
       
         
-          <h1 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h1><h2 id="创建一个maven项目"><a href="#创建一个maven项目" class="headerlink" title="创建一个maven项目"></a>创建一个maven项目</h2><p>在pom.xml文件中添加依赖包，如下图所示：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.5.3.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+          <h1 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// String资源定义</span></span><br><span class="line">&lt;string name="stringTest"&gt;买1台Mac笔记本&lt;/string&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用String资源</span></span><br><span class="line">getString(R.string.stringTest);</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/07/SpringBoot-创建SpringBoot项目使用jar包方式启动/#more" rel="contents">
+            <a class="btn" href="/2018/05/21/Android-String资源/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -408,7 +407,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/07/SpringBoot-启动错误问题笔记/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/21/Android-CardView/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -427,7 +426,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/07/SpringBoot-启动错误问题笔记/" itemprop="url">SpringBoot-启动错误问题笔记</a></h1>
+                <a class="post-title-link" href="/2018/05/21/Android-CardView/" itemprop="url">Android-CardView</a></h1>
         
 
         <div class="post-meta">
@@ -439,8 +438,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-07T16:43:27+08:00">
-                2018-05-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-21T15:47:39+08:00">
+                2018-05-21
               </time>
             
 
@@ -462,8 +461,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
                   </a>
                 </span>
 
@@ -500,12 +499,11 @@
 
       
         
-          <p>主要记载使用 SpringBoot 构建的项目时出现的一些问题和解决非方法。</p>
-<h1 id="Your-ApplicationContext-is-unlikely-to-start-due-to-a-ComponentScan-of-the-default-package"><a href="#Your-ApplicationContext-is-unlikely-to-start-due-to-a-ComponentScan-of-the-default-package" class="headerlink" title="Your ApplicationContext is unlikely to start due to a @ComponentScan of the default package"></a>Your ApplicationContext is unlikely to start due to a @ComponentScan of the default package</h1><p>首先 Application.java 文件不能直接放在main/java文件夹下，需要放入包中 (例如 main/java/com/lupw 下)。其次，会默认扫描所有包，需要加上注解 @ComponentScan(“com.lupw”) 对扫描的包进行限制。</p>
-<p>解决方法的相关链接：<br><code>https://stackoverflow.com/questions/35070455/springboot-beandefinitionstoreexception-failed-to-parse-configuration-class</code></p>
+          <p>CardView 是 Android5.0 之后引入的，用它可以实现卡片布局圆角效果、阴影效果。</p>
+<h1 id="引入依赖包"><a href="#引入依赖包" class="headerlink" title="引入依赖包"></a>引入依赖包</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// gradle导入CardView支持包</span><br><span class="line">compile 'com.android.support:cardview-v7:25.0.1'</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/07/SpringBoot-启动错误问题笔记/#more" rel="contents">
+            <a class="btn" href="/2018/05/21/Android-CardView/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -566,7 +564,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/04/Nginx-Rewrite重写/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/21/Java-多线程之Lock的使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -585,7 +583,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/04/Nginx-Rewrite重写/" itemprop="url">Nginx-Rewrite重写</a></h1>
+                <a class="post-title-link" href="/2018/05/21/Java-多线程之Lock的使用/" itemprop="url">Java-多线程之Lock的使用</a></h1>
         
 
         <div class="post-meta">
@@ -597,8 +595,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-04T00:17:29+08:00">
-                2018-05-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-21T14:20:49+08:00">
+                2018-05-21
               </time>
             
 
@@ -620,8 +618,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Nginx/" itemprop="url" rel="index">
-                    <span itemprop="name">Nginx</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -658,194 +656,22 @@
 
       
         
-          
-            <p>Rewrite 的可以重新定向 (会重写用户的请求地址，但是不会修改问号后面参数) URL 地址，通过在配置文件中重写 URL，可以让网站中的 URL 符合某种条件后跳转到指定的 URL，如重定向到 301，404 等页面，例如因为需求更改了项目的结构，用户之前收藏的链接再去访问就会出现错误，Rewrite 就可以用于解决这种问题。Rewrite 还可以完成防盗链的功能。源码的实现可以查看 ngx_http_rewrite_module 模块，官方地址 <code>https://nginx.org/en/docs/</code>。</p>
-<h1 id="Rewrite-中的指令"><a href="#Rewrite-中的指令" class="headerlink" title="Rewrite 中的指令"></a>Rewrite 中的指令</h1><p>Rewrite 的重写规则既可以放在 server，也可以放在 location 里面。</p>
-<h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><p>if 指令的作用域为 server、location，在使用的时候要注意的是 if 的后面必须要有一个空格。</p>
-<p>if 指令的的条件可以是：</p>
-<table>
-<thead>
-<tr>
-<th>操作符</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>一个变量</td>
-<td>变量不为空或者不为 0 的字符串则条件为真</td>
-</tr>
-<tr>
-<td>==, !=</td>
-<td>比较的一个变量和字符串</td>
-</tr>
-<tr>
-<td>~, ~*</td>
-<td>与正则表达式匹配的变量，如果这个正则表达式中包含 “}”，则整个表达式需要用 “ 或 ‘</td>
-</tr>
-<tr>
-<td>-f, !-f</td>
-<td>检查一个文件是否存在</td>
-</tr>
-<tr>
-<td>-d, !-d</td>
-<td>检查一个目录是否存在</td>
-</tr>
-<tr>
-<td>-e, !-e</td>
-<td>检查一个文件、目录是否存在</td>
-</tr>
-<tr>
-<td>-x, !-x</td>
-<td>检查一个文件是否可执行</td>
-</tr>
-</tbody>
-</table>
-<p>使用实例：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if ($request_method == POST)&#123;</span><br><span class="line">    return 404;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="return"><a href="#return" class="headerlink" title="return"></a>return</h2><p>return 指令的作用域是 server、location 和 if，return 指令可以中断请求，并且返回 一个 HTTP 状态码。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if ($request_method == POST)&#123;</span><br><span class="line">    <span class="comment"># 返回 404 错误码</span></span><br><span class="line">    return 404;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="break"><a href="#break" class="headerlink" title="break"></a>break</h2><p>break 指令的作用域是 server、location 和 if，break 指令可以阻止后面的 rewrite 指令执行。</p>
-<h2 id="set"><a href="#set" class="headerlink" title="set"></a>set</h2><p>set 指令的作用域是 server、location 和 if，set 指令可以初始化或设置一个变量。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">location /test &#123;</span><br><span class="line">    set $foo hello;</span><br><span class="line">    if ($foo == hello) &#123;</span><br><span class="line">        return 404;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="Nginx-内置的全局变量"><a href="#Nginx-内置的全局变量" class="headerlink" title="Nginx 内置的全局变量"></a>Nginx 内置的全局变量</h1><p>网上收集了一些 Ngixn 内置的全局变量，如下表所示：</p>
-<table>
-<thead>
-<tr>
-<th>变量名</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$args</td>
-<td>GET 请求中的参数</td>
-</tr>
-<tr>
-<td>$arg_PARAMETER</td>
-<td>GET 请求中指定变量名参数的值，如 $arg_userName，获取到的是 GET 请求中 userName 参数的值</td>
-</tr>
-<tr>
-<td>$binary_remote_addr</td>
-<td>二进制码形式的客户端地址</td>
-</tr>
-<tr>
-<td>$body_bytes_sent</td>
-<td>传送页面的字节数</td>
-</tr>
-<tr>
-<td>$content_length</td>
-<td>请求头中的Content-length字段</td>
-</tr>
-<tr>
-<td>$content_typ</td>
-<td>请求头中的Content-Type字段</td>
-</tr>
-<tr>
-<td>$cookie_COOKIE</td>
-<td>cookie  中指定的 COOKIE 的值</td>
-</tr>
-<tr>
-<td>$document_root</td>
-<td>当前请求在 root 指令中指定的值</td>
-</tr>
-<tr>
-<td>$uri</td>
-<td>请求中的当前 URI (不带请求参数，参数位于 $args)，不同于浏览器传递的 $request_uri 的值，它可以通过内部重定向，或者使用 index 指令进行修改，不包括协议和主机名</td>
-</tr>
-<tr>
-<td>$document_uri</td>
-<td>和 $url 相同</td>
-</tr>
-<tr>
-<td>$host</td>
-<td>请求中的主机头字段，如果请求中的主机头不可用或者空，则为处理请求的 server 名称 (处理请求的 server 的 server_name 指令的值)，值为小写，不包含端口</td>
-</tr>
-<tr>
-<td>$hostname</td>
-<td>机器名</td>
-</tr>
-<tr>
-<td>$http_HEADER</td>
-<td>HTTP 请求头中的内容，HEADER 为 HTTP 请求中的内容转为小写，<code>-</code> 变为 <code>_</code> ( 破折号变为下划线 )，例如：$http_user_agent，$http_referer</td>
-</tr>
-<tr>
-<td>$sent_http_HEADER</td>
-<td>HTTP响应头中的内容，HEADER为HTTP响应中的内容转为小写，<code>-</code> 变为 <code>_</code> (破折号变为下划线)，例如： $sent_http_cache_control，$sent_http_content_type</td>
-</tr>
-<tr>
-<td>$limit_rate</td>
-<td>连接速率</td>
-</tr>
-<tr>
-<td>$nginx_version</td>
-<td>当前运行的 Nginx 版本号</td>
-</tr>
-<tr>
-<td>$query_string</td>
-<td>与 $args 相同</td>
-</tr>
-<tr>
-<td>$remote_addr</td>
-<td>客户端的 IP 地址</td>
-</tr>
-<tr>
-<td>$remote_port</td>
-<td>客户端的端口</td>
-</tr>
-<tr>
-<td>$remote_user</td>
-<td>已经经过 Auth Basic Module 验证的用户名</td>
-</tr>
-<tr>
-<td>$request_filename</td>
-<td>当前连接请求的文件路径，由 roo t或 alias 指令与 URI 请求生成</td>
-</tr>
-<tr>
-<td>$request_body</td>
-<td>请求体</td>
-</tr>
-<tr>
-<td>$request_body_file</td>
-<td>客户端请求主体信息的临时文件名</td>
-</tr>
-<tr>
-<td>$request_completion</td>
-<td>如果请求成功，设为 “OK”，如果请求未完成或者不是一系列请求中最后一部分则设为空</td>
-</tr>
-<tr>
-<td>$request_method</td>
-<td>GET 或 POST 请求方法</td>
-</tr>
-<tr>
-<td>$request_uri</td>
-<td>包含一些客户端请求参数的原始URI，它无法修改，请查看 $uri 更改或重写 URI</td>
-</tr>
-<tr>
-<td>$scheme</td>
-<td>所用的协议，比如 http 或者是 https</td>
-</tr>
-<tr>
-<td>$server_addr</td>
-<td>服务器地址，在完成一次系统调用后可以确定这个值，如果要绕开系统调用，则必须在 listen 中指定地址并且使用 bind 参数</td>
-</tr>
-<tr>
-<td>$server_name</td>
-<td>服务器名称</td>
-</tr>
-<tr>
-<td>$server_port</td>
-<td>请求到达服务器的端口号</td>
-</tr>
-<tr>
-<td>$server_protocol</td>
-<td>请求使用的协议，通常是HTTP/1.0或HTTP/1.1</td>
-</tr>
-</tbody>
-</table>
-<p>参考资料：<code>http://www.nginx.cn/273.html</code></p>
-
-          
+          <p>synchronized 可以解决多线程资源同步的问题，但是 synchronized 的性能是比较低效的，例如在一个线程获取到锁后，如果这线程阻塞了 (如IO操作)，由于使用 synchronized 获取到锁并发生阻塞的线程是不能够响应中断，所以其他线程就会一直等待下去，为此就需要有一种机制能够解决这种线程同步中无限等待的问题，使用 Lock 就可以解决类似的问题。</p>
+<p>注：这里说的性能差是相对于 Lock 的比较，但是在 JDK 1.6 后，synchronize进行了很多优化，有适应自旋，锁消除，锁粗化，轻量级锁，偏向锁等等，使得 synchronize 的性能并不比 Lock 差。</p>
+<h1 id="Lock-和-synchronized-的区别"><a href="#Lock-和-synchronized-的区别" class="headerlink" title="Lock 和 synchronized 的区别"></a>Lock 和 synchronized 的区别</h1><ol>
+<li>synchronized 是 Java 语言内置的关键字，Lock 是一个类，通过这个类可以实现同步访问，一个是 JVM 层面的，一个是 JDK 层面的;</li>
+<li>synchronized 可以加在方法上，也可以加在代码块中，Lock 只能在在代码块中;</li>
+<li>synchronized 不需要手动释放锁，会自动释放对锁的占用，而 Lock 则必须要手动释放锁，如果没有主动释放锁，会出现死锁现象;</li>
+<li>synchronized 在同步的时候不能获取锁的状态，Lock 可以;</li>
+<li>synchronized 的锁可重入、但是不可中断，使用的是非公平锁，Lock 可重入且可判断，公平锁和非公平锁都可以使用。</li>
+</ol>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/21/Java-多线程之Lock的使用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -902,7 +728,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/03/Nginx-Location配置/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/21/Java-多线程之ThreadLocal（二）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -921,7 +747,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/03/Nginx-Location配置/" itemprop="url">Nginx-Location配置</a></h1>
+                <a class="post-title-link" href="/2018/05/21/Java-多线程之ThreadLocal（二）/" itemprop="url">Java-多线程之ThreadLocal（二）</a></h1>
         
 
         <div class="post-meta">
@@ -933,8 +759,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-03T22:14:22+08:00">
-                2018-05-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-21T13:40:32+08:00">
+                2018-05-21
               </time>
             
 
@@ -956,8 +782,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Nginx/" itemprop="url" rel="index">
-                    <span itemprop="name">Nginx</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -994,42 +820,37 @@
 
       
         
-          <p>location 是虚拟主机不可缺少的一个配置, 可以根据不同的 URI 定位到不同的处理方式上, 例如在碰到 .jsp、.html 为后缀的 URL 时做出相应的处理。</p>
-<h1 id="Location-语法"><a href="#Location-语法" class="headerlink" title="Location 语法"></a>Location 语法</h1><p>常见的语法如下：<br>location [ = | ~ | ~* | ^~ | ! ] uri {<br>    …<br>}</p>
-<p>总共分成三个部分, location 关键字, 匹配修饰符和 uri, 其中匹配修饰符可以不写, 而 uri 可以为正则表达式, 但是原则上是能够尽量精确旧尽量精确表示, 匹配修饰符的含义见下表：</p>
+          <p>ThreadLocal 用来提供线程内部的局部变量的，并非是用于解决数据共享的，数据共享海兽需要使用关键字 synchronsize，上一篇笔记了解了 ThreadLocal 的基础使用，这篇笔记继续了解 ThreadLocal 的实现原理。</p>
+<h1 id="ThreadLocal-主要方法"><a href="#ThreadLocal-主要方法" class="headerlink" title="ThreadLocal 主要方法"></a>ThreadLocal 主要方法</h1><p>ThreadLocal 对外提供的方法只有四个：</p>
 <table>
 <thead>
 <tr>
-<th>匹配修饰符</th>
-<th>含义</th>
+<th>方法</th>
+<th>用途</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>~</td>
-<td>区分大小写的正则匹配</td>
+<td>public void set(T value)</td>
+<td>设置当前线程的线程局部变量的值</td>
 </tr>
 <tr>
-<td>~!</td>
-<td>不区分大小写的正则匹配</td>
+<td>public T get()</td>
+<td>返回当前线程所对应的线程局部变量</td>
 </tr>
 <tr>
-<td>=</td>
-<td>精准匹配</td>
+<td>public void remove()</td>
+<td>将当前线程局部变量的值删除，该方法是JDK 5.0新增的方法，可以加快内存回收的速度 (因为在线程结束的时候，对应该线程的局部变量是自动被垃圾机制自动回收的)</td>
 </tr>
 <tr>
-<td>^~</td>
-<td>表示如果该符号后面的字符是最佳匹配, 采用该规则, 不再进行后续的查找</td>
-</tr>
-<tr>
-<td>@</td>
-<td>内部跳转</td>
+<td>protected Object initialValue()</td>
+<td>返回该线程局部变量的初始值，是一个延迟调用方法，在线程第1次调用get()或set(Object)时才执行，并且仅执行1次</td>
 </tr>
 </tbody>
 </table>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/03/Nginx-Location配置/#more" rel="contents">
+            <a class="btn" href="/2018/05/21/Java-多线程之ThreadLocal（二）/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1090,7 +911,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/26/算法-雪花算法和Java的实现/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/17/Java-多线程之ThreadLocal（一）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1109,7 +930,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/26/算法-雪花算法和Java的实现/" itemprop="url">算法-雪花算法和beyond大牛Java的实现方案学习笔记</a></h1>
+                <a class="post-title-link" href="/2018/05/17/Java-多线程之ThreadLocal（一）/" itemprop="url">Java-多线程之ThreadLocal(一)</a></h1>
         
 
         <div class="post-meta">
@@ -1121,8 +942,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-26T09:41:23+08:00">
-                2018-04-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-17T21:42:42+08:00">
+                2018-05-17
               </time>
             
 
@@ -1144,8 +965,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -1182,15 +1003,13 @@
 
       
         
-          <p>这篇文章内容均来源于网上beyond大牛的文章，仅仅作为一个笔记记录于此，方便日后使用方便。SnowFlake 算法是 Twitter 设计的一个可以在分布式系统中生成唯一的 ID 的算法，它可以满足每秒上万条消息 ID 分配的请求，这些消息 ID 是唯一的且有大致的递增顺序。SnowFlake 的优点是，整体上按照时间自增排序，并且整个分布式系统内不会产生 ID 碰撞 (由数据中心 ID 和机器 ID 作区分)，并且效率较高，经测试，SnowFlake 每秒能够产生 26 万 ID 左右。</p>
-<h1 id="SnowFlake-的结构"><a href="#SnowFlake-的结构" class="headerlink" title="SnowFlake 的结构"></a>SnowFlake 的结构</h1><p>SnowFlake的结构如下(每部分用-分开)，如下：<br><strong>0 - 0000000000 0000000000 0000000000 0000000000 0 - 00000 - 00000 - 000000000000</strong></p>
-<p>(1) 1 位标识，由于 long 基本类型在 Java 中是带符号的，最高位是符号位，正数是 0，负数是 1，所以一般是正数，最高位是 0;</p>
-<p>(2) 41 位时间截(毫秒级)，注意，41 位时间截不是存储当前时间的时间截，而是存储时间截的差值 (当前时间截 - 开始时间截) 得到的值，这里的的开始时间截，一般是我们的 ID 生成器开始使用的时间，由我们程序来指定的;</p>
-<p>(3) 10 位的节点位，可以部署在 1024 个节点，包括 5 位 datacenterId (数据中心ID) 和 5 位 workerId (机器ID)，可以根据我们业务的需要，灵活分配节点部分;</p>
-<p>(4) 12 位序列号，支持每个节点每毫秒 (同一机器，同一时间截) 产生 4096 个 ID 序号。</p>
+          <p>ThreadLocal 提供了线程本地的实例，它与普通变量的区别在于，每个使用该变量的线程都会初始化一个完全独立的实例副本。ThreadLocal 变量通常被 private static 修饰。当一个线程结束时，它所使用的所有 ThreadLocal 相对的实例副本都可被回收。ThreadLocal 类为每个使用该变量的线程提供独立的变量副本，在本线程内部，它相当于一个”全局变量”，可以保证本线程任何时间操纵的都是同一个对象。因为每个 Thread 内有自己的实例副本，且该副本只能由当前 Thread 使用，因此使用 ThreadLocal 的线程并不存在共享变量的问题，它不是用来解决线程同步的问题的。</p>
+<h1 id="非线程安全的例子"><a href="#非线程安全的例子" class="headerlink" title="非线程安全的例子"></a>非线程安全的例子</h1><p>先看一个非线程安全的例子，这个线程 A 和线程 B 共享同一个数据，但是由于没有同步，导致逻辑混乱。</p>
+<p>LocalParam 类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LocalParam</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> num;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LocalParam</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getNum</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> num;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNum</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.num = num;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/26/算法-雪花算法和Java的实现/#more" rel="contents">
+            <a class="btn" href="/2018/05/17/Java-多线程之ThreadLocal（一）/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1251,7 +1070,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/25/Nginx-配置虚拟主机和日志/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/17/Java-final关键字/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1270,7 +1089,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/25/Nginx-配置虚拟主机和日志/" itemprop="url">Nginx-配置虚拟主机和日志</a></h1>
+                <a class="post-title-link" href="/2018/05/17/Java-final关键字/" itemprop="url">Java-final关键字</a></h1>
         
 
         <div class="post-meta">
@@ -1282,8 +1101,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-25T22:57:52+08:00">
-                2018-04-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-17T11:34:00+08:00">
+                2018-05-17
               </time>
             
 
@@ -1305,8 +1124,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Nginx/" itemprop="url" rel="index">
-                    <span itemprop="name">Nginx</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -1343,11 +1162,13 @@
 
       
         
-          <p>虚拟主机的配置主要是配置配置文件中的 http 块中的 server, 每一个 server 就是一个虚拟主机, 可以配置多个。</p>
-<h1 id="虚拟主机的配置"><a href="#虚拟主机的配置" class="headerlink" title="虚拟主机的配置"></a>虚拟主机的配置</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一个 server 就是一个虚拟主机</span></span><br><span class="line">server &#123;</span><br><span class="line">    <span class="comment"># 监听的IP、端口</span></span><br><span class="line">    listen       80;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 域名或者 IP, 多个使用空格分隔</span></span><br><span class="line">    server_name localhost example.net 192.168.1.177;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 字符编码</span></span><br><span class="line">    charset UTF-8;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 可为每个虚拟机配置日志文件</span></span><br><span class="line">    access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 映射到哪个目录文件下, root 路径可以是相对路径或者是绝对路径, 相对路径是相对于于 Nginx 目录</span></span><br><span class="line">    location / &#123;</span><br><span class="line">        root   html;</span><br><span class="line">        index  index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 404页面</span></span><br><span class="line">    error_page  404              /404.html;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 其他错误页面</span></span><br><span class="line">    error_page  500 502 503 504  /50x.html;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 指定 /50x.html 映射的路径</span></span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">        root   html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>final 可以声明成员变量、方法、类以及本地变量，如果修饰的成员变量非基本类型(int，long等)，你将不能改变这个引用了，这个时候编译器也会报编译错误。在高并发的场景中使用 fianl 可以提高性能，并减少额外的开销。</p>
+<h1 id="final-变量"><a href="#final-变量" class="headerlink" title="final 变量"></a>final 变量</h1><p>对成员变量或者本地变量声明为 final 的都叫作 final 变量，final变量经常和static关键字一起使用，作为常量。final 变量只是可读的，如果是引用，引用的内容可变，但是是引用不可变。</p>
+<h1 id="final-方法"><a href="#final-方法" class="headerlink" title="final 方法"></a>final 方法</h1><p>final 也可以声明方法，代表这个方法不可以被子类的方法重写。</p>
+<h1 id="final-类"><a href="#final-类" class="headerlink" title="final 类"></a>final 类</h1><p>使用 final 来修饰的类叫作 final 类，它们不能被继承，Java 中有许多类是 final 的，如 String, Interger等。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/25/Nginx-配置虚拟主机和日志/#more" rel="contents">
+            <a class="btn" href="/2018/05/17/Java-final关键字/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1408,7 +1229,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/25/Nginx-默认的配置文件/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/Java-多线程之等待通知机制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1427,7 +1248,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/25/Nginx-默认的配置文件/" itemprop="url">Nginx-默认的配置文件</a></h1>
+                <a class="post-title-link" href="/2018/05/15/Java-多线程之等待通知机制/" itemprop="url">Java-多线程之等待通知机制</a></h1>
         
 
         <div class="post-meta">
@@ -1439,8 +1260,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-25T22:51:52+08:00">
-                2018-04-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-15T22:13:45+08:00">
+                2018-05-15
               </time>
             
 
@@ -1462,8 +1283,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Nginx/" itemprop="url" rel="index">
-                    <span itemprop="name">Nginx</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -1500,11 +1321,16 @@
 
       
         
-          <p>复制一份初始默认的配置文件, 方便之后使用。</p>
-<h1 id="Nginx-默认的配置文件"><a href="#Nginx-默认的配置文件" class="headerlink" title="Nginx 默认的配置文件"></a>Nginx 默认的配置文件</h1>
+          <p>线程和线程之间通过同步来实现数据的共享，线程和线程之间也可以相互通信和协作，在 Java 的线程中使用 wait/notify 的方式实现线程之间的通信。</p>
+<h1 id="等待-通知机制"><a href="#等待-通知机制" class="headerlink" title="等待/通知机制"></a>等待/通知机制</h1><p>在 Java 中，使用 Object 中的 wait 和 notify 方法来实现等待/通知。</p>
+<h2 id="wait-方法"><a href="#wait-方法" class="headerlink" title="wait 方法"></a>wait 方法</h2><ol>
+<li>wait 方法是 Object 类的方法，使当前执行代码的线程进入等待状态，方法在调用的地方就会停止代码的执行，直到收到通知或者被中断；</li>
+<li>wait 方法必须在同步方法或者同步代码块中调用，否则出现 IllegalMotitorStateException 异常；</li>
+<li>wait 方法执行后，线程会立即释放锁，线程将再次和其他线程竞争获取锁。</li>
+</ol>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/25/Nginx-默认的配置文件/#more" rel="contents">
+            <a class="btn" href="/2018/05/15/Java-多线程之等待通知机制/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1565,7 +1391,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/25/Nginx-基础知识/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/Java-static关键字/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1584,7 +1410,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/25/Nginx-基础知识/" itemprop="url">Nginx-基础知识</a></h1>
+                <a class="post-title-link" href="/2018/05/15/Java-static关键字/" itemprop="url">Java-static关键字</a></h1>
         
 
         <div class="post-meta">
@@ -1596,8 +1422,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-25T21:30:29+08:00">
-                2018-04-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-15T11:45:41+08:00">
+                2018-05-15
               </time>
             
 
@@ -1619,8 +1445,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Nginx/" itemprop="url" rel="index">
-                    <span itemprop="name">Nginx</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -1657,11 +1483,14 @@
 
       
         
-          <h1 id="Nginx-和其他-Web-服务器"><a href="#Nginx-和其他-Web-服务器" class="headerlink" title="Nginx 和其他 Web 服务器"></a>Nginx 和其他 Web 服务器</h1><p>1、 Ngnix 本来是用于做 Web 服务器，但是更多的是用于做负载均衡<br>2、 Apache 稳定，模块多，但是并发量相比 Nginx 低一些<br>3、 Tomcat(Java) 并发能力弱<br>4、 Web服务器排名：<code>http://news.netcraft.com</code></p>
-<h1 id="Nginx-的功能"><a href="#Nginx-的功能" class="headerlink" title="Nginx 的功能"></a>Nginx 的功能</h1><p>1、 web 服务器<br>2、 反向代理<br>3、 邮件代理服务器<br>4、 负载均衡</p>
+          <p>Java 中 static 表示【静态】的意思，Java 中没有全局变量，但是可以通过 static 来实现。用来修饰成员变量和成员方法，也可以修饰代码块，分别称之为静态变量、静态方法和静态代码块，被 static 修饰的成员变量是独立于该类的，它被该类的所有实例共享，任何一个实例对其的修改都会导致其他实例的变化。</p>
+<h1 id="static-变量"><a href="#static-变量" class="headerlink" title="static 变量"></a>static 变量</h1><p>static修饰的变量我们称之为静态变量，静态变量是随着<strong>类加载时被完成初始化的</strong>，它在内存中仅有一个，且 JVM 也<strong>只会为它分配一次内存</strong>，同时类所有的实例都共享静态变量，可以直接通过类名来访问它。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClassName.propertyName;</span><br></pre></td></tr></table></figure>
+<h1 id="static-方法"><a href="#static-方法" class="headerlink" title="static 方法"></a>static 方法</h1><p>static修饰的方法我们称之为静态方法，在<strong>类加载的时候就存在了，static 方法必须实现，也就是说他不能是抽象方法 abstract</strong>，通过类名对其进行直接调用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClassName.methodName(args...);</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/25/Nginx-基础知识/#more" rel="contents">
+            <a class="btn" href="/2018/05/15/Java-static关键字/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1722,7 +1551,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/08/SpringBoot-配置logback打印日志/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/IDEA-SVN分支切换和合并/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1741,7 +1570,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/08/SpringBoot-配置logback打印日志/" itemprop="url">SpringBoot-配置logback打印日志</a></h1>
+                <a class="post-title-link" href="/2018/05/15/IDEA-SVN分支切换和合并/" itemprop="url">Java-SVN分支切换和合并</a></h1>
         
 
         <div class="post-meta">
@@ -1753,8 +1582,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-08T14:30:26+08:00">
-                2018-04-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-15T11:02:14+08:00">
+                2018-05-15
               </time>
             
 
@@ -1776,8 +1605,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -1814,11 +1643,11 @@
 
       
         
-          <h1 id="Logback简介"><a href="#Logback简介" class="headerlink" title="Logback简介"></a>Logback简介</h1><p>Logback 是由 log4j 创始人设计的又一个开源日志组件, Logback 当前分成三个模块 : logback-core, logback- classic 和 logback-access。logback-core 是其它两个模块的基础模块, logback-classic 完整实现 SLF4J API 使你可以很方便地更换成其它日志系统如 log4j, log4j2 等其他日志框架, logback-access 访问模块与 Servlet 容器集成提供通过 Http 来访问日志的功能, 详情可以去<a href="http://logback.qos.ch" target="_blank" rel="noopener">LogBack 官方网站</a>了解。</p>
-<h1 id="LogBack的使用"><a href="#LogBack的使用" class="headerlink" title="LogBack的使用"></a>LogBack的使用</h1><h2 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>ch.qos.logback<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>logback-classic<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;logback.last.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+          <h1 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h1><h2 id="打开菜单"><a href="#打开菜单" class="headerlink" title="打开菜单"></a>打开菜单</h2><p>右键单击项目文件，选择如图所示的以下菜单选项：</p>
+<p><img src="/2018/05/15/IDEA-SVN分支切换和合并/DF4101C753F3EC9F71337FE0BD4B5B63.jpg" alt="IMAGE"></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/08/SpringBoot-配置logback打印日志/#more" rel="contents">
+            <a class="btn" href="/2018/05/15/IDEA-SVN分支切换和合并/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1879,7 +1708,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/04/SpringBoot-SpringAOP方式输出Controller层的请求日志/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/Java-Object的方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1898,7 +1727,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/04/SpringBoot-SpringAOP方式输出Controller层的请求日志/" itemprop="url">SpringBoot-SpringAOP方式输出Controller层的请求日志</a></h1>
+                <a class="post-title-link" href="/2018/05/15/Java-Object的方法/" itemprop="url">Java-Object的方法</a></h1>
         
 
         <div class="post-meta">
@@ -1910,8 +1739,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-04T18:26:36+08:00">
-                2018-04-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-15T10:56:56+08:00">
+                2018-05-15
               </time>
             
 
@@ -1933,8 +1762,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -1971,11 +1800,11 @@
 
       
         
-          <p>Java Web 后台开发的时候好的日志输出有助于于排查错误, 我在开发时做出的接口和文档, 前端查看文档查看接口对接接口, 经常对前端说的是 “你发个请求看看, 我打个断点看看是不是你有参数有没传错”等等, 虽然在项目中使用了日志记录了一些异常, 但是排除接口请求问题的时候真的有时候感觉特别不方便, 如果能对每个请求在调试开发的时候能够将请求相关的信息在日志中输出, 觉得对排查错误有很大的帮助, 基于此在谷歌上搜索相关的资料后, 使用 Spring AOP 可以解决这个问题(也有基于拦截器方法实现的), AOP 相关的知识这里就不讨论了, 看看如何完成这个功能。</p>
-<h1 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h1><p>首先添加依赖, 由于我使用的是 SpringBoot, 添加 spring-boot-starter-aop 依赖, 同时我使用的 fastsson 用于 JSON 数据的处理, 所以也添加了 fastjson 依赖, 还使用用了 Lombok, 日志则是使用的是 Log4j2。<br></p>
+          <p>Java 中的 Object 类是所有类的父类，它里面包含了以下 12 个方法。</p>
+<p><img src="/2018/05/15/Java-Object的方法/1526371964387.jpg" alt="IMAGE"></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/04/SpringBoot-SpringAOP方式输出Controller层的请求日志/#more" rel="contents">
+            <a class="btn" href="/2018/05/15/Java-Object的方法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2027,7 +1856,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2075,7 +1904,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-count">150</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2086,7 +1915,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

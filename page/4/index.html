@@ -251,7 +251,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/16/Redis-Redis字符串/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/12/Java-Socket网络编程-UDP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -270,7 +270,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/16/Redis-Redis字符串/" itemprop="url">Redis-Redis字符串</a></h1>
+                <a class="post-title-link" href="/2019/03/12/Java-Socket网络编程-UDP/" itemprop="url">Java-Socket网络编程-UDP</a></h1>
         
 
         <div class="post-meta">
@@ -282,328 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-16T20:31:15+08:00">
-                2019-02-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>注: 使用 Redis 的客户端 Lettuce 进行的测试, 使用方法见 <a href="">Redis-Redis客户端Lettuce的使用</a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StatefulRedisConnection&lt;String, String&gt; connection = redisClient.connect();</span><br><span class="line">RedisCommands&lt;String, String&gt; redisCommands = connection.sync();</span><br></pre></td></tr></table></figure>
-<h1 id="SET"><a href="#SET" class="headerlink" title="SET"></a>SET</h1><p><code>set key value</code></p>
-<ul>
-<li>对已有值的 key 会覆写旧值, 无视类型</li>
-<li>对带有 ttl 的 key, 此操作会清除和替代原有 ttl</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// redisCommands 的大多数 set 方法成功返回字符串 OK, 失败返回 null</span></span><br><span class="line">redisCommands.set(<span class="string">"username-set"</span>, <span class="string">"lpw-set"</span>);</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/16/Redis-Redis字符串/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/Redis-Redis客户端Lettuce的使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/26/Redis-Redis客户端Lettuce的使用/" itemprop="url">Redis-Redis客户端Lettuce的使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T23:03:57+08:00">
-                2019-01-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Redis-客户端-Lettuce-的使用"><a href="#Redis-客户端-Lettuce-的使用" class="headerlink" title="Redis 客户端 Lettuce 的使用"></a>Redis 客户端 Lettuce 的使用</h1><p>Lettuce 是一个 Java 实现的 Redis 客户端, Lettuce 相对于 Jedis, 除了和 Jedis 一样提供了对 Redis 基础的操作外, 在多线程下也是实例安全, 并且提供了同步, 异步和响应式的调用, 同时许多接口都支持 Stream API, 对大的大的数据集合的处理可以减少内存的消耗,非常方便等的, Lettuce 具备了更加优秀的特性</p>
-<h2 id="项目中引入依赖"><a href="#项目中引入依赖" class="headerlink" title="项目中引入依赖"></a>项目中引入依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.lettuce<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lettuce-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.3.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/26/Redis-Redis客户端Lettuce的使用/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/Java-注解和注解在SpringAOP中的使用示例/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/26/Java-注解和注解在SpringAOP中的使用示例/" itemprop="url">Java-注解和注解在SpringAOP中的使用示例</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T21:01:55+08:00">
-                2019-01-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-12T22:11:58+08:00">
+                2019-03-12
               </time>
             
 
@@ -663,15 +343,12 @@
 
       
         
-          <p>注解和 class, interface 一样属于一种类型, 在 Spring 中, 注解就被经常使用, 最典型的用法就是注解来注入属性值, 日常开发中我也经常会用到反射和注解配合使用的的方式动态的处理一些代码, 来完成某些业务代码的解耦</p>
-<h1 id="注解的作用"><a href="#注解的作用" class="headerlink" title="注解的作用"></a>注解的作用</h1><ul>
-<li>编写文档, 如 JDK 中用于帮助生成文档的注解 @param, @return</li>
-<li>编译检测, 让编译器能实现基本的编译检查, 如 @Override 注解在重写父类父类方法时帮助检查方法的正确性, 如果不是重写的父类的方法, 则编译器会报错</li>
-<li>动态处理代码, 如 Spring 使用反射 + 注解配合使用完成依赖注入</li>
-</ul>
+          <p>UDP (用户数据保协议), 是一种面向无连接的传输层协议, 和 TCP 不同的是, UDP 是不可靠的 (是指该协议在网络环境不好的情况下, 会丢失数据包), 也不能像 TCP 那样对数据包进行分组, 组装, 排序和重传, 使用 UDP 也不能知道发送的数据包时候安全完整的传输到目的地, 因为它是无连接型协议, 因而具有资源消耗小, 处理速度快的优点, 通常音频, 视频和普通数据在传送时使用 UDP 较多, 因为它们即使偶尔丢失一两个数据包, 也不会对接收结果产生太大影响, 如视频聊天时, 丢失某些帧对聊天效果影响不大, 同时由于排除了信息可靠传递机制, 将安全和排序等功能移交给上层应用来完成, 因此极大地减少了执行时间, 使速度得到了保证</p>
+<h1 id="服务端简单示例"><a href="#服务端简单示例" class="headerlink" title="服务端简单示例"></a>服务端简单示例</h1><p>Java 提供了 DatagramSocket 类来实现 UDP 的通信, 传输的数据需要封装在 DatagramPacket 类中, UDP 中没有明确的服务端和客户端的划分, 是一个相对的, 要看是接收数据还是发送数据, 先来看看如何使用的, 让服务端监听端口 9000, 不停的接收来自客户端的数据, 示例代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="comment">// 监听 9000 端口, 接收发送到 9000 端口的数据</span></span><br><span class="line">    DatagramSocket datagramSocket = <span class="keyword">new</span> DatagramSocket(<span class="number">9000</span>);</span><br><span class="line">    log.info(<span class="string">"服务端绑定端口号 9000 成功"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 接收数据, DatagramPacket 的 length 参数要和客户端的一样</span></span><br><span class="line">    <span class="keyword">byte</span>[] byteArray = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">        log.info(<span class="string">"服务端正在接收数据"</span>);</span><br><span class="line">        DatagramPacket datagramPacket = <span class="keyword">new</span> DatagramPacket(byteArray, <span class="number">1024</span>);</span><br><span class="line">        datagramSocket.receive(datagramPacket);</span><br><span class="line">        String content = <span class="keyword">new</span> String(datagramPacket.getData(), <span class="number">0</span>, datagramPacket.getLength());</span><br><span class="line">        log.info(<span class="string">"收到客户端的消息 = &#123;&#125;"</span>, content);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// TODO 关闭资源</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/26/Java-注解和注解在SpringAOP中的使用示例/#more" rel="contents">
+            <a class="btn" href="/2019/03/12/Java-Socket网络编程-UDP/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -732,7 +409,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/Spring-SpringBoot项目在配置文件中配置复杂类型属性值/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/12/Java-Socket网络编程-TCP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -751,7 +428,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/26/Spring-SpringBoot项目在配置文件中配置复杂类型属性值/" itemprop="url">Spring-SpringBoot项目在配置文件中配置复杂类型属性值</a></h1>
+                <a class="post-title-link" href="/2019/03/12/Java-Socket网络编程-TCP/" itemprop="url">Java-Socket网络编程-TCP</a></h1>
         
 
         <div class="post-meta">
@@ -763,8 +440,481 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T14:23:29+08:00">
-                2019-01-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-12T22:11:49+08:00">
+                2019-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>TCP 是专门设计用于在不可靠的英特网上提供可靠的端到端的字节流通信的协议, 是一个面向连接的协议, Java 为 TCP 协议提供了两个 Socket 类: ServerSocket 和 Socket, ServerSocket 代表 TCP 协议中的一个服务器端, Socket 代表 TCP 中的一个客户端, 这两个 Socket 类用于实现服务器端和客户端的数据通信 (使用 TCP 或者 UDP), 一个完整的 Socket 编程流程图如下 (图片来源: NIO 与 Socket 编程技术指南):</p>
+<p><img src="/2019/03/12/Java-Socket网络编程-TCP/WechatIMG219.png" width="500" height="700"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/12/Java-Socket网络编程-TCP/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/12/Java-IO和IO流/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/12/Java-IO和IO流/" itemprop="url">Java-IO和IO流</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-12T21:57:06+08:00">
+                2019-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="I-O"><a href="#I-O" class="headerlink" title="I/O"></a>I/O</h1><p>I/O, 即输入和输出, 通常指数据在内部存储器和外部存储器或其他周边设备之间的输入和输出, 几乎任何涉及到计算机与其他设备之间的数据交换的都可称之为 I/O, 如内存和磁盘, 计算机之间网络数据交换等, 一个完整的 IO 操作指的是 I/O 的调用和 I/O 的执行两个部分, 首先由应用程序调用操作系统的 I/O 接口进行 I/O 操作, 随即操作系统底层执行相关的 I/O 的操作</p>
+<h1 id="I-O-流"><a href="#I-O-流" class="headerlink" title="I/O 流"></a>I/O 流</h1><p>I/O 操作中, 一个重要的知识点是数据的交换, 这个数据交换的过程就是数据的输入和数据的输出, 在 Java 的 I/O 操作中, 对数据的输入输出操作都是以 “流” 的方式进行的, 即 I/O 流, 通常也称之为数据流, “流” 是一个抽象的概念，它是对输入输出设备的一种抽象理解, 表示数据从源对象 (如文件, 内存, 网络) 按顺序流向目标对象的一种流动形式, 例如在 Java 中应用程序需要向文件中写数据的时候, 就需要开启一个输出流, 然后往输出流中写入数据, 反之则需要开启一个输入流, 然后从输入流中接收数据</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/12/Java-IO和IO流/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/11/Java-NIO学习NetworkInterface类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/11/Java-NIO学习NetworkInterface类/" itemprop="url">Java-NIO学习NetworkInterface类</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-11T23:01:26+08:00">
+                2019-03-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>NetworkInterface 类是 1.4 加入的类, 此类表示一个由名称和分配给此接口的 IP 地址列表组成的网络接口, 包含了网络接口名称和IP地址等信息</p>
+<h1 id="NetworkInterface-类提供的方法"><a href="#NetworkInterface-类提供的方法" class="headerlink" title="NetworkInterface 类提供的方法"></a>NetworkInterface 类提供的方法</h1><p>NetworkInterface 类提供的方法可以参考文档: <a href="http://doc.codingdict.com/java_api/java/net/NetworkInterface.html" target="_blank" rel="noopener">NetworkInterface 类</a></p>
+<h1 id="获取-NetworkInterface-类实例"><a href="#获取-NetworkInterface-类实例" class="headerlink" title="获取 NetworkInterface 类实例"></a>获取 NetworkInterface 类实例</h1><p>获取 NetworkInterface 类实例只能通过 NetworkInterface 的静态方法获取, 一共有四个, 如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过网络设备在当前操作系统中的 IP 获取 NetworkInterface 类实例</span></span><br><span class="line">NetworkInterface.getByInetAddress(InetAddress inetAddress);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过网络设备在当前操作系统中的名称获取 NetworkInterface 类实例</span></span><br><span class="line">NetworkInterface.getByName(String name);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过网络设备在当前操作系统中的网络索引值获取 NetworkInterface 类实例</span></span><br><span class="line">NetworkInterface.getByIndex(<span class="keyword">int</span> index);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取当前操作系统的所有网络设备的网络接口</span></span><br><span class="line">Enumeration&lt;NetworkInterface&gt; networkInterface = NetworkInterface.getNetworkInterfaces();</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/11/Java-NIO学习NetworkInterface类/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/11/Spring-SpringRetry重试实现机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/11/Spring-SpringRetry重试实现机制/" itemprop="url">Spring-SpringRetry重试实现机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-11T22:44:41+08:00">
+                2019-03-11
               </time>
             
 
@@ -824,14 +974,11 @@
 
       
         
-          <p>在项目中, 经常在 application.properties 配置文件中配置一些配置项, 然后在使用的时候用 @Value(value = “${propertiesName}”) 来注入, 但是这只是简单 String 类型,  下面记录下对于 Map, List 等这些复杂类型的配置方法</p>
-<h1 id="Map-lt-String-String-gt"><a href="#Map-lt-String-String-gt" class="headerlink" title="Map&lt;String, String&gt;"></a>Map&lt;String, String&gt;</h1><p>定义属性值:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意在 Java 配置类中的峰驼式风格属性名不能使用点分隔, 如 spring.datasource.crm.properties 在这个例子中就会报错</span></span><br><span class="line">spring.datasource.crm-properties.url=HTM0</span><br><span class="line">spring.datasource.crm-properties.username=NAME0</span><br></pre></td></tr></table></figure>
-<p>对应的配置类:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"spring.datasource"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MultiProperties</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 和配置文件中的属性名名 crm-properties 对应</span></span><br><span class="line">    <span class="keyword">private</span> Map&lt;String, String&gt; crmProperties;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>之前项目中有一个同步数据的定时任务, 在每天的 01:00 开始执行, 需要调用其他公司提供的 HTTP 接口来同步数据, 由于使用的 HTTP 获取数据, 为了防止网络波动造成有些请求失败, 需要添加重试机制, 要求为失败的话 2 秒后再次发起请求, 最多请求三次, 于是我写下如下逻辑代码, 这里贴出伪代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 该方法在子线程里面执行的</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">failureRetry</span><span class="params">(String traceId)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> tryCount = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">        tryCount = i + <span class="number">1</span>;</span><br><span class="line">        log.info(<span class="string">"[同步服务小结重试] 重新发起请求, traceId = &#123;&#125;, 此次同步重试次数 = &#123;&#125;"</span>, traceId, tryCount);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            log.info(<span class="string">"[同步服务小结重试] 线程异常, traceId = &#123;&#125;, error = &#123;&#125;"</span>, traceId, e);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 模拟逻辑处理的方法, 获取请求返回码</span></span><br><span class="line">        <span class="keyword">int</span> code = getData();</span><br><span class="line">        <span class="keyword">if</span> (code == <span class="number">200</span>) &#123;</span><br><span class="line">            <span class="comment">// 成功的处理逻辑</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 失败的处理逻辑</span></span><br><span class="line">            log.info(<span class="string">"[同步服务小结重试] 失败, traceId = &#123;&#125;, 此次同步重试次数 = &#123;&#125;"</span>, traceId, tryCount);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/26/Spring-SpringBoot项目在配置文件中配置复杂类型属性值/#more" rel="contents">
+            <a class="btn" href="/2019/03/11/Spring-SpringRetry重试实现机制/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -892,7 +1039,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/Java-Guava工具类之事件总线/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/Redis-Redis简单限流/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -911,7 +1058,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/26/Java-Guava工具类之事件总线/" itemprop="url">Java-Guava工具类之事件总线</a></h1>
+                <a class="post-title-link" href="/2019/03/10/Redis-Redis简单限流/" itemprop="url">Redis-Redis简单限流</a></h1>
         
 
         <div class="post-meta">
@@ -923,641 +1070,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T14:04:53+08:00">
-                2019-01-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>之前一直有听说过谷歌的 Guava, 但是在项目中也仅是非常简单使用过其中的缓存功能 , 称着这段时间项目不是很忙, 抓紧时间系统的了解下 (主要参考 <a href="https://github.com/google/guava" target="_blank" rel="noopener">官方的文档</a> 和 <a href="https://willnewii.gitbooks.io/google-guava/content/index.html" target="_blank" rel="noopener">Guava官方教程(中文版)</a>), 这里记录下自己的学习笔记</p>
-<h1 id="EventBus"><a href="#EventBus" class="headerlink" title="EventBus"></a>EventBus</h1><p>Java 的进程内事件分发都是通过发布者和订阅者之间的显式注册实现的, Guava 的 EventBus 可以实现进程内事件分发, 使组件间有了更好的解耦, EventBus 不适用于进程间通信, Guava 为我们提供了同步事件 EventBus 和异步实现 AsyncEventBus 两个事件总线</p>
-<h1 id="订阅事件"><a href="#订阅事件" class="headerlink" title="订阅事件"></a>订阅事件</h1><p>订阅一个事件很简单, 在方法上面添加一个 @Subscribe 和保证只有一个输入参数的方法就可</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EventBusSubscriber</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Subscribe</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eventBusListener</span><span class="params">(String event)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 打印线程名和事件的值</span></span><br><span class="line">        log.info(<span class="string">"[eventBusListener] thread = &#123;&#125;, value = &#123;&#125;"</span>, </span><br><span class="line">            Thread.currentThread().getName(), event);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/26/Java-Guava工具类之事件总线/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/Java-Guava工具类之字符串处理类/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/26/Java-Guava工具类之字符串处理类/" itemprop="url">Java-Guava工具类之字符串处理类</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T13:45:42+08:00">
-                2019-01-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>之前一直有听说过谷歌的 Guava, 但是在项目中也仅是非常简单使用过其中的缓存功能 , 称着这段时间项目不是很忙, 抓紧时间系统的了解下 (主要参考 <a href="https://github.com/google/guava" target="_blank" rel="noopener">官方的文档</a> 和 <a href="https://willnewii.gitbooks.io/google-guava/content/index.html" target="_blank" rel="noopener">Guava官方教程(中文版)</a>), 这里记录下自己的学习笔记</p>
-<h1 id="Splitter-类"><a href="#Splitter-类" class="headerlink" title="Splitter 类"></a>Splitter 类</h1><p>主要对比下 JDK 中 String 内建的 split() 方法对字符串处理和 Guava 提供的 Splitter 类对字符串的处理, 使用方法和差异都写在代码的注释上了</p>
-<h2 id="JDK-中-String-内建的-split-方法"><a href="#JDK-中-String-内建的-split-方法" class="headerlink" title="JDK 中 String 内建的 split() 方法"></a>JDK 中 String 内建的 split() 方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">String value, sourceData = <span class="string">"A,B,C"</span>;</span><br><span class="line">value = Arrays.toString(sourceData.split(<span class="string">","</span>));</span><br><span class="line">log.info(<span class="string">"[splitterTest1] value = &#123;&#125;"</span>, value);</span><br><span class="line"><span class="comment">// 输出 [A, B, C]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// String.split() 方法默认情况下会丢弃最后末尾的分隔符</span></span><br><span class="line">sourceData = <span class="string">"A,B,C,"</span>;</span><br><span class="line">value = Arrays.toString(sourceData.split(<span class="string">","</span>));</span><br><span class="line">log.info(<span class="string">"[splitterTest1] value = &#123;&#125;"</span>, value);</span><br><span class="line"><span class="comment">// 输出 [A, B, C]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果不想丢弃最后末尾的分隔符, 使用重载后的方法, 借助第二个参数来实现, 使用示例如下</span></span><br><span class="line">sourceData = <span class="string">"A,B,C,,,"</span>;</span><br><span class="line">value = Arrays.toString(sourceData.split(<span class="string">","</span>, -<span class="number">1</span>));</span><br><span class="line">log.info(<span class="string">"[splitterTest1] value = &#123;&#125;"</span>, value);</span><br><span class="line"><span class="comment">// 输出 [A, B, C, , ,]</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/26/Java-Guava工具类之字符串处理类/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/Java-Guava工具类之缓存的使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/26/Java-Guava工具类之缓存的使用/" itemprop="url">Java-Guava工具类之缓存的使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T13:25:51+08:00">
-                2019-01-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>之前一直有听说过谷歌的 Guava, 但是在项目中也仅是非常简单使用过其中的缓存功能 , 称着这段时间项目不是很忙, 抓紧时间系统的了解下 (主要参考 <a href="https://github.com/google/guava" target="_blank" rel="noopener">官方的文档</a> 和 <a href="https://willnewii.gitbooks.io/google-guava/content/index.html" target="_blank" rel="noopener">Guava官方教程(中文版)</a>), 这里记录下自己的学习笔记, 这篇笔记主要是关于 Guava 中缓存的使用</p>
-<h1 id="缓存的使用"><a href="#缓存的使用" class="headerlink" title="缓存的使用"></a>缓存的使用</h1><h2 id="创建缓存"><a href="#创建缓存" class="headerlink" title="创建缓存"></a>创建缓存</h2><p>创建缓存可以使用 Guava 提供的 CacheBuilder 类来创建, 使用示例如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">LoadingCache&lt;String, String&gt; cache = CacheBuilder.newBuilder()</span><br><span class="line">        <span class="comment">// 缓存大小</span></span><br><span class="line">        .maximumSize(<span class="number">100</span>)</span><br><span class="line">        .build(<span class="keyword">new</span> CacheLoader&lt;String, String&gt;() &#123;</span><br><span class="line">            <span class="comment">// 对应 get() 方法</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="meta">@ParametersAreNonnullByDefault</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">load</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">                log.info(<span class="string">"key = &#123;&#125;, value = &#123;&#125;"</span>, s, s + <span class="string">"Value"</span>);</span><br><span class="line">                <span class="keyword">return</span> s + <span class="string">"Value"</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 对应 getAll() 方法, 默认的调用父类的 getAll(), 父类 getAll() 方法遍历调用 get() 方法</span></span><br><span class="line">            <span class="comment">// 如有特殊的需求可以在这里重写 getAll() 方法</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Map&lt;String, String&gt; <span class="title">loadAll</span><span class="params">(Iterable&lt;? extends String&gt; keys)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">super</span>.loadAll(keys);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/26/Java-Guava工具类之缓存的使用/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/Java-Guava工具类之集合的使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/26/Java-Guava工具类之集合的使用/" itemprop="url">Java-Guava工具类之集合的使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T12:03:49+08:00">
-                2019-01-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>之前一直有听说过谷歌的 Guava, 但是在项目中也仅是非常简单使用过其中的缓存功能 , 称着这段时间项目不是很忙, 抓紧时间系统的了解下 (主要参考 <a href="https://github.com/google/guava" target="_blank" rel="noopener">官方的文档</a> 和 <a href="https://willnewii.gitbooks.io/google-guava/content/index.html" target="_blank" rel="noopener">Guava官方教程(中文版)</a>), 这里记录下自己的学习笔记, 这篇笔记主要是关于 Guava 中提供了一些新的集合类型的</p>
-<h1 id="MultiSet"><a href="#MultiSet" class="headerlink" title="MultiSet"></a>MultiSet</h1><p>MultiSet 是 Set 的延伸, MultiSet 是继承 Collection 实现的, 它可以分成两种方式来使用, 将 MultiSet 看做一个普通的  Set 时, 是一个允许出现重复的元素 Set , 因此和 JDK 自带的 Set 不同, MultiSet 允许出现重复的元素, 当看成 Map&lt;E, Integer&gt; 类型时, 则表示键为元素, 值为计数的 Map 类型, 可以方便的对键的值进行计数</p>
-<h2 id="MultiSet-作为-Set-使用允许元素重复出现"><a href="#MultiSet-作为-Set-使用允许元素重复出现" class="headerlink" title="MultiSet 作为 Set 使用允许元素重复出现"></a>MultiSet 作为 Set 使用允许元素重复出现</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;String&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">set.add(<span class="string">"1"</span>);</span><br><span class="line">set.add(<span class="string">"2"</span>);</span><br><span class="line">set.add(<span class="string">"2"</span>);</span><br><span class="line">set.add(<span class="string">"3"</span>);</span><br><span class="line">set.forEach(log::info);</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/26/Java-Guava工具类之集合的使用/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/Redis-Windows10上安装Redis/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/26/Redis-Windows10上安装Redis/" itemprop="url">Redis-Windows10上安装Redis</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T10:51:50+08:00">
-                2019-01-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-10T23:16:50+08:00">
+                2019-03-10
               </time>
             
 
@@ -1617,12 +1131,10 @@
 
       
         
-          <p>Redis 天然支持 Linux 系统, 不支持 Windwos 系统, 因此微软团队在 GitHub 上开发了一个 Redis Win64 的版本, <a href="https://github.com/MicrosoftArchive/redis/releases" target="_blank" rel="noopener">下载地址</a></p>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>下载后, 解压即安装, 解压后文件目录如下图所示</p>
-<p><img src="/2019/01/26/Redis-Windows10上安装Redis/20190126110903.png" width="1000" height="300"></p>
+          <h1 id="为什么需要限流"><a href="#为什么需要限流" class="headerlink" title="为什么需要限流"></a>为什么需要限流</h1><p>在大数据量高并发访问时, 经常会出现服务或接口面对大量请求而不可用的情况, 甚至引发连锁反映导致整个系统崩溃, 限流的技术手段可以很好的应对这种情况, 当请求达到一定的并发数或速率, 就进行等待, 排队, 降级, 拒绝服务等策略, 虽然会影响到用户的体验, 但是可以有效的保证系统不崩溃, 限流常见算法: 令牌桶, 漏斗, 计数器算法和时间窗口</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/26/Redis-Windows10上安装Redis/#more" rel="contents">
+            <a class="btn" href="/2019/03/10/Redis-Redis简单限流/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1683,7 +1195,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/28/Linux-SpringBoot项目启动和关闭脚本/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/Java-NIO学习缓存API的使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
@@ -1702,7 +1214,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/28/Linux-SpringBoot项目启动和关闭脚本/" itemprop="url">Linux-SpringBoot项目启动和关闭脚本</a></h1>
+                <a class="post-title-link" href="/2019/03/10/Java-NIO学习缓存API的使用/" itemprop="url">Java-NIO学习缓存API的使用</a></h1>
         
 
         <div class="post-meta">
@@ -1714,8 +1226,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-28T23:25:47+08:00">
-                2018-12-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-10T22:48:01+08:00">
+                2019-03-10
               </time>
             
 
@@ -1737,8 +1249,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -1775,12 +1287,488 @@
 
       
         
-          <h1 id="停止-SpringBoot-应用程序脚本步骤"><a href="#停止-SpringBoot-应用程序脚本步骤" class="headerlink" title="停止 SpringBoot 应用程序脚本步骤"></a>停止 SpringBoot 应用程序脚本步骤</h1><p>服务器上发布项目时, 需要停止项目然后启动, 为了方便停止项目和启动项目时不需要频繁的输入指令, 写了两个 sh 脚本</p>
-<h2 id="jsp-lv"><a href="#jsp-lv" class="headerlink" title="jsp -lv"></a>jsp -lv</h2><p>l: 列出运行的 Java 进程<br>v: JVM 启动参数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">23863 sun.tools.jps.Jps -Denv.class.path=.:/usr/local/java//lib/dt.jar:/usr/local/java//lib/tools.jar -Dapplication.home=/usr/local/jdk1.8.0_101 -Xms8m</span><br><span class="line">7809 wesure-wim-web-1.0.0-SNAPSHOT.jar -Xms1024m -Xmx1024m -Xmn512m</span><br><span class="line">30369 wesure-scrm-web-1.0.0-SNAPSHOT.jar -Xms1024m -Xmx1024m -Xmn512m</span><br><span class="line">25060 wesure-wimboss-1.0.0-SNAPSHOT.jar -Xms1024m -Xmx1024m -Xmn512m</span><br><span class="line">31337 wesure-wimvip-1.0.0-SNAPSHOT.jar -Xms1024m -Xmx1024m -Xmn512m</span><br><span class="line">18012 wesure-wimcrm-1.0.0-SNAPSHOT.jar -Xms1024m -Xmx1024m -Xmn512m</span><br></pre></td></tr></table></figure>
+          <p>最近开始在看 <code>NIO于Scoket编程技术指南</code> 一书, 记录下学习笔记</p>
+<h1 id="NIO-中的缓存类-API-使用"><a href="#NIO-中的缓存类-API-使用" class="headerlink" title="NIO 中的缓存类 API 使用"></a>NIO 中的缓存类 API 使用</h1><p>和传统 I/O 只能在处理 byte 和 char 型数据, NIO 支持多种类型的数据 (底层还是 byte 字节来处理), NIO 使用 Buffer 类处理不同的的数据类型, Buffer 是一个抽象类, 有 7 个直接的之类: ByteBuffer, CharBuffer, DoubleBuffer, FloatBuffer, IntBuffer, LongBuffer, ShortBuffer, 注意这 7 个类也是抽象类, 不能直接实例化, 但是这些类都提供了一个 wrap 方法将数据放入缓存中, 并获取实例:</p>
+<ul>
+<li>实例化方法一, 使用已经存在的数组: ByteBuffer byteBuffer = ByteBuffer.wrap(new byte[]{‘1’, ‘2’, ‘3’, ‘4’, ‘5’});</li>
+<li>实例化方法二, 使用 allocate 方法: ByteBuffer byteBuffer = ByteBuffer.allocate(10);</li>
+</ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/28/Linux-SpringBoot项目启动和关闭脚本/#more" rel="contents">
+            <a class="btn" href="/2019/03/10/Java-NIO学习缓存API的使用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/SpringBoot-加载JAR包外面的页面和静态资源文件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/10/SpringBoot-加载JAR包外面的页面和静态资源文件/" itemprop="url">SpringBoot-加载JAR包外面的页面和静态资源文件</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-10T22:25:33+08:00">
+                2019-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Spring Boot 将项目默认打包成 JAR 包后使用 java -jar xxx.jar 的方式就可以启动项目, 如果项目中有 HTML 页面以及静态资源文件, 也一并会打包到 JAR 包里面, 如果需要更改 HTML 页面和静态资源文件, 在更改后又需要将打包整个项目, 然后上传到服务器运行,  Spring Boot 支持将这些资源文件放到 jar 包外面并访问, 这样的又需要更改 HTML 页面和静态资源文件时只需要将更改后的资源文件上传到服务器, 然后将项目重启即可, 免去了整个项目打包和上传的过程</p>
+<h1 id="集成-Thymeleaf"><a href="#集成-Thymeleaf" class="headerlink" title="集成 Thymeleaf"></a>集成 Thymeleaf</h1><p>为了后续方便测试, 在 Spring Boot 项目中集成 Thymeleaf, 添加如下依赖:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-thymeleaf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/10/SpringBoot-加载JAR包外面的页面和静态资源文件/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/02/Java-多线程之synchronized关键字/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/02/Java-多线程之synchronized关键字/" itemprop="url">Java-多线程之synchronized关键字</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-02T17:17:30+08:00">
+                2019-03-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="非数据共享"><a href="#非数据共享" class="headerlink" title="非数据共享"></a>非数据共享</h1><p>线程都有自己的独立的成员变量或者这些需要处理的变量属于方法的私有变量, 就不会有数据共享的情况, 如下例子, 需要处理的数据是方法的私有变量, num为addNum的私有变量, 虽然线程使用的是同一个 HasSelfPrivateNum 实例对象, 但是不会有线程安全问题, 示例代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HasSelfPrivateNum</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">addNum</span><span class="params">(String username)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> num = username.equals(<span class="string">"a"</span>) ? <span class="number">100</span> : <span class="number">200</span>;</span><br><span class="line">        System.out.println(<span class="string">"num = "</span> + num);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/02/Java-多线程之synchronized关键字/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/02/Java-多线程之守护线程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/02/Java-多线程之守护线程/" itemprop="url">Java-多线程之守护线程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-02T17:08:31+08:00">
+                2019-03-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="守护线程"><a href="#守护线程" class="headerlink" title="守护线程"></a>守护线程</h1><p>守护线程是一种特殊的线程, 当进程中不存在非守护线程了, 则守护线程自动销毁, 典型的线程就是垃圾回收线程, 当进行中所有的非守护线程不存在了 (程序就会结束), 垃圾回收线程也就没有必要存在了</p>
+<h1 id="非守护线程实例"><a href="#非守护线程实例" class="headerlink" title="非守护线程实例"></a>非守护线程实例</h1><p>创建一个线程, 示例代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">synchronized</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.run();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">                sleep(<span class="number">1000</span>);</span><br><span class="line">                <span class="keyword">if</span> (interrupted()) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> InterruptedException();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">"由线程"</span> + currentThread().getName() + <span class="string">"执行"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">"线程"</span> + currentThread().getName() + <span class="string">"中断了"</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"由线程"</span> + currentThread().getName() + <span class="string">"执行，这个操作在循环体的外面"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/02/Java-多线程之守护线程/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1832,7 +1820,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1880,7 +1868,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-count">150</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1891,7 +1879,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

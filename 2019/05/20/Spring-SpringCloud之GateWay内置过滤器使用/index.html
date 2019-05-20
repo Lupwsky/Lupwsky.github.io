@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="GateWay 中的核心 Route (路由) 由 Predicate (断言) 和 Filter (过滤器) 两部分组成, 可以通过过滤器实现对 HTTP 请求输入和输出的更改, 如更改 Header 和 Parameter 等, 通常在项目中使用过滤器来完成用户权限验证和非业务性质的校验等工作, GateWay 默认提供了一些默认的过滤器 AddRequestHeader GatewayFil">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring-SpringCloud之GateWay内置过滤器使用">
+<meta property="og:url" content="http://yoursite.com/2019/05/20/Spring-SpringCloud之GateWay内置过滤器使用/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="GateWay 中的核心 Route (路由) 由 Predicate (断言) 和 Filter (过滤器) 两部分组成, 可以通过过滤器实现对 HTTP 请求输入和输出的更改, 如更改 Header 和 Parameter 等, 通常在项目中使用过滤器来完成用户权限验证和非业务性质的校验等工作, GateWay 默认提供了一些默认的过滤器 AddRequestHeader GatewayFil">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-20T14:53:55.664Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring-SpringCloud之GateWay内置过滤器使用">
+<meta name="twitter:description" content="GateWay 中的核心 Route (路由) 由 Predicate (断言) 和 Filter (过滤器) 两部分组成, 可以通过过滤器实现对 HTTP 请求输入和输出的更改, 如更改 Header 和 Parameter 等, 通常在项目中使用过滤器来完成用户权限验证和非业务性质的校验等工作, GateWay 默认提供了一些默认的过滤器 AddRequestHeader GatewayFil">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/20/Spring-SpringCloud之GateWay内置过滤器使用/"/>
+
+
+
+
+
+  <title>Spring-SpringCloud之GateWay内置过滤器使用 | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/20/Spring-SpringCloud之GateWay内置过滤器使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring-SpringCloud之GateWay内置过滤器使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-20T22:53:04+08:00">
+                2019-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>GateWay 中的核心 Route (路由) 由 Predicate (断言) 和 Filter (过滤器) 两部分组成, 可以通过过滤器实现对 HTTP 请求输入和输出的更改, 如更改 Header 和 Parameter 等, 通常在项目中使用过滤器来完成用户权限验证和非业务性质的校验等工作, GateWay 默认提供了一些默认的过滤器</p>
+<h1 id="AddRequestHeader-GatewayFilter-和-AddRequestParameter-GatewayFilter"><a href="#AddRequestHeader-GatewayFilter-和-AddRequestParameter-GatewayFilter" class="headerlink" title="AddRequestHeader GatewayFilter 和 AddRequestParameter GatewayFilter"></a>AddRequestHeader GatewayFilter 和 AddRequestParameter GatewayFilter</h1><p>这两个过滤器用于添加和修改 HTTP 请求的 Header 和 Paramter, 使用示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> builder.routes()</span><br><span class="line">            .route(r -&gt; r.path(<span class="string">"/get/username/from/9020"</span>)</span><br><span class="line">                    .filters(gatewayFilterSpec -&gt; gatewayFilterSpec.stripPrefix(<span class="number">1</span>)</span><br><span class="line">                            .addRequestHeader(<span class="string">"MY_HEADER"</span>, <span class="string">"lpw"</span>)</span><br><span class="line">                            .addRequestParameter(<span class="string">"MY_PARAM"</span>, <span class="string">"test"</span>))</span><br><span class="line">                    .uri(<span class="string">"http://localhost:9020"</span>))</span><br><span class="line">            .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>可以在 Rest 接口中通过 HttpServletRequest 的实例来获取 Header 和 Paramter, 示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/get/username/from/9020"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getUsernameFrom9020</span><span class="params">(HttpServletRequest request)</span> </span>&#123;</span><br><span class="line">    String myHeader = request.getHeader(<span class="string">"MY_HEADER"</span>);</span><br><span class="line">    log.info(<span class="string">"myHeader = &#123;&#125;"</span>, myHeader);</span><br><span class="line"></span><br><span class="line">    String myParam = request.getParameter(<span class="string">"MY_PARAM"</span>);</span><br><span class="line">    log.info(<span class="string">"myParam = &#123;&#125;"</span>, myParam);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"username-from-9020"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>访问 <code>http://localhost:9030/get/username/from/9020</code> 输出结果如下, 注意如果直接访问 <code>http://localhost:9020/get/username/from/9020</code> 是获取不到值的:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[http-nio-9020-exec-1] INFO  com.cloud.controller.CommonController - myHeader = myHeaderValue</span><br><span class="line">[http-nio-9020-exec-1] INFO  com.cloud.controller.CommonController - myParam = myParam</span><br></pre></td></tr></table></figure>
+<h1 id="AddResponseHeader-GatewayFilter"><a href="#AddResponseHeader-GatewayFilter" class="headerlink" title="AddResponseHeader GatewayFilter"></a>AddResponseHeader GatewayFilter</h1><p>添加和修改 HTTP 请求的响应 Header</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> builder.routes()</span><br><span class="line">            .route(r -&gt; r.path(<span class="string">"/get/username/from/9020"</span>)</span><br><span class="line">                    .filters(gatewayFilterSpec -&gt; gatewayFilterSpec.addResponseHeader(<span class="string">"MY_RESP_HEADER"</span>, <span class="string">"test"</span>))</span><br><span class="line">                    .uri(<span class="string">"http://localhost:9020"</span>))</span><br><span class="line">            .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 PostMan 中测试, 可以看到设置的 Header, 如下所示:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MY_RES_HEADER → myResHeader</span><br><span class="line">Content-Type → text/plain;charset=UTF-8</span><br><span class="line">Content-Length → 18</span><br><span class="line">Date → Wed, 15 May 2019 09:43:13 GMT</span><br></pre></td></tr></table></figure>
+<h1 id="RemoveRequestHeader-GatewayFilter-和-RemoveResponseHeader-GatewayFilter"><a href="#RemoveRequestHeader-GatewayFilter-和-RemoveResponseHeader-GatewayFilter" class="headerlink" title="RemoveRequestHeader GatewayFilter 和 RemoveResponseHeader GatewayFilter"></a>RemoveRequestHeader GatewayFilter 和 RemoveResponseHeader GatewayFilter</h1><p>既然能否添加请求的 Header 和添加请求响应的 Header, 那么也有删除请求的 Header 和删除请求响应的 Header 的过滤器, RemoveRequestHeader GatewayFilter 和 RemoveResponseHeader GatewayFilter 可以完成此类功能需求, 使用方法和 AddRequestHeader GatewayFilter, AddResponseHeader GatewayFilter 一样, 就不贴出测试代码了</p>
+<h1 id="SetRequestHeader-GatewayFilter-和-SetResponseHeader-GatewayFilter"><a href="#SetRequestHeader-GatewayFilter-和-SetResponseHeader-GatewayFilter" class="headerlink" title="SetRequestHeader GatewayFilter 和 SetResponseHeader GatewayFilter"></a>SetRequestHeader GatewayFilter 和 SetResponseHeader GatewayFilter</h1><p>用于修改请求的 Header 和添加请求响应的 Header, 使用方法和 AddRequestHeader GatewayFilter, AddResponseHeader GatewayFilter 一样, 就不贴出测试代码了</p>
+<h1 id="PrefixPath-GatewayFilter"><a href="#PrefixPath-GatewayFilter" class="headerlink" title="PrefixPath GatewayFilter"></a>PrefixPath GatewayFilter</h1><p>用于设置路径前缀, 使用示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> builder.routes()</span><br><span class="line">        .route(<span class="string">"cloud-provider0"</span>, r -&gt; r.path(<span class="string">"/username/from/9020"</span>)</span><br><span class="line">                .filters(f -&gt; f.prefixPath(<span class="string">"/get"</span>))</span><br><span class="line">                .uri(<span class="string">"http://localhost:9020"</span>))</span><br><span class="line">        .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当我们访问 <code>http://localhost:9030/username/from/9020</code>, 会转换成访问 <code>http://localhost:9020/get/username/from/9020</code></p>
+<h1 id="StripPrefix-GatewayFilter"><a href="#StripPrefix-GatewayFilter" class="headerlink" title="StripPrefix GatewayFilter"></a>StripPrefix GatewayFilter</h1><p>用于设置路径前缀的过滤器, 也有删除前缀的过滤器, 使用示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> builder.routes()</span><br><span class="line">        .route(<span class="string">"cloud-provider0"</span>, r -&gt; r.path(<span class="string">"/test/test/get/username/from/9020"</span>)</span><br><span class="line">                .filters(f -&gt; f.stripPrefix(<span class="number">2</span>))</span><br><span class="line">                .uri(<span class="string">"http://localhost:9020"</span>))</span><br><span class="line">        .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上配置, 使用 <code>http://localhost:9030/test/test/get/username/from/9020</code>, 会去除 <code>/test/test</code> 两个路径前缀, 会转换成访问 <code>http://localhost:9020/get/username/from/9020</code></p>
+<h1 id="RedirectTo-GatewayFilter"><a href="#RedirectTo-GatewayFilter" class="headerlink" title="RedirectTo GatewayFilter"></a>RedirectTo GatewayFilter</h1><p>在出现指定错误错误状态码时会重定向访问指定的 URL, 其中 status 必须是 300 系列的 HTTP 状态码, 否则启动报错, 错误中也会提示你必须是 300 系列的状态码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> builder.routes()</span><br><span class="line">        .route(<span class="string">"cloud-provider0"</span>, r -&gt; r.path(<span class="string">"/get/username/from/9020"</span>)</span><br><span class="line">                .filters(f -&gt; f.redirect(<span class="number">302</span>, <span class="string">"http://localhost:9020/get/username"</span>))</span><br><span class="line">                .uri(<span class="string">"http://localhost:9030/not/exist"</span>))</span><br><span class="line">        .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="RewritePath-GatewayFilter"><a href="#RewritePath-GatewayFilter" class="headerlink" title="RewritePath GatewayFilter"></a>RewritePath GatewayFilter</h1><p>RewritePath 过滤器可以使用正则表达式对路径进行重写, 使用示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> builder.routes()</span><br><span class="line">        .route(<span class="string">"cloud-provider0"</span>, r -&gt; r.path(<span class="string">"/get/username/test"</span>)</span><br><span class="line">                .filters(f -&gt; f.rewritePath(<span class="string">"/get/username/test"</span>, <span class="string">"/get/username/from/9020"</span>))</span><br><span class="line">                .uri(<span class="string">"http://localhost:9020"</span>))</span><br><span class="line">        .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个例子中, 使用 <code>http://localhost:9030/get/username/test</code> 访问时, <code>/get/username/test</code> 会被替换成 <code>/get/username/from/9020</code>, 最后被路由到 <code>http://localhost:9020/get/username/from/9020</code></p>
+<h1 id="SetPath-GatewayFilter"><a href="#SetPath-GatewayFilter" class="headerlink" title="SetPath GatewayFilter"></a>SetPath GatewayFilter</h1><p>相比 RewritePath 过滤器, setPath 过滤器就比较粗暴了, 直接就替换整个路径, 使用示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> builder.routes()</span><br><span class="line">        .route(<span class="string">"cloud-provider0"</span>, r -&gt; r.path(<span class="string">"/get/username/from/9020"</span>)</span><br><span class="line">                .filters(f -&gt; f.setPath(<span class="string">"/test"</span>))</span><br><span class="line">                .uri(<span class="string">"http://localhost:9020"</span>))</span><br><span class="line">        .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 PostMan 中访问接口 <code>http://localhost:9030/get/username/from/9020</code>, 会提示找不到 <code>/test</code> 的路径, 在 PostMan 中输出的信息如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;timestamp&quot;: &quot;2019-05-15T11:56:32.150+0000&quot;,</span><br><span class="line">    &quot;status&quot;: 404,</span><br><span class="line">    &quot;error&quot;: &quot;Not Found&quot;,</span><br><span class="line">    &quot;message&quot;: &quot;No message available&quot;,</span><br><span class="line">    &quot;path&quot;: &quot;/test&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="SetStatus-GatewayFilter"><a href="#SetStatus-GatewayFilter" class="headerlink" title="SetStatus GatewayFilter"></a>SetStatus GatewayFilter</h1><p>SetStatus 过滤器用于更改返回的响应码, 使用示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> builder.routes()</span><br><span class="line">        .route(<span class="string">"cloud-provider0"</span>, r -&gt; r.path(<span class="string">"/get/username/from/9020"</span>)</span><br><span class="line">                .filters(f -&gt; f.setStatus(<span class="number">400</span>))</span><br><span class="line">                .uri(<span class="string">"http://localhost:9020"</span>))</span><br><span class="line">        .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 PostMan 中访问 <code>http://localhost:9030/get/username/from/9020</code> 时, 访问成功获取到数据, 但是可以看到返回的状态码是更改后的 400, 如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">400 Bad Request </span><br><span class="line">Time:166 ms </span><br><span class="line">Size:143 B</span><br></pre></td></tr></table></figure>
+<h1 id="Retry-GatewayFilter"><a href="#Retry-GatewayFilter" class="headerlink" title="Retry GatewayFilter"></a>Retry GatewayFilter</h1><p>Retry 过滤器可以设置访问接口出错时进行重试, 可以设置进行重试的次数, 状态码和请求方法等条件, 使用示例如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> builder.routes()</span><br><span class="line">        .route(<span class="string">"cloud-provider0"</span>, r -&gt; r.path(<span class="string">"/get/username/from/9020"</span>)</span><br><span class="line">                .filters(f -&gt; f.retry(retryConfig -&gt; &#123;</span><br><span class="line">                        retryConfig.setRetries(<span class="number">3</span>) <span class="comment">// 设置重试次数</span></span><br><span class="line">                                .setStatuses(HttpStatus.BAD_REQUEST, HttpStatus.NOT_FOUND) <span class="comment">// 需要重试的状态码</span></span><br><span class="line">                                .setMethods(HttpMethod.GET) <span class="comment">// 设置需要重试的方法</span></span><br><span class="line">                                .setExceptions(FileNotFoundException.class); <span class="comment">// 设置需要重试的异常 </span></span><br><span class="line">                &#125;))</span><br><span class="line">                .uri(<span class="string">"http://localhost:9020"</span>))</span><br><span class="line">        .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Modify-Request-Body-GatewayFilter-和-Modify-Response-Body-GatewayFilter"><a href="#Modify-Request-Body-GatewayFilter-和-Modify-Response-Body-GatewayFilter" class="headerlink" title="Modify Request Body GatewayFilter 和 Modify Response Body GatewayFilter"></a>Modify Request Body GatewayFilter 和 Modify Response Body GatewayFilter</h1><p>这两个过滤器可以修改请求体和响应体的内容, 但都是 beta 版本, 查询网上的一些测试资料, 验证的结果表面有很大的性能问题, 因此在项目中也没有轻易的使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> builder.routes()</span><br><span class="line">        .route(<span class="string">"cloud-provider0"</span>, r -&gt; r.path(<span class="string">"/get/username/from/9020"</span>)</span><br><span class="line">                .filters(f -&gt; f.modifyRequestBody(String.class, UserInfoParams.class, <span class="keyword">new</span> RewriteFunction&lt;String, UserInfoParams&gt;() &#123;</span><br><span class="line">                        <span class="meta">@Override</span></span><br><span class="line">                        <span class="function"><span class="keyword">public</span> Publisher&lt;UserInfoParams&gt; <span class="title">apply</span><span class="params">(ServerWebExchange serverWebExchange, String s)</span> </span>&#123;</span><br><span class="line">                        <span class="keyword">return</span> Mono.just(UserInfoParams.builder().username(s).build());</span><br><span class="line">                        &#125;</span><br><span class="line">                &#125;))</span><br><span class="line">                .uri(<span class="string">"http://localhost:9020"</span>))</span><br><span class="line">        .build();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder)</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> builder.routes()</span><br><span class="line">        .route(<span class="string">"cloud-provider0"</span>, r -&gt; r.path(<span class="string">"/get/username/from/9020"</span>)</span><br><span class="line">                .filters(f -&gt; f.modifyResponseBody(String.class,</span><br><span class="line">                        UserInfoParams.class,</span><br><span class="line">                        (serverWebExchange, s) -&gt; &#123;</span><br><span class="line">                                <span class="keyword">return</span> Mono.just(UserInfoParams.builder().username(s).build());</span><br><span class="line">                        &#125;).addResponseHeader(HttpHeaderNames.CONTENT_TYPE.toString(), MediaType.TEXT_PLAIN_VALUE))</span><br><span class="line">                .uri(<span class="string">"http://localhost:9020"</span>))</span><br><span class="line">        .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="RequestRateLimiter-GatewayFilter"><a href="#RequestRateLimiter-GatewayFilter" class="headerlink" title="RequestRateLimiter GatewayFilter"></a>RequestRateLimiter GatewayFilter</h1><p>对请求进行限速, 默认使用令牌桶实现, 也可以自定义 Filter 实现限速, 内置的限流过滤器, 依赖 Redis, 需要添加 Redis 依赖, 如下:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>对 Redis 进行配置:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spring.redis.host=127.0.0.1</span><br><span class="line">spring.redis.port=6379</span><br><span class="line">spring.redis.database=0</span><br><span class="line">spring.redis.password=lupengwei.4585</span><br></pre></td></tr></table></figure>
+<p>有的文章 Redis 依赖如下, 我测试的时候启动报错了:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis-reactive<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>报错内容如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">***************************</span><br><span class="line">APPLICATION FAILED TO START</span><br><span class="line">***************************</span><br><span class="line"></span><br><span class="line">Description:</span><br><span class="line">Parameter 0 of method cachedCompositeRouteLocator in org.springframework.cloud.gateway.config.GatewayAutoConfiguration required a bean of type &apos;org.springframework.cloud.gateway.filter.factory.RequestRateLimiterGatewayFilterFactory&apos; that could not be found.</span><br><span class="line">- Bean method &apos;requestRateLimiterGatewayFilterFactory&apos; in &apos;GatewayAutoConfiguration&apos; not loaded because @ConditionalOnBean (types: org.springframework.cloud.gateway.filter.ratelimit.RateLimiter,org.springframework.cloud.gateway.filter.ratelimit.KeyResolver; SearchStrategy: all) did not find any beans of type org.springframework.cloud.gateway.filter.ratelimit.RateLimiter, org.springframework.cloud.gateway.filter.ratelimit.KeyResolver</span><br><span class="line"></span><br><span class="line">Action:</span><br><span class="line">Consider revisiting the conditions above or defining a bean of type &apos;org.springframework.cloud.gateway.filter.factory.RequestRateLimiterGatewayFilterFactory&apos; in your configuration.</span><br></pre></td></tr></table></figure>
+<p>在按照错误的提示配置了各种的 Bean 之外, 项目可以正常启动, 但是访问的时还是报 <code>RedisRateLimiter is not initialized</code> 错误, 将依赖更换后就正常了, 最终的测试代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function">RedisRateLimiter <span class="title">redisRateLimiter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// defaultReplenishRate = 每秒处理请求数, defaultBurstCapacity = 令牌桶数量</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> RedisRateLimiter(<span class="number">1</span>, <span class="number">100</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">routeLocator</span><span class="params">(RouteLocatorBuilder builder, RedisRateLimiter redisRateLimiter)</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> builder.routes()</span><br><span class="line">        .route(<span class="string">"cloud-provider0"</span>, r -&gt; r.path(<span class="string">"/get/username/from/9020"</span>)</span><br><span class="line">                .filters(f -&gt; f.requestRateLimiter(config -&gt; config</span><br><span class="line">                        .setRateLimiter(redisRateLimiter)</span><br><span class="line">                        .setKeyResolver((KeyResolver) exchange -&gt; &#123;</span><br><span class="line">                                <span class="comment">// 使用 IP 进行限流</span></span><br><span class="line">                                <span class="keyword">return</span> Mono.just(exchange.getRequest().getRemoteAddress().getHostName());</span><br><span class="line">                        &#125;)))</span><br><span class="line">                .uri(<span class="string">"http://localhost:9020"</span>))</span><br><span class="line">        .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 redis 中也可以看见 <code>request_rate_limiter.{0:0:0:0:0:0:0:1}</code> 之类的数据, 具体 redis 是如何保存数据, 可以在 GateWay 的 core 包的 <code>META-INF/scripts/request_rate_limiter.lua</code> 文件中去了解</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://www.cnblogs.com/bjlhx/p/9786478.html" target="_blank" rel="noopener">Spring Cloud GateWay-过滤器 GatewayFilter、GlobalFilter、GatewayFilterChain、作用、生命周期、GatewayFilterFactory 内置过滤器</a></li>
+<li><a href="https://blog.csdn.net/fayeyiwang/article/details/86539644" target="_blank" rel="noopener">Spring Cloud GateWay 学习 (四) Filter</a></li>
+<li><a href="https://my.oschina.net/zcqshine/blog/2875060" target="_blank" rel="noopener">Spring Cloud GateWay 读取 Request Body 数据</a></li>
+<li><a href="https://windmt.com/2019/01/16/spring-cloud-19-spring-cloud-gateway-read-and-modify-request-body/" target="_blank" rel="noopener">Spring Cloud (十九) : Spring Cloud Gateway (读取、修改 Request Body)</a></li>
+<li><a href="https://www.cnblogs.com/garfieldcgf/p/10484119.html" target="_blank" rel="noopener">Spring Cloud GateWay 的性能测试</a></li>
+<li><a href="https://windmt.com/2018/05/09/spring-cloud-15-spring-cloud-gateway-ratelimiter/" target="_blank" rel="noopener">Spring Cloud(十五) : Spring Cloud Gateway (限流)</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Spring-SpringCloud之GateWay内置过滤器使用
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2019/05/20/Spring-SpringCloud之GateWay内置过滤器使用/" title="Spring-SpringCloud之GateWay内置过滤器使用">2019/05/20/Spring-SpringCloud之GateWay内置过滤器使用/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/20/Spring-SpringCloud之GateWay入门和Predicate/" rel="next" title="Spring-SpringCloud之GateWay入门和Predicate">
+                <i class="fa fa-chevron-left"></i> Spring-SpringCloud之GateWay入门和Predicate
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/20/Spring-SpringCloud之GateWay自定义过滤器使用/" rel="prev" title="Spring-SpringCloud之GateWay自定义过滤器使用">
+                Spring-SpringCloud之GateWay自定义过滤器使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">150</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AddRequestHeader-GatewayFilter-和-AddRequestParameter-GatewayFilter"><span class="nav-number">1.</span> <span class="nav-text">AddRequestHeader GatewayFilter 和 AddRequestParameter GatewayFilter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AddResponseHeader-GatewayFilter"><span class="nav-number">2.</span> <span class="nav-text">AddResponseHeader GatewayFilter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RemoveRequestHeader-GatewayFilter-和-RemoveResponseHeader-GatewayFilter"><span class="nav-number">3.</span> <span class="nav-text">RemoveRequestHeader GatewayFilter 和 RemoveResponseHeader GatewayFilter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SetRequestHeader-GatewayFilter-和-SetResponseHeader-GatewayFilter"><span class="nav-number">4.</span> <span class="nav-text">SetRequestHeader GatewayFilter 和 SetResponseHeader GatewayFilter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PrefixPath-GatewayFilter"><span class="nav-number">5.</span> <span class="nav-text">PrefixPath GatewayFilter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#StripPrefix-GatewayFilter"><span class="nav-number">6.</span> <span class="nav-text">StripPrefix GatewayFilter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RedirectTo-GatewayFilter"><span class="nav-number">7.</span> <span class="nav-text">RedirectTo GatewayFilter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RewritePath-GatewayFilter"><span class="nav-number">8.</span> <span class="nav-text">RewritePath GatewayFilter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SetPath-GatewayFilter"><span class="nav-number">9.</span> <span class="nav-text">SetPath GatewayFilter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SetStatus-GatewayFilter"><span class="nav-number">10.</span> <span class="nav-text">SetStatus GatewayFilter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Retry-GatewayFilter"><span class="nav-number">11.</span> <span class="nav-text">Retry GatewayFilter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Modify-Request-Body-GatewayFilter-和-Modify-Response-Body-GatewayFilter"><span class="nav-number">12.</span> <span class="nav-text">Modify Request Body GatewayFilter 和 Modify Response Body GatewayFilter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RequestRateLimiter-GatewayFilter"><span class="nav-number">13.</span> <span class="nav-text">RequestRateLimiter GatewayFilter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">14.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
