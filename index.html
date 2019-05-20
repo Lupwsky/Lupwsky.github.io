@@ -350,19 +350,6 @@
 <li>栈</li>
 <li>本地方法栈</li>
 </ul>
-<h1 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h1><p>当前线程执行的字节码指令的地址, 如果执行的是原生的 (Native) 方法, 计数器的值为空, 每个线程都有一个程序计数器, 也是唯一一个没有定义 OutMemoryException 异常的区域</p>
-<h1 id="堆区"><a href="#堆区" class="headerlink" title="堆区"></a>堆区</h1><p>所有线程共享, 所有对象和数组都在堆区分配, 初始堆区为物理机内存的 1/64, 最大堆区为物理机内存的 1/4, 可通过 -Xmx, -Xms 调整, 此区域会出现 OutMemoryException 异常</p>
-<ul>
-<li>堆区又分为新生代, 老年代和持久代</li>
-<li>新生代可以使用 -Xmn 来调整, 或者使用 -XX:NewSize, 最大值使用 -XX:MaxNewSize 来调整</li>
-<li>持久代可以通过 -XX:PermSize 设置, 最大值可以通过 -XX:MaxPermSize 设置</li>
-<li><p>老年代没有可设置的参数, 可以通过设置新生代和持久代的大小来设置</p>
-</li>
-<li><p>新生代和老年代还可以通过 -XX:NewRatio 来设置比例, 例如 -XX:NewRatio = 4, 表示新生代和老年代的比例为 1:4</p>
-</li>
-<li><p>新生代由 Eden Space, Survivor 0 Space, Survivor 1 Space 三个区域组成, 这三个区域默认占比为 8:1:1, 可以通过 -XX:SurvivorRatio 来设置比例, 例如 -XX:SurvivorRatio = 8, 表示两个 Survivor Space : Eden Space = 2 : 8</p>
-</li>
-</ul>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/05/20/Java-JVM知识整理/#more" rel="contents">
@@ -518,7 +505,7 @@
 
       
         
-          <p>在 [SpringCloud-Eureka服务注册与发现]<a href="http://antsnote.club/2018/09/05/SpringCloud-Eureka%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/" target="_blank" rel="noopener">http://antsnote.club/2018/09/05/SpringCloud-Eureka%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/</a> 一节中, 使用 Euraka 实现了服务注册于发现后, 下一步就需要服务消费者去调用服务提供者提供的接口了, Spring Cloud 的微服务之间是使用 HTTP 调用的方式实现的, 一个服务调用另一个服务的 HTTP 接口示例如下:</p>
+          <p>在 <a href="http://antsnote.club/2018/09/05/SpringCloud-Eureka%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/" target="_blank" rel="noopener">SpringCloud-Eureka服务注册与发现</a> 一节中, 使用 Euraka 实现了服务注册于发现后, 下一步就需要服务消费者去调用服务提供者提供的接口了, Spring Cloud 的微服务之间是使用 HTTP 调用的方式实现的, 一个服务调用另一个服务的 HTTP 接口示例如下:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> RestTemplate restTemplate;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 服务消费者 (IP = 192.168.10.156) 调用服务提供者 (IP = 192.168.10.157) 的 URL</span></span><br><span class="line">String url = <span class="string">"http://192.168.10.157:9020/get/username"</span>;</span><br><span class="line">String username = restTemplate.getForObject(url, String.class);</span><br><span class="line">log.info(<span class="string">"username = &#123;&#125;"</span>, username);</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">

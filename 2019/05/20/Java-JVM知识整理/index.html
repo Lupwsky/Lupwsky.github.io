@@ -77,18 +77,18 @@
 
 
 
-<meta name="description" content="JVM 运行时分区 程序计数器 方法区 堆区 栈 本地方法栈  程序计数器当前线程执行的字节码指令的地址, 如果执行的是原生的 (Native) 方法, 计数器的值为空, 每个线程都有一个程序计数器, 也是唯一一个没有定义 OutMemoryException 异常的区域 堆区所有线程共享, 所有对象和数组都在堆区分配, 初始堆区为物理机内存的 1/64, 最大堆区为物理机内存的 1/4, 可通过">
+<meta name="description" content="JVM 运行时分区 程序计数器 方法区 堆区 栈 本地方法栈">
 <meta name="keywords" content="技术小站">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java-JVM知识整理">
 <meta property="og:url" content="http://yoursite.com/2019/05/20/Java-JVM知识整理/index.html">
 <meta property="og:site_name" content="技术小站">
-<meta property="og:description" content="JVM 运行时分区 程序计数器 方法区 堆区 栈 本地方法栈  程序计数器当前线程执行的字节码指令的地址, 如果执行的是原生的 (Native) 方法, 计数器的值为空, 每个线程都有一个程序计数器, 也是唯一一个没有定义 OutMemoryException 异常的区域 堆区所有线程共享, 所有对象和数组都在堆区分配, 初始堆区为物理机内存的 1/64, 最大堆区为物理机内存的 1/4, 可通过">
+<meta property="og:description" content="JVM 运行时分区 程序计数器 方法区 堆区 栈 本地方法栈">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-20T14:58:20.761Z">
+<meta property="og:updated_time" content="2019-05-20T15:04:11.187Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java-JVM知识整理">
-<meta name="twitter:description" content="JVM 运行时分区 程序计数器 方法区 堆区 栈 本地方法栈  程序计数器当前线程执行的字节码指令的地址, 如果执行的是原生的 (Native) 方法, 计数器的值为空, 每个线程都有一个程序计数器, 也是唯一一个没有定义 OutMemoryException 异常的区域 堆区所有线程共享, 所有对象和数组都在堆区分配, 初始堆区为物理机内存的 1/64, 最大堆区为物理机内存的 1/4, 可通过">
+<meta name="twitter:description" content="JVM 运行时分区 程序计数器 方法区 堆区 栈 本地方法栈">
 
 
 
@@ -347,6 +347,7 @@
 <li>栈</li>
 <li>本地方法栈</li>
 </ul>
+<a id="more"></a>
 <h1 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h1><p>当前线程执行的字节码指令的地址, 如果执行的是原生的 (Native) 方法, 计数器的值为空, 每个线程都有一个程序计数器, 也是唯一一个没有定义 OutMemoryException 异常的区域</p>
 <h1 id="堆区"><a href="#堆区" class="headerlink" title="堆区"></a>堆区</h1><p>所有线程共享, 所有对象和数组都在堆区分配, 初始堆区为物理机内存的 1/64, 最大堆区为物理机内存的 1/4, 可通过 -Xmx, -Xms 调整, 此区域会出现 OutMemoryException 异常</p>
 <ul>
@@ -360,7 +361,6 @@
 <li><p>新生代由 Eden Space, Survivor 0 Space, Survivor 1 Space 三个区域组成, 这三个区域默认占比为 8:1:1, 可以通过 -XX:SurvivorRatio 来设置比例, 例如 -XX:SurvivorRatio = 8, 表示两个 Survivor Space : Eden Space = 2 : 8</p>
 </li>
 </ul>
-<a id="more"></a>
 <h1 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h1><p>存放类的加载的信息</p>
 <h1 id="栈和本地方法栈"><a href="#栈和本地方法栈" class="headerlink" title="栈和本地方法栈"></a>栈和本地方法栈</h1><p>线程调用的方法</p>
 <h1 id="GC-算法"><a href="#GC-算法" class="headerlink" title="GC 算法"></a>GC 算法</h1><ul>

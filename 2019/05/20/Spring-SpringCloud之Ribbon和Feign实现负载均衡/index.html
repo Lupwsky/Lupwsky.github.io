@@ -77,18 +77,18 @@
 
 
 
-<meta name="description" content="在 [SpringCloud-Eureka服务注册与发现]http://antsnote.club/2018/09/05/SpringCloud-Eureka%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/ 一节中, 使用 Euraka 实现了服务注册于发现后, 下一步就需要服务消费者去调用服务提供者提供的接口了, S">
+<meta name="description" content="在 SpringCloud-Eureka服务注册与发现 一节中, 使用 Euraka 实现了服务注册于发现后, 下一步就需要服务消费者去调用服务提供者提供的接口了, Spring Cloud 的微服务之间是使用 HTTP 调用的方式实现的, 一个服务调用另一个服务的 HTTP 接口示例如下: 123456private final RestTemplate restTemplate;// 服务消费">
 <meta name="keywords" content="技术小站">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring-SpringCloud之Ribbon和Feign实现负载均衡">
 <meta property="og:url" content="http://yoursite.com/2019/05/20/Spring-SpringCloud之Ribbon和Feign实现负载均衡/index.html">
 <meta property="og:site_name" content="技术小站">
-<meta property="og:description" content="在 [SpringCloud-Eureka服务注册与发现]http://antsnote.club/2018/09/05/SpringCloud-Eureka%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/ 一节中, 使用 Euraka 实现了服务注册于发现后, 下一步就需要服务消费者去调用服务提供者提供的接口了, S">
+<meta property="og:description" content="在 SpringCloud-Eureka服务注册与发现 一节中, 使用 Euraka 实现了服务注册于发现后, 下一步就需要服务消费者去调用服务提供者提供的接口了, Spring Cloud 的微服务之间是使用 HTTP 调用的方式实现的, 一个服务调用另一个服务的 HTTP 接口示例如下: 123456private final RestTemplate restTemplate;// 服务消费">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-20T14:57:11.109Z">
+<meta property="og:updated_time" content="2019-05-20T15:03:58.225Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring-SpringCloud之Ribbon和Feign实现负载均衡">
-<meta name="twitter:description" content="在 [SpringCloud-Eureka服务注册与发现]http://antsnote.club/2018/09/05/SpringCloud-Eureka%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/ 一节中, 使用 Euraka 实现了服务注册于发现后, 下一步就需要服务消费者去调用服务提供者提供的接口了, S">
+<meta name="twitter:description" content="在 SpringCloud-Eureka服务注册与发现 一节中, 使用 Euraka 实现了服务注册于发现后, 下一步就需要服务消费者去调用服务提供者提供的接口了, Spring Cloud 的微服务之间是使用 HTTP 调用的方式实现的, 一个服务调用另一个服务的 HTTP 接口示例如下: 123456private final RestTemplate restTemplate;// 服务消费">
 
 
 
@@ -340,7 +340,7 @@
       
 
       
-        <p>在 [SpringCloud-Eureka服务注册与发现]<a href="http://antsnote.club/2018/09/05/SpringCloud-Eureka%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/" target="_blank" rel="noopener">http://antsnote.club/2018/09/05/SpringCloud-Eureka%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/</a> 一节中, 使用 Euraka 实现了服务注册于发现后, 下一步就需要服务消费者去调用服务提供者提供的接口了, Spring Cloud 的微服务之间是使用 HTTP 调用的方式实现的, 一个服务调用另一个服务的 HTTP 接口示例如下:</p>
+        <p>在 <a href="http://antsnote.club/2018/09/05/SpringCloud-Eureka%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/" target="_blank" rel="noopener">SpringCloud-Eureka服务注册与发现</a> 一节中, 使用 Euraka 实现了服务注册于发现后, 下一步就需要服务消费者去调用服务提供者提供的接口了, Spring Cloud 的微服务之间是使用 HTTP 调用的方式实现的, 一个服务调用另一个服务的 HTTP 接口示例如下:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> RestTemplate restTemplate;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 服务消费者 (IP = 192.168.10.156) 调用服务提供者 (IP = 192.168.10.157) 的 URL</span></span><br><span class="line">String url = <span class="string">"http://192.168.10.157:9020/get/username"</span>;</span><br><span class="line">String username = restTemplate.getForObject(url, String.class);</span><br><span class="line">log.info(<span class="string">"username = &#123;&#125;"</span>, username);</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <h1 id="LoadBalancerClient"><a href="#LoadBalancerClient" class="headerlink" title="LoadBalancerClient"></a>LoadBalancerClient</h1><p>上面的一个服务调用另一个服务的 HTTP 接口是又两个问题需要解决的, 第一个是直接指定 URL 中强制写死了 IP 和端口号, 在 IP 或端口号发生变化后, 所有的服务消费端都需要改动代码中写死的 IP, 第二个是如果服务提供端启动了多个实例, 上面调用的方式并没有实现负载均衡, 因为 IP 已经写死了, 上面的写法在生产环境下肯定是不适用的, 需要进行改进, 在 Spring Cloud Commons 包下面定义有很多服务治理相关的接口和功能实现类, LoadBalancerClient 就是其中的一个, 利用 LoadBalancerClient 类可以方便的解决上面的问题, 不需要强制写死 IP, 只需要指定调用哪一个服务名即可实现客户端版的负载均衡, 使用示例如下:</p>
