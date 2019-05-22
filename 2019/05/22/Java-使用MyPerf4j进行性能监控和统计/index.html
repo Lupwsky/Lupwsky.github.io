@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="添加启动参数使用 MyPerf4j 需要在为 JVM 添加启动参数, 格式如下: 12-javaagent:/your/path/to/MyPerf4J-ASM.jar-DMyPerf4JPropFile=/your/path/to/MyPerf4J.properties 测试时是在 windows 的 IDEA 上本地进行调试的, 如下图添加 JVM 启动参数:">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-使用MyPerf4j进行性能监控和统计">
+<meta property="og:url" content="http://yoursite.com/2019/05/22/Java-使用MyPerf4j进行性能监控和统计/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="添加启动参数使用 MyPerf4j 需要在为 JVM 添加启动参数, 格式如下: 12-javaagent:/your/path/to/MyPerf4J-ASM.jar-DMyPerf4JPropFile=/your/path/to/MyPerf4J.properties 测试时是在 windows 的 IDEA 上本地进行调试的, 如下图添加 JVM 启动参数:">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/05/22/Java-使用MyPerf4j进行性能监控和统计/20190522161336.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/22/Java-使用MyPerf4j进行性能监控和统计/20190522162905.png">
+<meta property="og:updated_time" content="2019-05-22T23:43:11.442Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java-使用MyPerf4j进行性能监控和统计">
+<meta name="twitter:description" content="添加启动参数使用 MyPerf4j 需要在为 JVM 添加启动参数, 格式如下: 12-javaagent:/your/path/to/MyPerf4J-ASM.jar-DMyPerf4JPropFile=/your/path/to/MyPerf4J.properties 测试时是在 windows 的 IDEA 上本地进行调试的, 如下图添加 JVM 启动参数:">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/22/Java-使用MyPerf4j进行性能监控和统计/20190522161336.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/22/Java-使用MyPerf4j进行性能监控和统计/"/>
+
+
+
+
+
+  <title>Java-使用MyPerf4j进行性能监控和统计 | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/Java-使用MyPerf4j进行性能监控和统计/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java-使用MyPerf4j进行性能监控和统计</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-22T16:06:02+08:00">
+                2019-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="添加启动参数"><a href="#添加启动参数" class="headerlink" title="添加启动参数"></a>添加启动参数</h1><p>使用 MyPerf4j 需要在为 JVM 添加启动参数, 格式如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-javaagent:/your/path/to/MyPerf4J-ASM.jar</span><br><span class="line">-DMyPerf4JPropFile=/your/path/to/MyPerf4J.properties</span><br></pre></td></tr></table></figure>
+<p>测试时是在 windows 的 IDEA 上本地进行调试的, 如下图添加 JVM 启动参数:</p>
+<p><img src="/2019/05/22/Java-使用MyPerf4j进行性能监控和统计/20190522161336.png" width="1024" height="300"></p>
+<a id="more"></a>
+<h1 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h1><p>测试用使用的配置文件如下, 详细的配置见<a href="https://github.com/LinShunKang/MyPerf4J/wiki/%E9%85%8D%E7%BD%AE" target="_blank" rel="noopener">官方 WIKI 文档</a></p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 应用名称</span></span><br><span class="line"><span class="attr">AppName</span>=demo</span><br><span class="line"></span><br><span class="line"><span class="comment"># MetricsProcessor类型，0:以标准格式化结构输出到stdout.log 1:以标准格式化结构输出到磁盘  2:以InfluxDB LineProtocol格式输出到磁盘</span></span><br><span class="line"><span class="attr">MetricsProcessorType</span>=<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置各个Metrics日志的文件路径，可不配置</span></span><br><span class="line"><span class="attr">MethodMetricsFile</span>=C:/Users/v_pwlu/Desktop/myprofiler/MyPerf4J/MyPerf4J-ASM/target/method_metrics.log</span><br><span class="line"><span class="attr">ClassMetricsFile</span>=C:/Users/v_pwlu/Desktop/myprofiler/MyPerf4J/MyPerf4J-ASM/target/class_metrics.log</span><br><span class="line"><span class="attr">GCMetricsFile</span>=C:/Users/v_pwlu/Desktop/myprofiler/MyPerf4J/MyPerf4J-ASM/target/gc_metrics.log</span><br><span class="line"><span class="attr">MemMetricsFile</span>=C:/Users/v_pwlu/Desktop/myprofiler/MyPerf4J/MyPerf4J-ASM/target/memory_metrics.log</span><br><span class="line"><span class="attr">BufPoolMetricsFile</span>=C:/Users/v_pwlu/Desktop/myprofiler/MyPerf4J/MyPerf4J-ASM/target/buf_pool_metrics.log</span><br><span class="line"><span class="attr">ThreadMetricsFile</span>=C:/Users/v_pwlu/Desktop/myprofiler/MyPerf4J/MyPerf4J-ASM/target/thread_metrics.log</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置Record模式，可配置为accurate/rough</span></span><br><span class="line"><span class="attr">RecorderMode</span>=accurate</span><br><span class="line">   </span><br><span class="line"><span class="comment"># 配置时间片，单位为ms，最小1s，最大600s</span></span><br><span class="line"><span class="attr">MilliTimeSlice</span>=<span class="number">10000</span></span><br><span class="line">   </span><br><span class="line"><span class="comment"># 需要监控的package，可配置多个，用英文';'分隔</span></span><br><span class="line"><span class="comment">#IncludePackages=your.package.to.monitor;cn.perf4j.demo;cn.perf4j.demo1.[p1,p2,p3];cn.*.demo.*</span></span><br><span class="line"><span class="attr">IncludePackages</span>=com.example.demo</span><br><span class="line"></span><br><span class="line"><span class="comment"># 是否展示方法参数类型</span></span><br><span class="line"><span class="attr">ShowMethodParams</span>=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h1 id="启动项目进行测试"><a href="#启动项目进行测试" class="headerlink" title="启动项目进行测试"></a>启动项目进行测试</h1><p>测试类如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(value = <span class="string">"/api/test"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"/api/test"</span>);</span><br><span class="line">        testMoniter();</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"test success"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">testMoniter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        log.info(<span class="string">"test moniter"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>启动项目, 看到如下日志, 表示加载 MyPerf4j 成功了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">2019-05-22 16:20:25.014 [MyPerf4J] INFO Thanks sincerely for using MyPerf4J.</span><br><span class="line">2019-05-22 16:20:25.068 [MyPerf4J] INFO profilingParamFile is empty, so use same profiling params to all methods.</span><br><span class="line">2019-05-22 16:20:25.106 [MyPerf4J] INFO </span><br><span class="line">    __  ___      ____            ______ __      __</span><br><span class="line">   /  |/  /_  __/ __ \___  _____/ __/ // /     / /</span><br><span class="line">  / /|_/ / / / / /_/ / _ \/ ___/ /_/ // /___  / / </span><br><span class="line"> / /  / / /_/ / ____/  __/ /  / __/__  __/ /_/ /  </span><br><span class="line">/_/  /_/\__, /_/    \___/_/  /_/    /_/  \____/   </span><br><span class="line">       /____/                                     </span><br><span class="line"></span><br><span class="line">2019-05-22 16:20:25.106 [MyPerf4J] INFO AbstractBootstrap doInitial() SUCCESS!!!</span><br></pre></td></tr></table></figure>
+<p>如果 MetricsProcessorType = 0, 那么监控的日志会直接输出在控制台, 方便在本地 DEBUG 时, 线上使用通常设置为 1, 持久化到文件中, 或者设置 2, 方便之后接入到 InfluxDB 中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">MyPerf4J JVM Class Metrics [2019-05-22 16:20:20, 2019-05-22 16:20:30]</span><br><span class="line">Total         Loaded  Unloaded</span><br><span class="line">6522            6521         1</span><br><span class="line"></span><br><span class="line">MyPerf4J JVM GC Metrics [2019-05-22 16:20:20, 2019-05-22 16:20:30]</span><br><span class="line">Name            Count     Time</span><br><span class="line">PS Scavenge         5       34</span><br><span class="line">PS MarkSweep        1       25</span><br><span class="line"></span><br><span class="line">MyPerf4J JVM Memory Metrics [2019-05-22 16:20:20, 2019-05-22 16:20:30]</span><br><span class="line">NonHeapInit                NonHeapUsed   NonHeapCommitted         NonHeapMax           HeapInit           HeapUsed      HeapCommitted            HeapMax</span><br><span class="line">2555904                       44272544           46465024                 -1          268435456           43943880          234356736         3791650816</span><br><span class="line"></span><br><span class="line">MyPerf4J JVM BufferPool Metrics [2019-05-22 16:20:20, 2019-05-22 16:20:30]</span><br><span class="line">Name                             Count         MemoryUsed     MemoryCapacity</span><br><span class="line">direct                               1               8192               8192</span><br><span class="line">mapped                               0                  0                  0</span><br><span class="line"></span><br><span class="line">MyPerf4J JVM Thread Metrics [2019-05-22 16:20:20, 2019-05-22 16:20:30]</span><br><span class="line">TotalStarted          Active          Peak        Daemon           New      Runnable       Blocked       Waiting  TimedWaiting    Terminated</span><br><span class="line">38                        28            29            24             0            11             0            13             4             0</span><br><span class="line"></span><br><span class="line">MyPerf4J Method Metrics [2019-05-22 16:20:20, 2019-05-22 16:20:30]</span><br><span class="line">Method[0]         Type      RPS  Avg(ms)  Min(ms)  Max(ms)   StdDev     Count     TP50     TP90     TP95     TP99    TP999   TP9999  TP99999    TP100</span><br></pre></td></tr></table></figure>
+<h1 id="日志文件中的内容"><a href="#日志文件中的内容" class="headerlink" title="日志文件中的内容"></a>日志文件中的内容</h1><p>当  MetricsProcessorType = 1 时, 会在指定日志的目录下生成如下 6 个文件</p>
+<p><img src="/2019/05/22/Java-使用MyPerf4j进行性能监控和统计/20190522162905.png" width="1024" height="250"></p>
+<p>buf_pool_metrics.log 输出了当前缓存直接申请的内存申请和使用情况, 包括总计申请直接内存的数量和使用的大小, 日志格式如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MyPerf4J JVM BufferPool Metrics [2019-05-22 16:31:10, 2019-05-22 16:31:20]</span><br><span class="line">Name                             Count         MemoryUsed     MemoryCapacity</span><br><span class="line">direct                              11              90112              90112</span><br><span class="line">mapped                               0                  0                  0</span><br></pre></td></tr></table></figure>
+<p>class_metrics.log 输出了当前类加载的数量信息, 日志格式如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MyPerf4J JVM Class Metrics [2019-05-22 16:31:10, 2019-05-22 16:31:20]</span><br><span class="line">Total         Loaded  Unloaded</span><br><span class="line">6740            6739         1</span><br></pre></td></tr></table></figure>
+<p>memory_metrics.log 输出了当前堆和栈的使用情况, 如初始堆区空间大小, 非堆区空间大小, 堆区当前使用空间和最大堆区空间大小等信息, 输出日志如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MyPerf4J JVM Memory Metrics [2019-05-22 16:31:10, 2019-05-22 16:31:20]</span><br><span class="line">NonHeapInit                NonHeapUsed   NonHeapCommitted         NonHeapMax           HeapInit           HeapUsed      HeapCommitted            HeapMax</span><br><span class="line">2555904                       46240672           48693248                 -1          268435456           66427376          234356736         3791650816</span><br></pre></td></tr></table></figure>
+<p>thread_metrics.log 输出了当前线程总数量, 处于 active 线程数量, 守护线程数量, 处于等待状态线程数量等信息, 输出的日志如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MyPerf4J JVM Thread Metrics [2019-05-22 16:31:10, 2019-05-22 16:31:20]</span><br><span class="line">TotalStarted          Active          Peak        Daemon           New      Runnable       Blocked       Waiting  TimedWaiting    Terminated</span><br><span class="line">39                        27            29            22             0             9             0            14             4             0</span><br></pre></td></tr></table></figure>
+<p>method_metrics.log 输出当前时间段内 (和设置的采集时间有关), 方法调用的情况, 如调用次数, 平均调用花费时间, 方法调用最大花费时间, 方法调用最小花费时间, 还有 TP50 等统计信息, 如果摸某个方法调用花费的时间比较长, 通常也是需要优化的地方, 日志的输出格式如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MyPerf4J Method Metrics [2019-05-22 16:31:10, 2019-05-22 16:31:20]</span><br><span class="line">Method[1]                     Type      RPS  Avg(ms)  Min(ms)  Max(ms)   StdDev     Count     TP50     TP90     TP95     TP99    TP999   TP9999  TP99999    TP100</span><br><span class="line">TestController.test()      General        0  1000.57     1000     1001     0.27         7     1001     1001     1001     1001     1001     1001     1001     1001</span><br></pre></td></tr></table></figure>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://github.com/LinShunKang/MyPerf4J" target="_blank" rel="noopener">MyPerf4j</a></li>
+<li><a href="https://www.cnblogs.com/mmzs/p/10615317.html" target="_blank" rel="noopener">整合 MyPerf4J 做 Java 性能监控和统计工具</a></li>
+<li><a href="https://blog.csdn.net/defonds/article/details/52605670" target="_blank" rel="noopener">JVM 性能调优实战之 : 使用阿里开源工具 TProfiler 在海量业务代码中精确定位性能代码</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Java-使用MyPerf4j进行性能监控和统计
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2019/05/22/Java-使用MyPerf4j进行性能监控和统计/" title="Java-使用MyPerf4j进行性能监控和统计">2019/05/22/Java-使用MyPerf4j进行性能监控和统计/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/21/Java-Guava工具类之使用RateLimiter进行限流/" rel="next" title="Java-Guava工具类之使用RateLimiter进行限流">
+                <i class="fa fa-chevron-left"></i> Java-Guava工具类之使用RateLimiter进行限流
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">154</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#添加启动参数"><span class="nav-number">1.</span> <span class="nav-text">添加启动参数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改配置文件"><span class="nav-number">2.</span> <span class="nav-text">修改配置文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动项目进行测试"><span class="nav-number">3.</span> <span class="nav-text">启动项目进行测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#日志文件中的内容"><span class="nav-number">4.</span> <span class="nav-text">日志文件中的内容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
