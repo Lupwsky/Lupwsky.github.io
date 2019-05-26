@@ -251,6 +251,164 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/20/Spring-MyBatisPlus多数据源配置和基础使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/20/Spring-MyBatisPlus多数据源配置和基础使用/" itemprop="url">Spring-MyBatisPlus多数据源配置和基础使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-20T22:46:17+08:00">
+                2019-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>MyBatis Plus 的使用方法, 基础就不取解释和记录了, 官方文档已经写得很详细了, 这些可以去参考<a href="https://baomidou.gitee.io/mybatis-plus-doc/#/page-plugin" target="_blank" rel="noopener">官方文档</a></p>
+<h1 id="配置数据源"><a href="#配置数据源" class="headerlink" title="配置数据源"></a>配置数据源</h1><p>使用 Mybatis Plus 时配置数据源和使用 MyBatis 配置数据源基本上是一样的, 不同的是要将 MyBatis 的 SqlSessionFactory 替换成 MyBatisPlus 的 SqlSessionFactory, MyBatis 多数据源的详细配置可以参考配置之前多数据源这一节笔记, 使用 Mybatis Plus 时配置数据源配置类如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties</span>(&#123;Db0DataSourceProperties.class, Db1DataSourceProperties.class, Db2DataSourceProperties.class&#125;)</span><br><span class="line"><span class="meta">@MapperScan</span>(basePackages = <span class="string">"com.lupw.guava.datasource.db.mapper"</span>, sqlSessionFactoryRef = <span class="string">"dbFactory"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MultiDataSourceConfig</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 其他数据源的配置...</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span>(name = <span class="string">"dbFactory"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> SqlSessionFactory <span class="title">getDataSourceFactory</span><span class="params">(PaginationInterceptor paginationInterceptor)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();</span></span><br><span class="line">        <span class="comment">// sessionFactoryBean.setDataSource(getMultiRoutingDataSource());</span></span><br><span class="line">        <span class="comment">// sessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*/*.xml"));</span></span><br><span class="line">        <span class="comment">// return sessionFactoryBean.getObject();</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// MyBatis 的 SqlSessionFactory 替换成 MyBatisPlus 的 SqlSessionFactory</span></span><br><span class="line">        MybatisSqlSessionFactoryBean sqlSessionFactoryBean =  <span class="keyword">new</span> MybatisSqlSessionFactoryBean();</span><br><span class="line">        sqlSessionFactoryBean.setDataSource(getMultiRoutingDataSource());</span><br><span class="line">        sqlSessionFactoryBean.setMapperLocations(<span class="keyword">new</span> PathMatchingResourcePatternResolver().getResources(<span class="string">"classpath:mapper/*/*.xml"</span>));</span><br><span class="line">        <span class="keyword">return</span> sqlSessionFactoryBean.getObject();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/05/20/Spring-MyBatisPlus多数据源配置和基础使用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/26/java-ElasticSearch客户端使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -270,7 +428,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/26/java-ElasticSearch客户端使用/" itemprop="url">java-ElasticSearch客户端使用</a></h1>
+                <a class="post-title-link" href="/2019/04/26/java-ElasticSearch客户端使用/" itemprop="url">Java-ElasticSearch客户端使用</a></h1>
         
 
         <div class="post-meta">
@@ -1649,162 +1807,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/14/Spring-源码阅读AutowireCapableBeanFactory/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/14/Spring-源码阅读AutowireCapableBeanFactory/" itemprop="url">Spring-源码阅读AutowireCapableBeanFactory</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T21:13:17+08:00">
-                2019-04-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><img src="https://cdn.nlark.com/yuque/0/2019/png/259000/1554948615958-78e34256-49aa-491c-a8f8-de0cc4fb48a1.png#align=left&amp;display=inline&amp;height=350&amp;name=xmlbeanfactory.png&amp;originHeight=652&amp;originWidth=1388&amp;size=42765&amp;status=done&amp;width=746" alt="xmlbeanfactory.png"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/04/14/Spring-源码阅读AutowireCapableBeanFactory/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1857,7 +1859,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">154</span>
+                  <span class="site-state-item-count">155</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
