@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Java Agent 技术可以在加载类的时候进行拦截并对字节码进行修改, Java Agent 技术可以实现动态的修改代码和替换类的定义而不影响原有程序的逻辑, 例如实现对代码的监控, 捕获代码的执行时间, 添加事务控制等 AOP 功能, 实际的实现方式主要使用在 JDK 1.5 的时候添加的 java.lang.instrument 包中的 API  来实现, 修改字节码通常使用 Javassi">
+<meta name="keywords" content="技术小站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-JavaAgent技术的基础使用">
+<meta property="og:url" content="http://yoursite.com/2019/05/27/Java-JavaAgent技术的基础使用/index.html">
+<meta property="og:site_name" content="技术小站">
+<meta property="og:description" content="Java Agent 技术可以在加载类的时候进行拦截并对字节码进行修改, Java Agent 技术可以实现动态的修改代码和替换类的定义而不影响原有程序的逻辑, 例如实现对代码的监控, 捕获代码的执行时间, 添加事务控制等 AOP 功能, 实际的实现方式主要使用在 JDK 1.5 的时候添加的 java.lang.instrument 包中的 API  来实现, 修改字节码通常使用 Javassi">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-28T11:12:04.579Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java-JavaAgent技术的基础使用">
+<meta name="twitter:description" content="Java Agent 技术可以在加载类的时候进行拦截并对字节码进行修改, Java Agent 技术可以实现动态的修改代码和替换类的定义而不影响原有程序的逻辑, 例如实现对代码的监控, 捕获代码的执行时间, 添加事务控制等 AOP 功能, 实际的实现方式主要使用在 JDK 1.5 的时候添加的 java.lang.instrument 包中的 API  来实现, 修改字节码通常使用 Javassi">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/27/Java-JavaAgent技术的基础使用/"/>
+
+
+
+
+
+  <title>Java-JavaAgent技术的基础使用 | 技术小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/27/Java-JavaAgent技术的基础使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java-JavaAgent技术的基础使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-27T14:38:05+08:00">
+                2019-05-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Java Agent 技术可以在加载类的时候进行拦截并对字节码进行修改, Java Agent 技术可以实现动态的修改代码和替换类的定义而不影响原有程序的逻辑, 例如实现对代码的监控, 捕获代码的执行时间, 添加事务控制等 AOP 功能, 实际的实现方式主要使用在 JDK 1.5 的时候添加的 java.lang.instrument 包中的 API  来实现, 修改字节码通常使用 Javassist 和 ASM 技术实现, 基础的知识和概念在这里就不去记录了, 网上有很多, 主要记录下测试时的使用示例</p>
+<h1 id="实现-Agent-类"><a href="#实现-Agent-类" class="headerlink" title="实现 Agent 类"></a>实现 Agent 类</h1><p>首先创建一个普通的 Java 工程, 使用 Maven 管理 jar 包, Java Agent 以 jar 包的形式部署在 JVM 中, 不能单独启动, 需要依赖于其他的应用一起启动, 根据不同的启动时机, 实现 Agent 类需要实现以下两种方法, 参考 <a href="http://fanyilun.me/2017/07/18/%E8%B0%88%E8%B0%88Java%20Intrumentation%E5%92%8C%E7%9B%B8%E5%85%B3%E5%BA%94%E7%94%A8/" target="_blank" rel="noopener">谈谈 Java Intrumentation 和相关应用</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 以 VM 参数的形式载入, 其 jar 包的 MANIFEST.MF 文件需要配置属性 Premain-Class</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">premain</span><span class="params">(String agentArgs, Instrumentation inst)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 以 Attach 的方式载入, 在 Java 程序启动后执行, 其 jar 包的 MANIFEST.MF 文件需要配置属性 Agent-Class</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">agentmain</span><span class="params">(String agentArgs, Instrumentation inst)</span></span>;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>这里按照第一种方式举例说明, 首先创建一个 InstrumentationPremainTest 类, 实现 premain() 方法, 如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InstrumentationPremainTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 每一个类加载的时候都会回调此方法, 再通过 ClassFileTransformer 的 transform 方法进行拦截处理</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">premain</span><span class="params">(String agentArgs, Instrumentation inst)</span> </span>&#123;</span><br><span class="line">        inst.addTransformer(<span class="keyword">new</span> ClassFileTransformerTest());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="对加载的类进行拦截处理"><a href="#对加载的类进行拦截处理" class="headerlink" title="对加载的类进行拦截处理"></a>对加载的类进行拦截处理</h1><p>对加载的类进行拦截需要实现 ClassFileTransformer 的 transform 方法, 这里实现对 <code>com.example</code> (创建另外一个测试项目的时候包名和这里一样即可, 或者更改这里检测包名的代码也是可以的) 包下面的所有类的方法进行拦截, 并使用 Javassist 技术修改字节码, 再方法体的前后各输出一句日志, 具体实现如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassFileTransformerTest</span> <span class="keyword">implements</span> <span class="title">ClassFileTransformer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">byte</span>[] transform(ClassLoader loader, String className, Class&lt;?&gt; classBeingRedefined,</span><br><span class="line">                            ProtectionDomain protectionDomain,</span><br><span class="line">                            <span class="keyword">byte</span>[] classfileBuffer) <span class="keyword">throws</span> IllegalClassFormatException &#123;</span><br><span class="line">        <span class="keyword">if</span> (!className.startsWith(<span class="string">"com/example"</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            log.info(<span class="string">"className = &#123;&#125;"</span>, className);</span><br><span class="line"></span><br><span class="line">            String fullClassName = className.replace(<span class="string">"/"</span>, <span class="string">"."</span>);</span><br><span class="line">            log.info(<span class="string">"fullClassName = &#123;&#125;"</span>, fullClassName);</span><br><span class="line"></span><br><span class="line">            ClassPool classPool = ClassPool.getDefault();</span><br><span class="line">            log.info(<span class="string">"classPool = &#123;&#125;"</span>, <span class="string">"classPool"</span>);</span><br><span class="line">            CtClass ctClass = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                ctClass = classPool.get(fullClassName);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (NotFoundException e) &#123;</span><br><span class="line">                <span class="comment">// Spring 框架很有可能对我们的类进行扩展生成代理类, 这种情况下会出现找不到对应的 class 文件, 会出现 NotFoundException</span></span><br><span class="line">                <span class="comment">// 例如 com/example/javaagent/JavaagentApplication$$EnhancerBySpringCGLIB$$b02db345</span></span><br><span class="line">                <span class="comment">// com.example.javaagent.JavaagentApplication$$EnhancerBySpringCGLIB$$b02db345</span></span><br><span class="line">                <span class="comment">// 可以直接读取 classfileBuffer, 直接通过类的字节码创建CtClass对象, 或者简单点直接通过判断是否包含有 $ 符号直接判定</span></span><br><span class="line">                <span class="keyword">try</span> (ByteArrayInputStream byteArrayInputStream = <span class="keyword">new</span> ByteArrayInputStream(classfileBuffer)) &#123;</span><br><span class="line">                    ctClass = classPool.makeClass(byteArrayInputStream);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">                    log.error(<span class="string">"exception = &#123;&#125;, error = &#123;&#125;"</span>, <span class="string">"IOException"</span>, ex);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 接口类不做处理</span></span><br><span class="line">            <span class="keyword">if</span> (ctClass == <span class="keyword">null</span> || ctClass.isInterface()) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 在原方法体前面和后面添加代码</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Object[] annotations = ctClass.getAnnotations();</span><br><span class="line">                log.info(<span class="string">"className = &#123;&#125;, annotations = &#123;&#125;"</span>, className, Arrays.toString(annotations));</span><br><span class="line">                CtMethod[] methods = ctClass.getDeclaredMethods();</span><br><span class="line">                <span class="keyword">for</span> (CtMethod ctMethod : methods) &#123;</span><br><span class="line">                    log.info(<span class="string">"className = &#123;&#125;, methodName = &#123;&#125;"</span>, className, ctMethod.getName());</span><br><span class="line">                    ctMethod.insertBefore(<span class="string">"System.out.println(\""</span> + className + <span class="string">" transform begin...\");"</span>);</span><br><span class="line">                    ctMethod.insertAfter(<span class="string">"System.out.println(\""</span> + className + <span class="string">" transform end...\");"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> ctClass.toBytecode();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (CannotCompileException | IOException e) &#123;</span><br><span class="line">                log.error(<span class="string">"exception = &#123;&#125;, error = &#123;&#125;"</span>, <span class="string">"CannotCompileException"</span>, e);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">                log.warn(<span class="string">"Slf4j 类不存在"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                <span class="comment">// 清除缓存</span></span><br><span class="line">                ctClass.detach();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="添加的依赖"><a href="#添加的依赖" class="headerlink" title="添加的依赖"></a>添加的依赖</h1><p>测试中使用的依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.16.20<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>slf4j-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.7.25<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.javassist<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javassist<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.25.0-GA<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="打包依赖"><a href="#打包依赖" class="headerlink" title="打包依赖"></a>打包依赖</h1><p>由于 Java Agent 需要打包成 jar 包, 使用了 maven-assembly-plugin 插件进行打包, 同时需要在项目的 MANIFEST.MF 需要指定 Premain-Class 的路径, 这个文件可以自己手动去添加, 这里统一使用 maven-assembly-plugin 插件在打包的时候去生成, 同时这个项目依赖的第三方 jar 要一起打包进去 Java Agent jar 包才能正确的运行, 需要为插件添加 <code>&lt;descriptorRefs&gt;&lt;descriptorRef&gt;jar-with-dependencies&lt;/descriptorRef&gt;&lt;/descriptorRefs&gt;</code> 配置, 将依赖的 jar 包添加进去, 全部插件的配置如下</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-assembly-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- get all project dependencies --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">descriptorRefs</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">descriptorRef</span>&gt;</span>jar-with-dependencies<span class="tag">&lt;/<span class="name">descriptorRef</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">descriptorRefs</span>&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">&lt;!-- MainClass in mainfest make a executable jar --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">archive</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">manifestEntries</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">Project-name</span>&gt;</span>$&#123;project.name&#125;<span class="tag">&lt;/<span class="name">Project-name</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">Project-version</span>&gt;</span>$&#123;project.version&#125;<span class="tag">&lt;/<span class="name">Project-version</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">Premain-Class</span>&gt;</span>com.example.javaagent.InstrumentationPremainTest<span class="tag">&lt;/<span class="name">Premain-Class</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">Can-Redefine-Classes</span>&gt;</span>true<span class="tag">&lt;/<span class="name">Can-Redefine-Classes</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">Can-Retransform-Classes</span>&gt;</span>true<span class="tag">&lt;/<span class="name">Can-Retransform-Classes</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">manifestEntries</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">archive</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- bind to the packaging phase --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">id</span>&gt;</span>make-assembly<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">goal</span>&gt;</span>single<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="查看-JAR-包中的-MANIFEST-MF-文件"><a href="#查看-JAR-包中的-MANIFEST-MF-文件" class="headerlink" title="查看 JAR 包中的 MANIFEST.MF 文件"></a>查看 JAR 包中的 MANIFEST.MF 文件</h1><p>打包好成 jar 包后, 可以去查看 MANIFEST.MF 文件是否写入了 Premain-Class 信息, 如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Manifest-Version: 1.0</span><br><span class="line">Archiver-Version: Plexus Archiver</span><br><span class="line">Created-By: Apache Maven</span><br><span class="line">Built-By: lpw</span><br><span class="line">Build-Jdk: 1.8.0_101</span><br><span class="line">Can-Redefine-Classes: true</span><br><span class="line">Can-Retransform-Classes: true</span><br><span class="line">Premain-Class: com.example.javaagent.InstrumentationPremainTest</span><br><span class="line">Project-name: javaagentpackage</span><br><span class="line">Project-version: 1.0</span><br></pre></td></tr></table></figure>
+<h1 id="开始测试"><a href="#开始测试" class="headerlink" title="开始测试"></a>开始测试</h1><p>创建另外一个基于 Spring 框架的 JavaWeb 项目, 为了测试, 包名设置为 <code>com.example.javaagent</code>, 在 JVM 启动参数后面添加 <code>-javaanget:/path/xxx.jar</code> 指定使用 Java Agent 生成的 jar 包, 在 windows 上测试的添加的路径如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-javaagent:D:/Work/hello-grpc/javaagentpackage/target/javaagentpackage-jar-with-dependencies.jar</span><br></pre></td></tr></table></figure>
+<p>创建一个测试类, 如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JavaAgentController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/java/agent/test"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">javaAgentTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"java agent test..."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>启动项目, 开始访问 <code>/java/agent/test</code>, 在控制台就能看到如下日志, 说明 Java Agent 对依赖项目中的类的修改是生效的, 输出如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">com/example/javaagent/JavaAgentController transform begin...</span><br><span class="line">[nio-8080-exec-1] c.example.javaagent.JavaAgentController  : java agent test...</span><br><span class="line">com/example/javaagent/JavaAgentController transform end...</span><br></pre></td></tr></table></figure>
+<h1 id="Java-Agent-应用范围"><a href="#Java-Agent-应用范围" class="headerlink" title="Java Agent 应用范围"></a>Java Agent 应用范围</h1><p>Java Agent 技术应用范围有很多, 常用于系统的监控等诊断工具, 如 Greys (以 Attach 方式载入), 阿里开源的 TProfiler (以 VM 参数的形式载入) 和 Arthas (基于 Greys 二次开发, 以 Attach 方式载入) 和 MyPerf4j (以 VM 参数的形式载入) 等诊断工具, 也应用于热部署领域, 如 JRebel, Spring Loader 等</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://blog.csdn.net/productshop/article/details/50623626" target="_blank" rel="noopener">Java Instrumentation</a></li>
+<li><a href="http://fanyilun.me/2017/07/18/%E8%B0%88%E8%B0%88Java%20Intrumentation%E5%92%8C%E7%9B%B8%E5%85%B3%E5%BA%94%E7%94%A8/" target="_blank" rel="noopener">谈谈 Java Intrumentation 和相关应用</a></li>
+<li><a href="https://ouyblog.com/2019/03/%E5%9F%BA%E4%BA%8EJava-Agent%E4%B8%8EJavassist%E5%AE%9E%E7%8E%B0%E9%9B%B6%E4%BE%B5%E5%85%A5AOP" target="_blank" rel="noopener">基于 Java Agent 与 Javassist 实现零侵入 AOP</a></li>
+<li><a href="http://erhu.party/2016/11/17/javassist-turorial-1/" target="_blank" rel="noopener">Javassist 使用指南(一)</a></li>
+<li><a href="http://erhu.party/2016/11/23/javassist-turorial-2/" target="_blank" rel="noopener">Javassist 使用指南(二)</a></li>
+<li><a href="http://erhu.party/2016/11/23/javassist-tutorial-3/" target="_blank" rel="noopener">Javassist 使用指南(三)</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center; color: #ccc; font-size:14px;"> 本文结束，感谢您的阅读! </div>
+    
+</div>
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong> 牧羊の人～
+        </li>
+
+        <li class="post-copyright-link">
+            <strong>本文标题：</strong> Java-JavaAgent技术的基础使用
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="/2019/05/27/Java-JavaAgent技术的基础使用/" title="Java-JavaAgent技术的基础使用">2019/05/27/Java-JavaAgent技术的基础使用/</a>
+        </li>
+
+        <li class="post-copyright-license">
+          <strong>版权声明：</strong>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+      
+      </div>
+
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/23/Java-Java单例模式总结/" rel="next" title="Java-Java单例模式总结">
+                <i class="fa fa-chevron-left"></i> Java-Java单例模式总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">牧羊の人～</p>
+              <p class="site-description motion-element" itemprop="description">记录学习的点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">156</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实现-Agent-类"><span class="nav-number">1.</span> <span class="nav-text">实现 Agent 类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对加载的类进行拦截处理"><span class="nav-number">2.</span> <span class="nav-text">对加载的类进行拦截处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加的依赖"><span class="nav-number">3.</span> <span class="nav-text">添加的依赖</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#打包依赖"><span class="nav-number">4.</span> <span class="nav-text">打包依赖</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查看-JAR-包中的-MANIFEST-MF-文件"><span class="nav-number">5.</span> <span class="nav-text">查看 JAR 包中的 MANIFEST.MF 文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开始测试"><span class="nav-number">6.</span> <span class="nav-text">开始测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-Agent-应用范围"><span class="nav-number">7.</span> <span class="nav-text">Java Agent 应用范围</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">8.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">牧羊の人～</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
