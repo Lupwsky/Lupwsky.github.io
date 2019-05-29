@@ -4,10 +4,10 @@
 
 
 <html class="theme-next mist" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
 
 
@@ -18,8 +18,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -38,7 +38,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -46,9 +46,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -118,7 +118,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/10/SpringBoot-加载JAR包外面的页面和静态资源文件/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/03/10/SpringBoot-加载JAR包外面的页面和静态资源文件/">
 
 
 
@@ -152,7 +152,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">技术小站</span>
         <span class="logo-line-after"><i></i></span>
@@ -182,7 +182,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -192,7 +192,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -202,7 +202,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -212,7 +212,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
             关于
           </a>
@@ -255,7 +255,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -291,7 +291,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -345,7 +345,7 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-thymeleaf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <p>接着在 application.properties 中添加如下 thymeleaf 配置:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">spring.application.name=location</span><br><span class="line">server.port=8880</span><br><span class="line"></span><br><span class="line"><span class="comment">### thymeleaf 相关配置 ###</span></span><br><span class="line">spring.thymeleaf.prefix=classpath:/templates/</span><br><span class="line">spring.thymeleaf.suffix=.html</span><br><span class="line">spring.thymeleaf.mode=HTML</span><br><span class="line">spring.thymeleaf.encoding=UTF-8</span><br><span class="line">spring.thymeleaf.servlet.content-type=text/html</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭缓存, 方便在本地调试, Build 一下即可即时刷新页面, 生产环境应改为 true</span></span><br><span class="line">spring.thymeleaf.cache=false</span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring.application.name</span>=location</span><br><span class="line"><span class="attr">server.port</span>=<span class="number">8880</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### thymeleaf 相关配置 ###</span></span><br><span class="line"><span class="attr">spring.thymeleaf.prefix</span>=classpath:/templates/</span><br><span class="line"><span class="attr">spring.thymeleaf.suffix</span>=.html</span><br><span class="line"><span class="attr">spring.thymeleaf.mode</span>=HTML</span><br><span class="line"><span class="attr">spring.thymeleaf.encoding</span>=UTF-<span class="number">8</span></span><br><span class="line"><span class="attr">spring.thymeleaf.servlet.content-type</span>=text/html</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭缓存, 方便在本地调试, Build 一下即可即时刷新页面, 生产环境应改为 true</span></span><br><span class="line"><span class="attr">spring.thymeleaf.cache</span>=<span class="literal">false</span></span><br></pre></td></tr></table></figure>
 <p>在 resource 的 templates 目录下添加 hello.heml 和 error.html 页面, 里面的内容如下:</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns</span>=<span class="string">"http://www.w3.org/1999/xhtml"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">xmlns:th</span>=<span class="string">"http://www.thymeleaf.org"</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"renderer"</span> <span class="attr">content</span>=<span class="string">"webkit"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>首页<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"shortcut icon"</span> <span class="attr">th:href</span>=<span class="string">"@&#123;/favicon.ico&#125;"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">style</span>=<span class="string">"overflow:hidden"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    正常访问页面~~, 嘿嘿</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns</span>=<span class="string">"http://www.w3.org/1999/xhtml"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">xmlns:th</span>=<span class="string">"http://www.thymeleaf.org"</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"renderer"</span> <span class="attr">content</span>=<span class="string">"webkit"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>首页<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"shortcut icon"</span> <span class="attr">th:href</span>=<span class="string">"@&#123;/favicon.ico&#125;"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">style</span>=<span class="string">"overflow:hidden"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    您访问的页面不存在~~</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -353,16 +353,16 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RouterController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(value = <span class="string">"/error"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">error</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"/error"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(value = <span class="string">"/location/templates/test"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">templatesTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"hello"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>启动项目, 输入 <code>localhost:8880/location/templates/test</code> 即可看到访问到的页面, 里面显示了 <code>正常访问页面~~, 嘿嘿</code> 内容, 接着在 resourdes 目录下的 static 放入一张 test.png, 接着访问 <code>localhost:8880/test.png</code> 就可以顺利的在浏览器看见图片</p>
 <h1 id="使用-JAR-包外部静态资源文件"><a href="#使用-JAR-包外部静态资源文件" class="headerlink" title="使用 JAR 包外部静态资源文件"></a>使用 JAR 包外部静态资源文件</h1><p>Spring Boot 支持将这些资源文件放到 jar 包外面并访问, 先实现如何访问 static 目录下的静态文件, 在 application.properties 加入如下配置项, 配置多个可使用逗号分隔:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// (1) 当前 jar 包同一级的 static 目录可以这样配置 = file:./static</span><br><span class="line">// (2) 使用 classpath 的其他目录的配置 = file:classpath:/other</span><br><span class="line">// (3) 使用这个配置后就不能访问到 resource/static 下的静态文件了</span><br><span class="line">spring.resources.static-locations=file:C:/Users/lpw/Desktop/static/,file:C:/Users/lpw/Desktop/static-bk/</span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// (1) 当前 jar 包同一级的 static 目录可以这样配置 = file:./static</span><br><span class="line">// (2) 使用 classpath 的其他目录的配置 = file:classpath:/other</span><br><span class="line">// (3) 使用这个配置后就不能访问到 resource/static 下的静态文件了</span><br><span class="line"><span class="attr">spring.resources.static-locations</span>=file:C:/Users/lpw/Desktop/static/,file:C:/Users/lpw/Desktop/static-bk/</span><br></pre></td></tr></table></figure>
 <p>将 test.png 文件放入, 并删除 resouorces/static 目录下的 test.png, 然后启动项目, 在浏览器输入 <code>localhost:8880/test.png</code> 就能访问到 test.png 了, 还可以设置能访问静态资源文件的 URL 匹配规则, 只有相匹配的才能访问到静态资源文件,  不匹配的则返回错误页面, 加入如下配置项, <code>这里不能配置多个, 配置多个无效</code>:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /* 只匹配一级, /** 可匹配多级</span></span><br><span class="line">spring.mvc.static-path-pattern=/images/**</span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /* 只匹配一级, /** 可匹配多级</span></span><br><span class="line"><span class="attr">spring.mvc.static-path-pattern</span>=/images/**</span><br></pre></td></tr></table></figure>
 <p>上面实现的效果和使用如下代码配置是一样的效果的:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyWebAppConfigurer</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> </span>&#123;</span><br><span class="line">        registry.addResourceHandler(<span class="string">"/images/**"</span>).addResourceLocations(<span class="string">"file:C:/Users/lpw/Desktop/static/"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>如果是前端页面想随时的修改静态文件, 个人建议是将这些静态文件放在文件服务器上, 页面中使用这些文件直接使用文件在文件服务器上的 URL 即可</code></p>
 <h1 id="使用-JAR-包外部模板文件"><a href="#使用-JAR-包外部模板文件" class="headerlink" title="使用 JAR 包外部模板文件"></a>使用 JAR 包外部模板文件</h1><h2 id="Thymeleaf-模板文件"><a href="#Thymeleaf-模板文件" class="headerlink" title="Thymeleaf 模板文件"></a>Thymeleaf 模板文件</h2><p>将 Thymeleaf 模板文件配置到 jar 包的外面, 在网上没有找到配置的方法……, 似乎是不能配置的, 暂时不清楚, 在网上查找资料的时候, 找到一个解决使用 Thymeleaf 开发时跳转查看资源文件的问题方法, 可以用下面的写法解决,  :</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"../static/js/html2canvas.min.js"</span> <span class="attr">th:src</span>=<span class="string">"@&#123;/js/html2canvas.min.js&#125;"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"../static/js/jquery-1.9.1.min.js"</span> <span class="attr">th:src</span>=<span class="string">"@&#123;/js/jquery-1.9.1.min.js&#125;"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h2 id="Freemarker-模板文件"><a href="#Freemarker-模板文件" class="headerlink" title="Freemarker 模板文件"></a>Freemarker 模板文件</h2><p>参考这篇文章里面的配置方法: <a href="http://www.sandc.software/blog/how-to-load-freemarker-templates-from-external-file-system-folder-with-spring-boot/" target="_blank" rel="noopener">http://www.sandc.software/blog/how-to-load-freemarker-templates-from-external-file-system-folder-with-spring-boot/</a></p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 热检测从文件系统加载的模板文件中的更改, 通常不需要设置, 因为默认的是 true</span></span><br><span class="line">spring.freemarker.prefer-file-system-access=true</span><br><span class="line"><span class="comment"># 多个路径可以使用逗号分隔</span></span><br><span class="line">spring.freemarker.template-loader-path=file:C:/Users/v_pwlu/Desktop/templates/</span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 热检测从文件系统加载的模板文件中的更改, 通常不需要设置, 因为默认的是 true</span></span><br><span class="line"><span class="attr">spring.freemarker.prefer-file-system-access</span>=<span class="literal">true</span></span><br><span class="line"><span class="comment"># 多个路径可以使用逗号分隔</span></span><br><span class="line"><span class="attr">spring.freemarker.template-loader-path</span>=file:C:/Users/v_pwlu/Desktop/templates/</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -514,7 +514,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">156</span>
+                  <span class="site-state-item-count">157</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

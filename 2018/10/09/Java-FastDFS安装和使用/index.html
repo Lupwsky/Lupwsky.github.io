@@ -4,10 +4,10 @@
 
 
 <html class="theme-next mist" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
 
 
@@ -18,8 +18,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -38,7 +38,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -46,9 +46,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -121,7 +121,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/09/Java-FastDFS安装和使用/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/10/09/Java-FastDFS安装和使用/">
 
 
 
@@ -155,7 +155,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">技术小站</span>
         <span class="logo-line-after"><i></i></span>
@@ -185,7 +185,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -195,7 +195,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -205,7 +205,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -215,7 +215,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
             关于
           </a>
@@ -258,7 +258,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -294,7 +294,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -356,12 +356,12 @@
 <p>这些文件都带有了 .sample 后缀, 这是作者给的示例配置文件, 这里我们复制这些文件:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[lupw@localhost fdfs]$ sudo cp client.conf.sample client.conf</span><br><span class="line">[lupw@localhost fdfs]$ sudo cp storage.conf.sample storage.conf</span><br><span class="line">[lupw@localhost fdfs]$ sudo cp storage_ids.conf.sample storage_ids.conf</span><br><span class="line">[lupw@localhost fdfs]$ sudo cp tracker.conf.sample tracker.conf</span><br></pre></td></tr></table></figure>
 <p>编辑 tracker.conf 文件, 这里简单配置一下, 主要配置 tracker 的数据日志路径 (网上有文章称这里指向的路径都必须要已经存在? 我没有试过) 和 HTTP 请求端口</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置 tracker 的数据文件和日志目录</span></span><br><span class="line"><span class="attr">base_path</span>=/home/lupw/FastDFS/data/tracker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 http 端口号, 默认为 8080, 因为 tomcat 在使用, 这里我改动一下</span></span><br><span class="line">http.server_port=88</span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置 tracker 的数据文件和日志目录</span></span><br><span class="line"><span class="attr">base_path</span>=/home/lupw/FastDFS/data/tracker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 http 端口号, 默认为 8080, 因为 tomcat 在使用, 这里我改动一下</span></span><br><span class="line"><span class="attr">http.server_port</span>=<span class="number">88</span></span><br></pre></td></tr></table></figure>
 <h2 id="启动Tracker"><a href="#启动Tracker" class="headerlink" title="启动Tracker"></a>启动Tracker</h2><p>修改好 Tracker 的配置文件后, 使用以下指令启动:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 启动</span><br><span class="line"><span class="meta">#</span> /usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf start</span><br><span class="line">[lupw@localhost ~]$ sudo service fdfs_trackerd start</span><br><span class="line">Starting fdfs_trackerd (via systemctl):                    [  OK  ]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查询是否启动</span><br><span class="line">[lupw@localhost ~]$ sudo netstat -unltp|grep fdfs</span><br><span class="line">tcp        0      0 0.0.0.0:22122           0.0.0.0:*               LISTEN      21812/fdfs_trackerd</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 停止</span><br><span class="line">[lupw@localhost ~]$ sudo service fdfs_trackerd stop</span><br><span class="line">Stopping fdfs_trackerd (via systemctl):                    [  OK  ]</span><br></pre></td></tr></table></figure>
 <p>启动成功后, 可以在 <code>/home/lupw/FastDFS/data/tracker</code> 看到生成了 data 和 logs 目录, data 目录下有一个 fdfs_trackered.pid 记载了当前 tracker 启动时占用的 pid</p>
 <h2 id="配置Storage"><a href="#配置Storage" class="headerlink" title="配置Storage"></a>配置Storage</h2><p>编辑 <code>/etc/fdfs/storage.config</code> 配置文件, 这里主要配置 storage 的数据日志路径, HTTP 的请求端口和实际存放文件的路径 (网上有文章称这里指向的路径都必须要已经存在? 我没有试过)</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># group name, 根据实际情况修改</span></span><br><span class="line"><span class="attr">group_name</span>=group1  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 storage 的端口号, 默认是 23000, 同一个组的 storage 端口号必须一致</span></span><br><span class="line"><span class="attr">port</span>=<span class="number">23000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 storage 数据文件和日志目录</span></span><br><span class="line"><span class="attr">base_path</span>=/home/lupw/FastDFS/data/storage</span><br><span class="line"></span><br><span class="line"><span class="comment"># 存储路径个数，需要和 store_path 个数匹配</span></span><br><span class="line"><span class="attr">store_path_count</span>=<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 实际文件存储路径</span></span><br><span class="line"><span class="attr">store_path0</span>=/home/lupw/FastDFS/data/storage_data</span><br><span class="line"></span><br><span class="line"><span class="comment">#tracker 服务器的 IP地址和端口号</span></span><br><span class="line"><span class="attr">tracker_server</span>=<span class="number">192.168</span>.<span class="number">80.131</span>:<span class="number">22122</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 HTTP 端口号, 默认是 8888</span></span><br><span class="line">http.server_port=8888</span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># group name, 根据实际情况修改</span></span><br><span class="line"><span class="attr">group_name</span>=group1  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 storage 的端口号, 默认是 23000, 同一个组的 storage 端口号必须一致</span></span><br><span class="line"><span class="attr">port</span>=<span class="number">23000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 storage 数据文件和日志目录</span></span><br><span class="line"><span class="attr">base_path</span>=/home/lupw/FastDFS/data/storage</span><br><span class="line"></span><br><span class="line"><span class="comment"># 存储路径个数，需要和 store_path 个数匹配</span></span><br><span class="line"><span class="attr">store_path_count</span>=<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 实际文件存储路径</span></span><br><span class="line"><span class="attr">store_path0</span>=/home/lupw/FastDFS/data/storage_data</span><br><span class="line"></span><br><span class="line"><span class="comment">#tracker 服务器的 IP地址和端口号</span></span><br><span class="line"><span class="attr">tracker_server</span>=<span class="number">192.168</span>.<span class="number">80.131</span>:<span class="number">22122</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 HTTP 端口号, 默认是 8888</span></span><br><span class="line"><span class="attr">http.server_port</span>=<span class="number">8888</span></span><br></pre></td></tr></table></figure>
 <h2 id="启动Storage"><a href="#启动Storage" class="headerlink" title="启动Storage"></a>启动Storage</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 启动</span><br><span class="line">[sudo] password for lupw:</span><br><span class="line">Starting fdfs_storaged (via systemctl):                    [  OK  ]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查看是否启动</span><br><span class="line">[lupw@localhost ~]$ sudo netstat -unltp|grep fdfs</span><br><span class="line">tcp        0      0 0.0.0.0:22122           0.0.0.0:*               LISTEN      29126/fdfs_trackerd </span><br><span class="line">tcp        0      0 0.0.0.0:23000           0.0.0.0:*               LISTEN      80085/fdfs_storaged</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 关闭</span><br><span class="line">[lupw@localhost ~]$ sudo service fdfs_storaged stop</span><br><span class="line">Stopping fdfs_storaged (via systemctl):                    [  OK  ]</span><br></pre></td></tr></table></figure>
 <p>启动成功后会看到 <code>/home/lupw/FastDFS/data/storage</code> 路径下看到生成的 data 和 logs 目录, <code>/home/lupw/FastDFS/data/storage_data</code> 路径下看到存放文件的路径, 如下图:</p>
 <p><img src="/2018/10/09/Java-FastDFS安装和使用/20180929150027.png"></p>
@@ -369,7 +369,7 @@
 <p>ip_addr = 192.168.80.131  ACTIVE 表示已经成功登记到 traeker 服务器了</p>
 <h2 id="开机启动"><a href="#开机启动" class="headerlink" title="开机启动"></a>开机启动</h2><p>在 <code>/etc/rc.d/rc.local</code> 分别依次添加 <code>service fdfs_trackered start</code> 和 <code>service fdfs_storaged start</code> 即可</p>
 <h1 id="上传测试"><a href="#上传测试" class="headerlink" title="上传测试"></a>上传测试</h1><p>使用 fdfs_upload_file 指令测试上传需设置客户端的配置文件, 编辑 <code>/etc/fdfs/client.conf</code> 文件, 主要修改的配置如下:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># tracker 服务器文件路径</span></span><br><span class="line"><span class="attr">base_path</span>=/home/lupw/FastDFS/data/tracker</span><br><span class="line"></span><br><span class="line"><span class="comment"># tracker 服务器 IP 地址和端口号</span></span><br><span class="line"><span class="attr">tracker_server</span>=<span class="number">192.168</span>.<span class="number">80.131</span>:<span class="number">22122</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># tracker 服务器的 HTTP 端口号, 必须和 tracker 的配置文件中的对应起来</span></span><br><span class="line">http.tracker_server_port=88</span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># tracker 服务器文件路径</span></span><br><span class="line"><span class="attr">base_path</span>=/home/lupw/FastDFS/data/tracker</span><br><span class="line"></span><br><span class="line"><span class="comment"># tracker 服务器 IP 地址和端口号</span></span><br><span class="line"><span class="attr">tracker_server</span>=<span class="number">192.168</span>.<span class="number">80.131</span>:<span class="number">22122</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># tracker 服务器的 HTTP 端口号, 必须和 tracker 的配置文件中的对应起来</span></span><br><span class="line"><span class="attr">http.tracker_server_port</span>=<span class="number">88</span></span><br></pre></td></tr></table></figure>
 <p>配置完成后就可以使用如下指令测试了:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[lupw@localhost TempFile]$ /usr/bin/fdfs_upload_</span><br><span class="line">fdfs_upload_appender  fdfs_upload_file</span><br><span class="line"></span><br><span class="line">[lupw@localhost TempFile]$ /usr/bin/fdfs_upload_file /etc/fdfs/client.conf note.txt </span><br><span class="line">group1/M00/00/00/wKhQg1uvNcuAX0PhAAAADQOSefQ788.txt</span><br></pre></td></tr></table></figure>
       
@@ -523,7 +523,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">156</span>
+                  <span class="site-state-item-count">157</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

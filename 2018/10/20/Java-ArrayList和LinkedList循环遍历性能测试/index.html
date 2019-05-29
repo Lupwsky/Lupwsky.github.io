@@ -4,10 +4,10 @@
 
 
 <html class="theme-next mist" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
 
 
@@ -18,8 +18,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -38,7 +38,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -46,9 +46,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -118,7 +118,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/20/Java-ArrayList和LinkedList循环遍历性能测试/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/10/20/Java-ArrayList和LinkedList循环遍历性能测试/">
 
 
 
@@ -152,7 +152,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">技术小站</span>
         <span class="logo-line-after"><i></i></span>
@@ -182,7 +182,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -192,7 +192,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -202,7 +202,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -212,7 +212,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
             关于
           </a>
@@ -255,7 +255,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -291,7 +291,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -350,12 +350,12 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 模拟 10w 数据</span></span><br><span class="line">    List&lt;DataNode&gt; dataNodeList1 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    List&lt;DataNode&gt; dataNodeList2 = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000000</span>; i++) &#123;</span><br><span class="line">        dataNodeList1.add(DataNode.builder().soc(i).build());</span><br><span class="line">        dataNodeList2.add(DataNode.builder().soc(i).build());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ArrayList 测试</span></span><br><span class="line">    DateTime startTime = DateTime.now();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; dataNodeList1.size(); i++) &#123;</span><br><span class="line">        dataNodeList1.get(i).setSoc(<span class="number">10000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    DateTime endTime = DateTime.now();</span><br><span class="line">    log.info(<span class="string">"[循环测试] ArrayList 的 for 循环, 花费时间 = &#123;&#125; ms"</span>,</span><br><span class="line">        endTime.getMillis() - startTime.getMillis());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// LinkedList 测试</span></span><br><span class="line">    startTime = DateTime.now();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; dataNodeList2.size(); i++) &#123;</span><br><span class="line">        dataNodeList2.get(i).setSoc(<span class="number">10000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    endTime = DateTime.now();</span><br><span class="line">    log.info(<span class="string">"[循环测试], LinkedList 的 for 循环, 花费时间 = &#123;&#125; ms"</span>,</span><br><span class="line">        endTime.getMillis() - startTime.getMillis());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>输出结果如下:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[循环测试] ArrayList 的 for 循环,  花费时间 = 34 ms</span><br><span class="line">[循环测试] LinkedList 的 for 循环, 花费时间 = 8441 ms</span><br><span class="line"></span><br><span class="line">// 100w 数据, LinkedList 的循环我等了近一个小时仍然没有遍历完</span><br><span class="line">[循环测试] ArrayList 的 for 循环,  花费时间 = 42 ms</span><br></pre></td></tr></table></figure>
-<p>可以看到 LinkedList 的效率是远低于 ArrayList 的, 主要是在 LinkedList 的 get 方法, LinkedList 需要不断的循环遍历获取值, 导致获取值耗时较多, 具体分析见 <a href="">Java-LinkedList源码分析</a> 一节的笔记</p>
+<p>可以看到 LinkedList 的效率是远低于 ArrayList 的, 主要是在 LinkedList 的 get 方法, LinkedList 需要不断的循环遍历获取值, 导致获取值耗时较多, 具体分析见 <a href>Java-LinkedList源码分析</a> 一节的笔记</p>
 <h2 id="Iterator-迭代器循环"><a href="#Iterator-迭代器循环" class="headerlink" title="Iterator 迭代器循环"></a>Iterator 迭代器循环</h2><p>迭代器是对 Collection 进行迭代的类, 用于循环取出集合元素并对元素进行操作, Collection 接口中定义了获取集合类迭代器的方法 iterator(),  所有的 Collection 体系集合都可以获取自身的迭代器, 使用迭代器可以在循环时添加, 删除和替换元素, 不需要和 for 循环一样维护一个显示的计数器, 当然缺点也是由于没有显示的计数器, 在需要获取元素下标的情况下, 需要自己维护一个计数器, 这里测试下在相同的条件下, 循环遍历 ArrayList 和 LinkedList 的效率, 测试代码如下:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">DateTime startTime = DateTime.now();</span><br><span class="line">DataNode dataNode;</span><br><span class="line">Iterator&lt;DataNode&gt; dataNodeIterator1 = dataNodeList1.iterator();</span><br><span class="line"><span class="keyword">while</span> (dataNodeIterator1.hasNext()) &#123;</span><br><span class="line">    dataNode = dataNodeIterator1.next();</span><br><span class="line">    dataNode.setSoc(<span class="number">10000</span>);</span><br><span class="line">&#125;</span><br><span class="line">DateTime endTime = DateTime.now();</span><br><span class="line">log.info(<span class="string">"[循环测试] ArrayList 的 Iterator 方式遍历, 花费时间 = &#123;&#125; ms"</span>,</span><br><span class="line">    endTime.getMillis() - startTime.getMillis());</span><br><span class="line"></span><br><span class="line">startTime = DateTime.now();</span><br><span class="line">DataNode dataNode2;</span><br><span class="line">Iterator&lt;DataNode&gt; dataNodeIterator2 = dataNodeList1.iterator();</span><br><span class="line"><span class="keyword">while</span> (dataNodeIterator2.hasNext()) &#123;</span><br><span class="line">    dataNode2 = dataNodeIterator2.next();</span><br><span class="line">    dataNode2.setSoc(<span class="number">10000</span>);</span><br><span class="line">&#125;</span><br><span class="line">endTime = DateTime.now();</span><br><span class="line">log.info(<span class="string">"[循环测试] LinkedList 的 Iterator 方式遍历, 花费时间 = &#123;&#125; ms"</span>,</span><br><span class="line">    endTime.getMillis() - startTime.getMillis());</span><br></pre></td></tr></table></figure>
 <p>输出结果如下:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 10w 数据</span><br><span class="line">[循环测试] ArrayList 的 Iterator 方式遍历, 花费时间 = 40 ms</span><br><span class="line">[循环测试] LinkedList 的 Iterator 方式遍历, 花费时间 = 2 ms</span><br><span class="line"></span><br><span class="line">// 100w 数据</span><br><span class="line">[循环测试] ArrayList 的 Iterator 方式遍历, 花费时间 = 45 ms</span><br><span class="line">[循环测试] LinkedList 的 Iterator 方式遍历, 花费时间 = 12 ms</span><br></pre></td></tr></table></figure>
-<p>使用迭代器的方式遍历, 很明显可以看到 LinkedList 的查询效率是得到明显的提升的, 具体见 <a href="">Java-ArrayList和LinkedList的迭代器源码分析</a></p>
+<p>使用迭代器的方式遍历, 很明显可以看到 LinkedList 的查询效率是得到明显的提升的, 具体见 <a href>Java-ArrayList和LinkedList的迭代器源码分析</a></p>
 <h2 id="forEach-循环"><a href="#forEach-循环" class="headerlink" title="forEach 循环"></a>forEach 循环</h2><p>forEach 循环本质上使用的也是迭代器, 因此循环速度也是很快的, 相比直接使用迭代器, forEach 语句的代码简洁, 且遍历速度和直接使用迭代差别微小, 缺点就是不能在迭代器循环时对数据进行添加, 删除, 替换元素的操作, 测试代码如下:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    List&lt;DataNode&gt; dataNodeList1 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    List&lt;DataNode&gt; dataNodeList2 = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000000</span>; i++) &#123;</span><br><span class="line">        dataNodeList1.add(DataNode.builder().soc(i).build());</span><br><span class="line">        dataNodeList2.add(DataNode.builder().soc(i).build());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    DateTime startTime = DateTime.now();</span><br><span class="line">    <span class="keyword">for</span> (DataNode dataNode : dataNodeList1) &#123;</span><br><span class="line">        dataNode.setSoc(<span class="number">10000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    DateTime endTime = DateTime.now();</span><br><span class="line">    log.info(<span class="string">"[循环测试] ArrayList 的 forEach 方式遍历, 花费时间 = &#123;&#125; ms"</span>,</span><br><span class="line">        endTime.getMillis() - startTime.getMillis());</span><br><span class="line"></span><br><span class="line">    startTime = DateTime.now();</span><br><span class="line">    <span class="keyword">for</span> (DataNode dataNode : dataNodeList2) &#123;</span><br><span class="line">        dataNode.setSoc(<span class="number">10000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    endTime = DateTime.now();</span><br><span class="line">    log.info(<span class="string">"[循环测试] LinkedList 的 forEach 方式遍历, 花费时间 = &#123;&#125; ms"</span>,</span><br><span class="line">        endTime.getMillis() - startTime.getMillis());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>输出结果如下:</p>
@@ -516,7 +516,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">156</span>
+                  <span class="site-state-item-count">157</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

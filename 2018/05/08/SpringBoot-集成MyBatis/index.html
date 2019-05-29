@@ -4,10 +4,10 @@
 
 
 <html class="theme-next mist" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
 
 
@@ -18,8 +18,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -38,7 +38,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -46,9 +46,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -120,7 +120,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/08/SpringBoot-集成MyBatis/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/08/SpringBoot-集成MyBatis/">
 
 
 
@@ -154,7 +154,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">技术小站</span>
         <span class="logo-line-after"><i></i></span>
@@ -184,7 +184,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -194,7 +194,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -204,7 +204,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -214,7 +214,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
             关于
           </a>
@@ -257,7 +257,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -293,7 +293,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -351,7 +351,7 @@
 <p>以 MessageDao 为例，代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MessageDao</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">insertNewMessage</span><span class="params">(JSONObject params)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">insertNewConsumer</span><span class="params">(JSONObject params)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">isConsumerExist</span><span class="params">(JSONObject params)</span></span>;</span><br><span class="line">    <span class="function">List&lt;JSONObject&gt; <span class="title">getConsumerList</span><span class="params">(String address)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>以 MessageDaoMapper.xml 为例，代码如下 (注意namespace和相应的dao接口一致)：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="meta">&lt;!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.mw.mq.dao.MessageDao"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertNewMessage"</span> <span class="attr">parameterType</span>=<span class="string">"com.alibaba.fastjson.JSONObject"</span>&gt;</span></span><br><span class="line">           insert into mq_db.message_record</span><br><span class="line">           (uuid, url, params, method, topic, topic_tag, topic_key, mq_code, mq_type, mq_msg, mq_master, msg_from)</span><br><span class="line">           values</span><br><span class="line">           (#&#123;uuid&#125;, #&#123;url&#125;, #&#123;params&#125;, #&#123;method&#125;, #&#123;topic&#125;, #&#123;topic_tag&#125;, #&#123;topic_key&#125;, #&#123;mq_code&#125;, #&#123;mq_type&#125;, #&#123;mq_msg&#125;, #&#123;mq_master&#125;, #&#123;msg_from&#125;);</span><br><span class="line">       <span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">&lt;!-- 其他SQL --&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.mw.mq.dao.MessageDao"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertNewMessage"</span> <span class="attr">parameterType</span>=<span class="string">"com.alibaba.fastjson.JSONObject"</span>&gt;</span></span><br><span class="line">           insert into mq_db.message_record</span><br><span class="line">           (uuid, url, params, method, topic, topic_tag, topic_key, mq_code, mq_type, mq_msg, mq_master, msg_from)</span><br><span class="line">           values</span><br><span class="line">           (#&#123;uuid&#125;, #&#123;url&#125;, #&#123;params&#125;, #&#123;method&#125;, #&#123;topic&#125;, #&#123;topic_tag&#125;, #&#123;topic_key&#125;, #&#123;mq_code&#125;, #&#123;mq_type&#125;, #&#123;mq_msg&#125;, #&#123;mq_master&#125;, #&#123;msg_from&#125;);</span><br><span class="line">       <span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">&lt;!-- 其他SQL --&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>在 Application 入口类上添加 @MapperScan 注解，自动扫描，代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span></span><br><span class="line"><span class="meta">@MapperScan</span>(<span class="string">"com.mw.mq.dao"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Logger logger = LogManager.getLogger(Main.class.getName());</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        SpringApplication springApplication = <span class="keyword">new</span> SpringApplication(Main.class);</span><br><span class="line">        springApplication.addListeners(<span class="keyword">new</span> ApplicationStarted());</span><br><span class="line">        springApplication.addListeners(<span class="keyword">new</span> ApplicationStoped());</span><br><span class="line">        springApplication.addListeners(<span class="keyword">new</span> ApplicationClosed());</span><br><span class="line">        springApplication.run(args);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 其他代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
@@ -505,7 +505,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">156</span>
+                  <span class="site-state-item-count">157</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

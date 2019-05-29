@@ -4,10 +4,10 @@
 
 
 <html class="theme-next mist" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
 
 
@@ -18,8 +18,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -38,7 +38,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -46,9 +46,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -118,7 +118,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/26/Spring-SpringBoot项目在配置文件中配置复杂类型属性值/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/01/26/Spring-SpringBoot项目在配置文件中配置复杂类型属性值/">
 
 
 
@@ -152,7 +152,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">技术小站</span>
         <span class="logo-line-after"><i></i></span>
@@ -182,7 +182,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -192,7 +192,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -202,7 +202,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -212,7 +212,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
             关于
           </a>
@@ -255,7 +255,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -291,7 +291,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -342,32 +342,32 @@
       
         <p>在项目中, 经常在 application.properties 配置文件中配置一些配置项, 然后在使用的时候用 @Value(value = “${propertiesName}”) 来注入, 但是这只是简单 String 类型,  下面记录下对于 Map, List 等这些复杂类型的配置方法</p>
 <h1 id="Map-lt-String-String-gt"><a href="#Map-lt-String-String-gt" class="headerlink" title="Map&lt;String, String&gt;"></a>Map&lt;String, String&gt;</h1><p>定义属性值:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意在 Java 配置类中的峰驼式风格属性名不能使用点分隔, 如 spring.datasource.crm.properties 在这个例子中就会报错</span></span><br><span class="line">spring.datasource.crm-properties.url=HTM0</span><br><span class="line">spring.datasource.crm-properties.username=NAME0</span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意在 Java 配置类中的峰驼式风格属性名不能使用点分隔, 如 spring.datasource.crm.properties 在这个例子中就会报错</span></span><br><span class="line"><span class="attr">spring.datasource.crm-properties.url</span>=HTM0</span><br><span class="line"><span class="attr">spring.datasource.crm-properties.username</span>=NAME0</span><br></pre></td></tr></table></figure>
 <p>对应的配置类:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"spring.datasource"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MultiProperties</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 和配置文件中的属性名名 crm-properties 对应</span></span><br><span class="line">    <span class="keyword">private</span> Map&lt;String, String&gt; crmProperties;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <p>使用方法:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 需要注入 MultiProperties 类型 Bean 的类上添加 @EnableConfigurationPropertie 注解</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties</span>(value = MultiProperties.class)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注入</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> MultiProperties multiProperties;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取注入的属性值</span></span><br><span class="line">Map&lt;String, String&gt; map = multiProperties.getCrmProperties();</span><br><span class="line">log.info(<span class="string">"key = &#123;&#125;, value = &#123;&#125;"</span>, map.get(<span class="string">"url"</span>), map.get(<span class="string">"username"</span>));</span><br></pre></td></tr></table></figure>
 <h1 id="Map-lt-String-Object-gt"><a href="#Map-lt-String-Object-gt" class="headerlink" title="Map&lt;String, Object&gt;"></a>Map&lt;String, Object&gt;</h1><p>定义属性值:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">spring.datasource.crm-properties[key0].url=HTM0</span><br><span class="line">spring.datasource.crm-properties[key0].username=NAME0</span><br><span class="line">spring.datasource.crm-properties[key1].url=HTM1</span><br><span class="line">spring.datasource.crm-properties[key1].username=NAME1</span><br><span class="line">spring.datasource.crm-properties[key2].url=HTM2</span><br><span class="line">spring.datasource.crm-properties[key2].username=NAME2</span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring.datasource.crm-properties[key0].url</span>=HTM0</span><br><span class="line"><span class="attr">spring.datasource.crm-properties[key0].username</span>=NAME0</span><br><span class="line"><span class="attr">spring.datasource.crm-properties[key1].url</span>=HTM1</span><br><span class="line"><span class="attr">spring.datasource.crm-properties[key1].username</span>=NAME1</span><br><span class="line"><span class="attr">spring.datasource.crm-properties[key2].url</span>=HTM2</span><br><span class="line"><span class="attr">spring.datasource.crm-properties[key2].username</span>=NAME2</span><br></pre></td></tr></table></figure>
 <p>对应的配置类:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"spring.datasource"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MultiProperties</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Map&lt;String, DataSourceProperties&gt; crmProperties;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DataSourceProperties</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String url;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>使用方法:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 需要注入 MultiProperties 类型 Bean 的类上添加 @EnableConfigurationPropertie 注解</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties</span>(value = MultiProperties.class)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注入</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> MultiProperties multiProperties;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取注入的属性值</span></span><br><span class="line">Map&lt;String, DataSourceProperties&gt; maps = multiProperties.getCrmProperties();</span><br><span class="line">DataSourceProperties dataSourceProperties0 = maps.get(key0);</span><br><span class="line">DataSourceProperties dataSourceProperties1 = maps.get(key1);</span><br><span class="line">DataSourceProperties dataSourceProperties2 = maps.get(key2);</span><br></pre></td></tr></table></figure>
 <h1 id="List-lt-Map-lt-String-String-gt-gt"><a href="#List-lt-Map-lt-String-String-gt-gt" class="headerlink" title="List&lt;Map&lt;String, String&gt;&gt;"></a>List&lt;Map&lt;String, String&gt;&gt;</h1><p>定义属性值:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">spring.datasource.crm-properties[0].url=HTM0</span><br><span class="line">spring.datasource.crm-properties[0].username=NAME0</span><br><span class="line">spring.datasource.crm-properties[1].url=HTM1</span><br><span class="line">spring.datasource.crm-properties[1].username=NAME1</span><br><span class="line">spring.datasource.crm-properties[2].url=HTM2</span><br><span class="line">spring.datasource.crm-properties[2].username=NAME2</span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring.datasource.crm-properties[0].url</span>=HTM0</span><br><span class="line"><span class="attr">spring.datasource.crm-properties[0].username</span>=NAME0</span><br><span class="line"><span class="attr">spring.datasource.crm-properties[1].url</span>=HTM1</span><br><span class="line"><span class="attr">spring.datasource.crm-properties[1].username</span>=NAME1</span><br><span class="line"><span class="attr">spring.datasource.crm-properties[2].url</span>=HTM2</span><br><span class="line"><span class="attr">spring.datasource.crm-properties[2].username</span>=NAME2</span><br></pre></td></tr></table></figure>
 <p>对应的配置类:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"spring.datasource"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MultiProperties</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> List&lt;Map&lt;String, String&gt;&gt; crmProperties;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>使用方法:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 需要注入 MultiProperties 类型 Bean 的类上添加 @EnableConfigurationPropertie 注解</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties</span>(value = MultiProperties.class)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注入</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> MultiProperties multiProperties;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取注入的属性值</span></span><br><span class="line">List&lt;Map&lt;String, String&gt;&gt; list = multiProperties.getCrmProperties();</span><br><span class="line">list.forEach(map - &gt; &#123;</span><br><span class="line">    log.info(<span class="string">"key = &#123;&#125;, value = &#123;&#125;"</span>, map.get(<span class="string">"url"</span>), map.get(<span class="string">"username"</span>));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <h1 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h1><p>定义属性值:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spring.datasource.crm-properties.url=HTM0</span><br><span class="line">spring.datasource.crm-properties.username=NAME0</span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring.datasource.crm-properties.url</span>=HTM0</span><br><span class="line"><span class="attr">spring.datasource.crm-properties.username</span>=NAME0</span><br></pre></td></tr></table></figure>
 <p>对应的配置类:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"spring.datasource.crm-properties"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DataSourceProperties</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String url;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>使用方法:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 需要注入 MultiProperties 类型 Bean 的类上添加 @EnableConfigurationPropertie 注解</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties</span>(value = MultiProperties.class)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注入</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> MultiProperties multiProperties;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取注入的属性值</span></span><br><span class="line">log.info(<span class="string">"key = &#123;&#125;, value = &#123;&#125;"</span>, dataSourceProperties.getUrl(), dataSourceProperties.getUsername());</span><br></pre></td></tr></table></figure>
 <h1 id="List-lt-Object-gt"><a href="#List-lt-Object-gt" class="headerlink" title="List&lt;Object&gt;"></a>List&lt;Object&gt;</h1><p>定义属性值:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">spring.datasource.crm-properties[0].url=HTM0</span><br><span class="line">spring.datasource.crm-properties[0].username=NAME0</span><br><span class="line">spring.datasource.crm-properties[1].url=HTM1</span><br><span class="line">spring.datasource.crm-properties[1].username=NAME1</span><br><span class="line">spring.datasource.crm-properties[2].url=HTM2</span><br><span class="line">spring.datasource.crm-properties[2].username=NAME2</span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring.datasource.crm-properties[0].url</span>=HTM0</span><br><span class="line"><span class="attr">spring.datasource.crm-properties[0].username</span>=NAME0</span><br><span class="line"><span class="attr">spring.datasource.crm-properties[1].url</span>=HTM1</span><br><span class="line"><span class="attr">spring.datasource.crm-properties[1].username</span>=NAME1</span><br><span class="line"><span class="attr">spring.datasource.crm-properties[2].url</span>=HTM2</span><br><span class="line"><span class="attr">spring.datasource.crm-properties[2].username</span>=NAME2</span><br></pre></td></tr></table></figure>
 <p>对应的配置类:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"spring.datasource"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MultiProperties</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> List&lt;DataSourceProperties&gt; crmProperties;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DataSourceProperties</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String url;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>使用方法:</p>
@@ -523,7 +523,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">156</span>
+                  <span class="site-state-item-count">157</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
