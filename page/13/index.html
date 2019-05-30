@@ -845,12 +845,12 @@
       
         
           <p>线程和线程之间通过同步来实现数据的共享，线程和线程之间也可以相互通信和协作，在 Java 的线程中使用 wait/notify 的方式实现线程之间的通信。</p>
-<h1 id="等待-通知机制"><a href="#等待-通知机制" class="headerlink" title="等待/通知机制"></a>等待/通知机制</h1><p>在 Java 中，使用 Object 中的 wait 和 notify 方法来实现等待/通知。</p>
-<h2 id="wait-方法"><a href="#wait-方法" class="headerlink" title="wait 方法"></a>wait 方法</h2><ol>
+<h1 id="等待-通知机制"><a href="#等待-通知机制" class="headerlink" title="等待/通知机制"></a>等待/通知机制</h1><p>在 Java 中，使用 Object 中的 wait 和 notify 方法来实现等待/通知 (要注意对象 A 调用的 wait 方法只能被对象 A 的 notify 方法唤醒, 不能被其他的对象的 notify 方法唤醒)</p>
+<h2 id="wait-方法"><a href="#wait-方法" class="headerlink" title="wait 方法"></a>wait 方法</h2><ul>
 <li>wait 方法是 Object 类的方法，使当前执行代码的线程进入等待状态，方法在调用的地方就会停止代码的执行，直到收到通知或者被中断；</li>
 <li>wait 方法必须在同步方法或者同步代码块中调用，否则出现 IllegalMotitorStateException 异常；</li>
 <li>wait 方法执行后，线程会立即释放锁，线程将再次和其他线程竞争获取锁。</li>
-</ol>
+</ul>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/05/15/Java-多线程之等待通知机制/#more" rel="contents">
