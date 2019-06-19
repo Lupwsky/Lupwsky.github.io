@@ -251,6 +251,165 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/16/Redis-Redis位图/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="牧羊の人～">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/16/Redis-Redis位图/" itemprop="url">Redis-Redis位图</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-16T20:54:44+08:00">
+                2019-02-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>关于位图: <a href="https://juejin.im/book/5afc2e5f6fb9a07a9b362527/section/5b330620e51d4558e03ce7f8" target="_blank" rel="noopener">https://juejin.im/book/5afc2e5f6fb9a07a9b362527/section/5b330620e51d4558e03ce7f8</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StatefulRedisConnection&lt;String, String&gt; connection = redisClient.connect();</span><br><span class="line">RedisCommands&lt;String, String&gt; redisCommands = connection.sync();</span><br></pre></td></tr></table></figure>
+<h1 id="设置值-零存"><a href="#设置值-零存" class="headerlink" title="设置值-零存"></a>设置值-零存</h1><p>设置的时候从高位往低位设置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">redisCommands.setbit(<span class="string">"bitmap"</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">redisCommands.setbit(<span class="string">"bitmap"</span>, <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">redisCommands.setbit(<span class="string">"bitmap"</span>, <span class="number">2</span>, <span class="number">1</span>);</span><br><span class="line">redisCommands.setbit(<span class="string">"bitmap"</span>, <span class="number">4</span>, <span class="number">1</span>);</span><br><span class="line">redisCommands.setbit(<span class="string">"bitmap"</span>, <span class="number">9</span>, <span class="number">1</span>);</span><br><span class="line">redisCommands.setbit(<span class="string">"bitmap"</span>, <span class="number">10</span>, <span class="number">1</span>);</span><br><span class="line">redisCommands.setbit(<span class="string">"bitmap"</span>, <span class="number">13</span>, <span class="number">1</span>);</span><br><span class="line">redisCommands.setbit(<span class="string">"bitmap"</span>, <span class="number">15</span>, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/16/Redis-Redis位图/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      <div>
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/16/Redis-Redis字符串/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1670,164 +1829,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/28/Linux-SpringBoot项目启动和关闭脚本/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="牧羊の人～">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/28/Linux-SpringBoot项目启动和关闭脚本/" itemprop="url">Linux-SpringBoot项目启动和关闭脚本</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-28T23:25:47+08:00">
-                2018-12-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="停止-SpringBoot-应用程序脚本步骤"><a href="#停止-SpringBoot-应用程序脚本步骤" class="headerlink" title="停止 SpringBoot 应用程序脚本步骤"></a>停止 SpringBoot 应用程序脚本步骤</h1><p>服务器上发布项目时, 需要停止项目然后启动, 为了方便停止项目和启动项目时不需要频繁的输入指令, 写了两个 sh 脚本</p>
-<h2 id="jsp-lv"><a href="#jsp-lv" class="headerlink" title="jsp -lv"></a>jsp -lv</h2><p>l: 列出运行的 Java 进程<br>v: JVM 启动参数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">23863 sun.tools.jps.Jps -Denv.class.path=.:/usr/local/java//lib/dt.jar:/usr/local/java//lib/tools.jar -Dapplication.home=/usr/local/jdk1.8.0_101 -Xms8m</span><br><span class="line">7809 wesure-wim-web-1.0.0-SNAPSHOT.jar -Xms1024m -Xmx1024m -Xmn512m</span><br><span class="line">30369 wesure-scrm-web-1.0.0-SNAPSHOT.jar -Xms1024m -Xmx1024m -Xmn512m</span><br><span class="line">25060 wesure-wimboss-1.0.0-SNAPSHOT.jar -Xms1024m -Xmx1024m -Xmn512m</span><br><span class="line">31337 wesure-wimvip-1.0.0-SNAPSHOT.jar -Xms1024m -Xmx1024m -Xmn512m</span><br><span class="line">18012 wesure-wimcrm-1.0.0-SNAPSHOT.jar -Xms1024m -Xmx1024m -Xmn512m</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/28/Linux-SpringBoot项目启动和关闭脚本/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      <div>
-       
-       
-      </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1880,7 +1881,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">157</span>
+                  <span class="site-state-item-count">158</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
