@@ -85,7 +85,7 @@
 <meta property="og:site_name" content="技术小站">
 <meta property="og:description" content="在大数据量高并发访问时, 经常会出现服务或接口面对大量请求而不可用的情况, 甚至引发连锁反映导致整个系统崩溃, 限流的技术手段可以很好的应对这种情况, 当请求达到一定的并发数或速率, 就进行等待, 排队, 降级, 拒绝服务等策略, 虽然会影响到用户的体验, 但是可以有效的保证系统不崩溃, 之前有使用 Redis 实现过一个简单的限流, 这里学习下 Guava 的 RateLimiter 的使用方法">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-21T13:01:57.496Z">
+<meta property="og:updated_time" content="2019-08-16T15:12:23.012Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java-Guava工具类之使用RateLimiter进行限流">
 <meta name="twitter:description" content="在大数据量高并发访问时, 经常会出现服务或接口面对大量请求而不可用的情况, 甚至引发连锁反映导致整个系统崩溃, 限流的技术手段可以很好的应对这种情况, 当请求达到一定的并发数或速率, 就进行等待, 排队, 降级, 拒绝服务等策略, 虽然会影响到用户的体验, 但是可以有效的保证系统不崩溃, 之前有使用 Redis 实现过一个简单的限流, 这里学习下 Guava 的 RateLimiter 的使用方法">
@@ -381,7 +381,7 @@
 </table>
 <p>测试代码如下所示:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (rateLimiter.tryAcquire(<span class="number">1</span>)) &#123;</span><br><span class="line">    log.info(<span class="string">"尝试获取令牌成功"</span>);</span><br><span class="line">    log.info(<span class="string">"获取令牌 = &#123;&#125;"</span>, rateLimiter.acquire());</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    log.info(<span class="string">"尝试获取令牌失败"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面的 RateLimiter 方法生成的 RateLimiter 实例是 SmoothBursty 类型的限流器, Guava有两种限流器, 一种为稳定模式 (SmoothBursty), 令牌生成速度恒定), 一种为渐进模式(SmoothWarmingUp), 令牌生成速度缓慢提升直到维持在一个稳定值, 如果需要获取渐进模式的限流器, 可以调用 RateLimiter 的另一个 create 方法, 如下所示:</p>
+<p>上面的 RateLimiter 方法生成的 RateLimiter 实例是 SmoothBursty 类型的限流器, Guava 有两种限流器, 一种为稳定模式 (SmoothBursty), 令牌生成速度恒定), 一种为渐进模式 (SmoothWarmingUp), 令牌生成速度缓慢提升直到维持在一个稳定值, 如果需要获取渐进模式的限流器, 可以调用 RateLimiter 的另一个 create 方法, 如下所示:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GuavaRateLimiterConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RateLimiter <span class="title">rateLimiter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 每秒多生成 1 个令牌, 直到稳定后每秒生成 5 个令牌</span></span><br><span class="line">        <span class="comment">// 即第 1 秒生成 1 个令牌, 第 2 秒生成 2 个令牌, 第 3 秒生成 3 个令牌, 直到第 5 秒生成 5 个令牌到达稳定状态</span></span><br><span class="line">        <span class="keyword">return</span>  RateLimiter.create(<span class="number">5</span>, <span class="number">1</span>, TimeUnit.SECONDS);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>上面的例子介绍了使用 Guava 的 RateLimiter 实现简单的限流的思路, 但是现在的后台服务很多基本都是使用的都是集群部署的, Guava 的 RateLimiter 在单服务下使用没有问题, 但是在集群模式下就会出现问题了, 对于集群部署的服务如果需要使用限流还是得用 redis + lua 来实现</p>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
@@ -541,7 +541,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">158</span>
+                  <span class="site-state-item-count">159</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

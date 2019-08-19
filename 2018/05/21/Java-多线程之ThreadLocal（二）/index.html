@@ -86,7 +86,7 @@
 <meta property="og:description" content="ThreadLocal 用来提供线程内部的局部变量的，并非是用于解决数据共享的，数据共享海兽需要使用关键字 synchronsize，上一篇笔记了解了 ThreadLocal 的基础使用，这篇笔记继续了解 ThreadLocal 的实现原理。 ThreadLocal 主要方法ThreadLocal 对外提供的方法只有四个：    方法 用途     public void set(T value)">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/05/21/Java-多线程之ThreadLocal（二）/20180521133228.jpg">
-<meta property="og:updated_time" content="2018-05-21T06:15:06.927Z">
+<meta property="og:updated_time" content="2019-08-14T14:35:56.810Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java-多线程之ThreadLocal（二）">
 <meta name="twitter:description" content="ThreadLocal 用来提供线程内部的局部变量的，并非是用于解决数据共享的，数据共享海兽需要使用关键字 synchronsize，上一篇笔记了解了 ThreadLocal 的基础使用，这篇笔记继续了解 ThreadLocal 的实现原理。 ThreadLocal 主要方法ThreadLocal 对外提供的方法只有四个：    方法 用途     public void set(T value)">
@@ -371,7 +371,8 @@
 </tbody>
 </table>
 <a id="more"></a>
-<h1 id="ThreadLocal-实现原理"><a href="#ThreadLocal-实现原理" class="headerlink" title="ThreadLocal 实现原理"></a>ThreadLocal 实现原理</h1><h2 id="set-方法"><a href="#set-方法" class="headerlink" title="set 方法"></a>set 方法</h2><p>先来看看 ThradLocal 的 set 方法，如下：</p>
+<h1 id="ThreadLocal-实现原理"><a href="#ThreadLocal-实现原理" class="headerlink" title="ThreadLocal 实现原理"></a>ThreadLocal 实现原理</h1><p>ThreadLocal 实现的原理是每一个线程都维护了一个 ThreadLocalMap 类型 (继承于 HashMap) 的 threadLocals 变量, 这个 map 的 key 是当前 ThreadLocal 变量本身的引用, value ThreadLoca 中设置的值</p>
+<h2 id="set-方法"><a href="#set-方法" class="headerlink" title="set 方法"></a>set 方法</h2><p>先来看看 ThradLocal 的 set 方法，如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(T value)</span> </span>&#123;</span><br><span class="line">    Thread t = Thread.currentThread();</span><br><span class="line">    <span class="comment">// 获取当前线程维护的 ThreadLocalMap 对象</span></span><br><span class="line">    ThreadLocalMap map = getMap(t);</span><br><span class="line">    <span class="keyword">if</span> (map != <span class="keyword">null</span>)</span><br><span class="line">        <span class="comment">// 以 ThreadLocal 对象作为 ThreadLocalMap 的 key 保存数据</span></span><br><span class="line">        map.set(<span class="keyword">this</span>, value);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="comment">// 如果 ThreadLocalMap 不存在就创建一个</span></span><br><span class="line">        createMap(t, value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// getMap 方法</span></span><br><span class="line"><span class="comment">// 返回线程的 threadLocals 对象，这是由 Thread 维护的一个 ThreadLocalMap 对象</span></span><br><span class="line"><span class="function">ThreadLocalMap <span class="title">getMap</span><span class="params">(Thread t)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> t.threadLocals;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Thread 为每一个线程都维护了一个 ThreadLocalMap 对象，在 Thread 里面的定义如下</span></span><br><span class="line"><span class="comment">/* ThreadLocal values pertaining to this thread. This map is maintained by the ThreadLocal class. */</span></span><br><span class="line">ThreadLocal.ThreadLocalMap threadLocals = <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
 <h2 id="ThreadLocalMap"><a href="#ThreadLocalMap" class="headerlink" title="ThreadLocalMap"></a>ThreadLocalMap</h2><p>ThreadLocalMap 是 ThreadLocal 里面的内部静态类，具体这个类里面怎么实现的这里不去深究，主要看一看构造方法和 set 方法，ThreadLocalMap 类里面相关的方法如下图所示：</p>
 <p><img src="/2018/05/21/Java-多线程之ThreadLocal（二）/20180521133228.jpg" alt="IMAGE"></p>
@@ -535,7 +536,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">158</span>
+                  <span class="site-state-item-count">159</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
